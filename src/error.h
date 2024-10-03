@@ -22,4 +22,10 @@
 #define SEMANTIC_ERR 10          // Generic semantic error: Other semantic errors
 #define COMPILER_INTERNAL_ERR 99 // Compiler internal error: Internal error unrelated to input program
 
+#define MEM_ERR 11      // Memory-related errors
+#define IO_ERR 12       // Input/Output errors 
+#define NULL_ERR 13     // Null pointer errors 
+
+#define SUCCESSFULL_ERR 0  // When program ends with designed purpose
+
 #endif //_ERROR_H

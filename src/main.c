@@ -1,8 +1,22 @@
+#include <ctype.h>
+#include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-int main(int argc, char **argv){
-    (void) argc;
-    (void) argv;
-    printf("Start\n");
-    return 0;
+#include <Lexical_analyser.h>
+#include <error.h>
+FILE file;
+
+int main(int argc, char **argv)
+{
+    (void)argc;
+    (void)argv;
+
+    if (argc > 1)
+    {
+        fprintf(stderr, "Program launched with more than 1 parameter.\n");
+        return IO_ERR;
+    }
+
+    return SUCCESSFULL_ERR;
 }

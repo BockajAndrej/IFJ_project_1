@@ -67,3 +67,56 @@ typedef struct
     Token_Value value; // Value of the token (union)
     int lineX, LineY;          // Line number in the source code
 } Token;
+
+
+
+typedef enum
+{
+    // Starting state, the initial state for the FSM.
+    sStart,
+
+    // States for handling identifiers and keywords.
+    sIdentifier,        // Identifier (variables, function names); case-sensitive
+    sKeyword,           // Keyword (const, else, fn, if, etc.)
+
+    // State for identifiers with namespace (e.g., ifj.write)
+    sNamespace,         // Handles 'ifj' namespace and functions like ifj.write
+
+    // States for handling numbers.
+    sIntLiteral,        // Integer literal (non-negative, decimal format)
+    sFloatLiteral,      // Floating-point literal (including exponent)
+    sExponent,          // Handles the exponent part of floating-point numbers
+
+    // State for string literals.
+    sStringLiteral,     // String literal (starts and ends with double quotes)
+    sEscapeSequence,    // Handles escape sequences inside string literals
+
+    // States for operators and punctuation.
+    sOperator,          // Arithmetic and logical operators (+, -, *, /, etc.)
+    sAssign,            // Assignment operator (=)
+    sEqual,             // Equality comparison (==)
+    sNotEqual,          // Not equal (!=)
+    sLessEqual,         // Less than or equal (<=)
+    sLessThan,          // Less than (<)
+    sGreaterEqual,      // Greater than or equal (>=)
+    sGreaterThan,       // Greater than (>)
+
+    // States for parentheses, brackets, and punctuation.
+    sLeftParen,         // Left parenthesis '('
+    sRightParen,        // Right parenthesis ')'
+    sLeftBracket,       // Left bracket '[' for slices
+    sRightBracket,      // Right bracket ']' for slices
+    sComma,             // Comma ','
+    sSemicolon,         // Semicolon ';'
+
+    // State for whitespace (ignored between tokens).
+    sWhitespace,        // Spaces, tabs, newlines
+
+    // State for handling comments.
+    sComment,           // Line comment starting with //
+
+    // Error and end state.
+    sError,             // Error state for invalid characters or input
+    sEnd                // End of file or input state
+} State;
+
