@@ -51,7 +51,16 @@ Token get_token(FILE *file)
             }
             else if (c == '/') // Could be start of comment or division
             {
-                state = sOperator; // Temporarily move to operator state
+                char nextChar = (char)getc(file); // Look ahead
+                if (nextChar == '/')              // Start of comment
+                {
+                    state = sComment; // Move to comment state
+                }
+                else // It’s division
+                {
+                    state = sOperator;         // Move to operator state
+                    token.type = TOKEN_DIVIDE; // Set token type for division
+                }
             }
             else if (c == '(') // Left parenthesis
             {
@@ -84,11 +93,6 @@ Token get_token(FILE *file)
                 state = sOperator;
                 token.type = TOKEN_MULTIPLY;
             }
-            else if (c == '/') // Division operator or comment start
-            {
-                state = sBacklash;
-                token.type = TOKEN_BACKLASH;
-            }
             else if (c == '|') // Check for bitwise OR / logical OR
             {
                 state = sPipe; // Transition to pipe state
@@ -113,11 +117,17 @@ Token get_token(FILE *file)
             {
                 state = sLeftSingleQuote;
             }
-            else if (c == '\'')
+            else if (c == '\'') // Single quote for character literal
             {
-                state = sSingleQuote;
-                token.type = TOKEN_ESCAPE;
+                state = sSingleQuote;            // Move to state for single quote
+                token.type = TOKEN_CHAR_LITERAL; // Set token type for character literal
             }
+            else if (c == '\\') // Backslash for escape sequences
+            {
+                state = sBackSlash;           // Move to escape sequence handling state
+                token.type = TOKEN_BACKSLASH; // Set token type for backslash
+            }
+
             else if (c == '!')
             {
                 state = sExclamation;
@@ -126,47 +136,140 @@ Token get_token(FILE *file)
 
             break;
         case sIdentifier:
-            // Logic to read and complete identifier (check against keywords)
+            // Handle identifier logic here
             break;
 
         case sKeyword:
-            // Logic to handle keywords (check against the keyword list)
+            // Handle keyword logic here
+            break;
+
+        case sNamespace:
+            // Handle namespace logic here
             break;
 
         case sIntLiteral:
-            // Logic to read integer literals, ensuring no leading zeros
+            // Handle integer literal logic here
             break;
 
         case sFloatLiteral:
-            // Logic to read floating-point literals, including exponent
+            // Handle floating-point literal logic here
+            break;
+
+        case sExponent:
+            // Handle exponent part logic here
             break;
 
         case sStringLiteral:
-            // Logic to read string literals, handle escape sequences
+            // Handle string literal logic here
             break;
 
-        case sComment:
-            // Logic to handle comments (ignore until the end of the line)
+        case sEscapeSequence:
+            // Handle escape sequence logic here
             break;
 
         case sOperator:
-            // Logic to handle additional operators (handle cases like ==, !=, etc.)
+            // Handle operator logic here
+
+            break;
+        case sBackSlash:
+            break;
+
+        case sAssign:
+            // Handle assignment logic here
             break;
 
         case sEqual:
-
+            // Handle equality check logic here
             break;
+
         case sNotEqual:
-            // Logic to handle not equal (!=)
+            // Handle not equal logic here
+            break;
+
+        case sLessEqual:
+            // Handle less than or equal logic here
             break;
 
         case sLessThan:
+            // Handle less than logic here
+            break;
+
+        case sGreaterEqual:
+            // Handle greater than or equal logic here
             break;
 
         case sGreaterThan:
+            // Handle greater than logic here
+            break;
+
+        case sLeftParen:
+            // Handle left parenthesis logic here
+            break;
+
+        case sRightParen:
+            // Handle right parenthesis logic here
+            break;
+
+        case sLeftBracket:
+            // Handle left bracket logic here
+            break;
+
+        case sRightBracket:
+            // Handle right bracket logic here
+            break;
+
+        case sComma:
+            // Handle comma logic here
+            break;
+
+        case sSemicolon:
+            // Handle semicolon logic here
+            break;
+
+        case sExclamation:
+            // Handle exclamation logic here
+            break;
+
+        case sPipe:
+            // Handle pipe logic here
+            break;
+
+        case sSingleQuote:
+            // Handle single quote logic here
+            break;
+
+        case sLeftSingleQuote:
+            // Handle left single quote logic here
+            break;
+
+        case sWhitespace:
+            // Handle whitespace logic here
+            break;
+
+        case sComment:
+            while (c != '\n' && c != EOF) // Consume until end of line
+            {
+                c = (char)getc(file);
+                //teraz co? kde to ukladam
+            }
+            state = sStart; // Return to starting state after comment
+
+            break;
+
+        case sError:
+            // Handle error logic here
+            break;
+
+        case sEOL:
+            // Handle end of line logic here
+            break;
+
+        case sEnd:
+            // Handle end of file/input logic here
             break;
 
         default:
+            state = sError; // Invalid state fallback
             break;
         }
     }

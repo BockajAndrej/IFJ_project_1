@@ -12,6 +12,7 @@ typedef enum
     TOKEN_FLOAT_LITERAL,  // Floating-point number
     TOKEN_STRING_LITERAL, // String value
     TOKEN_BOOLEAN,        // Boolean value (true/false)
+    TOKEN_CHAR_LITERAL,   // char after '\'
 
     TOKEN_EQUAL,         // Equality comparison (==)
     TOKEN_NOT_EQUAL,     // Inequality check (!=)
@@ -26,8 +27,7 @@ typedef enum
     TOKEN_SUBTRACTION, // Subtraction operator (-)
     TOKEN_MULTIPLY,    // Multiplication operator (*)
     TOKEN_DIVIDE,      // Division operator (result as double)
-    TOKEN_ESCAPE,      // '\'
-    TOKEN_BACKLASH,    // Backlash for comment or
+    TOKEN_BACKSLASH,   // '\'
     TOKEN_PIPE,        // | logic OR  or in the condition thingy if () ||
     TOKEN_EXCLAMATION, // '!' symbol
 
@@ -94,7 +94,8 @@ typedef enum
 
     // States for operators and punctuation.
     sOperator,     // Arithmetic and logical operators (+, -, *)
-    sBacklash,     //
+    sBackSlash,    //
+    sDivision,     // / as division
     sAssign,       // Assignment operator (=)
     sEqual,        // Equality comparison (==)
     sNotEqual,     // Not equal (!=)
