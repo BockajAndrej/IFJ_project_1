@@ -26,7 +26,10 @@ typedef enum
     TOKEN_SUBTRACTION, // Subtraction operator (-)
     TOKEN_MULTIPLY,    // Multiplication operator (*)
     TOKEN_DIVIDE,      // Division operator (result as double)
-    TOKEN_INT_DIVIDE,  // Integer division operator (\) (integers only)
+    TOKEN_ESCAPE,      // '\'
+    TOKEN_BACKLASH,    // Backlash for comment or
+    TOKEN_PIPE,        // | logic OR  or in the condition thingy if () ||
+    TOKEN_EXCLAMATION, // '!' symbol
 
     TOKEN_LPAREN,    // Left parenthesis '('
     TOKEN_RPAREN,    // Right parenthesis ')'
@@ -65,10 +68,8 @@ typedef struct
 {
     Token_type type;   // Type of the token
     Token_Value value; // Value of the token (union)
-    int lineX, LineY;          // Line number in the source code
+    int lineX, LineY;  // Line number in the source code
 } Token;
-
-
 
 typedef enum
 {
@@ -76,47 +77,54 @@ typedef enum
     sStart,
 
     // States for handling identifiers and keywords.
-    sIdentifier,        // Identifier (variables, function names); case-sensitive
-    sKeyword,           // Keyword (const, else, fn, if, etc.)
+    sIdentifier, // Identifier (variables, function names); case-sensitive
+    sKeyword,    // Keyword (const, else, fn, if, etc.)
 
     // State for identifiers with namespace (e.g., ifj.write)
-    sNamespace,         // Handles 'ifj' namespace and functions like ifj.write
+    sNamespace, // Handles 'ifj' namespace and functions like ifj.write
 
     // States for handling numbers.
-    sIntLiteral,        // Integer literal (non-negative, decimal format)
-    sFloatLiteral,      // Floating-point literal (including exponent)
-    sExponent,          // Handles the exponent part of floating-point numbers
+    sIntLiteral,   // Integer literal (non-negative, decimal format)
+    sFloatLiteral, // Floating-point literal (including exponent)
+    sExponent,     // Handles the exponent part of floating-point numbers
 
     // State for string literals.
-    sStringLiteral,     // String literal (starts and ends with double quotes)
-    sEscapeSequence,    // Handles escape sequences inside string literals
+    sStringLiteral,  // String literal (starts and ends with double quotes)
+    sEscapeSequence, // Handles escape sequences inside string literals
 
     // States for operators and punctuation.
-    sOperator,          // Arithmetic and logical operators (+, -, *, /, etc.)
-    sAssign,            // Assignment operator (=)
-    sEqual,             // Equality comparison (==)
-    sNotEqual,          // Not equal (!=)
-    sLessEqual,         // Less than or equal (<=)
-    sLessThan,          // Less than (<)
-    sGreaterEqual,      // Greater than or equal (>=)
-    sGreaterThan,       // Greater than (>)
+    sOperator,     // Arithmetic and logical operators (+, -, *)
+    sBacklash,     //
+    sAssign,       // Assignment operator (=)
+    sEqual,        // Equality comparison (==)
+    sNotEqual,     // Not equal (!=)
+    sLessEqual,    // Less than or equal (<=)
+    sLessThan,     // Less than (<)
+    sGreaterEqual, // Greater than or equal (>=)
+    sGreaterThan,  // Greater than (>)
 
     // States for parentheses, brackets, and punctuation.
-    sLeftParen,         // Left parenthesis '('
-    sRightParen,        // Right parenthesis ')'
-    sLeftBracket,       // Left bracket '[' for slices
-    sRightBracket,      // Right bracket ']' for slices
-    sComma,             // Comma ','
-    sSemicolon,         // Semicolon ';'
+    sLeftParen,    // Left parenthesis '('
+    sRightParen,   // Right parenthesis ')'
+    sLeftBracket,  // Left bracket '[' for slices
+    sRightBracket, // Right bracket ']' for slices
+    sComma,        // Comma ','
+    sSemicolon,    // Semicolon ';'
+    sExclamation,  // Exclamation mark '!', used in logical negation or operators
+    sPipe,         // pipe '|' character
+
+    // States for quotation marks.
+    sSingleQuote,     // Single quote ('), used for character literals
+    sLeftSingleQuote, // Left single quotation mark (‘), used in specific typography
 
     // State for whitespace (ignored between tokens).
-    sWhitespace,        // Spaces, tabs, newlines
+    sWhitespace, // Spaces, tabs, newlines
 
     // State for handling comments.
-    sComment,           // Line comment starting with //
+    sComment, // Line comment starting with //
 
     // Error and end state.
-    sError,             // Error state for invalid characters or input
-    sEnd                // End of file or input state
+    sError, // Error state for invalid characters or input
+    sEOL,   // End of line state (newline character)
+    sEnd    // End of file or input state
 } State;
-

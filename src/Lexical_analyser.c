@@ -26,16 +26,16 @@ Token get_token(FILE *file)
         case sStart:
             if (c == EOF)
             {
+                state = TOKEN_EOF;
                 token.type = TOKEN_EOF;
-                return token;
             }
             else if (c == ' ' || c == '\t')
             {
                 state = sStart;
             }
-            else if (c == '\n')
+            else if (c == '\n') // EOL, end of line
             {
-                // logika pre novy riadok
+                state = sEOL;
             }
             else if (isalpha(c) || c == '_') // Check for identifiers/keywords
             {
@@ -52,59 +52,76 @@ Token get_token(FILE *file)
             else if (c == '/') // Could be start of comment or division
             {
                 state = sOperator; // Temporarily move to operator state
-                // Read the next character to check if it's part of a comment
             }
             else if (c == '(') // Left parenthesis
             {
-                token.type = TOKEN_LPAREN;
-                return token;
+                state = sLeftParen;
             }
             else if (c == ')') // Right parenthesis
             {
-                token.type = TOKEN_RPAREN;
-                return token;
+                state = sRightParen;
             }
             else if (c == ',') // Comma
             {
-                token.type = TOKEN_COMMA;
-                return token;
+                state = sComma;
             }
             else if (c == ';') // Semicolon
             {
-                token.type = TOKEN_SEMICOLON;
-                return token;
+                state = sSemicolon;
             }
             else if (c == '+') // Addition operator
             {
+                state = sOperator;
                 token.type = TOKEN_ADDITION;
-                return token;
             }
             else if (c == '-') // Subtraction operator
             {
+                state = sOperator;
                 token.type = TOKEN_SUBTRACTION;
-                return token;
             }
             else if (c == '*') // Multiplication operator
             {
+                state = sOperator;
                 token.type = TOKEN_MULTIPLY;
-                return token;
             }
-            else if (c == '/') // Division operator
+            else if (c == '/') // Division operator or comment start
             {
-                token.type = TOKEN_DIVIDE;
-                return token;
+                state = sBacklash;
+                token.type = TOKEN_BACKLASH;
+            }
+            else if (c == '|') // Check for bitwise OR / logical OR
+            {
+                state = sPipe; // Transition to pipe state
+                token.type = TOKEN_PIPE;
             }
             else if (c == '=') // Start of equality or assignment
             {
                 state = sAssign; // Move to assignment state
+                token.type = TOKEN_ASSIGNMENT;
             }
             else if (c == '<') // Start of less than or equal
             {
                 state = sLessThan; // Move to less than state
+                token.type = sLessThan;
             }
             else if (c == '>') // Start of greater than or equal
             {
                 state = sGreaterThan; // Move to greater than state
+                token.type = sGreaterThan;
+            }
+            else if (c == '‘') // netusim to co je wtf
+            {
+                state = sLeftSingleQuote;
+            }
+            else if (c == '\'')
+            {
+                state = sSingleQuote;
+                token.type = TOKEN_ESCAPE;
+            }
+            else if (c == '!')
+            {
+                state = sExclamation;
+                token.type = TOKEN_EXCLAMATION;
             }
 
             break;
