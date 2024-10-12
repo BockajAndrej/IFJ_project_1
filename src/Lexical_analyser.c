@@ -106,12 +106,12 @@ Token get_token(FILE *file)
             else if (c == '<') // Start of less than or equal
             {
                 state = sLessThan; // Move to less than state
-                token.type = sLessThan;
+                token.type = TOKEN_LESS_THAN;
             }
             else if (c == '>') // Start of greater than or equal
             {
                 state = sGreaterThan; // Move to greater than state
-                token.type = sGreaterThan;
+                token.type = TOKEN_GREATER_THAN;
             }
             else if (c == '‘') // netusim to co je wtf
             {
