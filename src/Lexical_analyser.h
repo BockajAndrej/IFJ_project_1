@@ -7,6 +7,8 @@ typedef enum
     TOKEN_EMPTY,      // Represents an empty token
     TOKEN_IDENTIFIER, // Variable or function name
     TOKEN_KEYWORD,    // Reserved keyword in the language
+    TOKEN_NEWLINE,
+    TOKEN_TAB,
 
     TOKEN_INT_LITERAL,    // Integer literal (whole number)
     TOKEN_FLOAT_LITERAL,  // Floating-point number
@@ -31,10 +33,12 @@ typedef enum
     TOKEN_PIPE,        // | logic OR  or in the condition thingy if () ||
     TOKEN_EXCLAMATION, // '!' symbol
 
-    TOKEN_LPAREN,    // Left parenthesis '('
-    TOKEN_RPAREN,    // Right parenthesis ')'
-    TOKEN_COMMA,     // Comma ','
-    TOKEN_SEMICOLON, // Semicolon ';'
+    TOKEN_LPAREN,        // Left parenthesis '('
+    TOKEN_RPAREN,        // Right parenthesis ')'
+    TOKEN_LEFT_BRACKET,  // left '['
+    TOKEN_RIGHT_BRACKET, // left ']'
+    TOKEN_COMMA,         // Comma ','
+    TOKEN_SEMICOLON,     // Semicolon ';'
 
 } Token_type;
 

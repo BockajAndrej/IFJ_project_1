@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "dynaString.C": "cpp",
+        "ctype.h": "c"
     }
 }

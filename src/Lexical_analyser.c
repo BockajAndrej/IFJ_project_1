@@ -9,6 +9,9 @@
 
 Token get_token(FILE *file)
 {
+    if (file == NULL)
+        return; // edit later
+
     Token token;
     State state;
 
@@ -101,17 +104,14 @@ Token get_token(FILE *file)
             else if (c == '=') // Start of equality or assignment
             {
                 state = sAssign; // Move to assignment state
-                token.type = TOKEN_ASSIGNMENT;
             }
             else if (c == '<') // Start of less than or equal
             {
                 state = sLessThan; // Move to less than state
-                token.type = sLessThan;
             }
             else if (c == '>') // Start of greater than or equal
             {
                 state = sGreaterThan; // Move to greater than state
-                token.type = sGreaterThan;
             }
             else if (c == '‘') // netusim to co je wtf
             {
@@ -128,10 +128,20 @@ Token get_token(FILE *file)
                 token.type = TOKEN_BACKSLASH; // Set token type for backslash
             }
 
-            else if (c == '!')
+            else if (c == '!') // Logical NOT or not equal
             {
-                state = sExclamation;
-                token.type = TOKEN_EXCLAMATION;
+                // Look ahead to the next character
+                c = (char)getc(file);
+                if (c == '=')
+                {                                 // If the next character is '='
+                    token.type = TOKEN_NOT_EQUAL; // Token is '!='
+                }
+                else
+                {
+                    ungetc(c, file);                // Put back the character if it's not '='
+                    token.type = TOKEN_EXCLAMATION; // Token is just '!'
+                }
+                state = sStart; // Return to the starting state
             }
 
             break;
@@ -172,66 +182,101 @@ Token get_token(FILE *file)
 
             break;
         case sBackSlash:
+            c = (char)getc(file); // Read the next character
+            if (c == 'n')
+            {
+                token.type = TOKEN_NEWLINE; // Example for newline escape
+            }
+            else if (c == 't')
+            {
+                token.type = TOKEN_TAB; // Example for tab escape
+            }
+            else if (c == '\\')
+            {
+                token.type = TOKEN_BACKSLASH; // Token for backslash itself
+            }
+            else
+            {
+                ungetc(c, file);              // Put back the character if it's not a recognized escape
+                token.type = TOKEN_BACKSLASH; // Handle as just a backslash if needed
+            }
+            state = sStart; // Return to the starting state
             break;
 
         case sAssign:
-            // Handle assignment logic here
-            break;
-
-        case sEqual:
-            // Handle equality check logic here
-            break;
-
-        case sNotEqual:
-            // Handle not equal logic here
-            break;
-
-        case sLessEqual:
-            // Handle less than or equal logic here
+            c = (char)getc(file); // Read the next character
+            if (c == '=')
+            {
+                token.type = TOKEN_EQUAL; // Token is '==' (equality)
+            }
+            else
+            {
+                ungetc(c, file);               // Put back the character if it's not '='
+                token.type = TOKEN_ASSIGNMENT; // Token is just '=' (assignment)
+            }
+            state = sStart; // Return to the starting state
             break;
 
         case sLessThan:
-            // Handle less than logic here
-            break;
-
-        case sGreaterEqual:
-            // Handle greater than or equal logic here
+            c = (char)getc(file); // Read the next character
+            if (c == '=')
+            {
+                token.type = TOKEN_LESS_EQUAL; // Token is '<='
+            }
+            else
+            {
+                ungetc(c, file);              // Put back the character if it's not '='
+                token.type = TOKEN_LESS_THAN; // Token is just '<'
+            }
+            state = sStart; // Return to the starting state
             break;
 
         case sGreaterThan:
-            // Handle greater than logic here
+            c = (char)getc(file); // Read the next character
+            if (c == '=')
+            {
+                token.type = TOKEN_GREATER_EQUAL; // Token is '>='
+            }
+            else
+            {
+                ungetc(c, file);                 // Put back the character if it's not '='
+                token.type = TOKEN_GREATER_THAN; // Token is just '>'
+            }
+            state = sStart; // Return to the starting state
             break;
 
         case sLeftParen:
-            // Handle left parenthesis logic here
+            token.type = TOKEN_LPAREN; // Set the token type for left parenthesis
+            state = sStart;            // Return to the starting state
             break;
 
         case sRightParen:
-            // Handle right parenthesis logic here
+            token.type = TOKEN_RPAREN; // Set the token type for right parenthesis
+            state = sStart;            // Return to the starting state
             break;
 
         case sLeftBracket:
-            // Handle left bracket logic here
+            token.type = TOKEN_LEFT_BRACKET; // Set the token type for left bracket
+            state = sStart;                  // Return to the starting state
             break;
 
         case sRightBracket:
-            // Handle right bracket logic here
+            token.type = TOKEN_RIGHT_BRACKET; // Set the token type for right bracket
+            state = sStart;                   // Return to the starting state
             break;
 
         case sComma:
-            // Handle comma logic here
+            token.type = TOKEN_COMMA; // Set the token type for comma
+            state = sStart;           // Return to the starting state
             break;
 
         case sSemicolon:
-            // Handle semicolon logic here
-            break;
-
-        case sExclamation:
-            // Handle exclamation logic here
+            token.type = TOKEN_SEMICOLON; // Set the token type for semicolon
+            state = sStart;               // Return to the starting state
             break;
 
         case sPipe:
-            // Handle pipe logic here
+            // Handle  "|""  pipe logic here
             break;
 
         case sSingleQuote:
@@ -250,7 +295,7 @@ Token get_token(FILE *file)
             while (c != '\n' && c != EOF) // Consume until end of line
             {
                 c = (char)getc(file);
-                //teraz co? kde to ukladam
+                // teraz co? kde to ukladam
             }
             state = sStart; // Return to starting state after comment
 
@@ -272,5 +317,6 @@ Token get_token(FILE *file)
             state = sError; // Invalid state fallback
             break;
         }
+        return token;
     }
 }
