@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <Lexical_analyser.h>
-#include <error.h>
+#include "Lexical_analyser.h"
+#include "error.h"
 FILE file;
 
 int main(int argc, char **argv)
