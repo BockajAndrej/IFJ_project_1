@@ -31,15 +31,15 @@ int main(int argc, char **argv)
         switch (token.type)
         {
         case TOKEN_EOF:
-            printf("Token: EOF\n");
+            printf("Token: %d  EOF=0\n",token.type);
             break;
 
         case TOKEN_EOL:
-            printf("Token: EOL\n");
+            printf("Token: %d  EOL=1\n",token.type);
             break;
 
         case TOKEN_EMPTY:
-            printf("Token: EMPTY\n");
+            printf("Token: EMPTY=2\n");
             break;
 
         case TOKEN_IDENTIFIER:
@@ -51,19 +51,19 @@ int main(int argc, char **argv)
             break;
 
         case TOKEN_NEWLINE:
-            printf("Token: NEWLINE\n");
+            printf("Token: %d  NEWLINE\n",token.type);
             break;
 
         case TOKEN_TAB:
-            printf("Token: TAB\n");
+            printf("Token: %d  TAB\n",token.type);
             break;
 
         case TOKEN_INT_LITERAL:
-            printf("Token: INT_LITERAL, Value: %d\n", token.value.intValue);
+            printf("Token: INT_LITERAL 7=%d , Value: %d\n",token.type, token.value.intValue);
             break;
 
         case TOKEN_FLOAT_LITERAL:
-            printf("Token: FLOAT_LITERAL, Value: %f\n", token.value.floatValue);
+            printf("Token: FLOAT_LITERAL 8=%d, Value: %f\n",token.type, token.value.floatValue);
             break;
 
         case TOKEN_STRING_LITERAL:
@@ -79,11 +79,11 @@ int main(int argc, char **argv)
             break;
 
         case TOKEN_EQUAL:
-            printf("Token: EQUAL\n");
+            printf("Token: %d  EQUAL\n",token.type);
             break;
 
         case TOKEN_NOT_EQUAL:
-            printf("Token: NOT_EQUAL\n");
+            printf("Token: %d  NOTEQUAL\n",token.type);
             break;
 
         case TOKEN_LESS_EQUAL:

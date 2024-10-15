@@ -42,7 +42,8 @@ typedef enum
     TOKEN_LEFT_BRACKET,  // 28 Left bracket '['
     TOKEN_RIGHT_BRACKET, // 29 Right bracket ']'
     TOKEN_COMMA,         // 30 Comma ','
-    TOKEN_SEMICOLON      // 31 Semicolon ';'
+    TOKEN_SEMICOLON,      // 31 Semicolon ';'
+    TOKEN_ERROR
 
 } Token_type;
 

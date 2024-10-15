@@ -4,6 +4,7 @@
         "dynaString.C": "cpp",
         "ctype.h": "c",
         "error.h": "c",
-        "lexical_analyser.h": "c"
+        "lexical_analyser.h": "c",
+        "newstring.h": "c"
     }
 }

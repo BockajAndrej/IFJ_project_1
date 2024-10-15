@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include <string.h>
 #include "newstring.h"
@@ -73,7 +74,7 @@ Token get_token(FILE *file)
             else if (c == '\n') // EOL, end of line
             {
                 state = sEOL;
-                state = sEOL; // Přepni na stav konce řádku
+                state = sEOL;           // Přepni na stav konce řádku
                 token.type = TOKEN_EOL; // Předpokládáme, že TOKEN_EOL je definován
                 return token;           // Vrať token EOL
             }
@@ -94,6 +95,8 @@ Token get_token(FILE *file)
             else if (isdigit(c)) // Check for numbers
             {
                 state = sIntLiteral; // Start reading an integer literal
+                ungetc(c,file);
+
             }
             else if (c == '\"') // Start of string literal
             {
@@ -170,7 +173,6 @@ Token get_token(FILE *file)
                 state = sBackSlash;           // Move to escape sequence handling state
                 token.type = TOKEN_BACKSLASH; // Set token type for backslash
             }
-
             else if (c == '!') // Logical NOT or not equal
             {
                 // Look ahead to the next character
@@ -190,8 +192,8 @@ Token get_token(FILE *file)
             {
                 state = sKeyword;
             }
-
             break;
+
         case sIdentifierorKeyword:
             // Počkáme na další znak, dokud nezjistíme, že je identifikátor kompletní
             while (isalpha(c) || isdigit(c) || c == '_')
@@ -237,16 +239,119 @@ Token get_token(FILE *file)
             break;
 
         case sIntLiteral:
-            // Handle integer literal logic here
-            break;
+        {
+            // Read integer literal
+            int value = 0; // Initialize integer value
+            while (isdigit(c))
+            {
+                value = value * 10 + (c - '0'); // Build the integer value
+                c = (char)getc(file);           // Read the next character
+            }
+
+            token.type = TOKEN_INT_LITERAL; // Set token type
+            token.value.intValue = value;   // Store the integer value
+
+            // Check if the next character is a decimal point
+            if (c == '.')
+            {
+                // It's a valid transition to a float literal
+                state = sFloatLiteral; // Transition to float literal state
+                ungetc(c,file);
+            }
+            else
+            {
+                ungetc(c, file); // Put the char back for further processing
+                return token;    // Return the integer token
+            }
+        }
+        break;
 
         case sFloatLiteral:
-            // Handle floating-point literal logic here
-            break;
+        {
+            // Read floating-point literal
+            double value = token.value.intValue;    // Initialize float value
+            double fraction = 0.1; // For decimal part
+
+            // First, we build the integer part
+            while (isdigit(c))
+            {
+                value = value * 10 + (c - '0'); // Build the integer part
+                c = (char)getc(file);           // Read the next character
+            }
+
+            // Now, read the decimal part if present
+            if (c == '.')
+            {
+                c = (char)getc(file); // Read the next character after the decimal point
+                if (!isdigit(c))
+                {
+                    // If the character after '.' is not a digit, it's an error
+                    token.type = TOKEN_ERROR; // Mark as error
+                    ungetc(c, file);          // Put the character back
+                    return token;             // Return error token
+                }
+
+                // Read the decimal digits
+                while (isdigit(c))
+                {
+                    value += (c - '0') * fraction; // Add the decimal part
+                    fraction *= 0.1;               // Move to the next decimal place
+                    c = (char)getc(file);          // Read the next character
+                }
+            }
+
+            // Check for exponent
+            if (c == 'e' || c == 'E')
+            {
+                ungetc(c, file);   // Put back the character for exponent processing
+                state = sExponent; // Transition to exponent state
+            }
+            else
+            {
+                token.type = TOKEN_FLOAT_LITERAL; // Set token type
+                token.value.floatValue = value;   // Store the float value
+                ungetc(c, file);                  // Put the character back for further processing
+                return token;                     // Return the float token
+            }
+        }
+        break;
 
         case sExponent:
-            // Handle exponent part logic here
-            break;
+        {
+            // Handle exponent part
+            double exponent = 0.0; // Initialize exponent value
+            char sign = 1;         // To handle positive or negative exponent
+
+            c = (char)getc(file); // Read next character
+            if (c == '+' || c == '-')
+            {
+                if (c == '-')
+                    sign = -1;        // Set sign for exponent
+                c = (char)getc(file); // Read next character
+            }
+
+            // Exponent must be a sequence of digits
+            if (!isdigit(c))
+            {
+                token.type = TOKEN_ERROR; // Invalid exponent
+                ungetc(c, file);          // Put the character back
+                return token;             // Return error token
+            }
+
+            // Read the digits of the exponent
+            while (isdigit(c))
+            {
+                exponent = exponent * 10 + (c - '0'); // Build exponent value
+                c = (char)getc(file);                 // Read the next character
+            }
+
+            // Apply the sign to the exponent and finalize the float literal
+            exponent *= sign;
+            token.type = TOKEN_FLOAT_LITERAL;                                    // Set token type
+            token.value.floatValue = token.value.floatValue * pow(10, exponent); // Calculate final float value
+            ungetc(c, file);                                                     // Put the character back for further processing
+            return token;                                                        // Return the float token
+        }
 
         case sStringLiteral:
             // Handle string literal logic here
@@ -280,6 +385,7 @@ Token get_token(FILE *file)
                 token.type = TOKEN_BACKSLASH; // Handle as just a backslash if needed
             }
             state = sStart; // Return to the starting state
+            return token;
             break;
 
         case sAssign:
@@ -294,6 +400,7 @@ Token get_token(FILE *file)
                 token.type = TOKEN_ASSIGNMENT; // Token is just '=' (assignment)
             }
             state = sStart; // Return to the starting state
+            return token;
             break;
 
         case sLessThan:
@@ -308,6 +415,7 @@ Token get_token(FILE *file)
                 token.type = TOKEN_LESS_THAN; // Token is just '<'
             }
             state = sStart; // Return to the starting state
+            return token;
             break;
 
         case sGreaterThan:
@@ -322,36 +430,43 @@ Token get_token(FILE *file)
                 token.type = TOKEN_GREATER_THAN; // Token is just '>'
             }
             state = sStart; // Return to the starting state
+            return token;
             break;
 
         case sLeftParen:
             token.type = TOKEN_LPAREN; // Set the token type for left parenthesis
             state = sStart;            // Return to the starting state
+            return token;
             break;
 
         case sRightParen:
             token.type = TOKEN_RPAREN; // Set the token type for right parenthesis
             state = sStart;            // Return to the starting state
+            return token;
             break;
 
         case sLeftBracket:
             token.type = TOKEN_LEFT_BRACKET; // Set the token type for left bracket
             state = sStart;                  // Return to the starting state
+            return token;
             break;
 
         case sRightBracket:
             token.type = TOKEN_RIGHT_BRACKET; // Set the token type for right bracket
             state = sStart;                   // Return to the starting state
+            return token;
             break;
 
         case sComma:
             token.type = TOKEN_COMMA; // Set the token type for comma
             state = sStart;           // Return to the starting state
+            return token;
             break;
 
         case sSemicolon:
             token.type = TOKEN_SEMICOLON; // Set the token type for semicolon
             state = sStart;               // Return to the starting state
+            return token;
             break;
 
         case sPipe:
