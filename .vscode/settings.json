@@ -2,6 +2,8 @@
     "files.associations": {
         "stdio.h": "c",
         "dynaString.C": "cpp",
-        "ctype.h": "c"
+        "ctype.h": "c",
+        "error.h": "c",
+        "lexical_analyser.h": "c"
     }
 }

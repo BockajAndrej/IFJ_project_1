@@ -1,4 +1,4 @@
-#include <Lexical_analyser.h>
+#include "lexical_analyser.h"
 #include <error.h>
 #include <ctype.h>
 #include <stdbool.h>
@@ -6,11 +6,34 @@
 #include <stdlib.h>
 
 #include <string.h>
+#include "newstring.h"
+
+#define KEYWORD_COUNT 13
+
+const char *keywords[KEYWORD_COUNT] = {
+    "const", "else", "fn", "if", "i32",
+    "f64", "null", "pub", "return", "u8",
+    "var", "void", "while"};
+
+// Funkce pro kontrolu, zda je identifikátor klíčové slovo
+bool is_keyword(const char *identifier)
+{
+    for (int i = 0; i < KEYWORD_COUNT; i++)
+    {
+        if (strcmp(identifier, keywords[i]) == 0)
+        {
+            return true; // Je to klíčové slovo
+        }
+    }
+    return false; // Není to klíčové slovo
+}
 
 Token get_token(FILE *file)
 {
     if (file == NULL)
-        return; // edit later
+    {
+        printf("file null");
+    }
 
     Token token;
     State state;
@@ -18,32 +41,56 @@ Token get_token(FILE *file)
     state = sStart;
     token.type = sStart;
 
+    // Inicializuj dynamic_string pre hodnotu tokenu
+    if (!dynamic_string_init(&token.value.valueString))
+    {
+        token.type = TOKEN_EOF;
+        return token; // Vráť chybový token
+    }
+
     char c;
 
     while (1)
     {
         c = (char)getc(file);
 
+        if (c == EOF)
+        {
+            // state = sEnd;
+            dynamic_string_free(&token.value.valueString);
+            token.type = TOKEN_EOF;
+            return token;
+        }
+
         switch (state)
         {
         case sStart:
-            if (c == EOF)
-            {
-                state = TOKEN_EOF;
-                token.type = TOKEN_EOF;
-            }
-            else if (c == ' ' || c == '\t')
+
+            if (c == ' ' || c == '\t')
             {
                 state = sStart;
             }
             else if (c == '\n') // EOL, end of line
             {
                 state = sEOL;
+                state = sEOL; // Přepni na stav konce řádku
+                token.type = TOKEN_EOL; // Předpokládáme, že TOKEN_EOL je definován
+                return token;           // Vrať token EOL
             }
-            else if (isalpha(c) || c == '_') // Check for identifiers/keywords
+            else if (isalpha(c)) // Check for identifiers/keywords
             {
-                state = sIdentifier;
+                state = sIdentifierorKeyword;
+                dynamic_string_add_char(&token.value.valueString, c);
             }
+            else if (c == '_')
+            {
+                dynamic_string_add_char(&token.value.valueString, c);
+                state = sIdentifier; // ziadne klucove slovo nezacina na "_"
+
+                // Speciální pseudoproměnná _ se používá pro zahození
+                //(deklarované nevyužití) výsledku výrazu či volání funkce s návratovou hodnotou.
+            }
+
             else if (isdigit(c)) // Check for numbers
             {
                 state = sIntLiteral; // Start reading an integer literal
@@ -113,10 +160,6 @@ Token get_token(FILE *file)
             {
                 state = sGreaterThan; // Move to greater than state
             }
-            else if (c == '‘') // netusim to co je wtf
-            {
-                state = sLeftSingleQuote;
-            }
             else if (c == '\'') // Single quote for character literal
             {
                 state = sSingleQuote;            // Move to state for single quote
@@ -143,12 +186,48 @@ Token get_token(FILE *file)
                 }
                 state = sStart; // Return to the starting state
             }
+            else if (c == '[')
+            {
+                state = sKeyword;
+            }
 
             break;
+        case sIdentifierorKeyword:
+            // Počkáme na další znak, dokud nezjistíme, že je identifikátor kompletní
+            while (isalpha(c) || isdigit(c) || c == '_')
+            {
+                // Přidáme znak do dynamického řetězce
+                dynamic_string_add_char(&token.value.valueString, c);
+                c = (char)getc(file); // Načti další znak
+            }
+
+            // Ukončujeme identifikátor
+            ungetc(c, file); // Vrať znak zpět do vstupu
+
+            // Zkontroluj, zda je identifikátor klíčové slovo
+            if (is_keyword(token.value.valueString.str))
+                token.type = TOKEN_KEYWORD; // Nastav typ tokenu na klíčové slovo
+            else
+                token.type = TOKEN_IDENTIFIER; // Nastav typ tokenu na identifikátor
+
+            // Pokud je to identifikátor, můžeme vrátit token
+            return token;
+            break;
+
         case sIdentifier:
-            // Handle identifier logic here
-            break;
+            // Zpracuj logiku pro identifikátory zde
+            // Například: Přidávej znaky, dokud nebudou považovány za konec
+            while (isalpha(c) || isdigit(c) || c == '_')
+            {
+                // Přidáme znak do dynamického řetězce
+                dynamic_string_add_char(&token.value.valueString, c);
+                c = (char)getc(file); // Načti další znak
+            }
+            ungetc(c, file); // Vrať znak zpět do vstupu
 
+            token.type = TOKEN_IDENTIFIER; // Nastav typ tokenu na identifikátor
+            return token;                  // Vrať token
+            break;
         case sKeyword:
             // Handle keyword logic here
             break;
@@ -306,7 +385,7 @@ Token get_token(FILE *file)
             break;
 
         case sEOL:
-            // Handle end of line logic here
+            state = sStart;
             break;
 
         case sEnd:
@@ -317,6 +396,8 @@ Token get_token(FILE *file)
             state = sError; // Invalid state fallback
             break;
         }
-        return token;
     }
+    // Uvoľni pamäť pred návratom
+    dynamic_string_free(&token.value.valueString);
+    return token; // Vráť token
 }
