@@ -71,7 +71,7 @@ Token get_token(FILE *file)
             {
                 state = sStart;
             }
-            else if (c == '\n') // EOL, end of line
+            else if (c == '\n') /* EOL, end of line  should add \t \r support? */
             {
                 state = sEOL;
                 state = sEOL;           // Přepni na stav konce řádku
@@ -95,8 +95,8 @@ Token get_token(FILE *file)
             else if (isdigit(c)) // Check for numbers
             {
                 state = sIntLiteral; // Start reading an integer literal
-                ungetc(c,file);
-
+                dynamic_string_add_char(&token.value.valueString, c);
+                // ungetc(c,file);
             }
             else if (c == '\"') // Start of string literal
             {
@@ -104,64 +104,96 @@ Token get_token(FILE *file)
             }
             else if (c == '/') // Could be start of comment or division
             {
-                char nextChar = (char)getc(file); // Look ahead
-                if (nextChar == '/')              // Start of comment
-                {
-                    state = sComment; // Move to comment state
-                }
-                else // It’s division
-                {
-                    state = sOperator;         // Move to operator state
-                    token.type = TOKEN_DIVIDE; // Set token type for division
-                }
+                dynamic_string_add_char(&token.value.valueString, c);
+                state = sDivision;
             }
             else if (c == '(') // Left parenthesis
             {
-                state = sLeftParen;
+                dynamic_string_add_char(&token.value.valueString, c);
+                token.type = TOKEN_LPAREN;
+                return token;
             }
             else if (c == ')') // Right parenthesis
             {
-                state = sRightParen;
+                dynamic_string_add_char(&token.value.valueString, c);
+                token.type = TOKEN_RPAREN;
+                return token;
+            }
+            else if (c == '{') // Left parenthesis
+            {
+                dynamic_string_add_char(&token.value.valueString, c);
+                token.type = TOKEN_CURLYL_BRACKET;
+                return token;
+            }
+            else if (c == '}') // Right parenthesis
+            {
+                dynamic_string_add_char(&token.value.valueString, c);
+                token.type = TOKEN_CURLYR_BRACKET;
+                return token;
+            }
+            else if (c == '[')
+            {
+                dynamic_string_add_char(&token.value.valueString, c);
+                token.type = TOKEN_LEFT_BRACKET;
+                return token;
+            }
+            else if (c == ']')
+            {
+                dynamic_string_add_char(&token.value.valueString, c);
+                token.type = TOKEN_RIGHT_BRACKET;
+                return token;
             }
             else if (c == ',') // Comma
             {
-                state = sComma;
+                token.type = TOKEN_COMMA; // Set the token type for comma
+                dynamic_string_add_char(&token.value.valueString, c);
+                return token;
             }
             else if (c == ';') // Semicolon
             {
-                state = sSemicolon;
+                dynamic_string_add_char(&token.value.valueString, c);
+                token.type = TOKEN_SEMICOLON; // Set the token type for semicolon
+                state = sStart;               // Return to the starting state
+                return token;
             }
             else if (c == '+') // Addition operator
             {
-                state = sOperator;
+                dynamic_string_add_char(&token.value.valueString, c);
                 token.type = TOKEN_ADDITION;
+                return token;
             }
             else if (c == '-') // Subtraction operator
             {
-                state = sOperator;
+                dynamic_string_add_char(&token.value.valueString, c);
                 token.type = TOKEN_SUBTRACTION;
+                return token;
             }
             else if (c == '*') // Multiplication operator
             {
-                state = sOperator;
+                dynamic_string_add_char(&token.value.valueString, c);
                 token.type = TOKEN_MULTIPLY;
+                return token;
             }
             else if (c == '|') // Check for bitwise OR / logical OR
             {
-                state = sPipe; // Transition to pipe state
+                dynamic_string_add_char(&token.value.valueString, c);
                 token.type = TOKEN_PIPE;
+                return token;
             }
             else if (c == '=') // Start of equality or assignment
             {
                 state = sAssign; // Move to assignment state
+                dynamic_string_add_char(&token.value.valueString, c);
             }
             else if (c == '<') // Start of less than or equal
             {
                 state = sLessThan; // Move to less than state
+                dynamic_string_add_char(&token.value.valueString, c);
             }
             else if (c == '>') // Start of greater than or equal
             {
                 state = sGreaterThan; // Move to greater than state
+                dynamic_string_add_char(&token.value.valueString, c);
             }
             else if (c == '\'') // Single quote for character literal
             {
@@ -175,26 +207,14 @@ Token get_token(FILE *file)
             }
             else if (c == '!') // Logical NOT or not equal
             {
-                // Look ahead to the next character
-                c = (char)getc(file);
-                if (c == '=')
-                {                                 // If the next character is '='
-                    token.type = TOKEN_NOT_EQUAL; // Token is '!='
-                }
-                else
-                {
-                    ungetc(c, file);                // Put back the character if it's not '='
-                    token.type = TOKEN_EXCLAMATION; // Token is just '!'
-                }
-                state = sStart; // Return to the starting state
+                dynamic_string_add_char(&token.value.valueString, c);
+                state = sExclamation;
             }
-            else if (c == '[')
-            {
-                state = sKeyword;
-            }
+
             break;
 
         case sIdentifierorKeyword:
+        {
             // Počkáme na další znak, dokud nezjistíme, že je identifikátor kompletní
             while (isalpha(c) || isdigit(c) || c == '_')
             {
@@ -214,9 +234,10 @@ Token get_token(FILE *file)
 
             // Pokud je to identifikátor, můžeme vrátit token
             return token;
-            break;
-
+        }
+        break;
         case sIdentifier:
+        {
             // Zpracuj logiku pro identifikátory zde
             // Například: Přidávej znaky, dokud nebudou považovány za konec
             while (isalpha(c) || isdigit(c) || c == '_')
@@ -229,140 +250,163 @@ Token get_token(FILE *file)
 
             token.type = TOKEN_IDENTIFIER; // Nastav typ tokenu na identifikátor
             return token;                  // Vrať token
-            break;
-        case sKeyword:
-            // Handle keyword logic here
-            break;
-
-        case sNamespace:
-            // Handle namespace logic here
-            break;
-
+        }
+        break;
         case sIntLiteral:
         {
-            // Read integer literal
-            int value = 0; // Initialize integer value
+            // Handle integer literal logic here
             while (isdigit(c))
             {
-                value = value * 10 + (c - '0'); // Build the integer value
-                c = (char)getc(file);           // Read the next character
+                dynamic_string_add_char(&token.value.valueString, c);
+                c = (char)getc(file); // Read the next character
             }
 
-            token.type = TOKEN_INT_LITERAL; // Set token type
-            token.value.intValue = value;   // Store the integer value
-
-            // Check if the next character is a decimal point
+            // Check for a decimal point or exponent
             if (c == '.')
             {
-                // It's a valid transition to a float literal
+                dynamic_string_add_char(&token.value.valueString, c);
                 state = sFloatLiteral; // Transition to float literal state
-                ungetc(c,file);
+            }
+            else if (c == 'e' || c == 'E')
+            {
+                dynamic_string_add_char(&token.value.valueString, c);
+                state = sExponent; // Transition to exp literal state
             }
             else
             {
-                ungetc(c, file); // Put the char back for further processing
-                return token;    // Return the integer token
+                state = sStart;
+                ungetc(c, file);                // Put the char back for further processing
+                token.type = TOKEN_INT_LITERAL; // Set token type to integer literal
+                return token;
             }
         }
         break;
-
         case sFloatLiteral:
         {
-            // Read floating-point literal
-            double value = token.value.intValue;    // Initialize float value
-            double fraction = 0.1; // For decimal part
-
-            // First, we build the integer part
+            // Handle floating-point literal logic here
             while (isdigit(c))
             {
-                value = value * 10 + (c - '0'); // Build the integer part
-                c = (char)getc(file);           // Read the next character
+                dynamic_string_add_char(&token.value.valueString, c);
+                c = (char)getc(file); // Read the next character
             }
 
-            // Now, read the decimal part if present
-            if (c == '.')
-            {
-                c = (char)getc(file); // Read the next character after the decimal point
-                if (!isdigit(c))
-                {
-                    // If the character after '.' is not a digit, it's an error
-                    token.type = TOKEN_ERROR; // Mark as error
-                    ungetc(c, file);          // Put the character back
-                    return token;             // Return error token
-                }
-
-                // Read the decimal digits
-                while (isdigit(c))
-                {
-                    value += (c - '0') * fraction; // Add the decimal part
-                    fraction *= 0.1;               // Move to the next decimal place
-                    c = (char)getc(file);          // Read the next character
-                }
-            }
-
-            // Check for exponent
+            // Check for an exponent
             if (c == 'e' || c == 'E')
             {
-                ungetc(c, file);   // Put back the character for exponent processing
+                dynamic_string_add_char(&token.value.valueString, c);
                 state = sExponent; // Transition to exponent state
             }
             else
             {
-                token.type = TOKEN_FLOAT_LITERAL; // Set token type
-                token.value.floatValue = value;   // Store the float value
+                // Finished floating-point literal
+                token.type = TOKEN_FLOAT_LITERAL; // Set token type to float literal
                 ungetc(c, file);                  // Put the character back for further processing
                 return token;                     // Return the float token
             }
         }
         break;
-
         case sExponent:
         {
-            // Handle exponent part
-            double exponent = 0.0; // Initialize exponent value
-            char sign = 1;         // To handle positive or negative exponent
-
-            c = (char)getc(file); // Read next character
+            // Handle exponent part logic here
+            // Exponent can have an optional sign
             if (c == '+' || c == '-')
             {
-                if (c == '-')
-                    sign = -1;        // Set sign for exponent
-                c = (char)getc(file); // Read next character
+                dynamic_string_add_char(&token.value.valueString, c); // Add sign to the exponent
+                c = (char)getc(file);                                 // Read next character
             }
 
             // Exponent must be a sequence of digits
             if (!isdigit(c))
             {
-                token.type = TOKEN_ERROR; // Invalid exponent
-                ungetc(c, file);          // Put the character back
-                return token;             // Return error token
+                token.type = TOKEN_UNDEFINED; // Invalid exponent
+                ungetc(c, file);              // Put the character back
+                return token;                 // Return error token
             }
 
-            // Read the digits of the exponent
+            // Read the exponent digits
             while (isdigit(c))
             {
-                exponent = exponent * 10 + (c - '0'); // Build exponent value
-                c = (char)getc(file);                 // Read the next character
+                dynamic_string_add_char(&token.value.valueString, c);
+                c = (char)getc(file); // Read the next character
             }
 
-            // Apply the sign to the exponent and finalize the float literal
-            exponent *= sign;
-            token.type = TOKEN_FLOAT_LITERAL;                                    // Set token type
-            token.value.floatValue = token.value.floatValue * pow(10, exponent); // Calculate final float value
-            ungetc(c, file);                                                     // Put the character back for further processing
-            return token;                                                        // Return the float token
+            // Finished processing exponent
+            token.type = TOKEN_FLOAT_LITERAL; // Set token type to float literal
+            ungetc(c, file);                  // Put the character back for further processing
+            return token;                     // Return the float token
         }
+        break;
 
         case sStringLiteral:
-            // Handle string literal logic here
+            while (c != '\"' && c != EOF) // Read until end of string
+            {
+                if (c == '\\') // Check for escape sequences
+                {
+                    state = sEscapeSequence; // Transition to escape sequence handling
+                }
+                else
+                {
+                    dynamic_string_add_char(&token.value.valueString, c); // Regular character
+                }
+                c = (char)getc(file); // Read next character
+            }
+
+            if (c == '\"') // End of string literal
+            {
+                token.type = TOKEN_STRING_LITERAL; // Set token type to string literal
+                return token;                      // Return string token
+            }
+            else
+            {
+                // Unexpected end of file without closing quote
+                token.type = TOKEN_UNDEFINED; // Set error token
+                return token;
+            }
             break;
 
         case sEscapeSequence:
-            // Handle escape sequence logic here
+            c = (char)getc(file); // Read the next character after backslash
+            if (c == 'n')
+            {
+                dynamic_string_add_char(&token.value.valueString, '\n'); // Newline escape
+            }
+            else if (c == 't')
+            {
+                dynamic_string_add_char(&token.value.valueString, '\t'); // Tab escape
+            }
+            else if (c == 'r')
+            {
+                dynamic_string_add_char(&token.value.valueString, '\r'); // Carriage return escape
+            }
+            else if (c == '\"')
+            {
+                dynamic_string_add_char(&token.value.valueString, '\"'); // Quote escape
+            }
+            else if (c == '\\')
+            {
+                dynamic_string_add_char(&token.value.valueString, '\\'); // Backslash escape
+            }
+            else if (c == 'x')
+            {                                                 // Hexadecimal escape
+                char hex[3] = {getc(file), getc(file), '\0'}; // Read two hex digits
+                if (isxdigit(hex[0]) && isxdigit(hex[1]))
+                {
+                    int value = (int)strtol(hex, NULL, 16);                         // Convert hex to integer
+                    dynamic_string_add_char(&token.value.valueString, (char)value); // Add the character to the string
+                }
+                else
+                {
+                    token.type = TOKEN_UNDEFINED; // Invalid hex escape
+                    return token;
+                }
+            }
+            else
+            {
+                token.type = TOKEN_UNDEFINED; // Invalid escape sequence
+                return token;
+            }
+            state = sStringLiteral; // Return to string literal state
             break;
-
-        case sOperator:
-            // Handle operator logic here
 
             break;
         case sBackSlash:
@@ -387,12 +431,39 @@ Token get_token(FILE *file)
             state = sStart; // Return to the starting state
             return token;
             break;
-
+        case sDivision:
+        {
+            if (c == '/')
+            {
+                state = sComment;
+                dynamic_string_add_char(&token.value.valueString, c);
+            }
+            else
+            {
+                ungetc(c, file);             // Put back the character if it's not '='
+                token.type = TOKEN_DIVISION; // Token is just '=' (assignment)
+                return token;
+            }
+        }
+        break;
+        case sComment:
+        {
+            while (c != '\n' && c != EOF) // Consume until end of line
+            {
+                dynamic_string_add_char(&token.value.valueString, c);
+                c = (char)getc(file);
+            }
+            state = sStart; // Return to starting state after comment
+            token.type = TOKEN_COMMENT;
+            return token;
+        }
+        break;
         case sAssign:
-            c = (char)getc(file); // Read the next character
+        {
             if (c == '=')
             {
                 token.type = TOKEN_EQUAL; // Token is '==' (equality)
+                dynamic_string_add_char(&token.value.valueString, c);
             }
             else
             {
@@ -401,13 +472,30 @@ Token get_token(FILE *file)
             }
             state = sStart; // Return to the starting state
             return token;
-            break;
-
+        }
+        break;
+        case sExclamation:
+        {
+            if (c == '=')
+            {
+                token.type = TOKEN_NOT_EQUAL; // Token is '!='
+                dynamic_string_add_char(&token.value.valueString, c);
+            }
+            else
+            {
+                ungetc(c, file);                // Put back the character if it's not '='
+                token.type = TOKEN_EXCLAMATION; // Token is just '!'
+            }
+            return token;
+            state = sStart; // Return to the starting state
+        }
+        break;
         case sLessThan:
-            c = (char)getc(file); // Read the next character
+        {
             if (c == '=')
             {
                 token.type = TOKEN_LESS_EQUAL; // Token is '<='
+                dynamic_string_add_char(&token.value.valueString, c);
             }
             else
             {
@@ -416,13 +504,14 @@ Token get_token(FILE *file)
             }
             state = sStart; // Return to the starting state
             return token;
-            break;
-
+        }
+        break;
         case sGreaterThan:
-            c = (char)getc(file); // Read the next character
+        {
             if (c == '=')
             {
                 token.type = TOKEN_GREATER_EQUAL; // Token is '>='
+                dynamic_string_add_char(&token.value.valueString, c);
             }
             else
             {
@@ -431,47 +520,8 @@ Token get_token(FILE *file)
             }
             state = sStart; // Return to the starting state
             return token;
-            break;
-
-        case sLeftParen:
-            token.type = TOKEN_LPAREN; // Set the token type for left parenthesis
-            state = sStart;            // Return to the starting state
-            return token;
-            break;
-
-        case sRightParen:
-            token.type = TOKEN_RPAREN; // Set the token type for right parenthesis
-            state = sStart;            // Return to the starting state
-            return token;
-            break;
-
-        case sLeftBracket:
-            token.type = TOKEN_LEFT_BRACKET; // Set the token type for left bracket
-            state = sStart;                  // Return to the starting state
-            return token;
-            break;
-
-        case sRightBracket:
-            token.type = TOKEN_RIGHT_BRACKET; // Set the token type for right bracket
-            state = sStart;                   // Return to the starting state
-            return token;
-            break;
-
-        case sComma:
-            token.type = TOKEN_COMMA; // Set the token type for comma
-            state = sStart;           // Return to the starting state
-            return token;
-            break;
-
-        case sSemicolon:
-            token.type = TOKEN_SEMICOLON; // Set the token type for semicolon
-            state = sStart;               // Return to the starting state
-            return token;
-            break;
-
-        case sPipe:
-            // Handle  "|""  pipe logic here
-            break;
+        }
+        break;
 
         case sSingleQuote:
             // Handle single quote logic here
@@ -481,30 +531,12 @@ Token get_token(FILE *file)
             // Handle left single quote logic here
             break;
 
-        case sWhitespace:
-            // Handle whitespace logic here
-            break;
-
-        case sComment:
-            while (c != '\n' && c != EOF) // Consume until end of line
-            {
-                c = (char)getc(file);
-                // teraz co? kde to ukladam
-            }
-            state = sStart; // Return to starting state after comment
-
-            break;
-
         case sError:
             // Handle error logic here
             break;
 
         case sEOL:
             state = sStart;
-            break;
-
-        case sEnd:
-            // Handle end of file/input logic here
             break;
 
         default:

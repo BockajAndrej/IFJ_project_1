@@ -1,3 +1,2 @@
-x > 
-if else zabijemsa _premena _85
-< > = >= <=
+const ifj = @import("ifj24.zig");
+"Ahoj\n\"Sve'te \\\x22"

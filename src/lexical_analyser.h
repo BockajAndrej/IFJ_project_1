@@ -32,7 +32,7 @@ typedef enum
     TOKEN_ADDITION,    // 19 Addition operator (+)
     TOKEN_SUBTRACTION, // 20 Subtraction operator (-)
     TOKEN_MULTIPLY,    // 21 Multiplication operator (*)
-    TOKEN_DIVIDE,      // 22 Division operator (result as double)
+    TOKEN_DIVISION,    // 22 Division operator (result as double)
     TOKEN_BACKSLASH,   // 23 '\'
     TOKEN_PIPE,        // 24 | logic OR or in the condition thingy if () ||
     TOKEN_EXCLAMATION, // 25 '!' symbol
@@ -41,27 +41,30 @@ typedef enum
     TOKEN_RPAREN,        // 27 Right parenthesis ')'
     TOKEN_LEFT_BRACKET,  // 28 Left bracket '['
     TOKEN_RIGHT_BRACKET, // 29 Right bracket ']'
-    TOKEN_COMMA,         // 30 Comma ','
-    TOKEN_SEMICOLON,      // 31 Semicolon ';'
-    TOKEN_ERROR
+    TOKEN_CURLYL_BRACKET,  // 30 Left bracket '{'
+    TOKEN_CURLYR_BRACKET, // 31 Right bracket '}'
+    TOKEN_COMMA,         // 32 Comma ','
+    TOKEN_SEMICOLON,      // 33 Semicolon ';'
+    TOKEN_COMMENT,
+    TOKEN_UNDEFINED
 
 } Token_type;
 
 typedef enum
 {
-    KEYWORD_IF,     // if
-    KEYWORD_ELSE,   // else
-    KEYWORD_FN,     // function definition
-    KEYWORD_CONST,  // constant declaration
-    KEYWORD_I32,    // 32-bit integer type
-    KEYWORD_F64,    // 64-bit float type
-    KEYWORD_NULL,   // null value
-    KEYWORD_PUB,    // public visibility modifier
-    KEYWORD_RETURN, // return statement
-    KEYWORD_U8,     // 8-bit unsigned integer type
-    KEYWORD_VAR,    // variable declaration
-    KEYWORD_VOID,   // void return type
-    KEYWORD_WHILE,  // while loop
+    KEYWORD_IF,     // [a] if  
+    KEYWORD_ELSE,   // [ ] else
+    KEYWORD_FN,     // [ ] function definition
+    KEYWORD_CONST,  // [ ] constant declaration
+    KEYWORD_I32,    // [ ] 32-bit integer type
+    KEYWORD_F64,    // [ ] 64-bit float type
+    KEYWORD_NULL,   // [ ] null value
+    KEYWORD_PUB,    // [ ] public visibility modifier
+    KEYWORD_RETURN, // [ ] return statement
+    KEYWORD_U8,     // [ ] 8-bit unsigned integer type
+    KEYWORD_VAR,    // [ ] variable declaration
+    KEYWORD_VOID,   // [ ] void return type
+    KEYWORD_WHILE,  // [ ] while loop
 } Keyword;
 
 typedef enum
@@ -103,6 +106,8 @@ typedef enum
     sRightParen,   // Right parenthesis ')'
     sLeftBracket,  // Left bracket '[' for slices
     sRightBracket, // Right bracket ']' for slices
+    sCurlyLBracket,  // Left bracket '[' for slices
+    sCurlyRBracket, // Right bracket ']' for slices
     sComma,        // Comma ','
     sSemicolon,    // Semicolon ';'
     sExclamation,  // Exclamation mark '!', used in logical negation or operators
