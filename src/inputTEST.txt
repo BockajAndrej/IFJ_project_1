@@ -1,2 +1,1 @@
-const ifj = @import("ifj24.zig");
-"Ahoj\n\"Sve'te \\\x22"
+const par = ifj.string("ahoj");

@@ -7,6 +7,165 @@
 #include <error.h>
 FILE *file;
 
+#include <stdio.h>
+#include <string.h>
+
+const char *token_type_to_string(Token_type type)
+{
+    switch (type)
+    {
+    case TOKEN_EOF:
+        return "TOKEN_EOF";
+    case TOKEN_EOL:
+        return "TOKEN_EOL";
+    case TOKEN_EMPTY:
+        return "TOKEN_EMPTY";
+    case TOKEN_IDENTIFIER:
+        return "TOKEN_IDENTIFIER";
+    case TOKEN_KEYWORD:
+        return "TOKEN_KEYWORD";
+    case TOKEN_NEWLINE:
+        return "TOKEN_NEWLINE";
+    case TOKEN_TAB:
+        return "TOKEN_TAB";
+    case TOKEN_INT_LITERAL:
+        return "TOKEN_INT_LITERAL";
+    case TOKEN_FLOAT_LITERAL:
+        return "TOKEN_FLOAT_LITERAL";
+    case TOKEN_STRING_LITERAL:
+        return "TOKEN_STRING_LITERAL";
+    case TOKEN_BOOLEAN:
+        return "TOKEN_BOOLEAN";
+    case TOKEN_CHAR_LITERAL:
+        return "TOKEN_CHAR_LITERAL";
+    case TOKEN_EQUAL:
+        return "TOKEN_EQUAL";
+    case TOKEN_NOT_EQUAL:
+        return "TOKEN_NOT_EQUAL";
+    case TOKEN_LESS_EQUAL:
+        return "TOKEN_LESS_EQUAL";
+    case TOKEN_LESS_THAN:
+        return "TOKEN_LESS_THAN";
+    case TOKEN_GREATER_EQUAL:
+        return "TOKEN_GREATER_EQUAL";
+    case TOKEN_GREATER_THAN:
+        return "TOKEN_GREATER_THAN";
+    case TOKEN_ASSIGNMENT:
+        return "TOKEN_ASSIGNMENT";
+    case TOKEN_ADDITION:
+        return "TOKEN_ADDITION";
+    case TOKEN_SUBTRACTION:
+        return "TOKEN_SUBTRACTION";
+    case TOKEN_MULTIPLY:
+        return "TOKEN_MULTIPLY";
+    case TOKEN_DIVISION:
+        return "TOKEN_DIVISION";
+    case TOKEN_BACKSLASH:
+        return "TOKEN_BACKSLASH";
+    case TOKEN_PIPE:
+        return "TOKEN_PIPE";
+    case TOKEN_EXCLAMATION:
+        return "TOKEN_EXCLAMATION";
+    case TOKEN_LPAREN:
+        return "TOKEN_LPAREN";
+    case TOKEN_RPAREN:
+        return "TOKEN_RPAREN";
+    case TOKEN_LEFT_BRACKET:
+        return "TOKEN_LEFT_BRACKET";
+    case TOKEN_RIGHT_BRACKET:
+        return "TOKEN_RIGHT_BRACKET";
+    case TOKEN_CURLYL_BRACKET:
+        return "TOKEN_CURLYL_BRACKET";
+    case TOKEN_CURLYR_BRACKET:
+        return "TOKEN_CURLYR_BRACKET";
+    case TOKEN_COMMA:
+        return "TOKEN_COMMA";
+    case TOKEN_SEMICOLON:
+        return "TOKEN_SEMICOLON";
+    case TOKEN_COMMENT:
+        return "TOKEN_COMMENT";
+    case TOKEN_UNDEFINED:
+        return "TOKEN_UNDEFINED";
+    case TOKEN_IMPORT:
+        return "TOKEN_IMPORT";
+    case TOKEN_DISCARD:
+        return "TOKEN_DISCARD";
+    default:
+        return "UNKNOWN_TOKEN";
+    }
+}
+
+void print_token(Token token)
+{
+    switch (token.type)
+    {
+    case TOKEN_EOF:
+        printf("Token: %d  EOF\n", token.type);
+        break;
+
+    case TOKEN_EOL:
+        printf("Token: %d  EOL\n", token.type);
+        break;
+
+    case TOKEN_EMPTY:
+        printf("Token: %d  EMPTY\n", token.type);
+        break;
+
+    case TOKEN_IDENTIFIER:
+    case TOKEN_KEYWORD:
+        printf("Token: %d Value: %s\t%s\n", token.type, token.value.valueString.str, token_type_to_string(token.type));
+        break;
+
+    case TOKEN_NEWLINE:
+        printf("Token: %d  NEWLINE\n", token.type);
+        break;
+
+    case TOKEN_TAB:
+        printf("Token: %d  TAB\n", token.type);
+        break;
+
+    case TOKEN_INT_LITERAL:
+    case TOKEN_FLOAT_LITERAL:
+    case TOKEN_STRING_LITERAL:
+    case TOKEN_BOOLEAN:
+    case TOKEN_CHAR_LITERAL:
+        printf("Token: %d Value: %s\t%s\n", token.type, token.value.valueString.str, token_type_to_string(token.type));
+        break;
+
+    case TOKEN_EQUAL:
+    case TOKEN_NOT_EQUAL:
+    case TOKEN_LESS_EQUAL:
+    case TOKEN_LESS_THAN:
+    case TOKEN_GREATER_EQUAL:
+    case TOKEN_GREATER_THAN:
+    case TOKEN_ASSIGNMENT:
+    case TOKEN_ADDITION:
+    case TOKEN_SUBTRACTION:
+    case TOKEN_MULTIPLY:
+    case TOKEN_DIVISION:
+    case TOKEN_BACKSLASH:
+    case TOKEN_PIPE:
+    case TOKEN_EXCLAMATION:
+    case TOKEN_LPAREN:
+    case TOKEN_RPAREN:
+    case TOKEN_LEFT_BRACKET:
+    case TOKEN_RIGHT_BRACKET:
+    case TOKEN_CURLYL_BRACKET:
+    case TOKEN_CURLYR_BRACKET:
+    case TOKEN_COMMA:
+    case TOKEN_SEMICOLON:
+    case TOKEN_COMMENT:
+    case TOKEN_IMPORT:
+    case TOKEN_DISCARD:
+        printf("Token: %d Value: %s \t%s\n", token.type, token.value.valueString.str, token_type_to_string(token.type));
+        break;
+
+    default:
+        printf("Token: Unknown type\n");
+        break;
+    }
+}
+
 int main(int argc, char **argv)
 {
     // Skontroluj, či bol zadaný súbor ako argument
@@ -24,158 +183,15 @@ int main(int argc, char **argv)
 
     Token token;
 
-    // Spustí sa cyklus, ktorý načíta a zobrazuje tokeny, kým nedôjde k EOF
+    
     do
     {
-        token = get_token(file); // Získaj token
-        switch (token.type)
-        {
-        case TOKEN_EOF:
-            printf("Token: %d  EOF=0\n", token.type);
-            break;
+        token = get_token(file); 
+        print_token(token);      
 
-        case TOKEN_EOL:
-            printf("Token: %d  EOL=1\n", token.type);
-            break;
 
-        case TOKEN_EMPTY:
-            printf("Token: EMPTY=2\n");
-            break;
-
-        case TOKEN_IDENTIFIER:
-            printf("Token: %d, Value: %s\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_KEYWORD:
-            printf("Token: %d, Value: %s\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_NEWLINE:
-            printf("Token: %d  NEWLINE\n", token.type);
-            break;
-
-        case TOKEN_TAB:
-            printf("Token: %d  TAB\n", token.type);
-            break;
-
-        case TOKEN_INT_LITERAL:
-            printf("Token: INT_LITERAL 7=%d , Value: %s\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_FLOAT_LITERAL:
-            printf("Token: FLOAT_LITERAL 8=%d, Value: %s\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_STRING_LITERAL:
-            printf("Token: STRING_LITERAL, Value: %s\n", token.value.valueString.str);
-            break;
-
-        case TOKEN_BOOLEAN:
-            printf("Token: BOOLEAN, Value: %d\n", token.value.boolValue);
-            break;
-
-        case TOKEN_CHAR_LITERAL:
-            break;
-
-        case TOKEN_EQUAL:
-            printf("Token: %d  EQUAL [%s]\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_NOT_EQUAL:
-            printf("Token: %d  NOT EQUAL [%s]\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_LESS_EQUAL:
-            printf("Token: %d  LESS_EQUAL [%s]\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_LESS_THAN:
-            printf("Token: %d  LESS THAN [%s]\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_GREATER_EQUAL:
-            printf("Token: %d  GREATER EQUAL [%s]\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_GREATER_THAN:
-            printf("Token: %d  GREATER THAN [%s]\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_ASSIGNMENT:
-            printf("Token: %d  ASSIGNMENT [%s]\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_ADDITION:
-            printf("Token: %d  ADDITION [%s]\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_SUBTRACTION:
-            printf("Token: %d  SUBTRACTION [%s]\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_MULTIPLY:
-            printf("Token: %d  MULTIPLY [%s]\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_DIVISION:
-            printf("Token: %d  DIVIDE [%s]\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_BACKSLASH:
-            printf("Token: %d  BACKSLASH [%s]\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_PIPE:
-            printf("Token: %d  PIPE [%s]\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_EXCLAMATION:
-            printf("Token: %d  EXCLAMATION [%s]\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_LPAREN:
-            printf("Token: %d  LPAREN [%s]\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_RPAREN:
-            printf("Token: %d  RPAREN [ %s ]\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_LEFT_BRACKET:
-            printf("Token: %d  LEFT BRACKET [ %s ]\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_RIGHT_BRACKET:
-            printf("Token: %d  RIGHT BRACKET [ %s ]\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_CURLYL_BRACKET:
-            printf("Token: %d  LEFT CURLY BRACKET [ %s ]\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_CURLYR_BRACKET:
-            printf("Token: %d  RIGHT CURLY BRACKET [ %s ]\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_COMMA:
-            printf("Token: %d  COMMA [%s]\n", token.type, token.value.valueString.str);
-            break;
-
-        case TOKEN_SEMICOLON:
-            printf("Token: %d  SEMICOLON [%s]\n", token.type, token.value.valueString.str);
-            break;
-        case TOKEN_COMMENT:
-            printf("Token: %d  comment IS \"%s\"\n", token.type, token.value.valueString.str);
-            break;
-
-        default:
-            printf("Token: Unknown type\n");
-            break;
-        }
-
-        // Uvoľni dynamický reťazec pred ďalším cyklom
         dynamic_string_free(&token.value.valueString);
-    } while (token.type != TOKEN_EOF); // Pokračuj, kým nedôjde k EOF
+    } while (token.type != TOKEN_EOF); // Continue until EOF
 
     fclose(file); // Nezabudni zavrieť súbor
     return EXIT_SUCCESS;

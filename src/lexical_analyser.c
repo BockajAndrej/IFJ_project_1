@@ -71,9 +71,13 @@ Token get_token(FILE *file)
             {
                 state = sStart;
             }
+            else if (c == '@')
+            {
+                state = sImport;
+                dynamic_string_add_char(&token.value.valueString, c);
+            }
             else if (c == '\n') /* EOL, end of line  should add \t \r support? */
             {
-                state = sEOL;
                 state = sEOL;           // Přepni na stav konce řádku
                 token.type = TOKEN_EOL; // Předpokládáme, že TOKEN_EOL je definován
                 return token;           // Vrať token EOL
@@ -86,12 +90,33 @@ Token get_token(FILE *file)
             else if (c == '_')
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                state = sIdentifier; // ziadne klucove slovo nezacina na "_"
 
-                // Speciální pseudoproměnná _ se používá pro zahození
-                //(deklarované nevyužití) výsledku výrazu či volání funkce s návratovou hodnotou.
+                // Read the next character without shadowing the original 'c'
+                char next_c = (char)getc(file);
+
+                // If the next character is a letter or a digit, treat it as part of an identifier
+                if (isalnum(next_c))
+                {
+                    // Add underscore to the identifier
+                    dynamic_string_add_char(&token.value.valueString, next_c); // Add the letter/digit to the identifier
+                    state = sIdentifierorKeyword;                              // Transition to identifier state
+                }
+                else
+                {
+                    // If the next character is not valid, discard the underscore
+                    if (next_c == '\n' || next_c == EOF || next_c == ' ')
+                    {
+                        token.type = TOKEN_DISCARD; // Mark as discard
+                        return token;
+                    }
+                    else
+                    {
+                        token.type = TOKEN_UNDEFINED; // Invalid token
+                        ungetc(next_c, file);         // Return the character back to the input
+                        return token;
+                    }
+                }
             }
-
             else if (isdigit(c)) // Check for numbers
             {
                 state = sIntLiteral; // Start reading an integer literal
@@ -338,34 +363,30 @@ Token get_token(FILE *file)
         break;
 
         case sStringLiteral:
-            while (c != '\"' && c != EOF) // Read until end of string
+        {
+            if (c == '\\') // Check for escape sequences
             {
-                if (c == '\\') // Check for escape sequences
-                {
-                    state = sEscapeSequence; // Transition to escape sequence handling
-                }
-                else
-                {
-                    dynamic_string_add_char(&token.value.valueString, c); // Regular character
-                }
-                c = (char)getc(file); // Read next character
+                state = sEscapeSequence; // Transition to escape sequence handling
             }
-
-            if (c == '\"') // End of string literal
+            else if (c == '"') // End of string literal
             {
                 token.type = TOKEN_STRING_LITERAL; // Set token type to string literal
                 return token;                      // Return string token
             }
-            else
+            else if (c < 32)
             {
                 // Unexpected end of file without closing quote
                 token.type = TOKEN_UNDEFINED; // Set error token
                 return token;
             }
-            break;
-
+            else
+            {
+                dynamic_string_add_char(&token.value.valueString, c);
+            }
+        }
+        break;
         case sEscapeSequence:
-            c = (char)getc(file); // Read the next character after backslash
+        {
             if (c == 'n')
             {
                 dynamic_string_add_char(&token.value.valueString, '\n'); // Newline escape
@@ -386,9 +407,14 @@ Token get_token(FILE *file)
             {
                 dynamic_string_add_char(&token.value.valueString, '\\'); // Backslash escape
             }
-            else if (c == 'x')
-            {                                                 // Hexadecimal escape
-                char hex[3] = {getc(file), getc(file), '\0'}; // Read two hex digits
+            else if (c == 'x') // Hexadecimal escape
+            {
+                char hex[3];               // Buffer to hold hex digits
+                hex[0] = (char)getc(file); // First hex digit
+                hex[1] = (char)getc(file); // Second hex digit
+                hex[2] = '\0';             // Null-terminate the string
+
+                // Check if the hex characters are valid
                 if (isxdigit(hex[0]) && isxdigit(hex[1]))
                 {
                     int value = (int)strtol(hex, NULL, 16);                         // Convert hex to integer
@@ -405,10 +431,10 @@ Token get_token(FILE *file)
                 token.type = TOKEN_UNDEFINED; // Invalid escape sequence
                 return token;
             }
-            state = sStringLiteral; // Return to string literal state
-            break;
 
-            break;
+            state = sStringLiteral; // Return to string literal state
+        }
+        break;
         case sBackSlash:
             c = (char)getc(file); // Read the next character
             if (c == 'n')
@@ -519,6 +545,28 @@ Token get_token(FILE *file)
                 token.type = TOKEN_GREATER_THAN; // Token is just '>'
             }
             state = sStart; // Return to the starting state
+            return token;
+        }
+        break;
+        case sImport:
+        {
+            while (isalpha(c))
+            {
+                // Přidáme znak do dynamického řetězce
+                dynamic_string_add_char(&token.value.valueString, c);
+                c = (char)getc(file); // Načti další znak
+            }
+            ungetc(c, file); // Vrať znak zpět do vstupu
+
+            if (strcmp(token.value.valueString.str, "@import") == 0)
+            {
+                token.type = TOKEN_IMPORT;
+            }
+            else
+            {
+                token.type = TOKEN_UNDEFINED;
+            }
+            state = sStart;
             return token;
         }
         break;

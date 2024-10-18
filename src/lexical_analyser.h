@@ -45,7 +45,9 @@ typedef enum
     TOKEN_CURLYR_BRACKET, // 31 Right bracket '}'
     TOKEN_COMMA,         // 32 Comma ','
     TOKEN_SEMICOLON,      // 33 Semicolon ';'
-    TOKEN_COMMENT,
+    TOKEN_COMMENT,          //34
+    TOKEN_IMPORT,       //@import
+    TOKEN_DISCARD,  // only '_'
     TOKEN_UNDEFINED
 
 } Token_type;
@@ -122,7 +124,7 @@ typedef enum
 
     // State for handling comments.
     sComment, // Line comment starting with //
-
+    sImport,
     // Error and end state.
     sError, // Error state for invalid characters or input
     sEOL,   // End of line state (newline character)
