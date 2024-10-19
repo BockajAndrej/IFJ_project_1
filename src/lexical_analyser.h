@@ -50,7 +50,8 @@ typedef enum
     TOKEN_DISCARD,        // only '_'
     TOKEN_COLON,
     TOKEN_DOT,
-    TOKEN_UNDEFINED
+    TOKEN_UNDEFINED,
+    TOKEN_STRINGINIT_ERROR
 
 } Token_type;
 

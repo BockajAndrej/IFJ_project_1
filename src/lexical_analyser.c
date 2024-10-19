@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <stdio.h>
 
 #include <string.h>
 #include "newstring.h"
@@ -48,20 +49,22 @@ bool is_keyword(Token *token)
 
 Token get_token(FILE *file)
 {
-    if (file == NULL)
-    {
-        printf("file null");
-    }
 
     Token token;
     State state;
 
+    if (file == NULL)
+    {
+        printf("file null"); // ! dorobit kde a čo?
+        token.type = TOKEN_EOF;
+        return token;
+    }
     state = sStart;
 
     // Inicializuj dynamic_string pre hodnotu tokenu
     if (!dynamic_string_init(&token.value.valueString))
     {
-        token.type = TOKEN_EOF;
+        token.type = TOKEN_STRINGINIT_ERROR;
         return token; // Vráť chybový token
     }
 
@@ -407,7 +410,16 @@ Token get_token(FILE *file)
                 dynamic_string_add_char(&token.value.valueString, c);
                 c = (char)getc(file); // Read the next character
             }
+            double calculatedNum = strtod(token.value.valueString.str, NULL);
+            
+            dynamic_string_clear(&token.value.valueString);
 
+            // Now add the calculated number to the dynamic string
+            if (!add_double_to_dynamic_string(&token.value.valueString, calculatedNum))
+            {
+                token.type = TOKEN_UNDEFINED; // Handle error if addition fails
+                return token;                 // Return error token
+            }
             // Finished processing exponent
             token.type = TOKEN_FLOAT_LITERAL; // Set token type to float literal
             ungetc(c, file);                  // Put the character back for further processing

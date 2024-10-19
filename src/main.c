@@ -190,7 +190,6 @@ int main(int argc, char **argv)
     // Print header for clarity
     printf("Token Type\tValue\t\tKeyword Value\n");
     printf("----------------------------------------------------------\n");
-
     do
     {
         token = get_token(file);
