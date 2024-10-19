@@ -9,24 +9,41 @@
 #include <string.h>
 #include "newstring.h"
 
-#define KEYWORD_COUNT 13
+#define KEYWORD_COUNT 18 // Update this if you add more keywords
 
 const char *keywords[KEYWORD_COUNT] = {
-    "const", "else", "fn", "if", "i32",
-    "f64", "null", "pub", "return", "u8",
-    "var", "void", "while"};
+    "if",     // KEYWORD_IF
+    "else",   // KEYWORD_ELSE
+    "fn",     // KEYWORD_FN
+    "const",  // KEYWORD_CONST
+    "i32",    // KEYWORD_I32
+    "f64",    // KEYWORD_F64
+    "u8",     // KEYWORD_U8
+    "[]u8",   // KEYWORD_U8_ARRAY
+    "?i32",   // KEYWORD_I32_NULL
+    "?f64",   // KEYWORD_F64_NULL
+    "?u8",    // KEYWORD_U8_NULL
+    "?[]u8",  // KEYWORD_U8_ARRAY_NULL
+    "null",   // KEYWORD_NULL
+    "pub",    // KEYWORD_PUB
+    "return", // KEYWORD_RETURN
+    "var",    // KEYWORD_VAR
+    "void",   // KEYWORD_VOID
+    "while"   // KEYWORD_WHILE
+};
 
-// Funkce pro kontrolu, zda je identifikátor klíčové slovo
-bool is_keyword(const char *identifier)
+// Function to check if an identifier is a keyword
+bool is_keyword(Token *token)
 {
     for (int i = 0; i < KEYWORD_COUNT; i++)
     {
-        if (strcmp(identifier, keywords[i]) == 0)
+        if (strcmp(token->value.valueString.str, keywords[i]) == 0)
         {
-            return true; // Je to klíčové slovo
+            token->keyword_val = (Keyword)i; // Set the keyword value
+            return true;                     // It is a keyword
         }
     }
-    return false; // Není to klíčové slovo
+    return false; // It is not a keyword
 }
 
 Token get_token(FILE *file)
@@ -40,7 +57,6 @@ Token get_token(FILE *file)
     State state;
 
     state = sStart;
-    token.type = sStart;
 
     // Inicializuj dynamic_string pre hodnotu tokenu
     if (!dynamic_string_init(&token.value.valueString))
@@ -53,6 +69,7 @@ Token get_token(FILE *file)
 
     while (1)
     {
+        token.keyword_val = 0;
         c = (char)getc(file);
 
         if (c == EOF)
@@ -159,8 +176,7 @@ Token get_token(FILE *file)
             else if (c == '[')
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                token.type = TOKEN_LEFT_BRACKET;
-                return token;
+                state = sIdentifierorKeyword;
             }
             else if (c == ']')
             {
@@ -180,6 +196,41 @@ Token get_token(FILE *file)
                 token.type = TOKEN_SEMICOLON; // Set the token type for semicolon
                 state = sStart;               // Return to the starting state
                 return token;
+            }
+            else if (c == ':') // Colon
+            {
+                dynamic_string_add_char(&token.value.valueString, c);
+                token.type = TOKEN_COLON; // Set the token type for semicolon
+                state = sStart;           // Return to the starting state
+                return token;
+            }
+            else if (c == '.') // Dot
+            {
+                dynamic_string_add_char(&token.value.valueString, c);
+                token.type = TOKEN_DOT; // Set the token type for semicolon
+                state = sStart;         // Return to the starting state
+                return token;
+            }
+            else if (c == '?') // Question mark
+            {
+                dynamic_string_add_char(&token.value.valueString, c);
+                char next_c = getc(file);
+                if (next_c == EOF || isspace(next_c))
+                {
+                    token.type = TOKEN_UNDEFINED;
+                    return token;
+                }
+                else if (isalpha(next_c) || next_c == '[')
+                {
+                    dynamic_string_add_char(&token.value.valueString, next_c); // Add to token
+                    state = sIdentifierorKeyword;                              // Transition to identifier state
+                }
+                else
+                {
+                    ungetc(next_c, file);         // Return the character back to input
+                    token.type = TOKEN_UNDEFINED; // Invalid token
+                    return token;
+                }
             }
             else if (c == '+') // Addition operator
             {
@@ -241,7 +292,7 @@ Token get_token(FILE *file)
         case sIdentifierorKeyword:
         {
             // Počkáme na další znak, dokud nezjistíme, že je identifikátor kompletní
-            while (isalpha(c) || isdigit(c) || c == '_')
+            while (isalpha(c) || isdigit(c) || c == '_' || c == '[' || c == ']')
             {
                 // Přidáme znak do dynamického řetězce
                 dynamic_string_add_char(&token.value.valueString, c);
@@ -249,15 +300,17 @@ Token get_token(FILE *file)
             }
 
             // Ukončujeme identifikátor
-            ungetc(c, file); // Vrať znak zpět do vstupu
+            ungetc(c, file);
 
-            // Zkontroluj, zda je identifikátor klíčové slovo
-            if (is_keyword(token.value.valueString.str))
-                token.type = TOKEN_KEYWORD; // Nastav typ tokenu na klíčové slovo
+            if (is_keyword(&token))
+            {
+                token.type = TOKEN_KEYWORD;
+            }
             else
-                token.type = TOKEN_IDENTIFIER; // Nastav typ tokenu na identifikátor
+            {
+                token.type = TOKEN_IDENTIFIER;
+            }
 
-            // Pokud je to identifikátor, můžeme vrátit token
             return token;
         }
         break;

@@ -21,5 +21,6 @@ bool dynamic_string_init(Dynamic_string *s);
 void dynamic_string_free(Dynamic_string *s);
 bool dynamic_string_add_char(Dynamic_string *s, char c);
 void dynamic_string_clear(Dynamic_string *s);
+char dynamic_string_first_char(const Dynamic_string *s);
 
 #endif // NEWSTRING_H

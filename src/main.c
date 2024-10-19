@@ -21,7 +21,7 @@ const char *token_type_to_string(Token_type type)
     case TOKEN_EMPTY:
         return "TOKEN_EMPTY";
     case TOKEN_IDENTIFIER:
-        return "TOKEN_IDENTIFIER";
+        return "TOKEN_IDENTI";
     case TOKEN_KEYWORD:
         return "TOKEN_KEYWORD";
     case TOKEN_NEWLINE:
@@ -29,15 +29,15 @@ const char *token_type_to_string(Token_type type)
     case TOKEN_TAB:
         return "TOKEN_TAB";
     case TOKEN_INT_LITERAL:
-        return "TOKEN_INT_LITERAL";
+        return "TOKEN_INT_L";
     case TOKEN_FLOAT_LITERAL:
-        return "TOKEN_FLOAT_LITERAL";
+        return "TOKEN_FLOAT_L";
     case TOKEN_STRING_LITERAL:
-        return "TOKEN_STRING_LITERAL";
+        return "TOKEN_STRING_L";
     case TOKEN_BOOLEAN:
         return "TOKEN_BOOLEAN";
     case TOKEN_CHAR_LITERAL:
-        return "TOKEN_CHAR_LITERAL";
+        return "TOKEN_CHAR_L";
     case TOKEN_EQUAL:
         return "TOKEN_EQUAL";
     case TOKEN_NOT_EQUAL:
@@ -47,15 +47,15 @@ const char *token_type_to_string(Token_type type)
     case TOKEN_LESS_THAN:
         return "TOKEN_LESS_THAN";
     case TOKEN_GREATER_EQUAL:
-        return "TOKEN_GREATER_EQUAL";
+        return "TOKEN_GREATER_EQ";
     case TOKEN_GREATER_THAN:
-        return "TOKEN_GREATER_THAN";
+        return "TOKEN_GREATER_TH";
     case TOKEN_ASSIGNMENT:
-        return "TOKEN_ASSIGNMENT";
+        return "TOKEN_ASSIGN";
     case TOKEN_ADDITION:
         return "TOKEN_ADDITION";
     case TOKEN_SUBTRACTION:
-        return "TOKEN_SUBTRACTION";
+        return "TOKEN_SUBTRAC";
     case TOKEN_MULTIPLY:
         return "TOKEN_MULTIPLY";
     case TOKEN_DIVISION:
@@ -71,13 +71,13 @@ const char *token_type_to_string(Token_type type)
     case TOKEN_RPAREN:
         return "TOKEN_RPAREN";
     case TOKEN_LEFT_BRACKET:
-        return "TOKEN_LEFT_BRACKET";
+        return "TOKEN_LEFT_BR";
     case TOKEN_RIGHT_BRACKET:
-        return "TOKEN_RIGHT_BRACKET";
+        return "TOKEN_RIGHT_BR";
     case TOKEN_CURLYL_BRACKET:
-        return "TOKEN_CURLYL_BRACKET";
+        return "TOKEN_CURLYL_BR";
     case TOKEN_CURLYR_BRACKET:
-        return "TOKEN_CURLYR_BRACKET";
+        return "TOKEN_CURLYR_BR";
     case TOKEN_COMMA:
         return "TOKEN_COMMA";
     case TOKEN_SEMICOLON:
@@ -90,6 +90,10 @@ const char *token_type_to_string(Token_type type)
         return "TOKEN_IMPORT";
     case TOKEN_DISCARD:
         return "TOKEN_DISCARD";
+    case TOKEN_COLON:
+        return "TOKEN_COLON";
+    case TOKEN_DOT:
+        return "TOKEN_DOT";
     default:
         return "UNKNOWN_TOKEN";
     }
@@ -97,31 +101,27 @@ const char *token_type_to_string(Token_type type)
 
 void print_token(Token token)
 {
+
     switch (token.type)
     {
     case TOKEN_EOF:
-        printf("Token: %d  EOF\n", token.type);
+        printf("EOF\n");
         break;
 
     case TOKEN_EOL:
-        printf("Token: %d  EOL\n", token.type);
+        printf("EOL\n");
         break;
 
     case TOKEN_EMPTY:
-        printf("Token: %d  EMPTY\n", token.type);
-        break;
-
-    case TOKEN_IDENTIFIER:
-    case TOKEN_KEYWORD:
-        printf("Token: %d Value: %s\t%s\n", token.type, token.value.valueString.str, token_type_to_string(token.type));
+        printf("EMPTY\n");
         break;
 
     case TOKEN_NEWLINE:
-        printf("Token: %d  NEWLINE\n", token.type);
+        printf("NEWLINE\n");
         break;
 
     case TOKEN_TAB:
-        printf("Token: %d  TAB\n", token.type);
+        printf("TAB\n");
         break;
 
     case TOKEN_INT_LITERAL:
@@ -129,9 +129,8 @@ void print_token(Token token)
     case TOKEN_STRING_LITERAL:
     case TOKEN_BOOLEAN:
     case TOKEN_CHAR_LITERAL:
-        printf("Token: %d Value: %s\t%s\n", token.type, token.value.valueString.str, token_type_to_string(token.type));
-        break;
-
+    case TOKEN_IDENTIFIER:
+    case TOKEN_KEYWORD:
     case TOKEN_EQUAL:
     case TOKEN_NOT_EQUAL:
     case TOKEN_LESS_EQUAL:
@@ -157,11 +156,17 @@ void print_token(Token token)
     case TOKEN_COMMENT:
     case TOKEN_IMPORT:
     case TOKEN_DISCARD:
-        printf("Token: %d Value: %s \t%s\n", token.type, token.value.valueString.str, token_type_to_string(token.type));
+    case TOKEN_DOT:
+    case TOKEN_COLON:
+        printf("%s\t\t%s\t\t%d\n", token_type_to_string(token.type), token.value.valueString.str, token.keyword_val);
+        break;
+
+    case TOKEN_UNDEFINED:
+        printf("UNDEFINED\t%s\t\t-\n", token.value.valueString.str);
         break;
 
     default:
-        printf("Token: Unknown type\n");
+        printf("Unknown Type\t-\t\t-\t\n");
         break;
     }
 }
@@ -182,13 +187,14 @@ int main(int argc, char **argv)
     }
 
     Token token;
+    // Print header for clarity
+    printf("Token Type\tValue\t\tKeyword Value\n");
+    printf("----------------------------------------------------------\n");
 
-    
     do
     {
-        token = get_token(file); 
-        print_token(token);      
-
+        token = get_token(file);
+        print_token(token);
 
         dynamic_string_free(&token.value.valueString);
     } while (token.type != TOKEN_EOF); // Continue until EOF

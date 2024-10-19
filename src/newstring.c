@@ -51,3 +51,12 @@ void dynamic_string_clear(Dynamic_string *s) {
         s->str[0] = '\0'; // Reset to an empty string
     }
 }
+
+// Function to get the first character of a Dynamic_string
+char dynamic_string_first_char(const Dynamic_string *s) {
+    if (s == NULL || s->length == 0) {
+        return '\0'; // Return null character if the string is empty or NULL
+    }
+    return s->str[0]; // Return the first character
+}
+

@@ -37,36 +37,43 @@ typedef enum
     TOKEN_PIPE,        // 24 | logic OR or in the condition thingy if () ||
     TOKEN_EXCLAMATION, // 25 '!' symbol
 
-    TOKEN_LPAREN,        // 26 Left parenthesis '('
-    TOKEN_RPAREN,        // 27 Right parenthesis ')'
-    TOKEN_LEFT_BRACKET,  // 28 Left bracket '['
-    TOKEN_RIGHT_BRACKET, // 29 Right bracket ']'
-    TOKEN_CURLYL_BRACKET,  // 30 Left bracket '{'
+    TOKEN_LPAREN,         // 26 Left parenthesis '('
+    TOKEN_RPAREN,         // 27 Right parenthesis ')'
+    TOKEN_LEFT_BRACKET,   // 28 Left bracket '['
+    TOKEN_RIGHT_BRACKET,  // 29 Right bracket ']'
+    TOKEN_CURLYL_BRACKET, // 30 Left bracket '{'
     TOKEN_CURLYR_BRACKET, // 31 Right bracket '}'
-    TOKEN_COMMA,         // 32 Comma ','
+    TOKEN_COMMA,          // 32 Comma ','
     TOKEN_SEMICOLON,      // 33 Semicolon ';'
-    TOKEN_COMMENT,          //34
-    TOKEN_IMPORT,       //@import
-    TOKEN_DISCARD,  // only '_'
+    TOKEN_COMMENT,        // 34
+    TOKEN_IMPORT,         //@import
+    TOKEN_DISCARD,        // only '_'
+    TOKEN_COLON,
+    TOKEN_DOT,
     TOKEN_UNDEFINED
 
 } Token_type;
 
 typedef enum
 {
-    KEYWORD_IF,     // [a] if  
-    KEYWORD_ELSE,   // [ ] else
-    KEYWORD_FN,     // [ ] function definition
-    KEYWORD_CONST,  // [ ] constant declaration
-    KEYWORD_I32,    // [ ] 32-bit integer type
-    KEYWORD_F64,    // [ ] 64-bit float type
-    KEYWORD_NULL,   // [ ] null value
-    KEYWORD_PUB,    // [ ] public visibility modifier
-    KEYWORD_RETURN, // [ ] return statement
-    KEYWORD_U8,     // [ ] 8-bit unsigned integer type
-    KEYWORD_VAR,    // [ ] variable declaration
-    KEYWORD_VOID,   // [ ] void return type
-    KEYWORD_WHILE,  // [ ] while loop
+    KEYWORD_IF,    // [a] if
+    KEYWORD_ELSE,  // [ ] else
+    KEYWORD_FN,    // [ ] function definition
+    KEYWORD_CONST, // [ ] constant declaration
+    KEYWORD_I32,   // [ ] 32-bit integer type
+    KEYWORD_F64,   // [ ] 64-bit float type
+    KEYWORD_U8,    // [ ] 8-bit unsigned integer type
+    KEYWORD_U8_ARRAY,
+    KEYWORD_I32_NULL,      // [?i32]  can handle NULL
+    KEYWORD_F64_NULL,      // [?f64]
+    KEYWORD_U8_NULL,       // [?u8]
+    KEYWORD_U8_ARRAY_NULL, // [?[]u8]
+    KEYWORD_NULL,          // [ ] null value
+    KEYWORD_PUB,           // [ ] public visibility modifier
+    KEYWORD_RETURN,        // [ ] return statement
+    KEYWORD_VAR,           // [ ] variable declaration
+    KEYWORD_VOID,          // [ ] void return type
+    KEYWORD_WHILE,         // [ ] while loop
 } Keyword;
 
 typedef enum
@@ -104,16 +111,16 @@ typedef enum
     sGreaterThan,  // Greater than (>)
 
     // States for parentheses, brackets, and punctuation.
-    sLeftParen,    // Left parenthesis '('
-    sRightParen,   // Right parenthesis ')'
-    sLeftBracket,  // Left bracket '[' for slices
-    sRightBracket, // Right bracket ']' for slices
-    sCurlyLBracket,  // Left bracket '[' for slices
+    sLeftParen,     // Left parenthesis '('
+    sRightParen,    // Right parenthesis ')'
+    sLeftBracket,   // Left bracket '[' for slices
+    sRightBracket,  // Right bracket ']' for slices
+    sCurlyLBracket, // Left bracket '[' for slices
     sCurlyRBracket, // Right bracket ']' for slices
-    sComma,        // Comma ','
-    sSemicolon,    // Semicolon ';'
-    sExclamation,  // Exclamation mark '!', used in logical negation or operators
-    sPipe,         // pipe '|' character
+    sComma,         // Comma ','
+    sSemicolon,     // Semicolon ';'
+    sExclamation,   // Exclamation mark '!', used in logical negation or operators
+    sPipe,          // pipe '|' character
 
     // States for quotation marks.
     sSingleQuote,     // Single quote ('), used for character literals
@@ -133,7 +140,6 @@ typedef enum
 
 typedef union
 {
-    Keyword keyword;            // Používa enum pre kľúčové slová
     int intValue;               // Pre celočíselné literály
     double floatValue;          // Pre desatinné literály
     Dynamic_string valueString; // Dynamický reťazec pre hodnotu
@@ -144,6 +150,7 @@ typedef struct
 {
     Token_type type;   // Type of the token
     Token_Value value; // Value of the token (union)
+    Keyword keyword_val;    // Flag to indicate if it's a keyword (0-x) or NULL (0)
     int lineX, LineY;  // Line number in the source code
 } Token;
 
