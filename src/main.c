@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 #include "lexical_analyser.h"
+#include "syntactic_analysis.h"
 #include <error.h>
 FILE *file;
 
@@ -181,17 +182,18 @@ int main(int argc, char **argv)
         perror("Failed to open file");
     }
 
-    Token token;
+    FIRST(file);
 
-    
-    do
-    {
-        token = get_token(file); 
-        print_token(token);      
+    //! TODO : Odstannit - nachadza sa v syntactic analysis
+    // Token token;
+    // do
+    // {
+    //     token = get_token(file); 
+    //     print_token(token);      
 
 
-        dynamic_string_free(&token.value.valueString);
-    } while (token.type != TOKEN_EOF); // Continue until EOF
+    //     dynamic_string_free(&token.value.valueString);
+    // } while (token.type != TOKEN_EOF); // Continue until EOF
 
     fclose(file); // Nezabudni zavrieť súbor
     return EXIT_SUCCESS;

@@ -40,7 +40,6 @@ Token get_token(FILE *file)
     State state;
 
     state = sStart;
-    token.type = sStart;
 
     // Inicializuj dynamic_string pre hodnotu tokenu
     if (!dynamic_string_init(&token.value.valueString))
