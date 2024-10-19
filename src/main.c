@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 #include "lexical_analyser.h"
+#include "syntactic_analysis.h"
 #include <error.h>
 FILE *file;
 
