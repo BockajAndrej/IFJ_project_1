@@ -24,7 +24,8 @@
 
 #define MEM_ERR 11      // Memory-related errors
 #define IO_ERR 12       // Input/Output errors 
-#define NULL_ERR 13     // Null pointer errors 
+#define NULL_ERR 13     // Null pointer errors
+#define FILE_ERR 14     // File errors  
 
 #define SUCCESSFULL_ERR 0  // When program ends with designed purpose
 

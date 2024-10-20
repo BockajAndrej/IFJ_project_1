@@ -2,21 +2,47 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-#include "Lexical_analyser.h"
-#include "error.h"
-FILE file;
+#include "lexical_analyser.h"
+#include "syntactic_analysis.h"
+#include <error.h>
+
+FILE *file;
 
 int main(int argc, char **argv)
 {
-    (void)argc;
-    (void)argv;
-
-    if (argc > 1)
+    // Skontroluj, či bol zadaný súbor ako argument
+    if(argc < 2)
+        file = stdin;
+    if (argc == 2)
+        file = fopen(argv[1], "r");
+    else
     {
-        fprintf(stderr, "Program launched with more than 1 parameter.\n");
-        return IO_ERR;
+        fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
+        return 1;
     }
 
-    return SUCCESSFULL_ERR;
+    if (file == NULL)
+        perror("Failed to open file");
+
+    // Syntactic analysis
+    if(!FIRST(file))
+        return 1;
+
+    // Token token;
+    // // Print header for clarity
+    // printf("Token Type\tValue\t\tKeyword Value\n");
+    // printf("----------------------------------------------------------\n");
+
+    // do
+    // {
+    //     token = get_token(file);
+    //     print_token(token);
+
+    //     dynamic_string_free(&token.value.valueString);
+    // } while (token.type != TOKEN_EOF); // Continue until EOF
+
+    fclose(file); // Nezabudni zavrieť súbor
+    return EXIT_SUCCESS;
 }

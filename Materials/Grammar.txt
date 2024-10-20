@@ -2,18 +2,14 @@ FIRST ::= VAR_DEF FIRST
 FIRST ::= FN_DEF FIRST 
 FIRST ::= ε
 
-CODE ::= VAR_DEF 
-CODE ::= CALL_DEF 
-CODE ::= IF_DEF 
-CODE ::= ELSE_DEF
-CODE ::= FN_DEF 
-CODE ::= WHILE_DEF
-CODE ::= RETURN_DEF
+STATEMENT ::= VAR_DEF
+STATEMENT ::= CALL_DEF 
+STATEMENT ::= IF_DEF 
+STATEMENT ::= ELSE_DEF
+STATEMENT ::= WHILE_DEF
+STATEMENT ::= RETURN_DEF
 
-NEXTCODE ::= CODE NEXTCODE 
-NEXTCODE ::= ε
-
-VAR_DEF ::= TYPE t_id ASSIGN
+VAR_DEF ::= TYPE t_id ASSIGN 
 FN_DEF ::= t_pub t_fn t_id t_( PARAM t_) SCOPE 
 
 CALL_DEF ::= t_id CALL_EXT
@@ -28,13 +24,11 @@ CALL_EXT ::= t_( ARG t_)
 CALL_EXT ::= ASSIGN
 
 SCOPE ::= ε
-SCOPE ::=  t_{ NEXTCODE  t_} 
+SCOPE ::=  t_{ STATEMENT t_} 
 
-ASSIGN ::= ε
-ASSIGN ::= t_= ASSIGN_EXT 
-ASSIGN ::= t_: VAL_TYPE ASSIGN_EXT
-ASSIGN_EXT ::= EXPRESION
-ASSIGN_EXT ::= t_import t_( string t_)
+ASSIGN ::= t_;
+ASSIGN ::= t_=  t_import t_( string t_) t_;
+ASSIGN ::= t_: VAL_TYPE EXPRESION t_;
 
 ARG ::= ε
 ARG ::= ARG_LIST
@@ -43,15 +37,14 @@ ARG_LIST ::= string ARGS
 ARGS ::= ε
 ARGS ::= , ARG_LIST
 
-PARAM ::= ε
-PARAM ::= t_id t_: VAL_TYPE PARAMS
-PARAMS ::= ε
-PARAMS ::= t_,  t_id t_: VAL_TYPE PARAMS
+PARAM ::= t_)
+PARAM ::= t_id t_: VAL_TYPE PARAM
+PARAM ::= t_,  t_id t_: VAL_TYPE PARAM
 
+VAR_TYPR ::= var
+VAR_TYPR ::= const
 VAL_TYPE ::= i32
 VAL_TYPE ::= f64
 VAL_TYPE ::= u8
-VAL_TYPE ::= void
-
-TYPE ::= var
-TYPE ::= const
+FN_TYPE ::= VAL_TYPE 
+FN_TYPE ::= void

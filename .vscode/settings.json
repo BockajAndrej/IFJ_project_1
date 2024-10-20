@@ -1,5 +1,10 @@
 {
     "files.associations": {
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "dynaString.C": "cpp",
+        "ctype.h": "c",
+        "error.h": "c",
+        "lexical_analyser.h": "c",
+        "newstring.h": "c"
     }
 }
