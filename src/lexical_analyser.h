@@ -154,6 +154,9 @@ typedef struct
     int lineX, LineY;  // Line number in the source code
 } Token;
 
+const char *token_type_to_string(Token_type type);
+void print_token(Token token);
+
 // Deklarácia funkcie get_token
 Token get_token(FILE *file);
 
