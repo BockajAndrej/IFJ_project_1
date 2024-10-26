@@ -5,4 +5,5 @@ pub fn main() void {
     var d: f64 = ifj.i2f(val);
     var k: u8 = 25 + 5;
     var a: i32 = 0;
+    const r = foo(param);
 }
