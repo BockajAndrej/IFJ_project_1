@@ -41,6 +41,6 @@ bool EXPRESSION(FILE *file);
 
 bool VAR_TYPE();
 bool VAL_TYPE();
-bool VAL_TYPE_FN();
+bool FN_TYPE();
 
 #endif

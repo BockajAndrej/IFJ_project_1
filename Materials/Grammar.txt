@@ -13,13 +13,13 @@ VAR_DEF ::= TYPE t_id ASSIGN
 FN_DEF ::= t_pub t_fn t_id t_( PARAM t_) SCOPE 
 
 CALL_DEF ::= t_id CALL_EXT
-IF_DEF ::= t_if t_( EXPRESION t_) IF_EXT SCOPE 
+IF_DEF ::= t_if t_( EXPRESION t_) IF_EXT  
 ELSE_DEF ::= t_else SCOPE 
 WHILE_DEF ::= t_while t_( EXPRESION t_) SCOPE
 RETURN_DEF ::= t_ret EXPRESION
 
-IF_EXT ::= ε
-IF_EXT ::= t_| t_id t_| 
+IF_EXT ::= SCOPE
+IF_EXT ::= t_| t_id t_| SCOPE
 CALL_EXT ::= t_( ARG t_) 
 CALL_EXT ::= ASSIGN
 

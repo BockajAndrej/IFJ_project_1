@@ -1,5 +1,5 @@
 // Program 1: Vypocet faktorialu (iterativne)
-const ifj = @import("ifj24.zig");
+const ifj = @import("ifj24.zig\0");
 // Hlavni telo programu - funkce main
 pub fn main() void {
 ifj.write("Zadejte cislo pro vypocet faktorialu\n");

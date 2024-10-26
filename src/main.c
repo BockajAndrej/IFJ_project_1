@@ -13,7 +13,7 @@ FILE *file;
 int main(int argc, char **argv)
 {
     // Skontroluj, či bol zadaný súbor ako argument
-    if(argc < 2)
+    if (argc < 2)
         file = stdin;
     if (argc == 2)
         file = fopen(argv[1], "r");
@@ -27,8 +27,13 @@ int main(int argc, char **argv)
         perror("Failed to open file");
 
     // Syntactic analysis
-    if(!FIRST(file))
+    if (!FIRST(file))
+    {
+        printf("%s", " --- WRONG END --- \n");
         return 1;
+    }
+
+    printf("%s", " --- ENDED SUCESFULLY --- \n");
 
     // Token token;
     // // Print header for clarity
