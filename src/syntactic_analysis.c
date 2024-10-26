@@ -63,7 +63,8 @@ bool STATEMENT(FILE *file)
                 return false;
             break;
         case KEYWORD_ELSE:
-            return false;
+            if (!ELSE_DEF(file))
+                return false;
             break;
         case KEYWORD_WHILE:
             return false;
@@ -176,6 +177,20 @@ bool IF_DEF(FILE *file)
     if(!IF_EXT(file))
         return false;
     pmesg("    ------ END IF_DEF ------\n");
+    return true;
+}
+bool ELSE_DEF(FILE *file){
+    pmesg("    ------ ELSE_DEF ------\n");
+    Token token;
+    // t_{
+    GET_TOKEN_RAW(token, file);
+    if (token.type == TOKEN_CURLYL_BRACKET)
+    {
+        // SCOPE
+        if (!SCOPE(file))
+            return false;
+    }
+    pmesg("    ------ END ELSE_DEF ------\n");
     return true;
 }
 
@@ -320,9 +335,7 @@ bool EXPRESSION(FILE *file, Token token)
     // TODO : Odstranit potom (len zebezpecenie kvoli cykleniu)
     int endWhenCount = 0;
     int countOfLeftParent = 0;
-    do
-    {
-        GET_TOKEN_RAW(token, file);
+    while (!(token.type == TOKEN_SEMICOLON || (token.type == TOKEN_RPAREN && countOfLeftParent <= 0))){
         if(token.type == TOKEN_LPAREN)
             countOfLeftParent++;
         else if(token.type == TOKEN_RPAREN)
@@ -330,8 +343,8 @@ bool EXPRESSION(FILE *file, Token token)
         // TODO : Odstranit
         if (endWhenCount++ > 50)
             return false;
-    } while (token.type != TOKEN_SEMICOLON || (token.type != TOKEN_RPAREN && countOfLeftParent > 0));
-
+        GET_TOKEN_RAW(token, file);
+    } 
     pmesg("    ------ END EXPRESSION ------\n");
     return true;
 }

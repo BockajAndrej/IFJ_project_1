@@ -31,6 +31,7 @@ bool VAR_DEF(FILE *file);
 bool CONST_DEF(FILE *file);
 bool FN_DEF(FILE *file);
 bool IF_DEF(FILE *file);
+bool ELSE_DEF(FILE *file);
 
 bool IF_EXT(FILE *file);
 
