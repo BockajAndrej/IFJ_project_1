@@ -1,7 +1,7 @@
 FIRST ::= VAR_DEF FIRST 
 FIRST ::= CONST_DEF FIRST 
 FIRST ::= FN_DEF FIRST 
-FIRST ::= ε
+FIRST ::= t_EOF
 
 STATEMENT ::= VAR_DEF STATEMENT
 STATEMENT ::= CONST_DEF STATEMENT
@@ -17,23 +17,24 @@ CONST_DEF ::= t_const t_id t_= ASSIGN_CONST
 FN_DEF ::= t_pub t_fn t_id t_( PARAM t_) SCOPE 
 
 CALL_DEF ::= t_id CALL_EXT
-IF_DEF ::= t_if t_( EXPRESION t_) IF_EXT  
+IF_DEF ::= t_if t_( EXPRESSION t_) IF_EXT  
 ELSE_DEF ::= t_else SCOPE 
-WHILE_DEF ::= t_while t_( EXPRESION t_) SCOPE
-RETURN_DEF ::= t_ret EXPRESION
+WHILE_DEF ::= t_while t_( EXPRESSION t_) SCOPE
+RETURN_DEF ::= t_ret EXPRESSION
 
 IF_EXT ::= SCOPE
 IF_EXT ::= t_| t_id t_| SCOPE
 CALL_EXT ::= t_( ARG t_) 
 CALL_EXT ::= ASSIGN
 
-SCOPE ::= ε
 SCOPE ::=  t_{ STATEMENT 
 
 ASSIGN_VAR ::= t_;
-ASSIGN_VAR ::= t_: VAL_TYPE EXPRESION t_;
-ASSIGN_CONST ::= t_import t_( string t_) t_;
-ASSIGN_CONST ::= EXPRESION t_;
+ASSIGN_VAR ::= t_: VAL_TYPE EXPRESSION t_;
+ASSIGN_CONST ::= EXPRESSION
+
+EXPRESSION ::= t_import t_( string t_) t_;
+EXPRESSION ::= MATH_EXP
 
 ARG ::= ε
 ARG ::= ARG_LIST

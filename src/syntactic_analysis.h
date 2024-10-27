@@ -32,6 +32,8 @@ bool CONST_DEF(FILE *file);
 bool FN_DEF(FILE *file);
 bool IF_DEF(FILE *file);
 bool ELSE_DEF(FILE *file);
+bool WHILE_DEF(FILE *file);
+bool RET_DEF(FILE *file);
 
 bool IF_EXT(FILE *file);
 
@@ -42,7 +44,7 @@ bool SCOPE(FILE *file);
 
 bool PARAM(FILE *file);
 
-bool EXPRESSION(FILE *file, Token token);
+bool EXPRESSION(FILE *file);
 
 bool VAR_TYPE(Token t);
 bool VAL_TYPE(Token t);

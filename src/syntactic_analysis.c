@@ -1,9 +1,10 @@
 #include "syntactic_analysis.h"
 
 // TODO : 1. Pocitanie tokenov (kazdy riadok resetuje)
+// TODO : 2. Nefunkcny scope len na jeden riadok (bez {}) vytvorit vo funkcii ktora funkciu scope vola
 bool FIRST(FILE *file)
 {
-    pmesg("    ------ FIRST ------\n");
+    pmesg(" ------ FIRST ------\n");
     Token token;
 
     GET_TOKEN_RAW(token, file);
@@ -37,7 +38,7 @@ bool FIRST(FILE *file)
 }
 bool STATEMENT(FILE *file)
 {
-    pmesg("    ------ STATEMENT ------\n");
+    pmesg(" ------ STATEMENT ------\n");
     Token token;
     GET_TOKEN_RAW(token, file);
     // Zrusenie rekurzie ak skonci SCOPE
@@ -67,25 +68,27 @@ bool STATEMENT(FILE *file)
                 return false;
             break;
         case KEYWORD_WHILE:
-            return false;
+            if (!WHILE_DEF(file))
+                return false;
             break;
         case KEYWORD_RETURN:
-            return false;
+            if (!RET_DEF(file))
+                return false;
             break;
         default:
             return false;
             break;
         }
     }
-    pmesg("    ------ END STATEMENT ------\n");
-    if(!STATEMENT(file))
+    pmesg(" ------ END STATEMENT ------\n");
+    if (!STATEMENT(file))
         return false;
     return true;
 }
 
 bool VAR_DEF(FILE *file)
 {
-    pmesg("    ------ VARDEF ------\n");
+    pmesg(" ------ VARDEF ------\n");
     Token token;
     // var id
     GET_TOKEN_RAW(token, file);
@@ -107,12 +110,12 @@ bool VAR_DEF(FILE *file)
         return false;
         break;
     }
-    pmesg("    ------ END VARDEF ------\n");
+    pmesg(" ------ END VARDEF ------\n");
     return true;
 }
 bool CONST_DEF(FILE *file)
 {
-    pmesg("    ------ CONST_DEF ------\n");
+    pmesg(" ------ CONST_DEF ------\n");
     Token token;
     // const id
     GET_TOKEN_RAW(token, file);
@@ -124,12 +127,12 @@ bool CONST_DEF(FILE *file)
         return false;
     if (!ASSIGN_CONST(file))
         return false;
-    pmesg("    ------ END CONST_DEF ------\n");
+    pmesg(" ------ END CONST_DEF ------\n");
     return true;
 }
 bool FN_DEF(FILE *file)
 {
-    pmesg("    ------ FN_DEF ------\n");
+    pmesg(" ------ FN_DEF ------\n");
     Token token;
     // t_fn
     GET_TOKEN_RAW(token, file);
@@ -163,24 +166,24 @@ bool FN_DEF(FILE *file)
 }
 bool IF_DEF(FILE *file)
 {
-    pmesg("    ------ IF_DEF ------\n");
+    pmesg(" ------ IF_DEF ------\n");
     Token token;
     // t_(
     GET_TOKEN_RAW(token, file);
     if (token.type != TOKEN_LPAREN)
         return false;
 
-    GET_TOKEN_RAW(token, file);
-    if (!EXPRESSION(file, token))
+    if (!EXPRESSION(file))
         return false;
 
-    if(!IF_EXT(file))
+    if (!IF_EXT(file))
         return false;
-    pmesg("    ------ END IF_DEF ------\n");
+    pmesg(" ------ END IF_DEF ------\n");
     return true;
 }
-bool ELSE_DEF(FILE *file){
-    pmesg("    ------ ELSE_DEF ------\n");
+bool ELSE_DEF(FILE *file)
+{
+    pmesg(" ------ ELSE_DEF ------\n");
     Token token;
     // t_{
     GET_TOKEN_RAW(token, file);
@@ -190,13 +193,44 @@ bool ELSE_DEF(FILE *file){
         if (!SCOPE(file))
             return false;
     }
-    pmesg("    ------ END ELSE_DEF ------\n");
+    pmesg(" ------ END ELSE_DEF ------\n");
+    return true;
+}
+bool WHILE_DEF(FILE *file)
+{
+    pmesg(" ------ WHILE_DEF ------\n");
+    // t_(
+    Token token;
+    GET_TOKEN_RAW(token, file);
+    if (token.type != TOKEN_LPAREN)
+        return false;
+
+    if (!EXPRESSION(file))
+        return false;
+
+    // t_{
+    GET_TOKEN_RAW(token, file);
+    if (token.type == TOKEN_CURLYL_BRACKET)
+    {
+        // SCOPE
+        if (!SCOPE(file))
+            return false;
+    }
+    pmesg(" ------ END WHILE_DEF ------\n");
+    return true;
+}
+bool RET_DEF(FILE *file)
+{
+    pmesg(" ------ RET_DEF ------\n");
+    if (!EXPRESSION(file))
+        return false;
+    pmesg(" ------ END RET_DEF ------\n");
     return true;
 }
 
 bool IF_EXT(FILE *file)
 {
-    pmesg("    ------ IF_EXT ------\n");
+    pmesg(" ------ IF_EXT ------\n");
     Token token;
     // t_| t_id t_|
     GET_TOKEN_RAW(token, file);
@@ -218,54 +252,29 @@ bool IF_EXT(FILE *file)
     }
     else
         return false;
-    pmesg("    ------ END IF_EXT ------\n");
+    pmesg(" ------ END IF_EXT ------\n");
     return true;
 }
 
 bool ASSIGN_VAR(FILE *file)
 {
-    pmesg("    ------ ASSIGN_VAR ------\n");
+    pmesg(" ------ ASSIGN_VAR ------\n");
     Token token;
     GET_TOKEN_RAW(token, file);
     if (!VAL_TYPE(token))
         return false;
     // Konci s t_;
-    GET_TOKEN_RAW(token, file);
-    if (!EXPRESSION(file, token))
+    if (!EXPRESSION(file))
         return false;
-    pmesg("    ------ END ASSIGN_VAR ------\n");
+    pmesg(" ------ END ASSIGN_VAR ------\n");
     return true;
 }
 bool ASSIGN_CONST(FILE *file)
 {
-    pmesg("    ------ ASSIGN_CONST ------\n");
-    Token token;
-    // Prvy token aj pre expression
-    GET_TOKEN_RAW(token, file);
-    switch (token.type)
-    {
-    // @import("ifj24.zig");
-    case TOKEN_IMPORT:
-        GET_TOKEN_RAW(token, file);
-        if (token.type != TOKEN_LPAREN)
-            return false;
-        GET_TOKEN_RAW(token, file);
-        if (token.type != TOKEN_STRING_LITERAL)
-            return false;
-        GET_TOKEN_RAW(token, file);
-        if (token.type != TOKEN_RPAREN)
-            return false;
-        GET_TOKEN_RAW(token, file);
-        if (token.type != TOKEN_SEMICOLON)
-            return false;
-        break;
-    default:
-        // Skontroluj podmienky v definicii
-        if (!EXPRESSION(file, token))
-            return false;
-        break;
-    }
-    pmesg("    ------ END ASSIGN_CONST ------\n");
+    pmesg(" ------ ASSIGN_CONST ------\n");
+    if (!EXPRESSION(file))
+        return false;
+    pmesg(" ------ END ASSIGN_CONST ------\n");
     return true;
 }
 
@@ -274,16 +283,16 @@ bool ASSIGN_CONST(FILE *file)
 /// @return TRUE - ak bolo vo funkcii vsetko syntakticky spravne
 bool SCOPE(FILE *file)
 {
-    pmesg("    ------ SCOPE ------\n");
+    pmesg(" ------ SCOPE ------\n");
     if (!STATEMENT(file))
         return false;
-    pmesg("    ------ END SCOPE ------\n");
+    pmesg(" ------ END SCOPE ------\n");
     return true;
 }
 
 bool PARAM(FILE *file)
 {
-    pmesg("    ------ PARAM ------\n");
+    pmesg(" ------ PARAM ------\n");
     Token token;
     // t_) (end of recursion)
     GET_TOKEN_RAW(token, file);
@@ -321,31 +330,54 @@ bool PARAM(FILE *file)
     // Next parameter
     if (!PARAM(file))
         return false;
-    pmesg("    ------ END PARAM ------\n");
+    pmesg(" ------ END PARAM ------\n");
     return true;
 }
 
-bool EXPRESSION(FILE *file, Token token)
+bool EXPRESSION(FILE *file)
 {
     // TODO : Musi obsahovat aspon 1 cislo
     // PODMIENKY :  1. Zatial musi koncit ";" alebo ")"
     //              2. Dostava prvy token cez parameter
     // LOGIKA : Ak v expresne bude znak "(" prva zatvorka bude este expression ale ta dalsia uz to bude koncit.
-    pmesg("    ------ EXPRESSION ------\n");
-    // TODO : Odstranit potom (len zebezpecenie kvoli cykleniu)
+    pmesg(" ------ EXPRESSION ------\n");
     int endWhenCount = 0;
     int countOfLeftParent = 0;
-    while (!(token.type == TOKEN_SEMICOLON || (token.type == TOKEN_RPAREN && countOfLeftParent <= 0))){
-        if(token.type == TOKEN_LPAREN)
-            countOfLeftParent++;
-        else if(token.type == TOKEN_RPAREN)
-            countOfLeftParent--;
-        // TODO : Odstranit
-        if (endWhenCount++ > 50)
+    Token token;
+    GET_TOKEN_RAW(token, file);
+    switch (token.type)
+    {
+    // @import("ifj24.zig");
+    case TOKEN_IMPORT:
+        GET_TOKEN_RAW(token, file);
+        if (token.type != TOKEN_LPAREN)
             return false;
         GET_TOKEN_RAW(token, file);
-    } 
-    pmesg("    ------ END EXPRESSION ------\n");
+        if (token.type != TOKEN_STRING_LITERAL)
+            return false;
+        GET_TOKEN_RAW(token, file);
+        if (token.type != TOKEN_RPAREN)
+            return false;
+        GET_TOKEN_RAW(token, file);
+        if (token.type != TOKEN_SEMICOLON)
+            return false;
+        break;
+    default:
+        // TODO : Odstranit potom (len zebezpecenie kvoli cykleniu)
+        while (!(token.type == TOKEN_SEMICOLON || (token.type == TOKEN_RPAREN && countOfLeftParent <= 0)))
+        {
+            if (token.type == TOKEN_LPAREN)
+                countOfLeftParent++;
+            else if (token.type == TOKEN_RPAREN)
+                countOfLeftParent--;
+            // TODO : Odstranit
+            if (endWhenCount++ > 50)
+                return false;
+            GET_TOKEN_RAW(token, file);
+        }
+        break;
+    }
+    pmesg(" ------ END EXPRESSION ------\n");
     return true;
 }
 
