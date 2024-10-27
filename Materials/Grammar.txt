@@ -25,23 +25,23 @@ RETURN_DEF ::= t_ret EXPRESSION
 IF_EXT ::= SCOPE
 IF_EXT ::= t_| t_id t_| SCOPE
 CALL_EXT ::= t_( ARG t_) 
-CALL_EXT ::= ASSIGN
+CALL_EXT ::= t_= EXPRESSION
 
 SCOPE ::=  t_{ STATEMENT 
 
 ASSIGN_VAR ::= t_;
 ASSIGN_VAR ::= t_: VAL_TYPE EXPRESSION t_;
 ASSIGN_CONST ::= EXPRESSION
+ASSIGN_CONST ::= t_import t_( string t_) t_;
 
-EXPRESSION ::= t_import t_( string t_) t_;
-EXPRESSION ::= MATH_EXP
+EXPRESSION ::= ;
+EXPRESSION ::= t_)
 
-ARG ::= ε
-ARG ::= ARG_LIST
-ARG_LIST ::= t_id ARGS
-ARG_LIST ::= string ARGS
-ARGS ::= ε
-ARGS ::= , ARG_LIST
+ARG ::= t_id ARGS
+ARG ::= string ARGS
+ARG ::= EXPRESSION ARGS
+ARGS ::= t_)
+ARGS ::= , ARG
 
 PARAM ::= t_)
 PARAM ::= t_id t_: VAL_TYPE PARAM
