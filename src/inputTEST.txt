@@ -1,1 +1,6 @@
-54e-5
+.123
+[]
+.string
+?[]u8?[]u8
+
+cislo .1 valid?
