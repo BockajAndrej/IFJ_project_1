@@ -50,6 +50,7 @@ typedef enum
     TOKEN_DISCARD,        // only '_'
     TOKEN_COLON,
     TOKEN_DOT,
+    TOKEN_QUESTION_MARK,
     TOKEN_UNDEFINED,
     TOKEN_STRINGINIT_ERROR
 
@@ -122,6 +123,7 @@ typedef enum
     sSemicolon,     // Semicolon ';'
     sExclamation,   // Exclamation mark '!', used in logical negation or operators
     sPipe,          // pipe '|' character
+    sExponentSign,
 
     // States for quotation marks.
     sSingleQuote,     // Single quote ('), used for character literals

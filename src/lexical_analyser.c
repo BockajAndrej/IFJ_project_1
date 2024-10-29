@@ -131,6 +131,8 @@ const char *token_type_to_string(Token_type type)
         return "TOKEN_COLON";
     case TOKEN_DOT:
         return "TOKEN_DOT";
+    case TOKEN_QUESTION_MARK:
+        return "TOKEN_QUEST";
     default:
         return "UNKNOWN_TOKEN";
     }
@@ -195,6 +197,7 @@ void print_token(Token token)
     case TOKEN_DISCARD:
     case TOKEN_DOT:
     case TOKEN_COLON:
+    case TOKEN_QUESTION_MARK:
         printf("%s\t\t%s\t\t%d\n", token_type_to_string(token.type), token.value.valueString.str, token.keyword_val);
         break;
 
@@ -236,14 +239,6 @@ Token get_token(FILE *file)
         token.keyword_val = 0;
         c = (char)getc(file);
 
-        if (c == EOF)
-        {
-            // state = sEnd;
-            dynamic_string_free(&token.value.valueString);
-            token.type = TOKEN_EOF;
-            return token;
-        }
-
         switch (state)
         {
         case sStart:
@@ -251,6 +246,11 @@ Token get_token(FILE *file)
             if (c == ' ' || c == '\t')
             {
                 state = sStart;
+            }
+            else if (c == EOF)
+            {
+                token.type = TOKEN_EOF;
+                return token;
             }
             else if (c == '@')
             {
@@ -302,7 +302,6 @@ Token get_token(FILE *file)
             {
                 state = sIntLiteral; // Start reading an integer literal
                 dynamic_string_add_char(&token.value.valueString, c);
-                // ungetc(c,file);
             }
             else if (c == '\"') // Start of string literal
             {
@@ -339,8 +338,12 @@ Token get_token(FILE *file)
             }
             else if (c == '[')
             {
+                // dynamic_string_add_char(&token.value.valueString, c);
+                // state = sIdentifierorKeyword;
+
                 dynamic_string_add_char(&token.value.valueString, c);
-                state = sIdentifierorKeyword;
+                token.type = TOKEN_LEFT_BRACKET;
+                return token;
             }
             else if (c == ']')
             {
@@ -378,23 +381,8 @@ Token get_token(FILE *file)
             else if (c == '?') // Question mark
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                char next_c = getc(file);
-                if (next_c == EOF || isspace(next_c))
-                {
-                    token.type = TOKEN_UNDEFINED;
-                    return token;
-                }
-                else if (isalpha(next_c) || next_c == '[')
-                {
-                    dynamic_string_add_char(&token.value.valueString, next_c); // Add to token
-                    state = sIdentifierorKeyword;                              // Transition to identifier state
-                }
-                else
-                {
-                    ungetc(next_c, file);         // Return the character back to input
-                    token.type = TOKEN_UNDEFINED; // Invalid token
-                    return token;
-                }
+                token.type = TOKEN_QUESTION_MARK;
+                return token;
             }
             else if (c == '+') // Addition operator
             {
@@ -455,96 +443,45 @@ Token get_token(FILE *file)
 
         case sIdentifierorKeyword:
         {
-            bool invalid = false;
-            // Počkáme na další znak, dokud nezjistíme, že je identifikátor kompletní
-            while (!isspace(c))
+            if (isalnum(c) || c == '_')
             {
-                // Přidáme znak do dynamického řetězce
                 dynamic_string_add_char(&token.value.valueString, c);
-                c = (char)getc(file); // Načti další znak
-
-                // Kontrola na neplatné znaky
-                if (!isalpha(c) || !isdigit(c) || !(c == '_'))
-                {
-                    if (c != EOF && !isspace(c))
-                    {
-                        invalid = true;
-                    }
-                }
-            }
-
-            // Ukončujeme identifikátor
-            ungetc(c, file);
-
-            if (is_keyword(&token))
-            {
-                token.type = TOKEN_KEYWORD;
-            }
-            else if (invalid)
-            {
-                token.type = TOKEN_UNDEFINED;
+                state = sIdentifierorKeyword;
             }
             else
             {
-                token.type = TOKEN_IDENTIFIER;
-            }
+                ungetc(c, file);
+                if (is_keyword(&token))
+                    token.type = TOKEN_KEYWORD;
+                else
+                    token.type = TOKEN_IDENTIFIER;
 
-            return token;
+                return token;
+            }
         }
         break;
-            /*case sIdentifier:
-            {
-                // Zpracuj logiku pro identifikátory zde
-                // Například: Přidávej znaky, dokud nebudou považovány za konec
-                while (isalpha(c) || isdigit(c) || c == '_')
-                {
-                    // Přidáme znak do dynamického řetězce
-                    dynamic_string_add_char(&token.value.valueString, c);
-                    c = (char)getc(file); // Načti další znak
-                }
-                ungetc(c, file); // Vrať znak zpět do vstupu
-
-                token.type = TOKEN_IDENTIFIER; // Nastav typ tokenu na identifikátor
-                return token;                  // Vrať token
-            }*/
-            break;
         case sIntLiteral:
         {
-            // Handle integer literal logic here
-            while (isdigit(c))
+            if (isdigit(c))
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                c = (char)getc(file); // Read the next character
+                state = sIntLiteral;
             }
-
-            // Check for a decimal point or exponent
-            if (c == '.')
+            else if (c == '.')
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                state = sFloatLiteral; // Transition to float literal state
+                state = sFloatLiteral;
             }
             else if (c == 'e' || c == 'E')
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                state = sExponent; // Transition to exponent state
-            }
-            else if (isalpha(c) || c == '_')
-            {
-                // Neplatný identifikátor: číslo nasledované písmenom alebo podtržítkom
-                while (isalnum(c) || c == '_')
-                {
-                    dynamic_string_add_char(&token.value.valueString, c);
-                    c = (char)getc(file);
-                }
-                ungetc(c, file);              // Vrátiť posledný prečítaný znak späť
-                token.type = TOKEN_UNDEFINED; // Nastaviť typ tokenu na neplatný
-                return token;
+                state = sExponent;
             }
             else
             {
+                token.type = TOKEN_INT_LITERAL;
                 state = sStart;
-                ungetc(c, file);                // Put the char back for further processing
-                token.type = TOKEN_INT_LITERAL; // Set token type to integer literal
+                ungetc(c, file);
                 return token;
             }
         }
@@ -552,33 +489,18 @@ Token get_token(FILE *file)
         case sFloatLiteral:
         {
             // Handle floating-point literal logic here
-            while (isdigit(c))
+            if (isdigit(c))
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                c = (char)getc(file); // Read the next character
+                state = sFloatLiteral;
             }
-
-            // Check for an exponent
-            if (c == 'e' || c == 'E')
+            else if (c == 'e' || c == 'E')
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                state = sExponent; // Transition to exponent state
-            }
-            else if (isalpha(c) || c == '_')
-            {
-                // Neplatný identifikátor: float nasledovaný písmenom alebo podtržítkom
-                while (isalnum(c) || c == '_')
-                {
-                    dynamic_string_add_char(&token.value.valueString, c);
-                    c = (char)getc(file);
-                }
-                ungetc(c, file);              // Vrátiť posledný prečítaný znak späť
-                token.type = TOKEN_UNDEFINED; // Nastaviť typ tokenu na neplatný
-                return token;
+                state = sExponent;
             }
             else
             {
-                // Finished floating-point literal
                 token.type = TOKEN_FLOAT_LITERAL; // Set token type to float literal
                 ungetc(c, file);                  // Put the character back for further processing
                 return token;                     // Return the float token
@@ -587,56 +509,46 @@ Token get_token(FILE *file)
         break;
         case sExponent:
         {
-            // Handle exponent part logic here
-            // Exponent can have an optional sign
             if (c == '+' || c == '-')
             {
-                dynamic_string_add_char(&token.value.valueString, c); // Add sign to the exponent
-                c = (char)getc(file);                                 // Read next character
+                dynamic_string_add_char(&token.value.valueString, c);
+                state = sExponentSign;
             }
-
-            // Exponent must be a sequence of digits
-            if (!isdigit(c))
-            {
-                token.type = TOKEN_UNDEFINED; // Invalid exponent
-                ungetc(c, file);              // Put the character back
-                return token;                 // Return error token
-            }
-
-            // Read the exponent digits
-            while (isdigit(c))
+            else if (isdigit(c))
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                c = (char)getc(file); // Read the next character
+                state = sExponent;
             }
-
-            // Check for invalid characters after exponent
-            if (isalpha(c) || c == '_')
+            else
             {
-                while (isalnum(c) || c == '_')
+                double calculatedNum = strtod(token.value.valueString.str, NULL);
+
+                dynamic_string_clear(&token.value.valueString);
+
+                if (!add_double_to_dynamic_string(&token.value.valueString, calculatedNum))
                 {
-                    dynamic_string_add_char(&token.value.valueString, c);
-                    c = (char)getc(file);
+                    token.type = TOKEN_UNDEFINED; // Handle error if addition fails
+                    return token;                 // Return error token
                 }
-                ungetc(c, file);              // Vrátiť posledný prečítaný znak späť
-                token.type = TOKEN_UNDEFINED; // Nastaviť typ tokenu na neplatný
+                token.type = TOKEN_FLOAT_LITERAL; // Set token type to float literal
+                ungetc(c, file);
                 return token;
             }
-
-            double calculatedNum = strtod(token.value.valueString.str, NULL);
-
-            dynamic_string_clear(&token.value.valueString);
-
-            // Now add the calculated number to the dynamic string
-            if (!add_double_to_dynamic_string(&token.value.valueString, calculatedNum))
+        }
+        break;
+        case sExponentSign:
+        {
+            if (isdigit(c))
             {
-                token.type = TOKEN_UNDEFINED; // Handle error if addition fails
-                return token;                 // Return error token
+                dynamic_string_add_char(&token.value.valueString, c);
+                state = sExponent;
             }
-            // Finished processing exponent
-            token.type = TOKEN_FLOAT_LITERAL; // Set token type to float literal
-            ungetc(c, file);                  // Put the character back for further processing
-            return token;                     // Return the float token
+            else
+            {
+                token.type = TOKEN_UNDEFINED;
+                ungetc(c, file);
+                return token;
+            }
         }
         break;
         case sStringLiteral:
@@ -713,6 +625,7 @@ Token get_token(FILE *file)
         }
         break;
         case sBackSlash:
+        {
             c = (char)getc(file); // Read the next character
             if (c == 'n')
             {
@@ -733,7 +646,8 @@ Token get_token(FILE *file)
             }
             state = sStart; // Return to the starting state
             return token;
-            break;
+        }
+        break;
         case sDivision:
         {
             if (c == '/')
@@ -827,38 +741,24 @@ Token get_token(FILE *file)
         break;
         case sImport:
         {
-            while (isalpha(c))
+            if (isalpha(c))
             {
-                // Přidáme znak do dynamického řetězce
                 dynamic_string_add_char(&token.value.valueString, c);
-                c = (char)getc(file); // Načti další znak
-            }
-            ungetc(c, file); // Vrať znak zpět do vstupu
-
-            if (strcmp(token.value.valueString.str, "@import") == 0)
-            {
-                token.type = TOKEN_IMPORT;
+                state = sImport;
             }
             else
             {
-                token.type = TOKEN_UNDEFINED;
+                ungetc(c, file);
+                if (strcmp(token.value.valueString.str, "@import") == 0)
+                    token.type = TOKEN_IMPORT;
+                else
+                    token.type = TOKEN_UNDEFINED;
+
+                state = sStart;
+                return token;
             }
-            state = sStart;
-            return token;
         }
         break;
-
-        case sSingleQuote:
-            // Handle single quote logic here
-            break;
-
-        case sLeftSingleQuote:
-            // Handle left single quote logic here
-            break;
-
-        case sError:
-            // Handle error logic here
-            break;
 
         case sEOL:
             state = sStart;
