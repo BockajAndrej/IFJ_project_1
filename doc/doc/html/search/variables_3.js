@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['intvalue_219',['intValue',['../structSymbol.html#a936e9fb2f8a62f8c44224e2183aea00a',1,'Symbol::intValue()'],['../unionToken__Value.html#ac05203e9129a71593fb42d2cef3839d2',1,'Token_Value::intValue()']]]
+  ['hasfloatvalue_275',['hasFloatValue',['../structSymbol.html#a91833d6acad4d962d2e3f34f49a3beea',1,'Symbol']]],
+  ['hasintvalue_276',['hasIntValue',['../structSymbol.html#ac865bbbf613e8c90c8e9a5b463b3bba7',1,'Symbol']]]
 ];

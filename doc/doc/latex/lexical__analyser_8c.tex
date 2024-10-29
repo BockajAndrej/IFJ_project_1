@@ -1,5 +1,5 @@
-\hypertarget{lexical__analyser_8c}{}\doxysection{/home/administrator/\+IFJ/\+IFJ-\/project01/src/lexical\+\_\+analyser.c File Reference}
-\label{lexical__analyser_8c}\index{/home/administrator/IFJ/IFJ-\/project01/src/lexical\_analyser.c@{/home/administrator/IFJ/IFJ-\/project01/src/lexical\_analyser.c}}
+\hypertarget{lexical__analyser_8c}{}\doxysection{lexical\+\_\+analyser.\+c File Reference}
+\label{lexical__analyser_8c}\index{lexical\_analyser.c@{lexical\_analyser.c}}
 {\ttfamily \#include \char`\"{}lexical\+\_\+analyser.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$error.\+h$>$}\newline
 {\ttfamily \#include $<$ctype.\+h$>$}\newline
@@ -9,8 +9,6 @@
 {\ttfamily \#include $<$math.\+h$>$}\newline
 {\ttfamily \#include $<$string.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}newstring.\+h\char`\"{}}\newline
-Include dependency graph for lexical\+\_\+analyser.\+c\+:
-% FIG 0
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
@@ -21,12 +19,16 @@ Include dependency graph for lexical\+\_\+analyser.\+c\+:
 \item 
 bool \mbox{\hyperlink{lexical__analyser_8c_ade03459f3b506becbc1e389002a1126a}{is\+\_\+keyword}} (\mbox{\hyperlink{structToken}{Token}} $\ast$token)
 \item 
+const char $\ast$ \mbox{\hyperlink{lexical__analyser_8c_a67367cc8618de258a4163191d1ac05b8}{token\+\_\+type\+\_\+to\+\_\+string}} (\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44}{Token\+\_\+type}} type)
+\item 
+void \mbox{\hyperlink{lexical__analyser_8c_acbb4fd03fd6564af6fe03306ec48364c}{print\+\_\+token}} (\mbox{\hyperlink{structToken}{Token}} token)
+\item 
 \mbox{\hyperlink{structToken}{Token}} \mbox{\hyperlink{lexical__analyser_8c_a1b68532a422d65e0eab79e3011af906e}{get\+\_\+token}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-const char $\ast$ \mbox{\hyperlink{lexical__analyser_8c_abd184eddfa99b9c6043d005b20c9b135}{keywords}} \mbox{[}\mbox{\hyperlink{lexical__analyser_8c_a3313354ed388a3e1602481bb0931a541}{KEYWORD\+\_\+\+COUNT}}\mbox{]}
+const char $\ast$ \mbox{\hyperlink{lexical__analyser_8c_abd184eddfa99b9c6043d005b20c9b135}{keywords}} \mbox{[}\mbox{\hyperlink{Lexical__analyser_8c_a3313354ed388a3e1602481bb0931a541}{KEYWORD\+\_\+\+COUNT}}\mbox{]}
 \end{DoxyCompactItemize}
 
 
@@ -46,18 +48,24 @@ const char $\ast$ \mbox{\hyperlink{lexical__analyser_8c_abd184eddfa99b9c6043d005
 \doxysubsubsection{\texorpdfstring{get\_token()}{get\_token()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structToken}{Token}} get\+\_\+token (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
-% FIG 1
-Here is the caller graph for this function\+:
-% FIG 2
 \mbox{\Hypertarget{lexical__analyser_8c_ade03459f3b506becbc1e389002a1126a}\label{lexical__analyser_8c_ade03459f3b506becbc1e389002a1126a}} 
 \index{lexical\_analyser.c@{lexical\_analyser.c}!is\_keyword@{is\_keyword}}
 \index{is\_keyword@{is\_keyword}!lexical\_analyser.c@{lexical\_analyser.c}}
 \doxysubsubsection{\texorpdfstring{is\_keyword()}{is\_keyword()}}
 {\footnotesize\ttfamily bool is\+\_\+keyword (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structToken}{Token}} $\ast$}]{token }\end{DoxyParamCaption})}
 
-Here is the caller graph for this function\+:
-% FIG 3
+\mbox{\Hypertarget{lexical__analyser_8c_acbb4fd03fd6564af6fe03306ec48364c}\label{lexical__analyser_8c_acbb4fd03fd6564af6fe03306ec48364c}} 
+\index{lexical\_analyser.c@{lexical\_analyser.c}!print\_token@{print\_token}}
+\index{print\_token@{print\_token}!lexical\_analyser.c@{lexical\_analyser.c}}
+\doxysubsubsection{\texorpdfstring{print\_token()}{print\_token()}}
+{\footnotesize\ttfamily void print\+\_\+token (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structToken}{Token}}}]{token }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lexical__analyser_8c_a67367cc8618de258a4163191d1ac05b8}\label{lexical__analyser_8c_a67367cc8618de258a4163191d1ac05b8}} 
+\index{lexical\_analyser.c@{lexical\_analyser.c}!token\_type\_to\_string@{token\_type\_to\_string}}
+\index{token\_type\_to\_string@{token\_type\_to\_string}!lexical\_analyser.c@{lexical\_analyser.c}}
+\doxysubsubsection{\texorpdfstring{token\_type\_to\_string()}{token\_type\_to\_string()}}
+{\footnotesize\ttfamily const char$\ast$ token\+\_\+type\+\_\+to\+\_\+string (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44}{Token\+\_\+type}}}]{type }\end{DoxyParamCaption})}
+
 
 
 \doxysubsection{Variable Documentation}
@@ -65,7 +73,7 @@ Here is the caller graph for this function\+:
 \index{lexical\_analyser.c@{lexical\_analyser.c}!keywords@{keywords}}
 \index{keywords@{keywords}!lexical\_analyser.c@{lexical\_analyser.c}}
 \doxysubsubsection{\texorpdfstring{keywords}{keywords}}
-{\footnotesize\ttfamily const char$\ast$ keywords\mbox{[}\mbox{\hyperlink{lexical__analyser_8c_a3313354ed388a3e1602481bb0931a541}{KEYWORD\+\_\+\+COUNT}}\mbox{]}}
+{\footnotesize\ttfamily const char$\ast$ keywords\mbox{[}\mbox{\hyperlink{Lexical__analyser_8c_a3313354ed388a3e1602481bb0931a541}{KEYWORD\+\_\+\+COUNT}}\mbox{]}}
 
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}

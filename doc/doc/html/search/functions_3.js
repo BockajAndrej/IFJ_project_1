@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['first_204',['FIRST',['../syntactic__analysis_8c.html#a89f4bbafd236e6052a8ece297ac85d75',1,'FIRST(FILE *file):&#160;syntactic_analysis.c'],['../syntactic__analysis_8h.html#a89f4bbafd236e6052a8ece297ac85d75',1,'FIRST(FILE *file):&#160;syntactic_analysis.c']]],
-  ['free_5ftable_205',['free_table',['../ADT_8c.html#a86fe0b3ef8db644c46875b1da82175c6',1,'free_table(HashTable *table):&#160;ADT.c'],['../ADT_8h.html#a86fe0b3ef8db644c46875b1da82175c6',1,'free_table(HashTable *table):&#160;ADT.c']]]
+  ['else_5fdef_243',['ELSE_DEF',['../syntactic__analysis_8c.html#a047deda12297b3a39f2d50261fd7de70',1,'ELSE_DEF(FILE *file):&#160;syntactic_analysis.c'],['../syntactic__analysis_8h.html#a047deda12297b3a39f2d50261fd7de70',1,'ELSE_DEF(FILE *file):&#160;syntactic_analysis.c']]],
+  ['expression_244',['EXPRESSION',['../syntactic__analysis_8c.html#a38b7a13b9a5926c2c4b6af62cec86f85',1,'EXPRESSION(FILE *file, Token token):&#160;syntactic_analysis.c'],['../syntactic__analysis_8h.html#a38b7a13b9a5926c2c4b6af62cec86f85',1,'EXPRESSION(FILE *file, Token token):&#160;syntactic_analysis.c']]]
 ];

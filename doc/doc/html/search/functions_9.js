@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['search_5fsymbol_212',['search_symbol',['../ADT_8c.html#aa3cd1c92e39c7b82b809ca0ee2c2c8c9',1,'search_symbol(HashTable *table, char *name):&#160;ADT.c'],['../ADT_8h.html#aa3cd1c92e39c7b82b809ca0ee2c2c8c9',1,'search_symbol(HashTable *table, char *name):&#160;ADT.c']]]
+  ['param_257',['PARAM',['../syntactic__analysis_8c.html#acb21f12318c9d312a452616eb6c7262d',1,'PARAM(FILE *file):&#160;syntactic_analysis.c'],['../syntactic__analysis_8h.html#acb21f12318c9d312a452616eb6c7262d',1,'PARAM(FILE *file):&#160;syntactic_analysis.c']]],
+  ['print_5fsymbol_258',['print_symbol',['../main_8c.html#ac717868c4349a743d88c3b73ef7a533b',1,'main.c']]],
+  ['print_5ftoken_259',['print_token',['../lexical__analyser_8c.html#acbb4fd03fd6564af6fe03306ec48364c',1,'print_token(Token token):&#160;lexical_analyser.c'],['../Lexical__analyser_8c.html#acbb4fd03fd6564af6fe03306ec48364c',1,'print_token(Token token):&#160;Lexical_analyser.c'],['../lexical__analyser_8h.html#acbb4fd03fd6564af6fe03306ec48364c',1,'print_token(Token token):&#160;lexical_analyser.c']]]
 ];

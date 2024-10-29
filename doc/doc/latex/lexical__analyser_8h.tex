@@ -1,11 +1,7 @@
-\hypertarget{lexical__analyser_8h}{}\doxysection{/home/administrator/\+IFJ/\+IFJ-\/project01/src/lexical\+\_\+analyser.h File Reference}
-\label{lexical__analyser_8h}\index{/home/administrator/IFJ/IFJ-\/project01/src/lexical\_analyser.h@{/home/administrator/IFJ/IFJ-\/project01/src/lexical\_analyser.h}}
+\hypertarget{lexical__analyser_8h}{}\doxysection{lexical\+\_\+analyser.\+h File Reference}
+\label{lexical__analyser_8h}\index{lexical\_analyser.h@{lexical\_analyser.h}}
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}newstring.\+h\char`\"{}}\newline
-Include dependency graph for lexical\+\_\+analyser.\+h\+:
-% FIG 0
-This graph shows which files directly or indirectly include this file\+:
-% FIG 1
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -147,6 +143,10 @@ enum \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8}{St
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \mbox{\hyperlink{lexical__analyser_8h_a67367cc8618de258a4163191d1ac05b8}{token\+\_\+type\+\_\+to\+\_\+string}} (\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44}{Token\+\_\+type}} type)
+\item 
+void \mbox{\hyperlink{lexical__analyser_8h_acbb4fd03fd6564af6fe03306ec48364c}{print\+\_\+token}} (\mbox{\hyperlink{structToken}{Token}} token)
 \item 
 \mbox{\hyperlink{structToken}{Token}} \mbox{\hyperlink{lexical__analyser_8h_a1b68532a422d65e0eab79e3011af906e}{get\+\_\+token}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
 \end{DoxyCompactItemize}
@@ -574,7 +574,15 @@ TOKEN\+\_\+\+STRINGINIT\+\_\+\+ERROR&\\
 \doxysubsubsection{\texorpdfstring{get\_token()}{get\_token()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structToken}{Token}} get\+\_\+token (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
-% FIG 2
-Here is the caller graph for this function\+:
-% FIG 3
+\mbox{\Hypertarget{lexical__analyser_8h_acbb4fd03fd6564af6fe03306ec48364c}\label{lexical__analyser_8h_acbb4fd03fd6564af6fe03306ec48364c}} 
+\index{lexical\_analyser.h@{lexical\_analyser.h}!print\_token@{print\_token}}
+\index{print\_token@{print\_token}!lexical\_analyser.h@{lexical\_analyser.h}}
+\doxysubsubsection{\texorpdfstring{print\_token()}{print\_token()}}
+{\footnotesize\ttfamily void print\+\_\+token (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structToken}{Token}}}]{token }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lexical__analyser_8h_a67367cc8618de258a4163191d1ac05b8}\label{lexical__analyser_8h_a67367cc8618de258a4163191d1ac05b8}} 
+\index{lexical\_analyser.h@{lexical\_analyser.h}!token\_type\_to\_string@{token\_type\_to\_string}}
+\index{token\_type\_to\_string@{token\_type\_to\_string}!lexical\_analyser.h@{lexical\_analyser.h}}
+\doxysubsubsection{\texorpdfstring{token\_type\_to\_string()}{token\_type\_to\_string()}}
+{\footnotesize\ttfamily const char$\ast$ token\+\_\+type\+\_\+to\+\_\+string (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44}{Token\+\_\+type}}}]{type }\end{DoxyParamCaption})}
+

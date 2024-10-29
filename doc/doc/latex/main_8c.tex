@@ -1,21 +1,20 @@
-\hypertarget{main_8c}{}\doxysection{/home/administrator/\+IFJ/\+IFJ-\/project01/src/main.c File Reference}
-\label{main_8c}\index{/home/administrator/IFJ/IFJ-\/project01/src/main.c@{/home/administrator/IFJ/IFJ-\/project01/src/main.c}}
+\hypertarget{main_8c}{}\doxysection{main.\+c File Reference}
+\label{main_8c}\index{main.c@{main.c}}
 {\ttfamily \#include $<$ctype.\+h$>$}\newline
 {\ttfamily \#include $<$stdbool.\+h$>$}\newline
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
 {\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}lexical\+\_\+analyser.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}syntactic\+\_\+analysis.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$error.\+h$>$}\newline
-{\ttfamily \#include $<$string.\+h$>$}\newline
-Include dependency graph for main.\+c\+:
-% FIG 0
+{\ttfamily \#include \char`\"{}ADT.\+h\char`\"{}}\newline
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-const char $\ast$ \mbox{\hyperlink{main_8c_a67367cc8618de258a4163191d1ac05b8}{token\+\_\+type\+\_\+to\+\_\+string}} (\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44}{Token\+\_\+type}} type)
+void \mbox{\hyperlink{main_8c_ac717868c4349a743d88c3b73ef7a533b}{print\+\_\+symbol}} (const \mbox{\hyperlink{structSymbol}{Symbol}} $\ast$symbol)
 \item 
-void \mbox{\hyperlink{main_8c_acbb4fd03fd6564af6fe03306ec48364c}{print\+\_\+token}} (\mbox{\hyperlink{structToken}{Token}} token)
+void \mbox{\hyperlink{main_8c_a61b668b23f9d1ce9068bff1a47a788de}{test\+\_\+hash\+\_\+table}} ()
 \item 
 int \mbox{\hyperlink{main_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
 \end{DoxyCompactItemize}
@@ -33,26 +32,18 @@ FILE $\ast$ \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
-% FIG 1
-\mbox{\Hypertarget{main_8c_acbb4fd03fd6564af6fe03306ec48364c}\label{main_8c_acbb4fd03fd6564af6fe03306ec48364c}} 
-\index{main.c@{main.c}!print\_token@{print\_token}}
-\index{print\_token@{print\_token}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{print\_token()}{print\_token()}}
-{\footnotesize\ttfamily void print\+\_\+token (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structToken}{Token}}}]{token }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{main_8c_ac717868c4349a743d88c3b73ef7a533b}\label{main_8c_ac717868c4349a743d88c3b73ef7a533b}} 
+\index{main.c@{main.c}!print\_symbol@{print\_symbol}}
+\index{print\_symbol@{print\_symbol}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{print\_symbol()}{print\_symbol()}}
+{\footnotesize\ttfamily void print\+\_\+symbol (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structSymbol}{Symbol}} $\ast$}]{symbol }\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
-% FIG 2
-Here is the caller graph for this function\+:
-% FIG 3
-\mbox{\Hypertarget{main_8c_a67367cc8618de258a4163191d1ac05b8}\label{main_8c_a67367cc8618de258a4163191d1ac05b8}} 
-\index{main.c@{main.c}!token\_type\_to\_string@{token\_type\_to\_string}}
-\index{token\_type\_to\_string@{token\_type\_to\_string}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{token\_type\_to\_string()}{token\_type\_to\_string()}}
-{\footnotesize\ttfamily const char$\ast$ token\+\_\+type\+\_\+to\+\_\+string (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44}{Token\+\_\+type}}}]{type }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{main_8c_a61b668b23f9d1ce9068bff1a47a788de}\label{main_8c_a61b668b23f9d1ce9068bff1a47a788de}} 
+\index{main.c@{main.c}!test\_hash\_table@{test\_hash\_table}}
+\index{test\_hash\_table@{test\_hash\_table}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{test\_hash\_table()}{test\_hash\_table()}}
+{\footnotesize\ttfamily void test\+\_\+hash\+\_\+table (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Here is the caller graph for this function\+:
-% FIG 4
 
 
 \doxysubsection{Variable Documentation}

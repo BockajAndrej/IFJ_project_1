@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IFJ-projekt01: /home/administrator/IFJ/IFJ-project01/src/syntactic_analysis.h File Reference</title>
+<title>IFJ-projekt01: syntactic_analysis.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,16 +74,9 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for syntactic_analysis.h:</div>
-<div class="dyncontent">
-<div class="center"><img src="syntactic__analysis_8h__incl.png" border="0" usemap="#a_2home_2administrator_2IFJ_2IFJ-project01_2src_2syntactic__analysis_8h" alt=""/></div>
-</div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="syntactic__analysis_8h__dep__incl.png" border="0" usemap="#a_2home_2administrator_2IFJ_2IFJ-project01_2src_2syntactic__analysis_8hdep" alt=""/></div>
-</div>
+<code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="lexical__analyser_8h_source.html">lexical_analyser.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="error_8h_source.html">error.h</a>&quot;</code><br />
 </div>
 <p><a href="syntactic__analysis_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -91,13 +84,83 @@ This graph shows which files directly or indirectly include this file:</div>
 Macros</h2></td></tr>
 <tr class="memitem:a53e9e8d433a1916251ad40f56caea6e3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#a53e9e8d433a1916251ad40f56caea6e3">_SYNTACTIC_ANALYSIS_H</a></td></tr>
 <tr class="separator:a53e9e8d433a1916251ad40f56caea6e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26631c62c776d2ed0eb3f7b777520eab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#a26631c62c776d2ed0eb3f7b777520eab">pmesg</a>(s)&#160;&#160;&#160;fprintf(stderr, &quot;Line: %u - &quot; s, __LINE__)</td></tr>
+<tr class="separator:a26631c62c776d2ed0eb3f7b777520eab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af73d4e4f25369e301f7133377f391acb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#af73d4e4f25369e301f7133377f391acb">GET_TOKEN_RAW</a>(token,  <a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>)</td></tr>
+<tr class="separator:af73d4e4f25369e301f7133377f391acb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a89f4bbafd236e6052a8ece297ac85d75"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#a89f4bbafd236e6052a8ece297ac85d75">FIRST</a> (FILE *<a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>)</td></tr>
-<tr class="separator:a89f4bbafd236e6052a8ece297ac85d75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a607ec0964227a0c6c98fd79770e51c11"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#a607ec0964227a0c6c98fd79770e51c11">FIRST</a> (FILE *<a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>)</td></tr>
+<tr class="memdesc:a607ec0964227a0c6c98fd79770e51c11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes the FIRST rule in the syntactic analysis.  <a href="syntactic__analysis_8h.html#a607ec0964227a0c6c98fd79770e51c11">More...</a><br /></td></tr>
+<tr class="separator:a607ec0964227a0c6c98fd79770e51c11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7eac9e4351cf87fecd3e9a66cf5f28d8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#a7eac9e4351cf87fecd3e9a66cf5f28d8">STATEMENT</a> (FILE *<a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>)</td></tr>
+<tr class="memdesc:a7eac9e4351cf87fecd3e9a66cf5f28d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes the commands, coditions, ...  <a href="syntactic__analysis_8h.html#a7eac9e4351cf87fecd3e9a66cf5f28d8">More...</a><br /></td></tr>
+<tr class="separator:a7eac9e4351cf87fecd3e9a66cf5f28d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49c6186e8aee36246b52305756b7a017"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#a49c6186e8aee36246b52305756b7a017">VAR_DEF</a> (FILE *<a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>)</td></tr>
+<tr class="memdesc:a49c6186e8aee36246b52305756b7a017"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes command for variable declaration.  <a href="syntactic__analysis_8h.html#a49c6186e8aee36246b52305756b7a017">More...</a><br /></td></tr>
+<tr class="separator:a49c6186e8aee36246b52305756b7a017"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1c09d376532dc76198f8d2d6c729fef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#ab1c09d376532dc76198f8d2d6c729fef">CONST_DEF</a> (FILE *<a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>)</td></tr>
+<tr class="memdesc:ab1c09d376532dc76198f8d2d6c729fef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes command for constant declaration.  <a href="syntactic__analysis_8h.html#ab1c09d376532dc76198f8d2d6c729fef">More...</a><br /></td></tr>
+<tr class="separator:ab1c09d376532dc76198f8d2d6c729fef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb9892407a0399d61e51261ff730599a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#afb9892407a0399d61e51261ff730599a">FN_DEF</a> (FILE *<a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>)</td></tr>
+<tr class="memdesc:afb9892407a0399d61e51261ff730599a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes function declaration.  <a href="syntactic__analysis_8h.html#afb9892407a0399d61e51261ff730599a">More...</a><br /></td></tr>
+<tr class="separator:afb9892407a0399d61e51261ff730599a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9b33c13aa831335429748838739aef7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#ac9b33c13aa831335429748838739aef7">IF_DEF</a> (FILE *<a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>)</td></tr>
+<tr class="memdesc:ac9b33c13aa831335429748838739aef7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes if condition.  <a href="syntactic__analysis_8h.html#ac9b33c13aa831335429748838739aef7">More...</a><br /></td></tr>
+<tr class="separator:ac9b33c13aa831335429748838739aef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a047deda12297b3a39f2d50261fd7de70"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#a047deda12297b3a39f2d50261fd7de70">ELSE_DEF</a> (FILE *<a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>)</td></tr>
+<tr class="memdesc:a047deda12297b3a39f2d50261fd7de70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes else condition.  <a href="syntactic__analysis_8h.html#a047deda12297b3a39f2d50261fd7de70">More...</a><br /></td></tr>
+<tr class="separator:a047deda12297b3a39f2d50261fd7de70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13efec100d0c39c874c413765ded4d10"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#a13efec100d0c39c874c413765ded4d10">WHILE_DEF</a> (FILE *<a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>)</td></tr>
+<tr class="memdesc:a13efec100d0c39c874c413765ded4d10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes while loop.  <a href="syntactic__analysis_8h.html#a13efec100d0c39c874c413765ded4d10">More...</a><br /></td></tr>
+<tr class="separator:a13efec100d0c39c874c413765ded4d10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1012bbb9f570627aabec5e3eda7c4993"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#a1012bbb9f570627aabec5e3eda7c4993">RET_DEF</a> (FILE *<a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>)</td></tr>
+<tr class="memdesc:a1012bbb9f570627aabec5e3eda7c4993"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes return command.  <a href="syntactic__analysis_8h.html#a1012bbb9f570627aabec5e3eda7c4993">More...</a><br /></td></tr>
+<tr class="separator:a1012bbb9f570627aabec5e3eda7c4993"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2999c303cc3fb4692b7e96d9a22e9c03"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#a2999c303cc3fb4692b7e96d9a22e9c03">CALL_DEF</a> (FILE *<a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>)</td></tr>
+<tr class="memdesc:a2999c303cc3fb4692b7e96d9a22e9c03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes calling functions, variables.  <a href="syntactic__analysis_8h.html#a2999c303cc3fb4692b7e96d9a22e9c03">More...</a><br /></td></tr>
+<tr class="separator:a2999c303cc3fb4692b7e96d9a22e9c03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af131918ae0d8a1cc29cb2c8d6dc13aff"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#af131918ae0d8a1cc29cb2c8d6dc13aff">IF_EXT</a> (FILE *<a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>)</td></tr>
+<tr class="memdesc:af131918ae0d8a1cc29cb2c8d6dc13aff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extended function for <a class="el" href="syntactic__analysis_8c.html#a2999c303cc3fb4692b7e96d9a22e9c03" title="Processes calling functions, variables.">CALL_DEF()</a>  <a href="syntactic__analysis_8h.html#af131918ae0d8a1cc29cb2c8d6dc13aff">More...</a><br /></td></tr>
+<tr class="separator:af131918ae0d8a1cc29cb2c8d6dc13aff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade39708cf9c0a95b1e75a94b3982f1aa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#ade39708cf9c0a95b1e75a94b3982f1aa">CALL_EXT</a> (FILE *<a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>)</td></tr>
+<tr class="memdesc:ade39708cf9c0a95b1e75a94b3982f1aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extended function for <a class="el" href="syntactic__analysis_8c.html#a2999c303cc3fb4692b7e96d9a22e9c03" title="Processes calling functions, variables.">CALL_DEF()</a>  <a href="syntactic__analysis_8h.html#ade39708cf9c0a95b1e75a94b3982f1aa">More...</a><br /></td></tr>
+<tr class="separator:ade39708cf9c0a95b1e75a94b3982f1aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76e0ba812902123b4ec0d43c59c13c04"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#a76e0ba812902123b4ec0d43c59c13c04">ASSIGN_VAR</a> (FILE *<a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>)</td></tr>
+<tr class="memdesc:a76e0ba812902123b4ec0d43c59c13c04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes assigning expresions to the variable.  <a href="syntactic__analysis_8h.html#a76e0ba812902123b4ec0d43c59c13c04">More...</a><br /></td></tr>
+<tr class="separator:a76e0ba812902123b4ec0d43c59c13c04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1d8bc4c3095f3ba13e1fcc83038d948"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#aa1d8bc4c3095f3ba13e1fcc83038d948">ASSIGN_CONST</a> (FILE *<a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>)</td></tr>
+<tr class="memdesc:aa1d8bc4c3095f3ba13e1fcc83038d948"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes assigning expresions to the constant.  <a href="syntactic__analysis_8h.html#aa1d8bc4c3095f3ba13e1fcc83038d948">More...</a><br /></td></tr>
+<tr class="separator:aa1d8bc4c3095f3ba13e1fcc83038d948"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d21e9db61747d6734d9a7f27d33b4f4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#a7d21e9db61747d6734d9a7f27d33b4f4">SCOPE</a> (FILE *<a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>)</td></tr>
+<tr class="memdesc:a7d21e9db61747d6734d9a7f27d33b4f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function for determining the depth of infestation.  <a href="syntactic__analysis_8h.html#a7d21e9db61747d6734d9a7f27d33b4f4">More...</a><br /></td></tr>
+<tr class="separator:a7d21e9db61747d6734d9a7f27d33b4f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb21f12318c9d312a452616eb6c7262d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#acb21f12318c9d312a452616eb6c7262d">PARAM</a> (FILE *<a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>)</td></tr>
+<tr class="memdesc:acb21f12318c9d312a452616eb6c7262d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function for processing parameters of declaraced function.  <a href="syntactic__analysis_8h.html#acb21f12318c9d312a452616eb6c7262d">More...</a><br /></td></tr>
+<tr class="separator:acb21f12318c9d312a452616eb6c7262d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83f44b9d12d581ea924af4ba707819c3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#a83f44b9d12d581ea924af4ba707819c3">ARG</a> (FILE *<a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>)</td></tr>
+<tr class="memdesc:a83f44b9d12d581ea924af4ba707819c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function for processing argument of called function.  <a href="syntactic__analysis_8h.html#a83f44b9d12d581ea924af4ba707819c3">More...</a><br /></td></tr>
+<tr class="separator:a83f44b9d12d581ea924af4ba707819c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a271ef1f0dc6a029b233bcb024b19b116"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#a271ef1f0dc6a029b233bcb024b19b116">ARGS</a> (FILE *<a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>)</td></tr>
+<tr class="memdesc:a271ef1f0dc6a029b233bcb024b19b116"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function for processing another argument which is in queue.  <a href="syntactic__analysis_8h.html#a271ef1f0dc6a029b233bcb024b19b116">More...</a><br /></td></tr>
+<tr class="separator:a271ef1f0dc6a029b233bcb024b19b116"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38b7a13b9a5926c2c4b6af62cec86f85"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#a38b7a13b9a5926c2c4b6af62cec86f85">EXPRESSION</a> (FILE *<a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>, <a class="el" href="structToken.html">Token</a> token)</td></tr>
+<tr class="memdesc:a38b7a13b9a5926c2c4b6af62cec86f85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function for processing another argument which is in queue.  <a href="syntactic__analysis_8h.html#a38b7a13b9a5926c2c4b6af62cec86f85">More...</a><br /></td></tr>
+<tr class="separator:a38b7a13b9a5926c2c4b6af62cec86f85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a90cf37b546f64566f9de66bfee4864"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#a6a90cf37b546f64566f9de66bfee4864">VAR_TYPE</a> (<a class="el" href="structToken.html">Token</a> t)</td></tr>
+<tr class="memdesc:a6a90cf37b546f64566f9de66bfee4864"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function for verifaction enabled data types (VARIABLE/CONST)  <a href="syntactic__analysis_8h.html#a6a90cf37b546f64566f9de66bfee4864">More...</a><br /></td></tr>
+<tr class="separator:a6a90cf37b546f64566f9de66bfee4864"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaef2bee27144c07c175bb36e4c28af9d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#aaef2bee27144c07c175bb36e4c28af9d">VAL_TYPE</a> (<a class="el" href="structToken.html">Token</a> t)</td></tr>
+<tr class="memdesc:aaef2bee27144c07c175bb36e4c28af9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function for verifaction enabled data types (DATA TYPES)  <a href="syntactic__analysis_8h.html#aaef2bee27144c07c175bb36e4c28af9d">More...</a><br /></td></tr>
+<tr class="separator:aaef2bee27144c07c175bb36e4c28af9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef5821c4ef2e8e26c864efa3564244f6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="syntactic__analysis_8h.html#aef5821c4ef2e8e26c864efa3564244f6">FN_TYPE</a> (<a class="el" href="structToken.html">Token</a> t)</td></tr>
+<tr class="memdesc:aef5821c4ef2e8e26c864efa3564244f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function for verifaction enabled data types (FUNCTIONS)  <a href="syntactic__analysis_8h.html#aef5821c4ef2e8e26c864efa3564244f6">More...</a><br /></td></tr>
+<tr class="separator:aef5821c4ef2e8e26c864efa3564244f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Bockaj Andrej </dd></dl>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a53e9e8d433a1916251ad40f56caea6e3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a53e9e8d433a1916251ad40f56caea6e3">&#9670;&nbsp;</a></span>_SYNTACTIC_ANALYSIS_H</h2>
 
@@ -112,15 +175,70 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a89f4bbafd236e6052a8ece297ac85d75"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89f4bbafd236e6052a8ece297ac85d75">&#9670;&nbsp;</a></span>FIRST()</h2>
+<a id="af73d4e4f25369e301f7133377f391acb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af73d4e4f25369e301f7133377f391acb">&#9670;&nbsp;</a></span>GET_TOKEN_RAW</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void FIRST </td>
+          <td class="memname">#define GET_TOKEN_RAW</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">token, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span>                            \</div>
+<div class="line">    {                             \</div>
+<div class="line">        token = <a class="code" href="lexical__analyser_8c.html#a1b68532a422d65e0eab79e3011af906e">get_token</a>(<a class="code" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>);  \</div>
+<div class="line">    } <span class="keywordflow">while</span> (token.type == <a class="code" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a0fe00080531042db460071402c40f763">TOKEN_COMMENT</a> || token.type == <a class="code" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a6b0ab7cf8c0d1203475022b3d5600f85">TOKEN_EOL</a>); \</div>
+<div class="line">    print_token(token);</div>
+<div class="ttc" id="alexical__analyser_8c_html_a1b68532a422d65e0eab79e3011af906e"><div class="ttname"><a href="lexical__analyser_8c.html#a1b68532a422d65e0eab79e3011af906e">get_token</a></div><div class="ttdeci">Token get_token(FILE *file)</div><div class="ttdef"><b>Definition:</b> lexical_analyser.c:211</div></div>
+<div class="ttc" id="alexical__analyser_8h_html_a58fe1555b8da7f766b19a2c049bfbe44a0fe00080531042db460071402c40f763"><div class="ttname"><a href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a0fe00080531042db460071402c40f763">TOKEN_COMMENT</a></div><div class="ttdeci">@ TOKEN_COMMENT</div><div class="ttdef"><b>Definition:</b> lexical_analyser.h:48</div></div>
+<div class="ttc" id="alexical__analyser_8h_html_a58fe1555b8da7f766b19a2c049bfbe44a6b0ab7cf8c0d1203475022b3d5600f85"><div class="ttname"><a href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a6b0ab7cf8c0d1203475022b3d5600f85">TOKEN_EOL</a></div><div class="ttdeci">@ TOKEN_EOL</div><div class="ttdef"><b>Definition:</b> lexical_analyser.h:10</div></div>
+<div class="ttc" id="amain_8c_html_a702945180aa732857b380a007a7e2a21"><div class="ttname"><a href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a></div><div class="ttdeci">FILE * file</div><div class="ttdef"><b>Definition:</b> main.c:12</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a26631c62c776d2ed0eb3f7b777520eab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26631c62c776d2ed0eb3f7b777520eab">&#9670;&nbsp;</a></span>pmesg</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define pmesg</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">s</td><td>)</td>
+          <td>&#160;&#160;&#160;fprintf(stderr, &quot;Line: %u - &quot; s, __LINE__)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a83f44b9d12d581ea924af4ba707819c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83f44b9d12d581ea924af4ba707819c3">&#9670;&nbsp;</a></span>ARG()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ARG </td>
           <td>(</td>
           <td class="paramtype">FILE *&#160;</td>
           <td class="paramname"><em>file</em></td><td>)</td>
@@ -128,11 +246,625 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="syntactic__analysis_8h_a89f4bbafd236e6052a8ece297ac85d75_cgraph.png" border="0" usemap="#asyntactic__analysis_8h_a89f4bbafd236e6052a8ece297ac85d75_cgraph" alt=""/></div>
+
+<p>Function for processing argument of called function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>A pointer to the file being analyzed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If syntactic analysis pass return true otherwise false Use case: <div class="fragment"><div class="line">t_id</div>
+<div class="line">t_string</div>
+<div class="line"><a class="code" href="syntactic__analysis_8c.html#a38b7a13b9a5926c2c4b6af62cec86f85">EXPRESSION</a></div>
+<div class="ttc" id="asyntactic__analysis_8c_html_a38b7a13b9a5926c2c4b6af62cec86f85"><div class="ttname"><a href="syntactic__analysis_8c.html#a38b7a13b9a5926c2c4b6af62cec86f85">EXPRESSION</a></div><div class="ttdeci">bool EXPRESSION(FILE *file, Token token)</div><div class="ttdoc">Function for processing another argument which is in queue.</div><div class="ttdef"><b>Definition:</b> syntactic_analysis.c:634</div></div>
+</div><!-- fragment --> </dd></dl>
+
 </div>
+</div>
+<a id="a271ef1f0dc6a029b233bcb024b19b116"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a271ef1f0dc6a029b233bcb024b19b116">&#9670;&nbsp;</a></span>ARGS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ARGS </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function for processing another argument which is in queue. </p>
+<p>First argument is processed in <a class="el" href="syntactic__analysis_8c.html#a83f44b9d12d581ea924af4ba707819c3" title="Function for processing argument of called function.">ARG()</a> but after that should be character ",". That sequence is repeaded unltil ")" </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>A pointer to the file being analyzed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If syntactic analysis pass return true otherwise false Use case: <div class="fragment"><div class="line">t_)</div>
+<div class="line">t_,</div>
+</div><!-- fragment --> </dd></dl>
+
+</div>
+</div>
+<a id="aa1d8bc4c3095f3ba13e1fcc83038d948"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1d8bc4c3095f3ba13e1fcc83038d948">&#9670;&nbsp;</a></span>ASSIGN_CONST()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ASSIGN_CONST </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Processes assigning expresions to the constant. </p>
+<p>Processes functions arguments or assignment to a variable (= EXPRESSION) <br  />
+ </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>A pointer to the file being analyzed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If syntactic analysis pass return true otherwise false Use case: <div class="fragment"><div class="line">@<span class="keyword">import</span>(t_string);</div>
+<div class="line">EXPRESSIONS;</div>
+</div><!-- fragment --> </dd></dl>
+
+</div>
+</div>
+<a id="a76e0ba812902123b4ec0d43c59c13c04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76e0ba812902123b4ec0d43c59c13c04">&#9670;&nbsp;</a></span>ASSIGN_VAR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ASSIGN_VAR </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Processes assigning expresions to the variable. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>A pointer to the file being analyzed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If syntactic analysis pass return true otherwise false Use case: <div class="fragment"><div class="line">@<span class="keyword">import</span>(t_string);</div>
+<div class="line">EXPRESSIONS;</div>
+</div><!-- fragment --> </dd></dl>
+
+</div>
+</div>
+<a id="a2999c303cc3fb4692b7e96d9a22e9c03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2999c303cc3fb4692b7e96d9a22e9c03">&#9670;&nbsp;</a></span>CALL_DEF()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CALL_DEF </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Processes calling functions, variables. </p>
+<dl class="section note"><dt>Note</dt><dd>Works as preprocessing function for <a class="el" href="syntactic__analysis_8c.html#af131918ae0d8a1cc29cb2c8d6dc13aff" title="Extended function for CALL_DEF()">IF_EXT()</a> </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>A pointer to the file being analyzed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If syntactic analysis pass return true otherwise false Use case: <div class="fragment"><div class="line">@<span class="keyword">import</span>(t_string);</div>
+<div class="line">EXPRESSIONS;</div>
+</div><!-- fragment --> </dd></dl>
+
+</div>
+</div>
+<a id="ade39708cf9c0a95b1e75a94b3982f1aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade39708cf9c0a95b1e75a94b3982f1aa">&#9670;&nbsp;</a></span>CALL_EXT()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CALL_EXT </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extended function for <a class="el" href="syntactic__analysis_8c.html#a2999c303cc3fb4692b7e96d9a22e9c03" title="Processes calling functions, variables.">CALL_DEF()</a> </p>
+<p>Processes functions arguments or assignment to a variable (= EXPRESSION) </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>A pointer to the file being analyzed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If syntactic analysis pass return true otherwise false Use case: <div class="fragment"><div class="line">@<span class="keyword">import</span>(t_string);</div>
+<div class="line">EXPRESSIONS;</div>
+</div><!-- fragment --> </dd></dl>
+
+</div>
+</div>
+<a id="ab1c09d376532dc76198f8d2d6c729fef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1c09d376532dc76198f8d2d6c729fef">&#9670;&nbsp;</a></span>CONST_DEF()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CONST_DEF </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Processes command for constant declaration. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>A pointer to the file being analyzed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If syntactic analysis pass return true otherwise false Use case: <div class="fragment"><div class="line">@<span class="keyword">import</span>(t_string);</div>
+<div class="line">EXPRESSIONS;</div>
+</div><!-- fragment --> </dd></dl>
+
+</div>
+</div>
+<a id="a047deda12297b3a39f2d50261fd7de70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a047deda12297b3a39f2d50261fd7de70">&#9670;&nbsp;</a></span>ELSE_DEF()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ELSE_DEF </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Processes else condition. </p>
+<dl class="section note"><dt>Note</dt><dd>Works as preprocessing function for <a class="el" href="syntactic__analysis_8c.html#af131918ae0d8a1cc29cb2c8d6dc13aff" title="Extended function for CALL_DEF()">IF_EXT()</a> </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>A pointer to the file being analyzed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If syntactic analysis pass return true otherwise false Use case: <div class="fragment"><div class="line">@<span class="keyword">import</span>(t_string);</div>
+<div class="line">EXPRESSIONS;</div>
+</div><!-- fragment --> </dd></dl>
+
+</div>
+</div>
+<a id="a38b7a13b9a5926c2c4b6af62cec86f85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38b7a13b9a5926c2c4b6af62cec86f85">&#9670;&nbsp;</a></span>EXPRESSION()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool EXPRESSION </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>file</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structToken.html">Token</a>&#160;</td>
+          <td class="paramname"><em>token</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function for processing another argument which is in queue. </p>
+<dl class="section warning"><dt>Warning</dt><dd>First token is passed by argument (FIX)</dd></dl>
+<p>It ends when ";" or ")" . Also works: ((2+3)*6)-9; Also works: factorial(256*(56-7)); </p><dl class="section note"><dt>Note</dt><dd>It can ends with ")" because of declaration of function </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>A pointer to the file being analyzed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If syntactic analysis pass return true otherwise false Use case: <div class="fragment"><div class="line">...</div>
+</div><!-- fragment --> </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd><p class="startdd">Musi obsahovat aspon 1 cislo (bude sa osetrovat v semantickej) </p>
+<p class="interdd">Problem pri const a = fn(a) + fn(b); (program ocakava za fn() znak ';') </p>
+<p class="enddd">Fix first token </p>
+</dd></dl>
+
+</div>
+</div>
+<a id="a607ec0964227a0c6c98fd79770e51c11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a607ec0964227a0c6c98fd79770e51c11">&#9670;&nbsp;</a></span>FIRST()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FIRST </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Processes the FIRST rule in the syntactic analysis. </p>
+<p>First and the only one function called from main. Verifies part of code which is out of scope. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>A pointer to the file being analyzed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If syntactic analysis pass return true otherwise false Use case: <div class="fragment"><div class="line">@<span class="keyword">import</span>(t_string);</div>
+<div class="line">EXPRESSIONS;</div>
+</div><!-- fragment --> </dd></dl>
+
+</div>
+</div>
+<a id="afb9892407a0399d61e51261ff730599a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb9892407a0399d61e51261ff730599a">&#9670;&nbsp;</a></span>FN_DEF()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FN_DEF </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Processes function declaration. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>A pointer to the file being analyzed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If syntactic analysis pass return true otherwise false Use case: <div class="fragment"><div class="line">@<span class="keyword">import</span>(t_string);</div>
+<div class="line">EXPRESSIONS;</div>
+</div><!-- fragment --> </dd></dl>
+
+</div>
+</div>
+<a id="aef5821c4ef2e8e26c864efa3564244f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef5821c4ef2e8e26c864efa3564244f6">&#9670;&nbsp;</a></span>FN_TYPE()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FN_TYPE </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structToken.html">Token</a>&#160;</td>
+          <td class="paramname"><em>t</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function for verifaction enabled data types (FUNCTIONS) </p>
+<dl class="section return"><dt>Returns</dt><dd>If token is enabled data type return true otherwise false </dd></dl>
+
+</div>
+</div>
+<a id="ac9b33c13aa831335429748838739aef7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9b33c13aa831335429748838739aef7">&#9670;&nbsp;</a></span>IF_DEF()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool IF_DEF </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Processes if condition. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>A pointer to the file being analyzed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If syntactic analysis pass return true otherwise false Use case: <div class="fragment"><div class="line">@<span class="keyword">import</span>(t_string);</div>
+<div class="line">EXPRESSIONS;</div>
+</div><!-- fragment --> </dd></dl>
+
+</div>
+</div>
+<a id="af131918ae0d8a1cc29cb2c8d6dc13aff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af131918ae0d8a1cc29cb2c8d6dc13aff">&#9670;&nbsp;</a></span>IF_EXT()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool IF_EXT </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extended function for <a class="el" href="syntactic__analysis_8c.html#a2999c303cc3fb4692b7e96d9a22e9c03" title="Processes calling functions, variables.">CALL_DEF()</a> </p>
+<p>Processes functions arguments or assignment to a variable (= EXPRESSION) </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>A pointer to the file being analyzed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If syntactic analysis pass return true otherwise false Use case: <div class="fragment"><div class="line">@<span class="keyword">import</span>(t_string);</div>
+<div class="line">EXPRESSIONS;</div>
+</div><!-- fragment --> </dd></dl>
+
+</div>
+</div>
+<a id="acb21f12318c9d312a452616eb6c7262d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb21f12318c9d312a452616eb6c7262d">&#9670;&nbsp;</a></span>PARAM()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PARAM </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function for processing parameters of declaraced function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>A pointer to the file being analyzed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If syntactic analysis pass return true otherwise false Use case: <div class="fragment"><div class="line">t_)</div>
+<div class="line">x : u8</div>
+<div class="line">, y : u8</div>
+</div><!-- fragment --> </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>x : []u8, y : []u8 </dd></dl>
+
+</div>
+</div>
+<a id="a1012bbb9f570627aabec5e3eda7c4993"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1012bbb9f570627aabec5e3eda7c4993">&#9670;&nbsp;</a></span>RET_DEF()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool RET_DEF </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Processes return command. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>A pointer to the file being analyzed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If syntactic analysis pass return true otherwise false Use case: <div class="fragment"><div class="line">@<span class="keyword">import</span>(t_string);</div>
+<div class="line">EXPRESSIONS;</div>
+</div><!-- fragment --> </dd></dl>
+
+</div>
+</div>
+<a id="a7d21e9db61747d6734d9a7f27d33b4f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d21e9db61747d6734d9a7f27d33b4f4">&#9670;&nbsp;</a></span>SCOPE()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SCOPE </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function for determining the depth of infestation. </p>
+<p>In scope are Statements. Everything which can be between {} except declaration of functions. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>A pointer to the file being analyzed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If syntactic analysis pass return true otherwise false Use case: <div class="fragment"><div class="line">@<span class="keyword">import</span>(t_string);</div>
+<div class="line">EXPRESSIONS;</div>
+</div><!-- fragment --> </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Nefunkcny scope len na jeden riadok (bez {}) vytvorit vo funkcii ktora funkciu scope vola </dd></dl>
+
+</div>
+</div>
+<a id="a7eac9e4351cf87fecd3e9a66cf5f28d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7eac9e4351cf87fecd3e9a66cf5f28d8">&#9670;&nbsp;</a></span>STATEMENT()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool STATEMENT </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Processes the commands, coditions, ... </p>
+<p>Fucntion is called in scope for verification part of code which is inside scope. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>A pointer to the file being analyzed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If syntactic analysis pass return true otherwise false Use case: <div class="fragment"><div class="line">@<span class="keyword">import</span>(t_string);</div>
+<div class="line">EXPRESSIONS;</div>
+</div><!-- fragment --> </dd></dl>
+
+</div>
+</div>
+<a id="aaef2bee27144c07c175bb36e4c28af9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaef2bee27144c07c175bb36e4c28af9d">&#9670;&nbsp;</a></span>VAL_TYPE()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool VAL_TYPE </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structToken.html">Token</a>&#160;</td>
+          <td class="paramname"><em>t</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function for verifaction enabled data types (DATA TYPES) </p>
+<dl class="section return"><dt>Returns</dt><dd>If token is enabled data type return true otherwise false </dd></dl>
+
+</div>
+</div>
+<a id="a49c6186e8aee36246b52305756b7a017"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49c6186e8aee36246b52305756b7a017">&#9670;&nbsp;</a></span>VAR_DEF()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool VAR_DEF </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Processes command for variable declaration. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>A pointer to the file being analyzed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If syntactic analysis pass return true otherwise false Use case: <div class="fragment"><div class="line">@<span class="keyword">import</span>(t_string);</div>
+<div class="line">EXPRESSIONS;</div>
+</div><!-- fragment --> </dd></dl>
+
+</div>
+</div>
+<a id="a6a90cf37b546f64566f9de66bfee4864"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a90cf37b546f64566f9de66bfee4864">&#9670;&nbsp;</a></span>VAR_TYPE()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool VAR_TYPE </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structToken.html">Token</a>&#160;</td>
+          <td class="paramname"><em>t</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function for verifaction enabled data types (VARIABLE/CONST) </p>
+<dl class="section return"><dt>Returns</dt><dd>If token is enabled data type return true otherwise false </dd></dl>
+
+</div>
+</div>
+<a id="a13efec100d0c39c874c413765ded4d10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13efec100d0c39c874c413765ded4d10">&#9670;&nbsp;</a></span>WHILE_DEF()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool WHILE_DEF </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Processes while loop. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>A pointer to the file being analyzed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If syntactic analysis pass return true otherwise false Use case: <div class="fragment"><div class="line">@<span class="keyword">import</span>(t_string);</div>
+<div class="line">EXPRESSIONS;</div>
+</div><!-- fragment --> </dd></dl>
 
 </div>
 </div>

@@ -7,9 +7,4 @@ digraph "dynamic_string_free"
   Node1 [label="dynamic_string_free",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
   Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node2 [label="get_token",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$lexical__analyser_8c.html#a1b68532a422d65e0eab79e3011af906e",tooltip=" "];
-  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node3 [label="FIRST",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a89f4bbafd236e6052a8ece297ac85d75",tooltip=" "];
-  Node2 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node4 [label="main",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627",tooltip=" "];
-  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
 }

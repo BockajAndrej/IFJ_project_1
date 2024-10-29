@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IFJ-projekt01: /home/administrator/IFJ/IFJ-project01/src/lexical_analyser.h File Reference</title>
+<title>IFJ-projekt01: lexical_analyser.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -75,16 +75,6 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="newstring_8h_source.html">newstring.h</a>&quot;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for lexical_analyser.h:</div>
-<div class="dyncontent">
-<div class="center"><img src="lexical__analyser_8h__incl.png" border="0" usemap="#a_2home_2administrator_2IFJ_2IFJ-project01_2src_2lexical__analyser_8h" alt=""/></div>
-</div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="lexical__analyser_8h__dep__incl.png" border="0" usemap="#a_2home_2administrator_2IFJ_2IFJ-project01_2src_2lexical__analyser_8hdep" alt=""/></div>
-</div>
 </div>
 <p><a href="lexical__analyser_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -232,6 +222,10 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a67367cc8618de258a4163191d1ac05b8"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexical__analyser_8h.html#a67367cc8618de258a4163191d1ac05b8">token_type_to_string</a> (<a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44">Token_type</a> type)</td></tr>
+<tr class="separator:a67367cc8618de258a4163191d1ac05b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbb4fd03fd6564af6fe03306ec48364c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexical__analyser_8h.html#acbb4fd03fd6564af6fe03306ec48364c">print_token</a> (<a class="el" href="structToken.html">Token</a> token)</td></tr>
+<tr class="separator:acbb4fd03fd6564af6fe03306ec48364c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b68532a422d65e0eab79e3011af906e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structToken.html">Token</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexical__analyser_8h.html#a1b68532a422d65e0eab79e3011af906e">get_token</a> (FILE *<a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>)</td></tr>
 <tr class="separator:a1b68532a422d65e0eab79e3011af906e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -398,16 +392,42 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="lexical__analyser_8h_a1b68532a422d65e0eab79e3011af906e_cgraph.png" border="0" usemap="#alexical__analyser_8h_a1b68532a422d65e0eab79e3011af906e_cgraph" alt=""/></div>
+
 </div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="lexical__analyser_8h_a1b68532a422d65e0eab79e3011af906e_icgraph.png" border="0" usemap="#alexical__analyser_8h_a1b68532a422d65e0eab79e3011af906e_icgraph" alt=""/></div>
 </div>
+<a id="acbb4fd03fd6564af6fe03306ec48364c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbb4fd03fd6564af6fe03306ec48364c">&#9670;&nbsp;</a></span>print_token()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void print_token </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structToken.html">Token</a>&#160;</td>
+          <td class="paramname"><em>token</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a67367cc8618de258a4163191d1ac05b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67367cc8618de258a4163191d1ac05b8">&#9670;&nbsp;</a></span>token_type_to_string()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* token_type_to_string </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44">Token_type</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

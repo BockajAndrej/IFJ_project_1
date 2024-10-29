@@ -12,12 +12,6 @@
 FILE *file;
 
 
-#include <stdio.h>
-#include "ADT.h" // Zabezpeč, že máš zahrnutý správny header file
-
-
-
-
 void print_symbol(const Symbol *symbol) {
     printf("Name: %s\n", symbol->name);
     printf("Type: %s\n", symbol->type);

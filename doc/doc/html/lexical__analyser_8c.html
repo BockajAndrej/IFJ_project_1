@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IFJ-projekt01: /home/administrator/IFJ/IFJ-project01/src/lexical_analyser.c File Reference</title>
+<title>IFJ-projekt01: lexical_analyser.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -82,11 +82,6 @@ $(function() {
 <code>#include &lt;math.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="newstring_8h_source.html">newstring.h</a>&quot;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for lexical_analyser.c:</div>
-<div class="dyncontent">
-<div class="center"><img src="lexical__analyser_8c__incl.png" border="0" usemap="#a_2home_2administrator_2IFJ_2IFJ-project01_2src_2lexical__analyser_8c" alt=""/></div>
-</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -97,12 +92,16 @@ Macros</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:ade03459f3b506becbc1e389002a1126a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexical__analyser_8c.html#ade03459f3b506becbc1e389002a1126a">is_keyword</a> (<a class="el" href="structToken.html">Token</a> *token)</td></tr>
 <tr class="separator:ade03459f3b506becbc1e389002a1126a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67367cc8618de258a4163191d1ac05b8"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexical__analyser_8c.html#a67367cc8618de258a4163191d1ac05b8">token_type_to_string</a> (<a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44">Token_type</a> type)</td></tr>
+<tr class="separator:a67367cc8618de258a4163191d1ac05b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbb4fd03fd6564af6fe03306ec48364c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexical__analyser_8c.html#acbb4fd03fd6564af6fe03306ec48364c">print_token</a> (<a class="el" href="structToken.html">Token</a> token)</td></tr>
+<tr class="separator:acbb4fd03fd6564af6fe03306ec48364c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b68532a422d65e0eab79e3011af906e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structToken.html">Token</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexical__analyser_8c.html#a1b68532a422d65e0eab79e3011af906e">get_token</a> (FILE *<a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>)</td></tr>
 <tr class="separator:a1b68532a422d65e0eab79e3011af906e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:abd184eddfa99b9c6043d005b20c9b135"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexical__analyser_8c.html#abd184eddfa99b9c6043d005b20c9b135">keywords</a> [<a class="el" href="lexical__analyser_8c.html#a3313354ed388a3e1602481bb0931a541">KEYWORD_COUNT</a>]</td></tr>
+<tr class="memitem:abd184eddfa99b9c6043d005b20c9b135"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexical__analyser_8c.html#abd184eddfa99b9c6043d005b20c9b135">keywords</a> [<a class="el" href="Lexical__analyser_8c.html#a3313354ed388a3e1602481bb0931a541">KEYWORD_COUNT</a>]</td></tr>
 <tr class="separator:abd184eddfa99b9c6043d005b20c9b135"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
@@ -136,16 +135,6 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="lexical__analyser_8c_a1b68532a422d65e0eab79e3011af906e_cgraph.png" border="0" usemap="#alexical__analyser_8c_a1b68532a422d65e0eab79e3011af906e_cgraph" alt=""/></div>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="lexical__analyser_8c_a1b68532a422d65e0eab79e3011af906e_icgraph.png" border="0" usemap="#alexical__analyser_8c_a1b68532a422d65e0eab79e3011af906e_icgraph" alt=""/></div>
-</div>
 
 </div>
 </div>
@@ -164,11 +153,42 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="lexical__analyser_8c_ade03459f3b506becbc1e389002a1126a_icgraph.png" border="0" usemap="#alexical__analyser_8c_ade03459f3b506becbc1e389002a1126a_icgraph" alt=""/></div>
+
 </div>
+</div>
+<a id="acbb4fd03fd6564af6fe03306ec48364c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbb4fd03fd6564af6fe03306ec48364c">&#9670;&nbsp;</a></span>print_token()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void print_token </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structToken.html">Token</a>&#160;</td>
+          <td class="paramname"><em>token</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a67367cc8618de258a4163191d1ac05b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67367cc8618de258a4163191d1ac05b8">&#9670;&nbsp;</a></span>token_type_to_string()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* token_type_to_string </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44">Token_type</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -180,7 +200,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const char* keywords[<a class="el" href="lexical__analyser_8c.html#a3313354ed388a3e1602481bb0931a541">KEYWORD_COUNT</a>]</td>
+          <td class="memname">const char* keywords[<a class="el" href="Lexical__analyser_8c.html#a3313354ed388a3e1602481bb0931a541">KEYWORD_COUNT</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">

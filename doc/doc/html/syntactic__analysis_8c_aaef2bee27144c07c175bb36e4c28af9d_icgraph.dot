@@ -1,0 +1,40 @@
+digraph "VAL_TYPE"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="VAL_TYPE",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Function for verifaction enabled data types (DATA TYPES)"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="ASSIGN_VAR",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a76e0ba812902123b4ec0d43c59c13c04",tooltip="Processes assigning expresions to the variable."];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="VAR_DEF",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a49c6186e8aee36246b52305756b7a017",tooltip="Processes command for variable declaration."];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="FIRST",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a607ec0964227a0c6c98fd79770e51c11",tooltip="Processes the FIRST rule in the syntactic analysis."];
+  Node4 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="main",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627",tooltip=" "];
+  Node3 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="STATEMENT",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a7eac9e4351cf87fecd3e9a66cf5f28d8",tooltip="Processes the commands, coditions, ..."];
+  Node6 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="SCOPE",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a7d21e9db61747d6734d9a7f27d33b4f4",tooltip="Function for determining the depth of infestation."];
+  Node7 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="ELSE_DEF",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a047deda12297b3a39f2d50261fd7de70",tooltip="Processes else condition."];
+  Node8 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="FN_DEF",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#afb9892407a0399d61e51261ff730599a",tooltip="Processes function declaration."];
+  Node9 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="IF_EXT",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#af131918ae0d8a1cc29cb2c8d6dc13aff",tooltip="Extended function for CALL_DEF()"];
+  Node10 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="IF_DEF",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#ac9b33c13aa831335429748838739aef7",tooltip="Processes if condition."];
+  Node11 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="WHILE_DEF",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a13efec100d0c39c874c413765ded4d10",tooltip="Processes while loop."];
+  Node12 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="FN_TYPE",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#aef5821c4ef2e8e26c864efa3564244f6",tooltip="Function for verifaction enabled data types (FUNCTIONS)"];
+  Node13 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="PARAM",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#acb21f12318c9d312a452616eb6c7262d",tooltip="Function for processing parameters of declaraced function."];
+  Node14 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mem_5ferr_343',['MEM_ERR',['../error_8h.html#ab2188c7ee9067d3fb1fb8c2a5b5902ac',1,'error.h']]]
+  ['lex_5ferr_398',['LEX_ERR',['../error_8h.html#a149e7097314b5bedc1a76cc14395c1cf',1,'error.h']]]
 ];

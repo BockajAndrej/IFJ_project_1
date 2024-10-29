@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['name_225',['name',['../structSymbol.html#aa9ba617cd9de17ed73148893a6c14606',1,'Symbol']]],
-  ['next_226',['next',['../structSymbol.html#af5a223ab45f0e4f002dbe8108c6085a9',1,'Symbol']]]
+  ['length_280',['length',['../structDynamic__string.html#aca5065d841116c27e51c46501461c596',1,'Dynamic_string']]],
+  ['linex_281',['lineX',['../structToken.html#a2ae612a7f952d65e22c8f81dffcd95cf',1,'Token']]],
+  ['liney_282',['LineY',['../structToken.html#a24f6975e9c028c9d48e3bcc257ab28ad',1,'Token']]]
 ];

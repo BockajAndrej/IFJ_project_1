@@ -10,5 +10,5 @@ Windows 64bit
 | --- | --- | --- |
 | xbockaa00 | Andrej Bočkaj | Github |
 | xfiloja00 | Jakub Fiľo | Jira | 
-| xglvacp00 | Pavel Glvač | |
-| xkubicj00 | Jan Kubíček | Dokumentacia |
+| xglvacp00 | Pavel Glvač | Dokumentacia |
+| xkubicj00 | Jan Kubíček | |
