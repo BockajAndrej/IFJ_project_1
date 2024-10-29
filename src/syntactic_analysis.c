@@ -3,10 +3,16 @@
 // TODO : 1. Pocitanie tokenov (kazdy riadok resetuje)
 // TODO : 2. Nefunkcny scope len na jeden riadok (bez {}) vytvorit vo funkcii ktora funkciu scope vola
 
-/// @brief Processes the FIRST rule in the syntactic analysis. 
-/// @details First and the only one function called from main. Verifies part of code which is out of scope.
-/// @param file A pointer to the file being analyzed.
-/// @return If syntactic analysis pass return true otherwise false 
+/** @brief Processes the FIRST rule in the syntactic analysis. 
+ *  @details First and the only one function called from main. Verifies part of code which is out of scope.
+ *  @param file A pointer to the file being analyzed.
+ *  @return If syntactic analysis pass return true otherwise false 
+ *  Use case:
+ *  @code
+ *  @import(t_string);
+ *  EXPRESSIONS;
+ *  @endcode
+ */
 bool FIRST(FILE *file)
 {
     pmesg(" ------ FIRST ------\n");
@@ -40,10 +46,16 @@ bool FIRST(FILE *file)
         return false;
     return true;
 }
-/// @brief Processes the commands, coditions, ...
-/// @details Fucntion is called in scope for verification part of code which is inside scope. 
-/// @param file A pointer to the file being analyzed.
-/// @return If syntactic analysis pass return true otherwise false 
+/** @brief Processes the commands, coditions, ...
+ *  @details Fucntion is called in scope for verification part of code which is inside scope. 
+ *  @param file A pointer to the file being analyzed.
+ *  @return If syntactic analysis pass return true otherwise false 
+ *  Use case:
+ *  @code
+ *  @import(t_string);
+ *  EXPRESSIONS;
+ *  @endcode
+ */
 bool STATEMENT(FILE *file)
 {
     pmesg(" ------ STATEMENT ------\n");
@@ -100,9 +112,15 @@ bool STATEMENT(FILE *file)
     return true;
 }
 
-/// @brief Processes command for variable declaration
-/// @param file A pointer to the file being analyzed.
-/// @return If syntactic analysis pass return true otherwise false 
+/** @brief Processes command for variable declaration
+ *  @param file A pointer to the file being analyzed.
+ *  @return If syntactic analysis pass return true otherwise false 
+ *  Use case:
+ *  @code
+ *  @import(t_string);
+ *  EXPRESSIONS;
+ *  @endcode
+ */
 bool VAR_DEF(FILE *file)
 {
     pmesg(" ------ VARDEF ------\n");
@@ -130,9 +148,15 @@ bool VAR_DEF(FILE *file)
     pmesg(" ------ END VARDEF ------\n");
     return true;
 }
-/// @brief Processes command for constant declaration
-/// @param file A pointer to the file being analyzed.
-/// @return If syntactic analysis pass return true otherwise false 
+/** @brief Processes command for constant declaration
+ *  @param file A pointer to the file being analyzed.
+ *  @return If syntactic analysis pass return true otherwise false 
+ *  Use case:
+ *  @code
+ *  @import(t_string);
+ *  EXPRESSIONS;
+ *  @endcode
+ */
 bool CONST_DEF(FILE *file)
 {
     pmesg(" ------ CONST_DEF ------\n");
@@ -150,9 +174,15 @@ bool CONST_DEF(FILE *file)
     pmesg(" ------ END CONST_DEF ------\n");
     return true;
 }
-/// @brief Processes function declaration
-/// @param file A pointer to the file being analyzed.
-/// @return If syntactic analysis pass return true otherwise false 
+/** @brief Processes function declaration
+ *  @param file A pointer to the file being analyzed.
+ *  @return If syntactic analysis pass return true otherwise false 
+ *  Use case:
+ *  @code
+ *  @import(t_string);
+ *  EXPRESSIONS;
+ *  @endcode
+ */
 bool FN_DEF(FILE *file)
 {
     pmesg(" ------ FN_DEF ------\n");
@@ -187,9 +217,15 @@ bool FN_DEF(FILE *file)
 
     return true;
 }
-/// @brief Processes if condition
-/// @param file A pointer to the file being analyzed.
-/// @return If syntactic analysis pass return true otherwise false 
+/** @brief Processes if condition
+ *  @param file A pointer to the file being analyzed.
+ *  @return If syntactic analysis pass return true otherwise false 
+ *  Use case:
+ *  @code
+ *  @import(t_string);
+ *  EXPRESSIONS;
+ *  @endcode
+ */
 bool IF_DEF(FILE *file)
 {
     pmesg(" ------ IF_DEF ------\n");
@@ -208,10 +244,16 @@ bool IF_DEF(FILE *file)
     pmesg(" ------ END IF_DEF ------\n");
     return true;
 }
-/// @brief Processes else condition
-/// @note Works as preprocessing function for IF_EXT()
-/// @param file A pointer to the file being analyzed.
-/// @return If syntactic analysis pass return true otherwise false 
+/** @brief Processes else condition
+ *  @note Works as preprocessing function for IF_EXT()
+ *  @param file A pointer to the file being analyzed.
+ *  @return If syntactic analysis pass return true otherwise false 
+ *  Use case:
+ *  @code
+ *  @import(t_string);
+ *  EXPRESSIONS;
+ *  @endcode
+ */
 bool ELSE_DEF(FILE *file)
 {
     pmesg(" ------ ELSE_DEF ------\n");
@@ -227,9 +269,15 @@ bool ELSE_DEF(FILE *file)
     pmesg(" ------ END ELSE_DEF ------\n");
     return true;
 }
-/// @brief Processes while loop
-/// @param file A pointer to the file being analyzed.
-/// @return If syntactic analysis pass return true otherwise false 
+/** @brief Processes while loop
+ *  @param file A pointer to the file being analyzed.
+ *  @return If syntactic analysis pass return true otherwise false 
+ *  Use case:
+ *  @code
+ *  @import(t_string);
+ *  EXPRESSIONS;
+ *  @endcode
+ */
 bool WHILE_DEF(FILE *file)
 {
     pmesg(" ------ WHILE_DEF ------\n");
@@ -254,9 +302,15 @@ bool WHILE_DEF(FILE *file)
     pmesg(" ------ END WHILE_DEF ------\n");
     return true;
 }
-/// @brief Processes return command 
-/// @param file A pointer to the file being analyzed.
-/// @return If syntactic analysis pass return true otherwise false 
+/** @brief Processes return command 
+ *  @param file A pointer to the file being analyzed.
+ *  @return If syntactic analysis pass return true otherwise false 
+ *  Use case:
+ *  @code
+ *  @import(t_string);
+ *  EXPRESSIONS;
+ *  @endcode
+ */
 bool RET_DEF(FILE *file)
 {
     pmesg(" ------ RET_DEF ------\n");
@@ -267,10 +321,16 @@ bool RET_DEF(FILE *file)
     pmesg(" ------ END RET_DEF ------\n");
     return true;
 }
-/// @brief Processes calling functions, variables 
-/// @note Works as preprocessing function for IF_EXT()
-/// @param file A pointer to the file being analyzed.
-/// @return If syntactic analysis pass return true otherwise false 
+/** @brief Processes calling functions, variables 
+ *  @note Works as preprocessing function for IF_EXT()
+ *  @param file A pointer to the file being analyzed.
+ *  @return If syntactic analysis pass return true otherwise false 
+ *  Use case:
+ *  @code
+ *  @import(t_string);
+ *  EXPRESSIONS;
+ *  @endcode
+ */
 bool CALL_DEF(FILE *file)
 {
     pmesg(" ------ CALL_DEF ------\n");
@@ -280,10 +340,16 @@ bool CALL_DEF(FILE *file)
     return true;
 }
 
-/// @brief Extended function for CALL_DEF() 
-/// @details Processes functions arguments or assignment to a variable (= EXPRESSION)
-/// @param file A pointer to the file being analyzed.
-/// @return If syntactic analysis pass return true otherwise false 
+/** @brief Extended function for CALL_DEF() 
+ *  @details Processes functions arguments or assignment to a variable (= EXPRESSION)
+ *  @param file A pointer to the file being analyzed.
+ *  @return If syntactic analysis pass return true otherwise false 
+ *  Use case:
+ *  @code
+ *  @import(t_string);
+ *  EXPRESSIONS;
+ *  @endcode
+ */
 bool IF_EXT(FILE *file)
 {
     pmesg(" ------ IF_EXT ------\n");
@@ -311,10 +377,16 @@ bool IF_EXT(FILE *file)
     pmesg(" ------ END IF_EXT ------\n");
     return true;
 }
-/// @brief Extended function for CALL_DEF() 
-/// @details Processes functions arguments or assignment to a variable (= EXPRESSION)
-/// @param file A pointer to the file being analyzed.
-/// @return If syntactic analysis pass return true otherwise false 
+/** @brief Extended function for CALL_DEF() 
+ *  @details Processes functions arguments or assignment to a variable (= EXPRESSION)
+ *  @param file A pointer to the file being analyzed.
+ *  @return If syntactic analysis pass return true otherwise false 
+ *  Use case:
+ *  @code
+ *  @import(t_string);
+ *  EXPRESSIONS;
+ *  @endcode
+ */
 bool CALL_EXT(FILE *file)
 {
     pmesg(" ------ CALL_EXT ------\n");
@@ -342,10 +414,16 @@ bool CALL_EXT(FILE *file)
     return true;
 }
 
-/// @brief Processes assigning expresions to the variable
-/// @details 
-/// @param file A pointer to the file being analyzed.
-/// @return If syntactic analysis pass return true otherwise false 
+/** @brief Processes assigning expresions to the variable
+ *  @details 
+ *  @param file A pointer to the file being analyzed.
+ *  @return If syntactic analysis pass return true otherwise false 
+ *  Use case:
+ *  @code
+ *  @import(t_string);
+ *  EXPRESSIONS;
+ *  @endcode
+ */
 bool ASSIGN_VAR(FILE *file)
 {
     pmesg(" ------ ASSIGN_VAR ------\n");
@@ -360,12 +438,13 @@ bool ASSIGN_VAR(FILE *file)
     pmesg(" ------ END ASSIGN_VAR ------\n");
     return true;
 }
-/// @brief Processes assigning expresions to the constant
-/// @details Processes functions arguments or assignment to a variable (= EXPRESSION)  
-/// @param file A pointer to the file being analyzed.
-/// @return If syntactic analysis pass return true otherwise false 
-/** @code
- *  @import("ifj24.zig");
+/** @brief Processes assigning expresions to the constant
+ *  @details Processes functions arguments or assignment to a variable (= EXPRESSION)  
+ *  @param file A pointer to the file being analyzed.
+ *  @return If syntactic analysis pass return true otherwise false 
+ *  Use case:
+ *  @code
+ *  @import(t_string);
  *  EXPRESSIONS;
  *  @endcode
  */
@@ -401,10 +480,17 @@ bool ASSIGN_CONST(FILE *file)
     return true;
 }
 
-/// @brief Function for determining the depth of infestation
-/// @details In scope are Statements. Everything which can be between {} except declaration of functions. 
-/// @param file A pointer to the file being analyzed.
-/// @return If syntactic analysis pass return true otherwise false 
+/** @brief Function for determining the depth of infestation
+ *  @details In scope are Statements. Everything which can be between {} except declaration of functions. 
+ *  @param file A pointer to the file being analyzed.
+ *  @return If syntactic analysis pass return true otherwise false 
+ *  Use case:
+ *  @code
+ *  @import(t_string);
+ *  EXPRESSIONS;
+ *  @endcode
+ *  @todo Nefunkcny scope len na jeden riadok (bez {}) vytvorit vo funkcii ktora funkciu scope vola
+ */
 bool SCOPE(FILE *file)
 {
     pmesg(" ------ SCOPE ------\n");
@@ -413,7 +499,17 @@ bool SCOPE(FILE *file)
     pmesg(" ------ END SCOPE ------\n");
     return true;
 }
-
+/** @brief Function for processing parameters of declaraced function
+ *  @param file A pointer to the file being analyzed.
+ *  @return If syntactic analysis pass return true otherwise false 
+ *  Use case:
+ *  @code
+ *  t_)
+ *  x : u8
+ *  , y : u8
+ *  @endcode
+ *  @todo x : []u8, y : []u8
+ */
 bool PARAM(FILE *file)
 {
     pmesg(" ------ PARAM ------\n");
@@ -458,9 +554,16 @@ bool PARAM(FILE *file)
     return true;
 }
 
-/// @brief Funkcia pre syntakticku analyzu argumentu funkcie
-/// @param file
-/// @return
+/** @brief Function for processing argument of called function
+ *  @param file A pointer to the file being analyzed.
+ *  @return If syntactic analysis pass return true otherwise false 
+ *  Use case:
+ *  @code
+ *  t_id
+ *  t_string
+ *  EXPRESSION
+ *  @endcode
+ */
 bool ARG(FILE *file)
 {
     pmesg(" ------ ARG ------\n");
@@ -485,6 +588,16 @@ bool ARG(FILE *file)
     pmesg(" ------ END ARG ------\n");
     return true;
 }
+/** @brief Function for processing another argument which is in queue 
+ *  @details First argument is processed in ARG() but after that should be character ",". That sequence is repeaded unltil ")"
+ *  @param file A pointer to the file being analyzed.
+ *  @return If syntactic analysis pass return true otherwise false 
+ *  Use case:
+ *  @code
+ *  t_)
+ *  t_,
+ *  @endcode
+ */
 bool ARGS(FILE *file)
 {
     pmesg(" ------ ARGS ------\n");
@@ -504,12 +617,22 @@ bool ARGS(FILE *file)
     return true;
 }
 
+/** @brief Function for processing another argument which is in queue 
+ *  @warning First token is passed by argument (FIX) 
+ *  @details It ends when ";" or ")" . Also works: ((2+3)*6)-9; Also works: factorial(256*(56-7));
+ *  @note It can ends with ")" because of declaration of function
+ *  @param file A pointer to the file being analyzed.
+ *  @return If syntactic analysis pass return true otherwise false 
+ *  Use case:
+ *  @code
+ *  ...
+ *  @endcode
+ * @todo Musi obsahovat aspon 1 cislo (bude sa osetrovat v semantickej)
+ * @todo Problem pri const a = fn(a) + fn(b); (program ocakava za fn() znak ';')
+ * @todo Fix first token
+ */
 bool EXPRESSION(FILE *file, Token token)
 {
-    // TODO : Musi obsahovat aspon 1 cislo (bude sa osetrovat v semantickej)
-    // TODO : Problem pri const a = fn(a) + fn(b); (program ocakava za fn() znak ';')
-    // PODMIENKY :  1. Zatial musi koncit ";" alebo ")"
-    //              2. Dostava prvy token cez parameter
     // LOGIKA : Ak v expresne bude znak "(" prva zatvorka bude este expression ale ta dalsia uz to bude koncit.
     pmesg(" ------ EXPRESSION ------\n");
     int endWhenCount = 0;
@@ -531,18 +654,27 @@ bool EXPRESSION(FILE *file, Token token)
     return true;
 }
 
+/** @brief Function for verifaction enabled data types (VARIABLE/CONST)
+ *  @return If token is enabled data type return true otherwise false 
+ */
 bool VAR_TYPE(Token t)
 {
     if (t.keyword_val == KEYWORD_VAR || t.keyword_val == KEYWORD_CONST)
         return true;
     return false;
 }
+/** @brief Function for verifaction enabled data types (DATA TYPES)
+ *  @return If token is enabled data type return true otherwise false 
+ */
 bool VAL_TYPE(Token t)
 {
     if (t.keyword_val == KEYWORD_I32 || t.keyword_val == KEYWORD_F64 || t.keyword_val == KEYWORD_U8)
         return true;
     return false;
 }
+/** @brief Function for verifaction enabled data types (FUNCTIONS)
+ *  @return If token is enabled data type return true otherwise false 
+ */
 bool FN_TYPE(Token t)
 {
     if (VAL_TYPE(t) || t.keyword_val == KEYWORD_VOID)
