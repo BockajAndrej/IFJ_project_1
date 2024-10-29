@@ -1,3 +1,9 @@
+/**
+ * @file syntactic_analysis.h
+ * @author Bockaj Andrej
+ * @category Syntactic analysis
+ * @brief This file contains functions for process input file and verifies syntax  
+ */
 #ifndef _SYNTACTIC_ANALYSSIS_H
 #define _SYNTACTIC_ANALYSIS_H
 

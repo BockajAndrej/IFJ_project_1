@@ -2,16 +2,20 @@
 
 // TODO : 1. Pocitanie tokenov (kazdy riadok resetuje)
 // TODO : 2. Nefunkcny scope len na jeden riadok (bez {}) vytvorit vo funkcii ktora funkciu scope vola
+
+/// @brief Processes the FIRST rule in the syntactic analysis. 
+/// @details First and the only one function called from main. Verifies part of code which is out of scope.
+/// @param file A pointer to the file being analyzed.
+/// @return If syntactic analysis pass return true otherwise false 
 bool FIRST(FILE *file)
 {
     pmesg(" ------ FIRST ------\n");
     Token token;
-
     GET_TOKEN_RAW(token, file);
-    // Ukoncenie pri konci suboru
+    // Ends at the end of file (not at end of line)
     if (token.type == TOKEN_EOF && token.type != TOKEN_EOL)
         return true;
-
+    // Processes functions variables and constants 
     switch (token.keyword_val)
     {
     case KEYWORD_PUB:
@@ -31,17 +35,21 @@ bool FIRST(FILE *file)
         return false;
         break;
     }
-
+    // Recursive calling itself for processing next code out of scope
     if (!FIRST(file))
         return false;
     return true;
 }
+/// @brief Processes the commands, coditions, ...
+/// @details Fucntion is called in scope for verification part of code which is inside scope. 
+/// @param file A pointer to the file being analyzed.
+/// @return If syntactic analysis pass return true otherwise false 
 bool STATEMENT(FILE *file)
 {
     pmesg(" ------ STATEMENT ------\n");
     Token token;
     GET_TOKEN_RAW(token, file);
-    // Zrusenie rekurzie ak skonci SCOPE
+    // Recursion ends if scope ends
     if (token.type == TOKEN_CURLYR_BRACKET)
         return true;
     else if (token.type == TOKEN_IDENTIFIER)
@@ -49,7 +57,7 @@ bool STATEMENT(FILE *file)
         if(!CALL_DEF(file))
             return false;
     }
-    // Len pre istotu ze to spadne do false ak to nie je keyword
+    // For sure if it is not keyword to be return false 
     else if (token.type != TOKEN_KEYWORD)
         return false;
     else
@@ -86,11 +94,15 @@ bool STATEMENT(FILE *file)
         }
     }
     pmesg(" ------ END STATEMENT ------\n");
+    // Recursive calling itself for processing next code out of scope
     if (!STATEMENT(file))
         return false;
     return true;
 }
 
+/// @brief Processes command for variable declaration
+/// @param file A pointer to the file being analyzed.
+/// @return If syntactic analysis pass return true otherwise false 
 bool VAR_DEF(FILE *file)
 {
     pmesg(" ------ VARDEF ------\n");
@@ -118,6 +130,9 @@ bool VAR_DEF(FILE *file)
     pmesg(" ------ END VARDEF ------\n");
     return true;
 }
+/// @brief Processes command for constant declaration
+/// @param file A pointer to the file being analyzed.
+/// @return If syntactic analysis pass return true otherwise false 
 bool CONST_DEF(FILE *file)
 {
     pmesg(" ------ CONST_DEF ------\n");
@@ -135,6 +150,9 @@ bool CONST_DEF(FILE *file)
     pmesg(" ------ END CONST_DEF ------\n");
     return true;
 }
+/// @brief Processes function declaration
+/// @param file A pointer to the file being analyzed.
+/// @return If syntactic analysis pass return true otherwise false 
 bool FN_DEF(FILE *file)
 {
     pmesg(" ------ FN_DEF ------\n");
@@ -169,6 +187,9 @@ bool FN_DEF(FILE *file)
 
     return true;
 }
+/// @brief Processes if condition
+/// @param file A pointer to the file being analyzed.
+/// @return If syntactic analysis pass return true otherwise false 
 bool IF_DEF(FILE *file)
 {
     pmesg(" ------ IF_DEF ------\n");
@@ -187,6 +208,10 @@ bool IF_DEF(FILE *file)
     pmesg(" ------ END IF_DEF ------\n");
     return true;
 }
+/// @brief Processes else condition
+/// @note Works as preprocessing function for IF_EXT()
+/// @param file A pointer to the file being analyzed.
+/// @return If syntactic analysis pass return true otherwise false 
 bool ELSE_DEF(FILE *file)
 {
     pmesg(" ------ ELSE_DEF ------\n");
@@ -202,6 +227,9 @@ bool ELSE_DEF(FILE *file)
     pmesg(" ------ END ELSE_DEF ------\n");
     return true;
 }
+/// @brief Processes while loop
+/// @param file A pointer to the file being analyzed.
+/// @return If syntactic analysis pass return true otherwise false 
 bool WHILE_DEF(FILE *file)
 {
     pmesg(" ------ WHILE_DEF ------\n");
@@ -226,6 +254,9 @@ bool WHILE_DEF(FILE *file)
     pmesg(" ------ END WHILE_DEF ------\n");
     return true;
 }
+/// @brief Processes return command 
+/// @param file A pointer to the file being analyzed.
+/// @return If syntactic analysis pass return true otherwise false 
 bool RET_DEF(FILE *file)
 {
     pmesg(" ------ RET_DEF ------\n");
@@ -236,6 +267,10 @@ bool RET_DEF(FILE *file)
     pmesg(" ------ END RET_DEF ------\n");
     return true;
 }
+/// @brief Processes calling functions, variables 
+/// @note Works as preprocessing function for IF_EXT()
+/// @param file A pointer to the file being analyzed.
+/// @return If syntactic analysis pass return true otherwise false 
 bool CALL_DEF(FILE *file)
 {
     pmesg(" ------ CALL_DEF ------\n");
@@ -245,6 +280,10 @@ bool CALL_DEF(FILE *file)
     return true;
 }
 
+/// @brief Extended function for CALL_DEF() 
+/// @details Processes functions arguments or assignment to a variable (= EXPRESSION)
+/// @param file A pointer to the file being analyzed.
+/// @return If syntactic analysis pass return true otherwise false 
 bool IF_EXT(FILE *file)
 {
     pmesg(" ------ IF_EXT ------\n");
@@ -272,15 +311,16 @@ bool IF_EXT(FILE *file)
     pmesg(" ------ END IF_EXT ------\n");
     return true;
 }
-/// @brief Funkcia pre volanie funkcii alebo priradenie do premennej
-/// @param file vstupny subor
-/// @return TRUE - ak bolo vo funkcii vsetko syntakticky spravne
+/// @brief Extended function for CALL_DEF() 
+/// @details Processes functions arguments or assignment to a variable (= EXPRESSION)
+/// @param file A pointer to the file being analyzed.
+/// @return If syntactic analysis pass return true otherwise false 
 bool CALL_EXT(FILE *file)
 {
     pmesg(" ------ CALL_EXT ------\n");
     Token token;
     GET_TOKEN_RAW(token, file);
-    // Volanie funkcie
+    // Function call
     if (token.type == TOKEN_LPAREN)
     {
         if (!ARG(file))
@@ -289,7 +329,7 @@ bool CALL_EXT(FILE *file)
         if (token.type != TOKEN_SEMICOLON)
             return false;
     }
-    // Priradenie do premennej
+    // Assignment to a variable
     else if (token.type == TOKEN_ASSIGNMENT)
     {
         GET_TOKEN_RAW(token, file);
@@ -302,6 +342,10 @@ bool CALL_EXT(FILE *file)
     return true;
 }
 
+/// @brief Processes assigning expresions to the variable
+/// @details 
+/// @param file A pointer to the file being analyzed.
+/// @return If syntactic analysis pass return true otherwise false 
 bool ASSIGN_VAR(FILE *file)
 {
     pmesg(" ------ ASSIGN_VAR ------\n");
@@ -316,6 +360,15 @@ bool ASSIGN_VAR(FILE *file)
     pmesg(" ------ END ASSIGN_VAR ------\n");
     return true;
 }
+/// @brief Processes assigning expresions to the constant
+/// @details Processes functions arguments or assignment to a variable (= EXPRESSION)  
+/// @param file A pointer to the file being analyzed.
+/// @return If syntactic analysis pass return true otherwise false 
+/** @code
+ *  @import("ifj24.zig");
+ *  EXPRESSIONS;
+ *  @endcode
+ */
 bool ASSIGN_CONST(FILE *file)
 {
     pmesg(" ------ ASSIGN_CONST ------\n");
@@ -348,9 +401,10 @@ bool ASSIGN_CONST(FILE *file)
     return true;
 }
 
-/// @brief Funkcia urcujuca zanorenie programu
-/// @param file vstupny subor
-/// @return TRUE - ak bolo vo funkcii vsetko syntakticky spravne
+/// @brief Function for determining the depth of infestation
+/// @details In scope are Statements. Everything which can be between {} except declaration of functions. 
+/// @param file A pointer to the file being analyzed.
+/// @return If syntactic analysis pass return true otherwise false 
 bool SCOPE(FILE *file)
 {
     pmesg(" ------ SCOPE ------\n");
