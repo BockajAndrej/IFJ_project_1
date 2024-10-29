@@ -4,33 +4,39 @@
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structSymbol}{Symbol}}
-\item 
+\begin{DoxyCompactList}\small\item\em Represents a symbol entry in the hash table. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structHashTable}{Hash\+Table}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Represents the hash table for storing symbols. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
 \#define \mbox{\hyperlink{ADT_8h_a032503e76d6f69bc67e99e909c8125da}{TABLE\+\_\+\+SIZE}}~100
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Size of the hash table. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 char $\ast$ \mbox{\hyperlink{ADT_8h_a69781ac22aa41ceaca20060ad642a403}{copy\+\_\+string}} (const char $\ast$str)
-\item 
+\begin{DoxyCompactList}\small\item\em Dynamically copies a string. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{ADT_8h_ae7778847ae19a4693087f819ef97ada7}{free\+\_\+string}} (char $\ast$str)
-\item 
+\begin{DoxyCompactList}\small\item\em Frees a dynamically allocated string. \end{DoxyCompactList}\item 
 unsigned int \mbox{\hyperlink{ADT_8h_a7c9e0d90bc8135bbc9d94ee1979c01ee}{hash}} (const char $\ast$key)
-\item 
+\begin{DoxyCompactList}\small\item\em Hashes a string to an index in the table. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structHashTable}{Hash\+Table}} $\ast$ \mbox{\hyperlink{ADT_8h_a9c5cd145c4b3c3ad00c3e8d4897aaf0f}{create\+\_\+table}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Creates a new hash table. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{ADT_8h_a6dcf75b165c5731b136694076b6122c6}{insert\+\_\+symbol}} (\mbox{\hyperlink{structHashTable}{Hash\+Table}} $\ast$table, const char $\ast$name, const char $\ast$type, int int\+Value, int has\+Int, float float\+Value, int has\+Float, unsigned int address)
-\item 
+\begin{DoxyCompactList}\small\item\em Inserts a symbol into the hash table. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{ADT_8h_a241a0981d96a30cf13c1bd65b79a3dc8}{delete\+\_\+symbol}} (\mbox{\hyperlink{structHashTable}{Hash\+Table}} $\ast$table, const char $\ast$name)
-\item 
+\begin{DoxyCompactList}\small\item\em Deletes a symbol from the hash table by name. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structSymbol}{Symbol}} $\ast$ \mbox{\hyperlink{ADT_8h_a9219c7b5ae4ce115fdd6657c6541e3bc}{search\+\_\+symbol}} (\mbox{\hyperlink{structHashTable}{Hash\+Table}} $\ast$table, const char $\ast$name)
-\item 
+\begin{DoxyCompactList}\small\item\em Searches for a symbol in the hash table by name. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{ADT_8h_a86fe0b3ef8db644c46875b1da82175c6}{free\+\_\+table}} (\mbox{\hyperlink{structHashTable}{Hash\+Table}} $\ast$table)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Frees all memory associated with the hash table. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Pavel Glvač $<$xglvacp00$>$ 
+\end{DoxyAuthor}
 
 
 \doxysubsection{Macro Definition Documentation}
@@ -42,6 +48,10 @@ void \mbox{\hyperlink{ADT_8h_a86fe0b3ef8db644c46875b1da82175c6}{free\+\_\+table}
 
 
 
+Size of the hash table. 
+
+
+
 \doxysubsection{Function Documentation}
 \mbox{\Hypertarget{ADT_8h_a69781ac22aa41ceaca20060ad642a403}\label{ADT_8h_a69781ac22aa41ceaca20060ad642a403}} 
 \index{ADT.h@{ADT.h}!copy\_string@{copy\_string}}
@@ -49,45 +59,229 @@ void \mbox{\hyperlink{ADT_8h_a86fe0b3ef8db644c46875b1da82175c6}{free\+\_\+table}
 \doxysubsubsection{\texorpdfstring{copy\_string()}{copy\_string()}}
 {\footnotesize\ttfamily char$\ast$ copy\+\_\+string (\begin{DoxyParamCaption}\item[{const char $\ast$}]{str }\end{DoxyParamCaption})}
 
+
+
+Dynamically copies a string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & Pointer to the string to copy. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A dynamically allocated copy of the string, or NULL if memory allocation fails.
+\end{DoxyReturn}
+Dynamically copies a string.
+
+This function allocates memory for a new string and copies the content of the provided string into the newly allocated memory. If memory allocation fails, it returns NULL.
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & Pointer to the string to copy. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A dynamically allocated copy of the string, or NULL if memory allocation fails. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{ADT_8h_a9c5cd145c4b3c3ad00c3e8d4897aaf0f}\label{ADT_8h_a9c5cd145c4b3c3ad00c3e8d4897aaf0f}} 
 \index{ADT.h@{ADT.h}!create\_table@{create\_table}}
 \index{create\_table@{create\_table}!ADT.h@{ADT.h}}
 \doxysubsubsection{\texorpdfstring{create\_table()}{create\_table()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structHashTable}{Hash\+Table}}$\ast$ create\+\_\+table (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Creates a new hash table. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to a newly allocated \mbox{\hyperlink{structHashTable}{Hash\+Table}}, or NULL if allocation fails.
+\end{DoxyReturn}
+This function allocates memory for a new hash table and initializes all the entries to NULL. If memory allocation fails, it returns NULL.
+
+\begin{DoxyReturn}{Returns}
+Pointer to a newly allocated \mbox{\hyperlink{structHashTable}{Hash\+Table}}, or NULL if allocation fails. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{ADT_8h_a241a0981d96a30cf13c1bd65b79a3dc8}\label{ADT_8h_a241a0981d96a30cf13c1bd65b79a3dc8}} 
 \index{ADT.h@{ADT.h}!delete\_symbol@{delete\_symbol}}
 \index{delete\_symbol@{delete\_symbol}!ADT.h@{ADT.h}}
 \doxysubsubsection{\texorpdfstring{delete\_symbol()}{delete\_symbol()}}
 {\footnotesize\ttfamily void delete\+\_\+symbol (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structHashTable}{Hash\+Table}} $\ast$}]{table,  }\item[{const char $\ast$}]{name }\end{DoxyParamCaption})}
 
+
+
+Deletes a symbol from the hash table by name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em table} & Pointer to the hash table. \\
+\hline
+{\em name} & Name of the symbol to delete.\\
+\hline
+\end{DoxyParams}
+This function searches for a symbol in the hash table and removes it, adjusting the linked list pointers accordingly. It also frees the memory allocated for the symbol\textquotesingle{}s name and type.
+
+
+\begin{DoxyParams}{Parameters}
+{\em table} & Pointer to the hash table. \\
+\hline
+{\em name} & Name of the symbol to delete. \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{ADT_8h_ae7778847ae19a4693087f819ef97ada7}\label{ADT_8h_ae7778847ae19a4693087f819ef97ada7}} 
 \index{ADT.h@{ADT.h}!free\_string@{free\_string}}
 \index{free\_string@{free\_string}!ADT.h@{ADT.h}}
 \doxysubsubsection{\texorpdfstring{free\_string()}{free\_string()}}
 {\footnotesize\ttfamily void free\+\_\+string (\begin{DoxyParamCaption}\item[{char $\ast$}]{str }\end{DoxyParamCaption})}
 
+
+
+Frees a dynamically allocated string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & Pointer to the string to free.\\
+\hline
+\end{DoxyParams}
+This function deallocates the memory previously allocated for a string, ensuring there are no memory leaks.
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & Pointer to the string to free. \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{ADT_8h_a86fe0b3ef8db644c46875b1da82175c6}\label{ADT_8h_a86fe0b3ef8db644c46875b1da82175c6}} 
 \index{ADT.h@{ADT.h}!free\_table@{free\_table}}
 \index{free\_table@{free\_table}!ADT.h@{ADT.h}}
 \doxysubsubsection{\texorpdfstring{free\_table()}{free\_table()}}
 {\footnotesize\ttfamily void free\+\_\+table (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structHashTable}{Hash\+Table}} $\ast$}]{table }\end{DoxyParamCaption})}
 
+
+
+Frees all memory associated with the hash table. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em table} & Pointer to the hash table to free.\\
+\hline
+\end{DoxyParams}
+This function iterates through each entry in the hash table and frees the memory associated with each symbol, followed by freeing the hash table itself.
+
+
+\begin{DoxyParams}{Parameters}
+{\em table} & Pointer to the hash table to free. \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{ADT_8h_a7c9e0d90bc8135bbc9d94ee1979c01ee}\label{ADT_8h_a7c9e0d90bc8135bbc9d94ee1979c01ee}} 
 \index{ADT.h@{ADT.h}!hash@{hash}}
 \index{hash@{hash}!ADT.h@{ADT.h}}
 \doxysubsubsection{\texorpdfstring{hash()}{hash()}}
 {\footnotesize\ttfamily unsigned int hash (\begin{DoxyParamCaption}\item[{const char $\ast$}]{key }\end{DoxyParamCaption})}
 
+
+
+Hashes a string to an index in the table. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & Pointer to the string to hash. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Hash value as an index within the table.
+\end{DoxyReturn}
+Hashes a string to an index in the table.
+
+This function calculates the hash value of the provided string using a simple polynomial rolling hash function, returning an index suitable for use in the hash table.
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & Pointer to the string to hash. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Hash index within the range of the table size. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{ADT_8h_a6dcf75b165c5731b136694076b6122c6}\label{ADT_8h_a6dcf75b165c5731b136694076b6122c6}} 
 \index{ADT.h@{ADT.h}!insert\_symbol@{insert\_symbol}}
 \index{insert\_symbol@{insert\_symbol}!ADT.h@{ADT.h}}
 \doxysubsubsection{\texorpdfstring{insert\_symbol()}{insert\_symbol()}}
 {\footnotesize\ttfamily void insert\+\_\+symbol (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structHashTable}{Hash\+Table}} $\ast$}]{table,  }\item[{const char $\ast$}]{name,  }\item[{const char $\ast$}]{type,  }\item[{int}]{int\+Value,  }\item[{int}]{has\+Int,  }\item[{float}]{float\+Value,  }\item[{int}]{has\+Float,  }\item[{unsigned int}]{address }\end{DoxyParamCaption})}
 
+
+
+Inserts a symbol into the hash table. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em table} & Pointer to the hash table. \\
+\hline
+{\em name} & \mbox{\hyperlink{structSymbol}{Symbol}}\textquotesingle{}s name. \\
+\hline
+{\em type} & \mbox{\hyperlink{structSymbol}{Symbol}}\textquotesingle{}s type. \\
+\hline
+{\em int\+Value} & Integer value of the symbol (if applicable). \\
+\hline
+{\em has\+Int} & Indicates if int\+Value is valid. \\
+\hline
+{\em float\+Value} & Floating-\/point value of the symbol (if applicable). \\
+\hline
+{\em has\+Float} & Indicates if float\+Value is valid. \\
+\hline
+{\em address} & Memory address of the symbol.\\
+\hline
+\end{DoxyParams}
+TODO\+: Handle cases where symbols with the same name already exist in the table.
+
+This function creates a new symbol entry and inserts it into the hash table at the index determined by the hash of the symbol\textquotesingle{}s name. If a collision occurs, the new symbol is added to the linked list at that index.
+
+
+\begin{DoxyParams}{Parameters}
+{\em table} & Pointer to the hash table. \\
+\hline
+{\em name} & Name of the symbol. \\
+\hline
+{\em type} & Type of the symbol. \\
+\hline
+{\em int\+Value} & Integer value of the symbol (if applicable). \\
+\hline
+{\em has\+Int} & Indicates if int\+Value is valid. \\
+\hline
+{\em float\+Value} & Floating-\/point value of the symbol (if applicable). \\
+\hline
+{\em has\+Float} & Indicates if float\+Value is valid. \\
+\hline
+{\em address} & Memory address of the symbol. \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{ADT_8h_a9219c7b5ae4ce115fdd6657c6541e3bc}\label{ADT_8h_a9219c7b5ae4ce115fdd6657c6541e3bc}} 
 \index{ADT.h@{ADT.h}!search\_symbol@{search\_symbol}}
 \index{search\_symbol@{search\_symbol}!ADT.h@{ADT.h}}
 \doxysubsubsection{\texorpdfstring{search\_symbol()}{search\_symbol()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structSymbol}{Symbol}}$\ast$ search\+\_\+symbol (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structHashTable}{Hash\+Table}} $\ast$}]{table,  }\item[{const char $\ast$}]{name }\end{DoxyParamCaption})}
 
+
+
+Searches for a symbol in the hash table by name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em table} & Pointer to the hash table. \\
+\hline
+{\em name} & Name of the symbol to search for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the \mbox{\hyperlink{structSymbol}{Symbol}} if found, or NULL if not found.
+\end{DoxyReturn}
+This function traverses the linked list at the index corresponding to the hash of the symbol\textquotesingle{}s name and returns a pointer to the symbol if found, or NULL if not found.
+
+
+\begin{DoxyParams}{Parameters}
+{\em table} & Pointer to the hash table. \\
+\hline
+{\em name} & Name of the symbol to search for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the \mbox{\hyperlink{structSymbol}{Symbol}} if found, or NULL if not found. 
+\end{DoxyReturn}

@@ -79,35 +79,48 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structSymbol.html">Symbol</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a symbol entry in the hash table.  <a href="structSymbol.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structHashTable.html">HashTable</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the hash table for storing symbols.  <a href="structHashTable.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a032503e76d6f69bc67e99e909c8125da"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ADT_8h.html#a032503e76d6f69bc67e99e909c8125da">TABLE_SIZE</a>&#160;&#160;&#160;100</td></tr>
+<tr class="memdesc:a032503e76d6f69bc67e99e909c8125da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the hash table.  <a href="ADT_8h.html#a032503e76d6f69bc67e99e909c8125da">More...</a><br /></td></tr>
 <tr class="separator:a032503e76d6f69bc67e99e909c8125da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a69781ac22aa41ceaca20060ad642a403"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ADT_8h.html#a69781ac22aa41ceaca20060ad642a403">copy_string</a> (const char *str)</td></tr>
+<tr class="memdesc:a69781ac22aa41ceaca20060ad642a403"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dynamically copies a string.  <a href="ADT_8h.html#a69781ac22aa41ceaca20060ad642a403">More...</a><br /></td></tr>
 <tr class="separator:a69781ac22aa41ceaca20060ad642a403"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae7778847ae19a4693087f819ef97ada7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ADT_8h.html#ae7778847ae19a4693087f819ef97ada7">free_string</a> (char *str)</td></tr>
+<tr class="memdesc:ae7778847ae19a4693087f819ef97ada7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees a dynamically allocated string.  <a href="ADT_8h.html#ae7778847ae19a4693087f819ef97ada7">More...</a><br /></td></tr>
 <tr class="separator:ae7778847ae19a4693087f819ef97ada7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c9e0d90bc8135bbc9d94ee1979c01ee"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ADT_8h.html#a7c9e0d90bc8135bbc9d94ee1979c01ee">hash</a> (const char *key)</td></tr>
+<tr class="memdesc:a7c9e0d90bc8135bbc9d94ee1979c01ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hashes a string to an index in the table.  <a href="ADT_8h.html#a7c9e0d90bc8135bbc9d94ee1979c01ee">More...</a><br /></td></tr>
 <tr class="separator:a7c9e0d90bc8135bbc9d94ee1979c01ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c5cd145c4b3c3ad00c3e8d4897aaf0f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structHashTable.html">HashTable</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ADT_8h.html#a9c5cd145c4b3c3ad00c3e8d4897aaf0f">create_table</a> ()</td></tr>
+<tr class="memdesc:a9c5cd145c4b3c3ad00c3e8d4897aaf0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new hash table.  <a href="ADT_8h.html#a9c5cd145c4b3c3ad00c3e8d4897aaf0f">More...</a><br /></td></tr>
 <tr class="separator:a9c5cd145c4b3c3ad00c3e8d4897aaf0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6dcf75b165c5731b136694076b6122c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ADT_8h.html#a6dcf75b165c5731b136694076b6122c6">insert_symbol</a> (<a class="el" href="structHashTable.html">HashTable</a> *table, const char *name, const char *type, int intValue, int hasInt, float floatValue, int hasFloat, unsigned int address)</td></tr>
+<tr class="memdesc:a6dcf75b165c5731b136694076b6122c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a symbol into the hash table.  <a href="ADT_8h.html#a6dcf75b165c5731b136694076b6122c6">More...</a><br /></td></tr>
 <tr class="separator:a6dcf75b165c5731b136694076b6122c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a241a0981d96a30cf13c1bd65b79a3dc8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ADT_8h.html#a241a0981d96a30cf13c1bd65b79a3dc8">delete_symbol</a> (<a class="el" href="structHashTable.html">HashTable</a> *table, const char *name)</td></tr>
+<tr class="memdesc:a241a0981d96a30cf13c1bd65b79a3dc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes a symbol from the hash table by name.  <a href="ADT_8h.html#a241a0981d96a30cf13c1bd65b79a3dc8">More...</a><br /></td></tr>
 <tr class="separator:a241a0981d96a30cf13c1bd65b79a3dc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9219c7b5ae4ce115fdd6657c6541e3bc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structSymbol.html">Symbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ADT_8h.html#a9219c7b5ae4ce115fdd6657c6541e3bc">search_symbol</a> (<a class="el" href="structHashTable.html">HashTable</a> *table, const char *name)</td></tr>
+<tr class="memdesc:a9219c7b5ae4ce115fdd6657c6541e3bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches for a symbol in the hash table by name.  <a href="ADT_8h.html#a9219c7b5ae4ce115fdd6657c6541e3bc">More...</a><br /></td></tr>
 <tr class="separator:a9219c7b5ae4ce115fdd6657c6541e3bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86fe0b3ef8db644c46875b1da82175c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ADT_8h.html#a86fe0b3ef8db644c46875b1da82175c6">free_table</a> (<a class="el" href="structHashTable.html">HashTable</a> *table)</td></tr>
+<tr class="memdesc:a86fe0b3ef8db644c46875b1da82175c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees all memory associated with the hash table.  <a href="ADT_8h.html#a86fe0b3ef8db644c46875b1da82175c6">More...</a><br /></td></tr>
 <tr class="separator:a86fe0b3ef8db644c46875b1da82175c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Pavel Glvač &lt;xglvacp00&gt; </dd></dl>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a032503e76d6f69bc67e99e909c8125da"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a032503e76d6f69bc67e99e909c8125da">&#9670;&nbsp;</a></span>TABLE_SIZE</h2>
 
@@ -119,6 +132,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Size of the hash table. </p>
 
 </div>
 </div>
@@ -139,6 +154,24 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Dynamically copies a string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>Pointer to the string to copy. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A dynamically allocated copy of the string, or NULL if memory allocation fails.</dd></dl>
+<p>Dynamically copies a string.</p>
+<p>This function allocates memory for a new string and copies the content of the provided string into the newly allocated memory. If memory allocation fails, it returns NULL.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>Pointer to the string to copy. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A dynamically allocated copy of the string, or NULL if memory allocation fails. </dd></dl>
+
 </div>
 </div>
 <a id="a9c5cd145c4b3c3ad00c3e8d4897aaf0f"></a>
@@ -155,6 +188,11 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Creates a new hash table. </p>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to a newly allocated <a class="el" href="structHashTable.html" title="Represents the hash table for storing symbols.">HashTable</a>, or NULL if allocation fails.</dd></dl>
+<p>This function allocates memory for a new hash table and initializes all the entries to NULL. If memory allocation fails, it returns NULL.</p>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to a newly allocated <a class="el" href="structHashTable.html" title="Represents the hash table for storing symbols.">HashTable</a>, or NULL if allocation fails. </dd></dl>
 
 </div>
 </div>
@@ -184,6 +222,23 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Deletes a symbol from the hash table by name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">table</td><td>Pointer to the hash table. </td></tr>
+    <tr><td class="paramname">name</td><td>Name of the symbol to delete.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This function searches for a symbol in the hash table and removes it, adjusting the linked list pointers accordingly. It also frees the memory allocated for the symbol's name and type.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">table</td><td>Pointer to the hash table. </td></tr>
+    <tr><td class="paramname">name</td><td>Name of the symbol to delete. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="ae7778847ae19a4693087f819ef97ada7"></a>
@@ -201,6 +256,21 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Frees a dynamically allocated string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>Pointer to the string to free.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This function deallocates the memory previously allocated for a string, ensuring there are no memory leaks.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>Pointer to the string to free. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -220,6 +290,21 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Frees all memory associated with the hash table. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">table</td><td>Pointer to the hash table to free.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This function iterates through each entry in the hash table and frees the memory associated with each symbol, followed by freeing the hash table itself.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">table</td><td>Pointer to the hash table to free. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a7c9e0d90bc8135bbc9d94ee1979c01ee"></a>
@@ -237,6 +322,24 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Hashes a string to an index in the table. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Pointer to the string to hash. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Hash value as an index within the table.</dd></dl>
+<p>Hashes a string to an index in the table.</p>
+<p>This function calculates the hash value of the provided string using a simple polynomial rolling hash function, returning an index suitable for use in the hash table.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Pointer to the string to hash. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Hash index within the range of the table size. </dd></dl>
 
 </div>
 </div>
@@ -302,6 +405,36 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Inserts a symbol into the hash table. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">table</td><td>Pointer to the hash table. </td></tr>
+    <tr><td class="paramname">name</td><td><a class="el" href="structSymbol.html" title="Represents a symbol entry in the hash table.">Symbol</a>'s name. </td></tr>
+    <tr><td class="paramname">type</td><td><a class="el" href="structSymbol.html" title="Represents a symbol entry in the hash table.">Symbol</a>'s type. </td></tr>
+    <tr><td class="paramname">intValue</td><td>Integer value of the symbol (if applicable). </td></tr>
+    <tr><td class="paramname">hasInt</td><td>Indicates if intValue is valid. </td></tr>
+    <tr><td class="paramname">floatValue</td><td>Floating-point value of the symbol (if applicable). </td></tr>
+    <tr><td class="paramname">hasFloat</td><td>Indicates if floatValue is valid. </td></tr>
+    <tr><td class="paramname">address</td><td>Memory address of the symbol.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>TODO: Handle cases where symbols with the same name already exist in the table.</p>
+<p>This function creates a new symbol entry and inserts it into the hash table at the index determined by the hash of the symbol's name. If a collision occurs, the new symbol is added to the linked list at that index.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">table</td><td>Pointer to the hash table. </td></tr>
+    <tr><td class="paramname">name</td><td>Name of the symbol. </td></tr>
+    <tr><td class="paramname">type</td><td>Type of the symbol. </td></tr>
+    <tr><td class="paramname">intValue</td><td>Integer value of the symbol (if applicable). </td></tr>
+    <tr><td class="paramname">hasInt</td><td>Indicates if intValue is valid. </td></tr>
+    <tr><td class="paramname">floatValue</td><td>Floating-point value of the symbol (if applicable). </td></tr>
+    <tr><td class="paramname">hasFloat</td><td>Indicates if floatValue is valid. </td></tr>
+    <tr><td class="paramname">address</td><td>Memory address of the symbol. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a9219c7b5ae4ce115fdd6657c6541e3bc"></a>
@@ -329,6 +462,25 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Searches for a symbol in the hash table by name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">table</td><td>Pointer to the hash table. </td></tr>
+    <tr><td class="paramname">name</td><td>Name of the symbol to search for. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the <a class="el" href="structSymbol.html" title="Represents a symbol entry in the hash table.">Symbol</a> if found, or NULL if not found.</dd></dl>
+<p>This function traverses the linked list at the index corresponding to the hash of the symbol's name and returns a pointer to the symbol if found, or NULL if not found.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">table</td><td>Pointer to the hash table. </td></tr>
+    <tr><td class="paramname">name</td><td>Name of the symbol to search for. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the <a class="el" href="structSymbol.html" title="Represents a symbol entry in the hash table.">Symbol</a> if found, or NULL if not found. </dd></dl>
 
 </div>
 </div>
