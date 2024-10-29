@@ -1,0 +1,93 @@
+\hypertarget{lexical__analyser_8c}{}\doxysection{/home/administrator/\+IFJ/\+IFJ-\/project01/src/lexical\+\_\+analyser.c File Reference}
+\label{lexical__analyser_8c}\index{/home/administrator/IFJ/IFJ-\/project01/src/lexical\_analyser.c@{/home/administrator/IFJ/IFJ-\/project01/src/lexical\_analyser.c}}
+{\ttfamily \#include \char`\"{}lexical\+\_\+analyser.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$error.\+h$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}newstring.\+h\char`\"{}}\newline
+Include dependency graph for lexical\+\_\+analyser.\+c\+:
+% FIG 0
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{lexical__analyser_8c_a3313354ed388a3e1602481bb0931a541}{KEYWORD\+\_\+\+COUNT}}~18
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{lexical__analyser_8c_ade03459f3b506becbc1e389002a1126a}{is\+\_\+keyword}} (\mbox{\hyperlink{structToken}{Token}} $\ast$token)
+\item 
+\mbox{\hyperlink{structToken}{Token}} \mbox{\hyperlink{lexical__analyser_8c_a1b68532a422d65e0eab79e3011af906e}{get\+\_\+token}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \mbox{\hyperlink{lexical__analyser_8c_abd184eddfa99b9c6043d005b20c9b135}{keywords}} \mbox{[}\mbox{\hyperlink{lexical__analyser_8c_a3313354ed388a3e1602481bb0931a541}{KEYWORD\+\_\+\+COUNT}}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{lexical__analyser_8c_a3313354ed388a3e1602481bb0931a541}\label{lexical__analyser_8c_a3313354ed388a3e1602481bb0931a541}} 
+\index{lexical\_analyser.c@{lexical\_analyser.c}!KEYWORD\_COUNT@{KEYWORD\_COUNT}}
+\index{KEYWORD\_COUNT@{KEYWORD\_COUNT}!lexical\_analyser.c@{lexical\_analyser.c}}
+\doxysubsubsection{\texorpdfstring{KEYWORD\_COUNT}{KEYWORD\_COUNT}}
+{\footnotesize\ttfamily \#define KEYWORD\+\_\+\+COUNT~18}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{lexical__analyser_8c_a1b68532a422d65e0eab79e3011af906e}\label{lexical__analyser_8c_a1b68532a422d65e0eab79e3011af906e}} 
+\index{lexical\_analyser.c@{lexical\_analyser.c}!get\_token@{get\_token}}
+\index{get\_token@{get\_token}!lexical\_analyser.c@{lexical\_analyser.c}}
+\doxysubsubsection{\texorpdfstring{get\_token()}{get\_token()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structToken}{Token}} get\+\_\+token (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 1
+Here is the caller graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{lexical__analyser_8c_ade03459f3b506becbc1e389002a1126a}\label{lexical__analyser_8c_ade03459f3b506becbc1e389002a1126a}} 
+\index{lexical\_analyser.c@{lexical\_analyser.c}!is\_keyword@{is\_keyword}}
+\index{is\_keyword@{is\_keyword}!lexical\_analyser.c@{lexical\_analyser.c}}
+\doxysubsubsection{\texorpdfstring{is\_keyword()}{is\_keyword()}}
+{\footnotesize\ttfamily bool is\+\_\+keyword (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structToken}{Token}} $\ast$}]{token }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+% FIG 3
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{lexical__analyser_8c_abd184eddfa99b9c6043d005b20c9b135}\label{lexical__analyser_8c_abd184eddfa99b9c6043d005b20c9b135}} 
+\index{lexical\_analyser.c@{lexical\_analyser.c}!keywords@{keywords}}
+\index{keywords@{keywords}!lexical\_analyser.c@{lexical\_analyser.c}}
+\doxysubsubsection{\texorpdfstring{keywords}{keywords}}
+{\footnotesize\ttfamily const char$\ast$ keywords\mbox{[}\mbox{\hyperlink{lexical__analyser_8c_a3313354ed388a3e1602481bb0931a541}{KEYWORD\+\_\+\+COUNT}}\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}if"{}},     }
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}else"{}},   }
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}fn"{}},     }
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}const"{}},  }
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}i32"{}},    }
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}f64"{}},    }
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}u8"{}},     }
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}[]u8"{}},   }
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}?i32"{}},   }
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}?f64"{}},   }
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}?u8"{}},    }
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}?[]u8"{}},  }
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}null"{}},   }
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}pub"{}},    }
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}return"{}}, }
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}var"{}},    }
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}void"{}},   }
+\DoxyCodeLine{    \textcolor{stringliteral}{"{}while"{}}   }
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}

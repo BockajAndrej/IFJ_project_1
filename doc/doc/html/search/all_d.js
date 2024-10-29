@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['undefined_5fid_5ferr_117',['UNDEFINED_ID_ERR',['../error_8h.html#a7b9bc30cfc89e18e9c1a24c2f32059b2',1,'error.h']]],
-  ['unused_5fvar_5ferr_118',['UNUSED_VAR_ERR',['../error_8h.html#a56d26e7a1ce6a6e0de9d72d38bbee4cc',1,'error.h']]]
+  ['name_66',['name',['../structSymbol.html#aa9ba617cd9de17ed73148893a6c14606',1,'Symbol']]],
+  ['newstring_2ec_67',['newstring.c',['../newstring_8c.html',1,'']]],
+  ['newstring_2eh_68',['newstring.h',['../newstring_8h.html',1,'']]],
+  ['next_69',['next',['../structSymbol.html#af5a223ab45f0e4f002dbe8108c6085a9',1,'Symbol']]],
+  ['null_5ferr_70',['NULL_ERR',['../error_8h.html#ae9b6c3a2f6424ade0f9970ea10dde85b',1,'error.h']]]
 ];

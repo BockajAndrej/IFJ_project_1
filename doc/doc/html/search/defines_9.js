@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['undefined_5fid_5ferr_237',['UNDEFINED_ID_ERR',['../error_8h.html#a7b9bc30cfc89e18e9c1a24c2f32059b2',1,'error.h']]],
-  ['unused_5fvar_5ferr_238',['UNUSED_VAR_ERR',['../error_8h.html#a56d26e7a1ce6a6e0de9d72d38bbee4cc',1,'error.h']]]
+  ['redef_5ferr_345',['REDEF_ERR',['../error_8h.html#a93a0e56f75e0685eb0c86f75fa07a0ec',1,'error.h']]],
+  ['return_5fexpr_5ferr_346',['RETURN_EXPR_ERR',['../error_8h.html#af35b317a1952f819bc505b50770245c0',1,'error.h']]]
 ];

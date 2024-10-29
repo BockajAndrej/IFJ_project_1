@@ -76,8 +76,10 @@ $(function() {
 <code>#include &lt;stdbool.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
-<code>#include &lt;<a class="el" href="Lexical__analyser_8h_source.html">Lexical_analyser.h</a>&gt;</code><br />
+<code>#include &quot;<a class="el" href="lexical__analyser_8h_source.html">lexical_analyser.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="syntactic__analysis_8h_source.html">syntactic_analysis.h</a>&quot;</code><br />
 <code>#include &lt;<a class="el" href="error_8h_source.html">error.h</a>&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for main.c:</div>
 <div class="dyncontent">
@@ -86,13 +88,17 @@ Include dependency graph for main.c:</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a67367cc8618de258a4163191d1ac05b8"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a67367cc8618de258a4163191d1ac05b8">token_type_to_string</a> (<a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44">Token_type</a> type)</td></tr>
+<tr class="separator:a67367cc8618de258a4163191d1ac05b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbb4fd03fd6564af6fe03306ec48364c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#acbb4fd03fd6564af6fe03306ec48364c">print_token</a> (<a class="el" href="structToken.html">Token</a> token)</td></tr>
+<tr class="separator:acbb4fd03fd6564af6fe03306ec48364c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (int argc, char **argv)</td></tr>
 <tr class="separator:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a371d4c8a8350304f0fd33a6ba0efd340"><td class="memItemLeft" align="right" valign="top">FILE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a371d4c8a8350304f0fd33a6ba0efd340">file</a></td></tr>
-<tr class="separator:a371d4c8a8350304f0fd33a6ba0efd340"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a702945180aa732857b380a007a7e2a21"><td class="memItemLeft" align="right" valign="top">FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a></td></tr>
+<tr class="separator:a702945180aa732857b380a007a7e2a21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a3c04138a5bfe5d72780bb7e82a18e627"></a>
@@ -120,18 +126,74 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="main_8c_a3c04138a5bfe5d72780bb7e82a18e627_cgraph.png" border="0" usemap="#amain_8c_a3c04138a5bfe5d72780bb7e82a18e627_cgraph" alt=""/></div>
+</div>
 
 </div>
 </div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="a371d4c8a8350304f0fd33a6ba0efd340"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a371d4c8a8350304f0fd33a6ba0efd340">&#9670;&nbsp;</a></span>file</h2>
+<a id="acbb4fd03fd6564af6fe03306ec48364c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbb4fd03fd6564af6fe03306ec48364c">&#9670;&nbsp;</a></span>print_token()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">FILE file</td>
+          <td class="memname">void print_token </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structToken.html">Token</a>&#160;</td>
+          <td class="paramname"><em>token</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="main_8c_acbb4fd03fd6564af6fe03306ec48364c_cgraph.png" border="0" usemap="#amain_8c_acbb4fd03fd6564af6fe03306ec48364c_cgraph" alt=""/></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="main_8c_acbb4fd03fd6564af6fe03306ec48364c_icgraph.png" border="0" usemap="#amain_8c_acbb4fd03fd6564af6fe03306ec48364c_icgraph" alt=""/></div>
+</div>
+
+</div>
+</div>
+<a id="a67367cc8618de258a4163191d1ac05b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67367cc8618de258a4163191d1ac05b8">&#9670;&nbsp;</a></span>token_type_to_string()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* token_type_to_string </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44">Token_type</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="main_8c_a67367cc8618de258a4163191d1ac05b8_icgraph.png" border="0" usemap="#amain_8c_a67367cc8618de258a4163191d1ac05b8_icgraph" alt=""/></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a702945180aa732857b380a007a7e2a21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a702945180aa732857b380a007a7e2a21">&#9670;&nbsp;</a></span>file</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FILE* file</td>
         </tr>
       </table>
 </div><div class="memdoc">

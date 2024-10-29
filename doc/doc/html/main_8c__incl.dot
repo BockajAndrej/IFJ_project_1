@@ -13,8 +13,19 @@ digraph "/home/administrator/IFJ/IFJ-project01/src/main.c"
   Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node5 [label="stdlib.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
   Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node6 [label="Lexical_analyser.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Lexical__analyser_8h.html",tooltip=" "];
+  Node6 [label="lexical_analyser.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$lexical__analyser_8h.html",tooltip=" "];
   Node6 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node7 [label="error.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$error_8h.html",tooltip=" "];
+  Node6 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="newstring.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$newstring_8h.html",tooltip=" "];
+  Node7 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="syntactic_analysis.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8h.html",tooltip=" "];
+  Node8 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="string.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node1 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="error.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$error_8h.html",tooltip=" "];
+  Node1 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
 }

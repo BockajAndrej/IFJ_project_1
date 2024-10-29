@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['get_5ftoken_134',['get_token',['../Lexical__analyser_8c.html#a1b68532a422d65e0eab79e3011af906e',1,'Lexical_analyser.c']]]
+  ['add_5fdouble_5fto_5fdynamic_5fstring_196',['add_double_to_dynamic_string',['../newstring_8c.html#a723751a5d99efdf10145303c11895ce9',1,'add_double_to_dynamic_string(Dynamic_string *s, double value):&#160;newstring.c'],['../newstring_8h.html#a723751a5d99efdf10145303c11895ce9',1,'add_double_to_dynamic_string(Dynamic_string *s, double value):&#160;newstring.c']]]
 ];

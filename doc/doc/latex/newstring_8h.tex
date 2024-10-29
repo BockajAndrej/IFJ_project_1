@@ -1,0 +1,94 @@
+\hypertarget{newstring_8h}{}\doxysection{/home/administrator/\+IFJ/\+IFJ-\/project01/src/newstring.h File Reference}
+\label{newstring_8h}\index{/home/administrator/IFJ/IFJ-\/project01/src/newstring.h@{/home/administrator/IFJ/IFJ-\/project01/src/newstring.h}}
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+Include dependency graph for newstring.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structDynamic__string}{Dynamic\+\_\+string}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{newstring_8h_a54494ca23d2144c7a459fe8f98f37674}{DYNAMIC\+\_\+\+STRING\+\_\+\+LEN\+\_\+\+INC}}~16
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{newstring_8h_a5c4e413e494b26f4a5d9ddba7a274b3c}{dynamic\+\_\+string\+\_\+init}} (\mbox{\hyperlink{structDynamic__string}{Dynamic\+\_\+string}} $\ast$s)
+\item 
+void \mbox{\hyperlink{newstring_8h_a03217aede38d7cef89609b66fd21f2f7}{dynamic\+\_\+string\+\_\+free}} (\mbox{\hyperlink{structDynamic__string}{Dynamic\+\_\+string}} $\ast$s)
+\item 
+bool \mbox{\hyperlink{newstring_8h_a33884f5f943a1e93cdba424756c663d9}{dynamic\+\_\+string\+\_\+add\+\_\+char}} (\mbox{\hyperlink{structDynamic__string}{Dynamic\+\_\+string}} $\ast$s, char c)
+\item 
+bool \mbox{\hyperlink{newstring_8h_a723751a5d99efdf10145303c11895ce9}{add\+\_\+double\+\_\+to\+\_\+dynamic\+\_\+string}} (\mbox{\hyperlink{structDynamic__string}{Dynamic\+\_\+string}} $\ast$s, double value)
+\item 
+void \mbox{\hyperlink{newstring_8h_aa1207c77da58ada32d94fe4e97aa5e1e}{dynamic\+\_\+string\+\_\+clear}} (\mbox{\hyperlink{structDynamic__string}{Dynamic\+\_\+string}} $\ast$s)
+\item 
+char \mbox{\hyperlink{newstring_8h_a965aca817e0dd5e3260af1f4304f5d66}{dynamic\+\_\+string\+\_\+first\+\_\+char}} (const \mbox{\hyperlink{structDynamic__string}{Dynamic\+\_\+string}} $\ast$s)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{newstring_8h_a54494ca23d2144c7a459fe8f98f37674}\label{newstring_8h_a54494ca23d2144c7a459fe8f98f37674}} 
+\index{newstring.h@{newstring.h}!DYNAMIC\_STRING\_LEN\_INC@{DYNAMIC\_STRING\_LEN\_INC}}
+\index{DYNAMIC\_STRING\_LEN\_INC@{DYNAMIC\_STRING\_LEN\_INC}!newstring.h@{newstring.h}}
+\doxysubsubsection{\texorpdfstring{DYNAMIC\_STRING\_LEN\_INC}{DYNAMIC\_STRING\_LEN\_INC}}
+{\footnotesize\ttfamily \#define DYNAMIC\+\_\+\+STRING\+\_\+\+LEN\+\_\+\+INC~16}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{newstring_8h_a723751a5d99efdf10145303c11895ce9}\label{newstring_8h_a723751a5d99efdf10145303c11895ce9}} 
+\index{newstring.h@{newstring.h}!add\_double\_to\_dynamic\_string@{add\_double\_to\_dynamic\_string}}
+\index{add\_double\_to\_dynamic\_string@{add\_double\_to\_dynamic\_string}!newstring.h@{newstring.h}}
+\doxysubsubsection{\texorpdfstring{add\_double\_to\_dynamic\_string()}{add\_double\_to\_dynamic\_string()}}
+{\footnotesize\ttfamily bool add\+\_\+double\+\_\+to\+\_\+dynamic\+\_\+string (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDynamic__string}{Dynamic\+\_\+string}} $\ast$}]{s,  }\item[{double}]{value }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{newstring_8h_a33884f5f943a1e93cdba424756c663d9}\label{newstring_8h_a33884f5f943a1e93cdba424756c663d9}} 
+\index{newstring.h@{newstring.h}!dynamic\_string\_add\_char@{dynamic\_string\_add\_char}}
+\index{dynamic\_string\_add\_char@{dynamic\_string\_add\_char}!newstring.h@{newstring.h}}
+\doxysubsubsection{\texorpdfstring{dynamic\_string\_add\_char()}{dynamic\_string\_add\_char()}}
+{\footnotesize\ttfamily bool dynamic\+\_\+string\+\_\+add\+\_\+char (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDynamic__string}{Dynamic\+\_\+string}} $\ast$}]{s,  }\item[{char}]{c }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{newstring_8h_aa1207c77da58ada32d94fe4e97aa5e1e}\label{newstring_8h_aa1207c77da58ada32d94fe4e97aa5e1e}} 
+\index{newstring.h@{newstring.h}!dynamic\_string\_clear@{dynamic\_string\_clear}}
+\index{dynamic\_string\_clear@{dynamic\_string\_clear}!newstring.h@{newstring.h}}
+\doxysubsubsection{\texorpdfstring{dynamic\_string\_clear()}{dynamic\_string\_clear()}}
+{\footnotesize\ttfamily void dynamic\+\_\+string\+\_\+clear (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDynamic__string}{Dynamic\+\_\+string}} $\ast$}]{s }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+% FIG 5
+\mbox{\Hypertarget{newstring_8h_a965aca817e0dd5e3260af1f4304f5d66}\label{newstring_8h_a965aca817e0dd5e3260af1f4304f5d66}} 
+\index{newstring.h@{newstring.h}!dynamic\_string\_first\_char@{dynamic\_string\_first\_char}}
+\index{dynamic\_string\_first\_char@{dynamic\_string\_first\_char}!newstring.h@{newstring.h}}
+\doxysubsubsection{\texorpdfstring{dynamic\_string\_first\_char()}{dynamic\_string\_first\_char()}}
+{\footnotesize\ttfamily char dynamic\+\_\+string\+\_\+first\+\_\+char (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structDynamic__string}{Dynamic\+\_\+string}} $\ast$}]{s }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{newstring_8h_a03217aede38d7cef89609b66fd21f2f7}\label{newstring_8h_a03217aede38d7cef89609b66fd21f2f7}} 
+\index{newstring.h@{newstring.h}!dynamic\_string\_free@{dynamic\_string\_free}}
+\index{dynamic\_string\_free@{dynamic\_string\_free}!newstring.h@{newstring.h}}
+\doxysubsubsection{\texorpdfstring{dynamic\_string\_free()}{dynamic\_string\_free()}}
+{\footnotesize\ttfamily void dynamic\+\_\+string\+\_\+free (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDynamic__string}{Dynamic\+\_\+string}} $\ast$}]{s }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+% FIG 6
+\mbox{\Hypertarget{newstring_8h_a5c4e413e494b26f4a5d9ddba7a274b3c}\label{newstring_8h_a5c4e413e494b26f4a5d9ddba7a274b3c}} 
+\index{newstring.h@{newstring.h}!dynamic\_string\_init@{dynamic\_string\_init}}
+\index{dynamic\_string\_init@{dynamic\_string\_init}!newstring.h@{newstring.h}}
+\doxysubsubsection{\texorpdfstring{dynamic\_string\_init()}{dynamic\_string\_init()}}
+{\footnotesize\ttfamily bool dynamic\+\_\+string\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDynamic__string}{Dynamic\+\_\+string}} $\ast$}]{s }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+% FIG 7

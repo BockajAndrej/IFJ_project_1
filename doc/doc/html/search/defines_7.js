@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['semantic_5ferr_232',['SEMANTIC_ERR',['../error_8h.html#aa034ca35d49efee5f461db3f54d9bb72',1,'error.h']]],
-  ['successfull_5ferr_233',['SUCCESSFULL_ERR',['../error_8h.html#a6fe0fffd050cfac60c3027fd6980114b',1,'error.h']]],
-  ['syntax_5ferr_234',['SYNTAX_ERR',['../error_8h.html#a4975543a0b8021ff3ff7a7bfc0c6975d',1,'error.h']]]
+  ['mem_5ferr_343',['MEM_ERR',['../error_8h.html#ab2188c7ee9067d3fb1fb8c2a5b5902ac',1,'error.h']]]
 ];

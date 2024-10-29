@@ -6,4 +6,6 @@ digraph "Token"
   Node1 [label="Token",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
   Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" value" ,fontname="Helvetica"];
   Node2 [label="Token_Value",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$unionToken__Value.html",tooltip=" "];
+  Node3 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" valueString" ,fontname="Helvetica"];
+  Node3 [label="Dynamic_string",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structDynamic__string.html",tooltip=" "];
 }
