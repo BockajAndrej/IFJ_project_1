@@ -5,6 +5,7 @@
 
 #include <stdbool.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 // The amount of memory to allocate for the dynamic string at a time
 #define DYNAMIC_STRING_LEN_INC 16
@@ -20,6 +21,7 @@ typedef struct {
 bool dynamic_string_init(Dynamic_string *s);
 void dynamic_string_free(Dynamic_string *s);
 bool dynamic_string_add_char(Dynamic_string *s, char c);
+bool add_double_to_dynamic_string(Dynamic_string *s, double value);
 void dynamic_string_clear(Dynamic_string *s);
 char dynamic_string_first_char(const Dynamic_string *s);
 

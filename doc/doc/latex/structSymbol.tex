@@ -1,0 +1,121 @@
+\hypertarget{structSymbol}{}\doxysection{Symbol Struct Reference}
+\label{structSymbol}\index{Symbol@{Symbol}}
+
+
+Represents a symbol entry in the hash table.  
+
+
+
+
+{\ttfamily \#include $<$ADT.\+h$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \mbox{\hyperlink{structSymbol_aa9ba617cd9de17ed73148893a6c14606}{name}}
+\begin{DoxyCompactList}\small\item\em Key for the symbol (symbol\textquotesingle{}s name) \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{structSymbol_a53b6b2df50a76751645489f0ac7634fe}{type}}
+\begin{DoxyCompactList}\small\item\em Type of the symbol. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{structSymbol_a936e9fb2f8a62f8c44224e2183aea00a}{int\+Value}}
+\begin{DoxyCompactList}\small\item\em Integer value of the symbol. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{structSymbol_aadd4a19cc2a4c63594c12d1335144809}{float\+Value}}
+\begin{DoxyCompactList}\small\item\em Floating-\/point value of the symbol. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{structSymbol_a0962a08288c78beca121a90bc1c1701e}{address}}
+\begin{DoxyCompactList}\small\item\em Address of the symbol. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{structSymbol_ac865bbbf613e8c90c8e9a5b463b3bba7}{has\+Int\+Value}}\+: 1
+\begin{DoxyCompactList}\small\item\em Flag indicating if int\+Value is valid. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{structSymbol_a91833d6acad4d962d2e3f34f49a3beea}{has\+Float\+Value}}\+: 1
+\begin{DoxyCompactList}\small\item\em Flag indicating if float\+Value is valid. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structSymbol}{Symbol}} $\ast$ \mbox{\hyperlink{structSymbol_af5a223ab45f0e4f002dbe8108c6085a9}{next}}
+\begin{DoxyCompactList}\small\item\em Pointer to the next symbol in case of a collision. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a symbol entry in the hash table. 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structSymbol_a0962a08288c78beca121a90bc1c1701e}\label{structSymbol_a0962a08288c78beca121a90bc1c1701e}} 
+\index{Symbol@{Symbol}!address@{address}}
+\index{address@{address}!Symbol@{Symbol}}
+\doxysubsubsection{\texorpdfstring{address}{address}}
+{\footnotesize\ttfamily unsigned int Symbol\+::address}
+
+
+
+Address of the symbol. 
+
+\mbox{\Hypertarget{structSymbol_aadd4a19cc2a4c63594c12d1335144809}\label{structSymbol_aadd4a19cc2a4c63594c12d1335144809}} 
+\index{Symbol@{Symbol}!floatValue@{floatValue}}
+\index{floatValue@{floatValue}!Symbol@{Symbol}}
+\doxysubsubsection{\texorpdfstring{floatValue}{floatValue}}
+{\footnotesize\ttfamily float Symbol\+::float\+Value}
+
+
+
+Floating-\/point value of the symbol. 
+
+\mbox{\Hypertarget{structSymbol_a91833d6acad4d962d2e3f34f49a3beea}\label{structSymbol_a91833d6acad4d962d2e3f34f49a3beea}} 
+\index{Symbol@{Symbol}!hasFloatValue@{hasFloatValue}}
+\index{hasFloatValue@{hasFloatValue}!Symbol@{Symbol}}
+\doxysubsubsection{\texorpdfstring{hasFloatValue}{hasFloatValue}}
+{\footnotesize\ttfamily unsigned int Symbol\+::has\+Float\+Value}
+
+
+
+Flag indicating if float\+Value is valid. 
+
+\mbox{\Hypertarget{structSymbol_ac865bbbf613e8c90c8e9a5b463b3bba7}\label{structSymbol_ac865bbbf613e8c90c8e9a5b463b3bba7}} 
+\index{Symbol@{Symbol}!hasIntValue@{hasIntValue}}
+\index{hasIntValue@{hasIntValue}!Symbol@{Symbol}}
+\doxysubsubsection{\texorpdfstring{hasIntValue}{hasIntValue}}
+{\footnotesize\ttfamily unsigned int Symbol\+::has\+Int\+Value}
+
+
+
+Flag indicating if int\+Value is valid. 
+
+\mbox{\Hypertarget{structSymbol_a936e9fb2f8a62f8c44224e2183aea00a}\label{structSymbol_a936e9fb2f8a62f8c44224e2183aea00a}} 
+\index{Symbol@{Symbol}!intValue@{intValue}}
+\index{intValue@{intValue}!Symbol@{Symbol}}
+\doxysubsubsection{\texorpdfstring{intValue}{intValue}}
+{\footnotesize\ttfamily int Symbol\+::int\+Value}
+
+
+
+Integer value of the symbol. 
+
+\mbox{\Hypertarget{structSymbol_aa9ba617cd9de17ed73148893a6c14606}\label{structSymbol_aa9ba617cd9de17ed73148893a6c14606}} 
+\index{Symbol@{Symbol}!name@{name}}
+\index{name@{name}!Symbol@{Symbol}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily char$\ast$ Symbol\+::name}
+
+
+
+Key for the symbol (symbol\textquotesingle{}s name) 
+
+\mbox{\Hypertarget{structSymbol_af5a223ab45f0e4f002dbe8108c6085a9}\label{structSymbol_af5a223ab45f0e4f002dbe8108c6085a9}} 
+\index{Symbol@{Symbol}!next@{next}}
+\index{next@{next}!Symbol@{Symbol}}
+\doxysubsubsection{\texorpdfstring{next}{next}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structSymbol}{Symbol}}$\ast$ Symbol\+::next}
+
+
+
+Pointer to the next symbol in case of a collision. 
+
+\mbox{\Hypertarget{structSymbol_a53b6b2df50a76751645489f0ac7634fe}\label{structSymbol_a53b6b2df50a76751645489f0ac7634fe}} 
+\index{Symbol@{Symbol}!type@{type}}
+\index{type@{type}!Symbol@{Symbol}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily char$\ast$ Symbol\+::type}
+
+
+
+Type of the symbol. 
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{ADT_8h}{ADT.\+h}}\end{DoxyCompactItemize}

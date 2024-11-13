@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['io_5ferr_226',['IO_ERR',['../error_8h.html#a2f594e19531c324dd254ba0cc712044d',1,'error.h']]]
+  ['dynamic_5fstring_5flen_5finc_384',['DYNAMIC_STRING_LEN_INC',['../newstring_8h.html#a54494ca23d2144c7a459fe8f98f37674',1,'newstring.h']]]
 ];

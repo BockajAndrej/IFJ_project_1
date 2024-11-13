@@ -1,0 +1,10 @@
+digraph "RET_DEF"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="RET_DEF",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Processes return command."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="EXPRESSION",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a38b7a13b9a5926c2c4b6af62cec86f85",tooltip="Function for processing another argument which is in queue."];
+}

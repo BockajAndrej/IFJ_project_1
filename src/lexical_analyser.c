@@ -9,7 +9,7 @@
 #include <string.h>
 #include "newstring.h"
 
-#define KEYWORD_COUNT 18 // Update this if you add more keywords
+#define KEYWORD_COUNT 13 // Update this if you add more keywords
 
 const char *keywords[KEYWORD_COUNT] = {
     "if",     // KEYWORD_IF
@@ -19,11 +19,6 @@ const char *keywords[KEYWORD_COUNT] = {
     "i32",    // KEYWORD_I32
     "f64",    // KEYWORD_F64
     "u8",     // KEYWORD_U8
-    "[]u8",   // KEYWORD_U8_ARRAY
-    "?i32",   // KEYWORD_I32_NULL
-    "?f64",   // KEYWORD_F64_NULL
-    "?u8",    // KEYWORD_U8_NULL
-    "?[]u8",  // KEYWORD_U8_ARRAY_NULL
     "null",   // KEYWORD_NULL
     "pub",    // KEYWORD_PUB
     "return", // KEYWORD_RETURN

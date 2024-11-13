@@ -1,0 +1,52 @@
+digraph "IF_EXT"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="IF_EXT",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Extended function for CALL_DEF()"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="SCOPE",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a7d21e9db61747d6734d9a7f27d33b4f4",tooltip="Function for determining the depth of infestation."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="STATEMENT",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a7eac9e4351cf87fecd3e9a66cf5f28d8",tooltip="Processes the commands, coditions, ..."];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="CALL_DEF",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a2999c303cc3fb4692b7e96d9a22e9c03",tooltip="Processes calling functions, variables."];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="CALL_EXT",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#ade39708cf9c0a95b1e75a94b3982f1aa",tooltip="Extended function for CALL_DEF()"];
+  Node5 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="ARG",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a83f44b9d12d581ea924af4ba707819c3",tooltip="Function for processing argument of called function."];
+  Node6 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="ARGS",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a271ef1f0dc6a029b233bcb024b19b116",tooltip="Function for processing another argument which is in queue."];
+  Node7 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="EXPRESSION",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a38b7a13b9a5926c2c4b6af62cec86f85",tooltip="Function for processing another argument which is in queue."];
+  Node5 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="CONST_DEF",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#ab1c09d376532dc76198f8d2d6c729fef",tooltip="Processes command for constant declaration."];
+  Node9 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="ASSIGN_CONST",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#aa1d8bc4c3095f3ba13e1fcc83038d948",tooltip="Processes assigning expresions to the constant."];
+  Node10 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="ELSE_DEF",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a047deda12297b3a39f2d50261fd7de70",tooltip="Processes else condition."];
+  Node11 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 -> Node12 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="IF_DEF",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#ac9b33c13aa831335429748838739aef7",tooltip="Processes if condition."];
+  Node12 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 -> Node13 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="IF_EXT",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#af131918ae0d8a1cc29cb2c8d6dc13aff",tooltip="Extended function for CALL_DEF()"];
+  Node13 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 -> Node14 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="RET_DEF",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a1012bbb9f570627aabec5e3eda7c4993",tooltip="Processes return command."];
+  Node14 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 -> Node15 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node15 [label="VAR_DEF",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a49c6186e8aee36246b52305756b7a017",tooltip="Processes command for variable declaration."];
+  Node15 -> Node16 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node16 [label="ASSIGN_VAR",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a76e0ba812902123b4ec0d43c59c13c04",tooltip="Processes assigning expresions to the variable."];
+  Node16 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node16 -> Node17 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node17 [label="VAL_TYPE",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#aaef2bee27144c07c175bb36e4c28af9d",tooltip="Function for verifaction enabled data types (DATA TYPES)"];
+  Node3 -> Node18 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node18 [label="WHILE_DEF",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a13efec100d0c39c874c413765ded4d10",tooltip="Processes while loop."];
+  Node18 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node18 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

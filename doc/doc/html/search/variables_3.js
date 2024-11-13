@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['keyword_140',['keyword',['../unionToken__Value.html#a2ba39c4ba569b096397ba0afab367371',1,'Token_Value']]]
+  ['hasfloatvalue_270',['hasFloatValue',['../structSymbol.html#a91833d6acad4d962d2e3f34f49a3beea',1,'Symbol']]],
+  ['hasintvalue_271',['hasIntValue',['../structSymbol.html#ac865bbbf613e8c90c8e9a5b463b3bba7',1,'Symbol']]]
 ];

@@ -1,0 +1,29 @@
+digraph "STATEMENT"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="STATEMENT",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Processes the commands, coditions, ..."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="SCOPE",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a7d21e9db61747d6734d9a7f27d33b4f4",tooltip="Function for determining the depth of infestation."];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="ELSE_DEF",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a047deda12297b3a39f2d50261fd7de70",tooltip="Processes else condition."];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="STATEMENT",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a7eac9e4351cf87fecd3e9a66cf5f28d8",tooltip="Processes the commands, coditions, ..."];
+  Node4 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="FN_DEF",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#afb9892407a0399d61e51261ff730599a",tooltip="Processes function declaration."];
+  Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="FIRST",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a607ec0964227a0c6c98fd79770e51c11",tooltip="Processes the FIRST rule in the syntactic analysis."];
+  Node6 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="main",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627",tooltip=" "];
+  Node2 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="IF_EXT",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#af131918ae0d8a1cc29cb2c8d6dc13aff",tooltip="Extended function for CALL_DEF()"];
+  Node8 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="IF_DEF",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#ac9b33c13aa831335429748838739aef7",tooltip="Processes if condition."];
+  Node9 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="WHILE_DEF",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$syntactic__analysis_8c.html#a13efec100d0c39c874c413765ded4d10",tooltip="Processes while loop."];
+  Node10 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+}
