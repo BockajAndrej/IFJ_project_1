@@ -1,9 +1,9 @@
-digraph "/home/administrator/IFJ/IFJ-project01/src/lexical_analyser.c"
+digraph "/home/administrator/IFJ/IFJ-project01/src/Lexical_analyser.c"
 {
  // LATEX_PDF_SIZE
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="/home/administrator\l/IFJ/IFJ-project01/src\l/lexical_analyser.c",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 [label="/home/administrator\l/IFJ/IFJ-project01/src\l/Lexical_analyser.c",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
   Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
   Node2 [label="lexical_analyser.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$lexical__analyser_8h.html",tooltip=" "];
   Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];

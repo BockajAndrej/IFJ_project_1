@@ -1,7 +1,10 @@
-\hypertarget{lexical__analyser_8h}{}\doxysection{lexical\+\_\+analyser.\+h File Reference}
-\label{lexical__analyser_8h}\index{lexical\_analyser.h@{lexical\_analyser.h}}
+\hypertarget{Lexical__analyser_8h}{}\doxysection{/home/administrator/\+IFJ/\+IFJ-\/project01/src/\+Lexical\+\_\+analyser.h File Reference}
+\label{Lexical__analyser_8h}\index{/home/administrator/IFJ/IFJ-\/project01/src/Lexical\_analyser.h@{/home/administrator/IFJ/IFJ-\/project01/src/Lexical\_analyser.h}}
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
-{\ttfamily \#include \char`\"{}newstring.\+h\char`\"{}}\newline
+Include dependency graph for Lexical\+\_\+analyser.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -12,577 +15,431 @@ struct \mbox{\hyperlink{structToken}{Token}}
 \doxysubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
-enum \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44}{Token\+\_\+type}} \{ \newline
-\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa130df27256cd45f5781fc74deeb50dc}{TOKEN\+\_\+\+EOF}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a6b0ab7cf8c0d1203475022b3d5600f85}{TOKEN\+\_\+\+EOL}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ad6107c5bda42f7c5f4e947d891187ad1}{TOKEN\+\_\+\+EMPTY}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353}{TOKEN\+\_\+\+IDENTIFIER}}
+enum \mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44}{Token\+\_\+type}} \{ \newline
+\mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa130df27256cd45f5781fc74deeb50dc}{TOKEN\+\_\+\+EOF}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a6b0ab7cf8c0d1203475022b3d5600f85}{TOKEN\+\_\+\+EOL}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ad6107c5bda42f7c5f4e947d891187ad1}{TOKEN\+\_\+\+EMPTY}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353}{TOKEN\+\_\+\+IDENTIFIER}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a11fe7a3403d4ff8c62af31ddf679877c}{TOKEN\+\_\+\+KEYWORD}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a25034ca7c95f724ac2509e57058adf18}{TOKEN\+\_\+\+NEWLINE}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a2691fdb432b1bdd5eb40ce09b7d33614}{TOKEN\+\_\+\+TAB}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0d72fca2861c67c0d0d3ccd1e8325453}{TOKEN\+\_\+\+INT\+\_\+\+LITERAL}}
+\mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a11fe7a3403d4ff8c62af31ddf679877c}{TOKEN\+\_\+\+KEYWORD}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0d72fca2861c67c0d0d3ccd1e8325453}{TOKEN\+\_\+\+INT\+\_\+\+LITERAL}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aab21ed2851d3c47e12244da5bdc568bf}{TOKEN\+\_\+\+FLOAT\+\_\+\+LITERAL}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a7ed3e98b10f5d0b461a887fdd5b3dc01}{TOKEN\+\_\+\+STRING\+\_\+\+LITERAL}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aab21ed2851d3c47e12244da5bdc568bf}{TOKEN\+\_\+\+FLOAT\+\_\+\+LITERAL}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a7ed3e98b10f5d0b461a887fdd5b3dc01}{TOKEN\+\_\+\+STRING\+\_\+\+LITERAL}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8caffddda84e7a25800278a2dcf86c26}{TOKEN\+\_\+\+BOOLEAN}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a69237e9ab97fc6f9306ee092834631df}{TOKEN\+\_\+\+CHAR\+\_\+\+LITERAL}}
+\mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8caffddda84e7a25800278a2dcf86c26}{TOKEN\+\_\+\+BOOLEAN}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a69237e9ab97fc6f9306ee092834631df}{TOKEN\+\_\+\+CHAR\+\_\+\+LITERAL}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a3c83b3f347ded187c65076c9172392c3}{TOKEN\+\_\+\+EQUAL}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa6300763c80d89d4aaac59dfbf4c2c01}{TOKEN\+\_\+\+NOT\+\_\+\+EQUAL}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a3c83b3f347ded187c65076c9172392c3}{TOKEN\+\_\+\+EQUAL}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa6300763c80d89d4aaac59dfbf4c2c01}{TOKEN\+\_\+\+NOT\+\_\+\+EQUAL}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a9618ea497ab02a326b67f03606d8f90f}{TOKEN\+\_\+\+LESS\+\_\+\+EQUAL}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a634d456dd4f4a4ab865352988aaca719}{TOKEN\+\_\+\+LESS\+\_\+\+THAN}}
+\mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a9618ea497ab02a326b67f03606d8f90f}{TOKEN\+\_\+\+LESS\+\_\+\+EQUAL}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a634d456dd4f4a4ab865352988aaca719}{TOKEN\+\_\+\+LESS\+\_\+\+THAN}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1b6033f79dc23f23aaf67708bd792991}{TOKEN\+\_\+\+GREATER\+\_\+\+EQUAL}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af6a5d42d2ef50fb03f1a66d01c2a3470}{TOKEN\+\_\+\+GREATER\+\_\+\+THAN}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1b6033f79dc23f23aaf67708bd792991}{TOKEN\+\_\+\+GREATER\+\_\+\+EQUAL}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af6a5d42d2ef50fb03f1a66d01c2a3470}{TOKEN\+\_\+\+GREATER\+\_\+\+THAN}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1f3658cf646576820d94a9a1c0504303}{TOKEN\+\_\+\+ASSIGNMENT}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa48683b3cba8786770d9bf800d15e545}{TOKEN\+\_\+\+ADDITION}}
+\mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1f3658cf646576820d94a9a1c0504303}{TOKEN\+\_\+\+ASSIGNMENT}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa48683b3cba8786770d9bf800d15e545}{TOKEN\+\_\+\+ADDITION}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ae892958f58c3c970916498eb5e47a388}{TOKEN\+\_\+\+SUBTRACTION}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44afdcb399f2904bfc9ce2bd870ff04d1c2}{TOKEN\+\_\+\+MULTIPLY}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ae892958f58c3c970916498eb5e47a388}{TOKEN\+\_\+\+SUBTRACTION}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44afdcb399f2904bfc9ce2bd870ff04d1c2}{TOKEN\+\_\+\+MULTIPLY}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a196db7f3d2018cad481d0ffdf266889c}{TOKEN\+\_\+\+DIVISION}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a04d79b81666e686448ea4bd2592f438b}{TOKEN\+\_\+\+BACKSLASH}}
+\mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af54790adac514a4876395bd62d71a410}{TOKEN\+\_\+\+DIVIDE}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a04d79b81666e686448ea4bd2592f438b}{TOKEN\+\_\+\+BACKSLASH}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a93000ce4e0f00f6f294a98192f705910}{TOKEN\+\_\+\+PIPE}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0e70b5ecc56852cc6499f90d410555ec}{TOKEN\+\_\+\+EXCLAMATION}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a93000ce4e0f00f6f294a98192f705910}{TOKEN\+\_\+\+PIPE}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0e70b5ecc56852cc6499f90d410555ec}{TOKEN\+\_\+\+EXCLAMATION}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af4143395fefba1c6a30e58240dd0c827}{TOKEN\+\_\+\+LPAREN}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ace232c359d5697cc5c459c22a7be226b}{TOKEN\+\_\+\+RPAREN}}
-, \newline
-\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a60e4bab14680522185007fe87240e707}{TOKEN\+\_\+\+LEFT\+\_\+\+BRACKET}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa42fbee15a56484e7cc6daaaa552107a}{TOKEN\+\_\+\+RIGHT\+\_\+\+BRACKET}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aea93445565e90032b651b3bfeab696ad}{TOKEN\+\_\+\+CURLYL\+\_\+\+BRACKET}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a177c279eee0ad7b261d2a217545ddc86}{TOKEN\+\_\+\+CURLYR\+\_\+\+BRACKET}}
-, \newline
-\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8d265e17914bc733c8b9a880dd097a9e}{TOKEN\+\_\+\+COMMA}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ac8c74b281e178c87923363a90f6ff371}{TOKEN\+\_\+\+SEMICOLON}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0fe00080531042db460071402c40f763}{TOKEN\+\_\+\+COMMENT}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a00a4852749fa7e7e4675f7843ae16642}{TOKEN\+\_\+\+IMPORT}}
-, \newline
-\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a399667e371946cce1c1081aea2f2c52d}{TOKEN\+\_\+\+DISCARD}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a92a35ac6329421e77882bf3739a75e47}{TOKEN\+\_\+\+COLON}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ab565ebfaaa53dcee6ddda201e270733e}{TOKEN\+\_\+\+DOT}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a4e9a7212ea985c5ffdbf0080c464cc88}{TOKEN\+\_\+\+UNDEFINED}}
-, \newline
-\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a39b77bc78a559e8e8b728d82cc413595}{TOKEN\+\_\+\+STRINGINIT\+\_\+\+ERROR}}
+\mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af4143395fefba1c6a30e58240dd0c827}{TOKEN\+\_\+\+LPAREN}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ace232c359d5697cc5c459c22a7be226b}{TOKEN\+\_\+\+RPAREN}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8d265e17914bc733c8b9a880dd097a9e}{TOKEN\+\_\+\+COMMA}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ac8c74b281e178c87923363a90f6ff371}{TOKEN\+\_\+\+SEMICOLON}}
  \}
 \item 
-enum \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448}{Keyword}} \{ \newline
-\mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a20aedd56114ad17b1a5c45feebbbaff9}{KEYWORD\+\_\+\+IF}}
-, \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0b629d28c9ba070532b366e42a9ccb03}{KEYWORD\+\_\+\+ELSE}}
-, \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a43dc6e1642447b459ba51eb4315255b1}{KEYWORD\+\_\+\+FN}}
-, \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448ae16f6b556452b7e953dc64d00b131cb5}{KEYWORD\+\_\+\+CONST}}
+enum \mbox{\hyperlink{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448}{Keyword}} \{ \newline
+\mbox{\hyperlink{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a20aedd56114ad17b1a5c45feebbbaff9}{KEYWORD\+\_\+\+IF}}
+, \mbox{\hyperlink{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0b629d28c9ba070532b366e42a9ccb03}{KEYWORD\+\_\+\+ELSE}}
+, \mbox{\hyperlink{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a43dc6e1642447b459ba51eb4315255b1}{KEYWORD\+\_\+\+FN}}
+, \mbox{\hyperlink{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448ae16f6b556452b7e953dc64d00b131cb5}{KEYWORD\+\_\+\+CONST}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0f316c447317035d1c08b78e2c90fb5e}{KEYWORD\+\_\+\+I32}}
-, \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a1b1fedd5d8dadfe794ceb035d2126cef}{KEYWORD\+\_\+\+F64}}
-, \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a2738663f65f4b121fcc01021173603e4}{KEYWORD\+\_\+\+U8}}
-, \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0b5adc50af578a7d0b33536cbcb6c707}{KEYWORD\+\_\+\+U8\+\_\+\+ARRAY}}
+\mbox{\hyperlink{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0f316c447317035d1c08b78e2c90fb5e}{KEYWORD\+\_\+\+I32}}
+, \mbox{\hyperlink{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a1b1fedd5d8dadfe794ceb035d2126cef}{KEYWORD\+\_\+\+F64}}
+, \mbox{\hyperlink{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a8178adb693fbd4ddd894757a04951173}{KEYWORD\+\_\+\+NULL}}
+, \mbox{\hyperlink{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a871b2340ce1ed01216617b721f0c5ebe}{KEYWORD\+\_\+\+PUB}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a078e25b70dcd3bb2fdf4738e3767435d}{KEYWORD\+\_\+\+I32\+\_\+\+NULL}}
-, \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a2b66536d063501967cbc18999682710f}{KEYWORD\+\_\+\+F64\+\_\+\+NULL}}
-, \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a16cfed60cea5bdccff22708701eaa149}{KEYWORD\+\_\+\+U8\+\_\+\+NULL}}
-, \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448ad63b3dcfb7fb501b618b6cd5ebfb1ecf}{KEYWORD\+\_\+\+U8\+\_\+\+ARRAY\+\_\+\+NULL}}
+\mbox{\hyperlink{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a7ecaa69aa02833284594c30461fe01d2}{KEYWORD\+\_\+\+RETURN}}
+, \mbox{\hyperlink{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a2738663f65f4b121fcc01021173603e4}{KEYWORD\+\_\+\+U8}}
+, \mbox{\hyperlink{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a01486e1109a838a9a62cae7bc3c8b67d}{KEYWORD\+\_\+\+VAR}}
+, \mbox{\hyperlink{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0cf1d9cf4f3dcc4f4eecd4c5e492630a}{KEYWORD\+\_\+\+VOID}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a8178adb693fbd4ddd894757a04951173}{KEYWORD\+\_\+\+NULL}}
-, \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a871b2340ce1ed01216617b721f0c5ebe}{KEYWORD\+\_\+\+PUB}}
-, \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a7ecaa69aa02833284594c30461fe01d2}{KEYWORD\+\_\+\+RETURN}}
-, \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a01486e1109a838a9a62cae7bc3c8b67d}{KEYWORD\+\_\+\+VAR}}
-, \newline
-\mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0cf1d9cf4f3dcc4f4eecd4c5e492630a}{KEYWORD\+\_\+\+VOID}}
-, \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448af606de6206b287c3f42e8c47d9fb319d}{KEYWORD\+\_\+\+WHILE}}
+\mbox{\hyperlink{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448af606de6206b287c3f42e8c47d9fb319d}{KEYWORD\+\_\+\+WHILE}}
  \}
 \item 
-enum \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8}{State}} \{ \newline
-\mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}{s\+Start}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a320954d35b1812927d1d94fc1cee2b3c}{s\+Identifieror\+Keyword}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a200c1fd85e4fb6eba004b7de17fd499c}{s\+Keyword}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a450a0d34f9cfdb97cbda0e4693ef4696}{s\+Identifier}}
+enum \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8}{State}} \{ \newline
+\mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}{s\+Start}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a450a0d34f9cfdb97cbda0e4693ef4696}{s\+Identifier}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a200c1fd85e4fb6eba004b7de17fd499c}{s\+Keyword}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a902570c2e2c9045d7499ed6dab5608e7}{s\+Namespace}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a902570c2e2c9045d7499ed6dab5608e7}{s\+Namespace}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7361f1b0e6e81ac590cd754204ae8cd3}{s\+Int\+Literal}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af265c1a80b908d47bab35d6107c38e10}{s\+Float\+Literal}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0fba407f02267367ab375fbcd8251f3e}{s\+Exponent}}
+\mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7361f1b0e6e81ac590cd754204ae8cd3}{s\+Int\+Literal}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af265c1a80b908d47bab35d6107c38e10}{s\+Float\+Literal}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0fba407f02267367ab375fbcd8251f3e}{s\+Exponent}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac9b5cb9d0557140fc4e7a44442aa1d6d}{s\+String\+Literal}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac9b5cb9d0557140fc4e7a44442aa1d6d}{s\+String\+Literal}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a647f484374dd685dcd8512ff8b796251}{s\+Escape\+Sequence}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a18707d0b35d09c9e8ba921fa087587eb}{s\+Operator}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a8d45f5ea610302976656bb287c6ebf7e}{s\+Back\+Slash}}
+\mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a647f484374dd685dcd8512ff8b796251}{s\+Escape\+Sequence}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a18707d0b35d09c9e8ba921fa087587eb}{s\+Operator}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a8d45f5ea610302976656bb287c6ebf7e}{s\+Back\+Slash}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a786cabd32ed690206849bd3c41710d3b}{s\+Division}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a786cabd32ed690206849bd3c41710d3b}{s\+Division}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a845ae9a4f0d69357879f20576bc8f8c7}{s\+Assign}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a6547d3d833e25c66e4c5c461c5f8543e}{s\+Equal}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8abd9024a34665ccc0f6b67741dda1f756}{s\+Not\+Equal}}
+\mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a845ae9a4f0d69357879f20576bc8f8c7}{s\+Assign}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a6547d3d833e25c66e4c5c461c5f8543e}{s\+Equal}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8abd9024a34665ccc0f6b67741dda1f756}{s\+Not\+Equal}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ae8cfd559c30598afbe78dfd4af372580}{s\+Less\+Equal}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ae8cfd559c30598afbe78dfd4af372580}{s\+Less\+Equal}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0329aab4e5cfe984949899bc59cbc153}{s\+Less\+Than}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ab2df5fcd85e3bf41266479b9e05f6f2e}{s\+Greater\+Equal}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8aa446c0b6cc245ad1796fc0ccee32bcb5}{s\+Greater\+Than}}
+\mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0329aab4e5cfe984949899bc59cbc153}{s\+Less\+Than}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ab2df5fcd85e3bf41266479b9e05f6f2e}{s\+Greater\+Equal}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8aa446c0b6cc245ad1796fc0ccee32bcb5}{s\+Greater\+Than}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ad598db5b5b8ee727ec72f06e2e8e6981}{s\+Left\+Paren}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ad598db5b5b8ee727ec72f06e2e8e6981}{s\+Left\+Paren}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a8695df75075662b916106eddfc0f18c8}{s\+Right\+Paren}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a073ff5b1c06535a2659402f4ddc1c70a}{s\+Left\+Bracket}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a11a56d501aa10653ea41e6678ab21304}{s\+Right\+Bracket}}
+\mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a8695df75075662b916106eddfc0f18c8}{s\+Right\+Paren}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a073ff5b1c06535a2659402f4ddc1c70a}{s\+Left\+Bracket}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a11a56d501aa10653ea41e6678ab21304}{s\+Right\+Bracket}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8afd0c343ff1612190a8f4ef2e58cf7f59}{s\+Comma}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a55b60f4b83f4301f3637d94baf7fcf72}{s\+Curly\+LBracket}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a82a4f7eb47dd9eb7ded31da5fef74b7f}{s\+Curly\+RBracket}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8afd0c343ff1612190a8f4ef2e58cf7f59}{s\+Comma}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a761419ac8e3d80e75f5726cfc5c76d74}{s\+Semicolon}}
+\mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a761419ac8e3d80e75f5726cfc5c76d74}{s\+Semicolon}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac269c488167b67c322709b75678d8851}{s\+Exclamation}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8abad91f5649f7b7ae2e4d1dce87e525fe}{s\+Pipe}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a9202f4b2de6a333dcef704283ee138db}{s\+Single\+Quote}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac269c488167b67c322709b75678d8851}{s\+Exclamation}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8abad91f5649f7b7ae2e4d1dce87e525fe}{s\+Pipe}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a9202f4b2de6a333dcef704283ee138db}{s\+Single\+Quote}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a4a4f49f27f2cde6f607a069a0892cfdf}{s\+Left\+Single\+Quote}}
+\mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a4a4f49f27f2cde6f607a069a0892cfdf}{s\+Left\+Single\+Quote}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a5cd70e02de179244852c944edfff97f1}{s\+Whitespace}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a2ce3524821ca4917141e32b96fc1de0f}{s\+Comment}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af26b546b561fd1b2e8acbb25cab13d10}{s\+Error}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a5cd70e02de179244852c944edfff97f1}{s\+Whitespace}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a2ce3524821ca4917141e32b96fc1de0f}{s\+Comment}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ae43da8b6fefce8969b2632e2148d95e3}{s\+Import}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af26b546b561fd1b2e8acbb25cab13d10}{s\+Error}}
-, \newline
-\mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af0a0ecb685c176b46904ef031a62e9cb}{s\+EOL}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a104fd3b580965ac0839203c53c53f6aa}{s\+End}}
+\mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af0a0ecb685c176b46904ef031a62e9cb}{s\+EOL}}
+, \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a104fd3b580965ac0839203c53c53f6aa}{s\+End}}
  \}
-\end{DoxyCompactItemize}
-\doxysubsection*{Functions}
-\begin{DoxyCompactItemize}
-\item 
-const char $\ast$ \mbox{\hyperlink{lexical__analyser_8h_a67367cc8618de258a4163191d1ac05b8}{token\+\_\+type\+\_\+to\+\_\+string}} (\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44}{Token\+\_\+type}} type)
-\item 
-void \mbox{\hyperlink{lexical__analyser_8h_acbb4fd03fd6564af6fe03306ec48364c}{print\+\_\+token}} (\mbox{\hyperlink{structToken}{Token}} token)
-\item 
-\mbox{\hyperlink{structToken}{Token}} \mbox{\hyperlink{lexical__analyser_8h_a1b68532a422d65e0eab79e3011af906e}{get\+\_\+token}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Enumeration Type Documentation}
-\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448}} 
-\index{lexical\_analyser.h@{lexical\_analyser.h}!Keyword@{Keyword}}
-\index{Keyword@{Keyword}!lexical\_analyser.h@{lexical\_analyser.h}}
+\mbox{\Hypertarget{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448}\label{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448}} 
+\index{Lexical\_analyser.h@{Lexical\_analyser.h}!Keyword@{Keyword}}
+\index{Keyword@{Keyword}!Lexical\_analyser.h@{Lexical\_analyser.h}}
 \doxysubsubsection{\texorpdfstring{Keyword}{Keyword}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448}{Keyword}}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448}{Keyword}}}
 
 \begin{DoxyEnumFields}{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_IF@{KEYWORD\_IF}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_IF@{KEYWORD\_IF}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a20aedd56114ad17b1a5c45feebbbaff9}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a20aedd56114ad17b1a5c45feebbbaff9}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_IF@{KEYWORD\_IF}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!KEYWORD\_IF@{KEYWORD\_IF}}}\mbox{\Hypertarget{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a20aedd56114ad17b1a5c45feebbbaff9}\label{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a20aedd56114ad17b1a5c45feebbbaff9}} 
 KEYWORD\+\_\+\+IF&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_ELSE@{KEYWORD\_ELSE}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_ELSE@{KEYWORD\_ELSE}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0b629d28c9ba070532b366e42a9ccb03}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0b629d28c9ba070532b366e42a9ccb03}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_ELSE@{KEYWORD\_ELSE}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!KEYWORD\_ELSE@{KEYWORD\_ELSE}}}\mbox{\Hypertarget{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0b629d28c9ba070532b366e42a9ccb03}\label{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0b629d28c9ba070532b366e42a9ccb03}} 
 KEYWORD\+\_\+\+ELSE&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_FN@{KEYWORD\_FN}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_FN@{KEYWORD\_FN}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a43dc6e1642447b459ba51eb4315255b1}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a43dc6e1642447b459ba51eb4315255b1}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_FN@{KEYWORD\_FN}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!KEYWORD\_FN@{KEYWORD\_FN}}}\mbox{\Hypertarget{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a43dc6e1642447b459ba51eb4315255b1}\label{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a43dc6e1642447b459ba51eb4315255b1}} 
 KEYWORD\+\_\+\+FN&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_CONST@{KEYWORD\_CONST}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_CONST@{KEYWORD\_CONST}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448ae16f6b556452b7e953dc64d00b131cb5}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448ae16f6b556452b7e953dc64d00b131cb5}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_CONST@{KEYWORD\_CONST}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!KEYWORD\_CONST@{KEYWORD\_CONST}}}\mbox{\Hypertarget{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448ae16f6b556452b7e953dc64d00b131cb5}\label{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448ae16f6b556452b7e953dc64d00b131cb5}} 
 KEYWORD\+\_\+\+CONST&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_I32@{KEYWORD\_I32}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_I32@{KEYWORD\_I32}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0f316c447317035d1c08b78e2c90fb5e}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0f316c447317035d1c08b78e2c90fb5e}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_I32@{KEYWORD\_I32}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!KEYWORD\_I32@{KEYWORD\_I32}}}\mbox{\Hypertarget{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0f316c447317035d1c08b78e2c90fb5e}\label{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0f316c447317035d1c08b78e2c90fb5e}} 
 KEYWORD\+\_\+\+I32&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_F64@{KEYWORD\_F64}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_F64@{KEYWORD\_F64}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a1b1fedd5d8dadfe794ceb035d2126cef}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a1b1fedd5d8dadfe794ceb035d2126cef}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_F64@{KEYWORD\_F64}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!KEYWORD\_F64@{KEYWORD\_F64}}}\mbox{\Hypertarget{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a1b1fedd5d8dadfe794ceb035d2126cef}\label{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a1b1fedd5d8dadfe794ceb035d2126cef}} 
 KEYWORD\+\_\+\+F64&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_U8@{KEYWORD\_U8}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_U8@{KEYWORD\_U8}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a2738663f65f4b121fcc01021173603e4}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a2738663f65f4b121fcc01021173603e4}} 
-KEYWORD\+\_\+\+U8&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_U8\_ARRAY@{KEYWORD\_U8\_ARRAY}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_U8\_ARRAY@{KEYWORD\_U8\_ARRAY}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0b5adc50af578a7d0b33536cbcb6c707}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0b5adc50af578a7d0b33536cbcb6c707}} 
-KEYWORD\+\_\+\+U8\+\_\+\+ARRAY&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_I32\_NULL@{KEYWORD\_I32\_NULL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_I32\_NULL@{KEYWORD\_I32\_NULL}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a078e25b70dcd3bb2fdf4738e3767435d}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a078e25b70dcd3bb2fdf4738e3767435d}} 
-KEYWORD\+\_\+\+I32\+\_\+\+NULL&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_F64\_NULL@{KEYWORD\_F64\_NULL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_F64\_NULL@{KEYWORD\_F64\_NULL}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a2b66536d063501967cbc18999682710f}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a2b66536d063501967cbc18999682710f}} 
-KEYWORD\+\_\+\+F64\+\_\+\+NULL&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_U8\_NULL@{KEYWORD\_U8\_NULL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_U8\_NULL@{KEYWORD\_U8\_NULL}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a16cfed60cea5bdccff22708701eaa149}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a16cfed60cea5bdccff22708701eaa149}} 
-KEYWORD\+\_\+\+U8\+\_\+\+NULL&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_U8\_ARRAY\_NULL@{KEYWORD\_U8\_ARRAY\_NULL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_U8\_ARRAY\_NULL@{KEYWORD\_U8\_ARRAY\_NULL}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448ad63b3dcfb7fb501b618b6cd5ebfb1ecf}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448ad63b3dcfb7fb501b618b6cd5ebfb1ecf}} 
-KEYWORD\+\_\+\+U8\+\_\+\+ARRAY\+\_\+\+NULL&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_NULL@{KEYWORD\_NULL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_NULL@{KEYWORD\_NULL}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a8178adb693fbd4ddd894757a04951173}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a8178adb693fbd4ddd894757a04951173}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_NULL@{KEYWORD\_NULL}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!KEYWORD\_NULL@{KEYWORD\_NULL}}}\mbox{\Hypertarget{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a8178adb693fbd4ddd894757a04951173}\label{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a8178adb693fbd4ddd894757a04951173}} 
 KEYWORD\+\_\+\+NULL&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_PUB@{KEYWORD\_PUB}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_PUB@{KEYWORD\_PUB}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a871b2340ce1ed01216617b721f0c5ebe}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a871b2340ce1ed01216617b721f0c5ebe}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_PUB@{KEYWORD\_PUB}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!KEYWORD\_PUB@{KEYWORD\_PUB}}}\mbox{\Hypertarget{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a871b2340ce1ed01216617b721f0c5ebe}\label{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a871b2340ce1ed01216617b721f0c5ebe}} 
 KEYWORD\+\_\+\+PUB&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_RETURN@{KEYWORD\_RETURN}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_RETURN@{KEYWORD\_RETURN}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a7ecaa69aa02833284594c30461fe01d2}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a7ecaa69aa02833284594c30461fe01d2}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_RETURN@{KEYWORD\_RETURN}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!KEYWORD\_RETURN@{KEYWORD\_RETURN}}}\mbox{\Hypertarget{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a7ecaa69aa02833284594c30461fe01d2}\label{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a7ecaa69aa02833284594c30461fe01d2}} 
 KEYWORD\+\_\+\+RETURN&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_VAR@{KEYWORD\_VAR}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_VAR@{KEYWORD\_VAR}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a01486e1109a838a9a62cae7bc3c8b67d}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a01486e1109a838a9a62cae7bc3c8b67d}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_U8@{KEYWORD\_U8}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!KEYWORD\_U8@{KEYWORD\_U8}}}\mbox{\Hypertarget{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a2738663f65f4b121fcc01021173603e4}\label{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a2738663f65f4b121fcc01021173603e4}} 
+KEYWORD\+\_\+\+U8&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_VAR@{KEYWORD\_VAR}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!KEYWORD\_VAR@{KEYWORD\_VAR}}}\mbox{\Hypertarget{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a01486e1109a838a9a62cae7bc3c8b67d}\label{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a01486e1109a838a9a62cae7bc3c8b67d}} 
 KEYWORD\+\_\+\+VAR&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_VOID@{KEYWORD\_VOID}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_VOID@{KEYWORD\_VOID}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0cf1d9cf4f3dcc4f4eecd4c5e492630a}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0cf1d9cf4f3dcc4f4eecd4c5e492630a}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_VOID@{KEYWORD\_VOID}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!KEYWORD\_VOID@{KEYWORD\_VOID}}}\mbox{\Hypertarget{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0cf1d9cf4f3dcc4f4eecd4c5e492630a}\label{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0cf1d9cf4f3dcc4f4eecd4c5e492630a}} 
 KEYWORD\+\_\+\+VOID&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_WHILE@{KEYWORD\_WHILE}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_WHILE@{KEYWORD\_WHILE}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448af606de6206b287c3f42e8c47d9fb319d}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448af606de6206b287c3f42e8c47d9fb319d}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_WHILE@{KEYWORD\_WHILE}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!KEYWORD\_WHILE@{KEYWORD\_WHILE}}}\mbox{\Hypertarget{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448af606de6206b287c3f42e8c47d9fb319d}\label{Lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448af606de6206b287c3f42e8c47d9fb319d}} 
 KEYWORD\+\_\+\+WHILE&\\
 \hline
 
 \end{DoxyEnumFields}
-\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8}} 
-\index{lexical\_analyser.h@{lexical\_analyser.h}!State@{State}}
-\index{State@{State}!lexical\_analyser.h@{lexical\_analyser.h}}
+\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8}} 
+\index{Lexical\_analyser.h@{Lexical\_analyser.h}!State@{State}}
+\index{State@{State}!Lexical\_analyser.h@{Lexical\_analyser.h}}
 \doxysubsubsection{\texorpdfstring{State}{State}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8}{State}}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8}{State}}}
 
 \begin{DoxyEnumFields}{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sStart@{sStart}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sStart@{sStart}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sStart@{sStart}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sStart@{sStart}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}} 
 s\+Start&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sIdentifierorKeyword@{sIdentifierorKeyword}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sIdentifierorKeyword@{sIdentifierorKeyword}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a320954d35b1812927d1d94fc1cee2b3c}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a320954d35b1812927d1d94fc1cee2b3c}} 
-s\+Identifieror\+Keyword&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sKeyword@{sKeyword}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sKeyword@{sKeyword}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a200c1fd85e4fb6eba004b7de17fd499c}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a200c1fd85e4fb6eba004b7de17fd499c}} 
-s\+Keyword&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sIdentifier@{sIdentifier}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sIdentifier@{sIdentifier}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a450a0d34f9cfdb97cbda0e4693ef4696}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a450a0d34f9cfdb97cbda0e4693ef4696}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sIdentifier@{sIdentifier}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sIdentifier@{sIdentifier}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a450a0d34f9cfdb97cbda0e4693ef4696}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a450a0d34f9cfdb97cbda0e4693ef4696}} 
 s\+Identifier&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sNamespace@{sNamespace}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sNamespace@{sNamespace}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a902570c2e2c9045d7499ed6dab5608e7}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a902570c2e2c9045d7499ed6dab5608e7}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sKeyword@{sKeyword}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sKeyword@{sKeyword}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a200c1fd85e4fb6eba004b7de17fd499c}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a200c1fd85e4fb6eba004b7de17fd499c}} 
+s\+Keyword&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sNamespace@{sNamespace}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sNamespace@{sNamespace}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a902570c2e2c9045d7499ed6dab5608e7}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a902570c2e2c9045d7499ed6dab5608e7}} 
 s\+Namespace&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sIntLiteral@{sIntLiteral}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sIntLiteral@{sIntLiteral}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7361f1b0e6e81ac590cd754204ae8cd3}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7361f1b0e6e81ac590cd754204ae8cd3}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sIntLiteral@{sIntLiteral}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sIntLiteral@{sIntLiteral}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7361f1b0e6e81ac590cd754204ae8cd3}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7361f1b0e6e81ac590cd754204ae8cd3}} 
 s\+Int\+Literal&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sFloatLiteral@{sFloatLiteral}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sFloatLiteral@{sFloatLiteral}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af265c1a80b908d47bab35d6107c38e10}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af265c1a80b908d47bab35d6107c38e10}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sFloatLiteral@{sFloatLiteral}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sFloatLiteral@{sFloatLiteral}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af265c1a80b908d47bab35d6107c38e10}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af265c1a80b908d47bab35d6107c38e10}} 
 s\+Float\+Literal&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sExponent@{sExponent}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sExponent@{sExponent}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0fba407f02267367ab375fbcd8251f3e}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0fba407f02267367ab375fbcd8251f3e}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sExponent@{sExponent}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sExponent@{sExponent}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0fba407f02267367ab375fbcd8251f3e}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0fba407f02267367ab375fbcd8251f3e}} 
 s\+Exponent&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sStringLiteral@{sStringLiteral}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sStringLiteral@{sStringLiteral}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac9b5cb9d0557140fc4e7a44442aa1d6d}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac9b5cb9d0557140fc4e7a44442aa1d6d}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sStringLiteral@{sStringLiteral}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sStringLiteral@{sStringLiteral}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac9b5cb9d0557140fc4e7a44442aa1d6d}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac9b5cb9d0557140fc4e7a44442aa1d6d}} 
 s\+String\+Literal&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sEscapeSequence@{sEscapeSequence}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sEscapeSequence@{sEscapeSequence}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a647f484374dd685dcd8512ff8b796251}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a647f484374dd685dcd8512ff8b796251}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sEscapeSequence@{sEscapeSequence}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sEscapeSequence@{sEscapeSequence}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a647f484374dd685dcd8512ff8b796251}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a647f484374dd685dcd8512ff8b796251}} 
 s\+Escape\+Sequence&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sOperator@{sOperator}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sOperator@{sOperator}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a18707d0b35d09c9e8ba921fa087587eb}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a18707d0b35d09c9e8ba921fa087587eb}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sOperator@{sOperator}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sOperator@{sOperator}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a18707d0b35d09c9e8ba921fa087587eb}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a18707d0b35d09c9e8ba921fa087587eb}} 
 s\+Operator&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sBackSlash@{sBackSlash}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sBackSlash@{sBackSlash}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a8d45f5ea610302976656bb287c6ebf7e}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a8d45f5ea610302976656bb287c6ebf7e}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sBackSlash@{sBackSlash}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sBackSlash@{sBackSlash}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a8d45f5ea610302976656bb287c6ebf7e}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a8d45f5ea610302976656bb287c6ebf7e}} 
 s\+Back\+Slash&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sDivision@{sDivision}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sDivision@{sDivision}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a786cabd32ed690206849bd3c41710d3b}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a786cabd32ed690206849bd3c41710d3b}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sDivision@{sDivision}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sDivision@{sDivision}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a786cabd32ed690206849bd3c41710d3b}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a786cabd32ed690206849bd3c41710d3b}} 
 s\+Division&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sAssign@{sAssign}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sAssign@{sAssign}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a845ae9a4f0d69357879f20576bc8f8c7}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a845ae9a4f0d69357879f20576bc8f8c7}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sAssign@{sAssign}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sAssign@{sAssign}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a845ae9a4f0d69357879f20576bc8f8c7}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a845ae9a4f0d69357879f20576bc8f8c7}} 
 s\+Assign&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sEqual@{sEqual}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sEqual@{sEqual}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a6547d3d833e25c66e4c5c461c5f8543e}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a6547d3d833e25c66e4c5c461c5f8543e}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sEqual@{sEqual}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sEqual@{sEqual}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a6547d3d833e25c66e4c5c461c5f8543e}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a6547d3d833e25c66e4c5c461c5f8543e}} 
 s\+Equal&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sNotEqual@{sNotEqual}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sNotEqual@{sNotEqual}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8abd9024a34665ccc0f6b67741dda1f756}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8abd9024a34665ccc0f6b67741dda1f756}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sNotEqual@{sNotEqual}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sNotEqual@{sNotEqual}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8abd9024a34665ccc0f6b67741dda1f756}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8abd9024a34665ccc0f6b67741dda1f756}} 
 s\+Not\+Equal&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sLessEqual@{sLessEqual}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sLessEqual@{sLessEqual}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ae8cfd559c30598afbe78dfd4af372580}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ae8cfd559c30598afbe78dfd4af372580}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sLessEqual@{sLessEqual}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sLessEqual@{sLessEqual}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ae8cfd559c30598afbe78dfd4af372580}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ae8cfd559c30598afbe78dfd4af372580}} 
 s\+Less\+Equal&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sLessThan@{sLessThan}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sLessThan@{sLessThan}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0329aab4e5cfe984949899bc59cbc153}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0329aab4e5cfe984949899bc59cbc153}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sLessThan@{sLessThan}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sLessThan@{sLessThan}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0329aab4e5cfe984949899bc59cbc153}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0329aab4e5cfe984949899bc59cbc153}} 
 s\+Less\+Than&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sGreaterEqual@{sGreaterEqual}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sGreaterEqual@{sGreaterEqual}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ab2df5fcd85e3bf41266479b9e05f6f2e}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ab2df5fcd85e3bf41266479b9e05f6f2e}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sGreaterEqual@{sGreaterEqual}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sGreaterEqual@{sGreaterEqual}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ab2df5fcd85e3bf41266479b9e05f6f2e}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ab2df5fcd85e3bf41266479b9e05f6f2e}} 
 s\+Greater\+Equal&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sGreaterThan@{sGreaterThan}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sGreaterThan@{sGreaterThan}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8aa446c0b6cc245ad1796fc0ccee32bcb5}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8aa446c0b6cc245ad1796fc0ccee32bcb5}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sGreaterThan@{sGreaterThan}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sGreaterThan@{sGreaterThan}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8aa446c0b6cc245ad1796fc0ccee32bcb5}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8aa446c0b6cc245ad1796fc0ccee32bcb5}} 
 s\+Greater\+Than&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sLeftParen@{sLeftParen}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sLeftParen@{sLeftParen}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ad598db5b5b8ee727ec72f06e2e8e6981}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ad598db5b5b8ee727ec72f06e2e8e6981}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sLeftParen@{sLeftParen}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sLeftParen@{sLeftParen}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ad598db5b5b8ee727ec72f06e2e8e6981}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ad598db5b5b8ee727ec72f06e2e8e6981}} 
 s\+Left\+Paren&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sRightParen@{sRightParen}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sRightParen@{sRightParen}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a8695df75075662b916106eddfc0f18c8}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a8695df75075662b916106eddfc0f18c8}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sRightParen@{sRightParen}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sRightParen@{sRightParen}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a8695df75075662b916106eddfc0f18c8}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a8695df75075662b916106eddfc0f18c8}} 
 s\+Right\+Paren&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sLeftBracket@{sLeftBracket}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sLeftBracket@{sLeftBracket}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a073ff5b1c06535a2659402f4ddc1c70a}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a073ff5b1c06535a2659402f4ddc1c70a}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sLeftBracket@{sLeftBracket}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sLeftBracket@{sLeftBracket}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a073ff5b1c06535a2659402f4ddc1c70a}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a073ff5b1c06535a2659402f4ddc1c70a}} 
 s\+Left\+Bracket&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sRightBracket@{sRightBracket}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sRightBracket@{sRightBracket}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a11a56d501aa10653ea41e6678ab21304}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a11a56d501aa10653ea41e6678ab21304}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sRightBracket@{sRightBracket}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sRightBracket@{sRightBracket}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a11a56d501aa10653ea41e6678ab21304}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a11a56d501aa10653ea41e6678ab21304}} 
 s\+Right\+Bracket&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sCurlyLBracket@{sCurlyLBracket}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sCurlyLBracket@{sCurlyLBracket}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a55b60f4b83f4301f3637d94baf7fcf72}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a55b60f4b83f4301f3637d94baf7fcf72}} 
-s\+Curly\+LBracket&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sCurlyRBracket@{sCurlyRBracket}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sCurlyRBracket@{sCurlyRBracket}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a82a4f7eb47dd9eb7ded31da5fef74b7f}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a82a4f7eb47dd9eb7ded31da5fef74b7f}} 
-s\+Curly\+RBracket&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sComma@{sComma}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sComma@{sComma}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8afd0c343ff1612190a8f4ef2e58cf7f59}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8afd0c343ff1612190a8f4ef2e58cf7f59}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sComma@{sComma}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sComma@{sComma}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8afd0c343ff1612190a8f4ef2e58cf7f59}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8afd0c343ff1612190a8f4ef2e58cf7f59}} 
 s\+Comma&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sSemicolon@{sSemicolon}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sSemicolon@{sSemicolon}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a761419ac8e3d80e75f5726cfc5c76d74}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a761419ac8e3d80e75f5726cfc5c76d74}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sSemicolon@{sSemicolon}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sSemicolon@{sSemicolon}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a761419ac8e3d80e75f5726cfc5c76d74}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a761419ac8e3d80e75f5726cfc5c76d74}} 
 s\+Semicolon&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sExclamation@{sExclamation}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sExclamation@{sExclamation}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac269c488167b67c322709b75678d8851}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac269c488167b67c322709b75678d8851}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sExclamation@{sExclamation}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sExclamation@{sExclamation}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac269c488167b67c322709b75678d8851}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac269c488167b67c322709b75678d8851}} 
 s\+Exclamation&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sPipe@{sPipe}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sPipe@{sPipe}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8abad91f5649f7b7ae2e4d1dce87e525fe}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8abad91f5649f7b7ae2e4d1dce87e525fe}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sPipe@{sPipe}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sPipe@{sPipe}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8abad91f5649f7b7ae2e4d1dce87e525fe}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8abad91f5649f7b7ae2e4d1dce87e525fe}} 
 s\+Pipe&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sSingleQuote@{sSingleQuote}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sSingleQuote@{sSingleQuote}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a9202f4b2de6a333dcef704283ee138db}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a9202f4b2de6a333dcef704283ee138db}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sSingleQuote@{sSingleQuote}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sSingleQuote@{sSingleQuote}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a9202f4b2de6a333dcef704283ee138db}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a9202f4b2de6a333dcef704283ee138db}} 
 s\+Single\+Quote&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sLeftSingleQuote@{sLeftSingleQuote}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sLeftSingleQuote@{sLeftSingleQuote}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a4a4f49f27f2cde6f607a069a0892cfdf}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a4a4f49f27f2cde6f607a069a0892cfdf}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sLeftSingleQuote@{sLeftSingleQuote}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sLeftSingleQuote@{sLeftSingleQuote}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a4a4f49f27f2cde6f607a069a0892cfdf}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a4a4f49f27f2cde6f607a069a0892cfdf}} 
 s\+Left\+Single\+Quote&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sWhitespace@{sWhitespace}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sWhitespace@{sWhitespace}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a5cd70e02de179244852c944edfff97f1}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a5cd70e02de179244852c944edfff97f1}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sWhitespace@{sWhitespace}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sWhitespace@{sWhitespace}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a5cd70e02de179244852c944edfff97f1}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a5cd70e02de179244852c944edfff97f1}} 
 s\+Whitespace&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sComment@{sComment}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sComment@{sComment}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a2ce3524821ca4917141e32b96fc1de0f}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a2ce3524821ca4917141e32b96fc1de0f}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sComment@{sComment}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sComment@{sComment}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a2ce3524821ca4917141e32b96fc1de0f}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a2ce3524821ca4917141e32b96fc1de0f}} 
 s\+Comment&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sImport@{sImport}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sImport@{sImport}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ae43da8b6fefce8969b2632e2148d95e3}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ae43da8b6fefce8969b2632e2148d95e3}} 
-s\+Import&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sError@{sError}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sError@{sError}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af26b546b561fd1b2e8acbb25cab13d10}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af26b546b561fd1b2e8acbb25cab13d10}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sError@{sError}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sError@{sError}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af26b546b561fd1b2e8acbb25cab13d10}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af26b546b561fd1b2e8acbb25cab13d10}} 
 s\+Error&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sEOL@{sEOL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sEOL@{sEOL}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af0a0ecb685c176b46904ef031a62e9cb}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af0a0ecb685c176b46904ef031a62e9cb}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sEOL@{sEOL}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sEOL@{sEOL}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af0a0ecb685c176b46904ef031a62e9cb}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af0a0ecb685c176b46904ef031a62e9cb}} 
 s\+EOL&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sEnd@{sEnd}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sEnd@{sEnd}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a104fd3b580965ac0839203c53c53f6aa}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a104fd3b580965ac0839203c53c53f6aa}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sEnd@{sEnd}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!sEnd@{sEnd}}}\mbox{\Hypertarget{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a104fd3b580965ac0839203c53c53f6aa}\label{Lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a104fd3b580965ac0839203c53c53f6aa}} 
 s\+End&\\
 \hline
 
 \end{DoxyEnumFields}
-\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44}} 
-\index{lexical\_analyser.h@{lexical\_analyser.h}!Token\_type@{Token\_type}}
-\index{Token\_type@{Token\_type}!lexical\_analyser.h@{lexical\_analyser.h}}
+\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44}} 
+\index{Lexical\_analyser.h@{Lexical\_analyser.h}!Token\_type@{Token\_type}}
+\index{Token\_type@{Token\_type}!Lexical\_analyser.h@{Lexical\_analyser.h}}
 \doxysubsubsection{\texorpdfstring{Token\_type}{Token\_type}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44}{Token\+\_\+type}}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44}{Token\+\_\+type}}}
 
 \begin{DoxyEnumFields}{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_EOF@{TOKEN\_EOF}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_EOF@{TOKEN\_EOF}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa130df27256cd45f5781fc74deeb50dc}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa130df27256cd45f5781fc74deeb50dc}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_EOF@{TOKEN\_EOF}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_EOF@{TOKEN\_EOF}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa130df27256cd45f5781fc74deeb50dc}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa130df27256cd45f5781fc74deeb50dc}} 
 TOKEN\+\_\+\+EOF&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_EOL@{TOKEN\_EOL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_EOL@{TOKEN\_EOL}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a6b0ab7cf8c0d1203475022b3d5600f85}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a6b0ab7cf8c0d1203475022b3d5600f85}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_EOL@{TOKEN\_EOL}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_EOL@{TOKEN\_EOL}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a6b0ab7cf8c0d1203475022b3d5600f85}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a6b0ab7cf8c0d1203475022b3d5600f85}} 
 TOKEN\+\_\+\+EOL&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_EMPTY@{TOKEN\_EMPTY}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_EMPTY@{TOKEN\_EMPTY}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ad6107c5bda42f7c5f4e947d891187ad1}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ad6107c5bda42f7c5f4e947d891187ad1}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_EMPTY@{TOKEN\_EMPTY}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_EMPTY@{TOKEN\_EMPTY}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ad6107c5bda42f7c5f4e947d891187ad1}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ad6107c5bda42f7c5f4e947d891187ad1}} 
 TOKEN\+\_\+\+EMPTY&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_IDENTIFIER@{TOKEN\_IDENTIFIER}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_IDENTIFIER@{TOKEN\_IDENTIFIER}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_IDENTIFIER@{TOKEN\_IDENTIFIER}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_IDENTIFIER@{TOKEN\_IDENTIFIER}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353}} 
 TOKEN\+\_\+\+IDENTIFIER&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_KEYWORD@{TOKEN\_KEYWORD}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_KEYWORD@{TOKEN\_KEYWORD}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a11fe7a3403d4ff8c62af31ddf679877c}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a11fe7a3403d4ff8c62af31ddf679877c}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_KEYWORD@{TOKEN\_KEYWORD}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_KEYWORD@{TOKEN\_KEYWORD}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a11fe7a3403d4ff8c62af31ddf679877c}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a11fe7a3403d4ff8c62af31ddf679877c}} 
 TOKEN\+\_\+\+KEYWORD&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_NEWLINE@{TOKEN\_NEWLINE}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_NEWLINE@{TOKEN\_NEWLINE}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a25034ca7c95f724ac2509e57058adf18}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a25034ca7c95f724ac2509e57058adf18}} 
-TOKEN\+\_\+\+NEWLINE&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_TAB@{TOKEN\_TAB}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_TAB@{TOKEN\_TAB}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a2691fdb432b1bdd5eb40ce09b7d33614}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a2691fdb432b1bdd5eb40ce09b7d33614}} 
-TOKEN\+\_\+\+TAB&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_INT\_LITERAL@{TOKEN\_INT\_LITERAL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_INT\_LITERAL@{TOKEN\_INT\_LITERAL}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0d72fca2861c67c0d0d3ccd1e8325453}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0d72fca2861c67c0d0d3ccd1e8325453}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_INT\_LITERAL@{TOKEN\_INT\_LITERAL}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_INT\_LITERAL@{TOKEN\_INT\_LITERAL}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0d72fca2861c67c0d0d3ccd1e8325453}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0d72fca2861c67c0d0d3ccd1e8325453}} 
 TOKEN\+\_\+\+INT\+\_\+\+LITERAL&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_FLOAT\_LITERAL@{TOKEN\_FLOAT\_LITERAL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_FLOAT\_LITERAL@{TOKEN\_FLOAT\_LITERAL}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aab21ed2851d3c47e12244da5bdc568bf}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aab21ed2851d3c47e12244da5bdc568bf}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_FLOAT\_LITERAL@{TOKEN\_FLOAT\_LITERAL}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_FLOAT\_LITERAL@{TOKEN\_FLOAT\_LITERAL}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aab21ed2851d3c47e12244da5bdc568bf}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aab21ed2851d3c47e12244da5bdc568bf}} 
 TOKEN\+\_\+\+FLOAT\+\_\+\+LITERAL&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_STRING\_LITERAL@{TOKEN\_STRING\_LITERAL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_STRING\_LITERAL@{TOKEN\_STRING\_LITERAL}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a7ed3e98b10f5d0b461a887fdd5b3dc01}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a7ed3e98b10f5d0b461a887fdd5b3dc01}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_STRING\_LITERAL@{TOKEN\_STRING\_LITERAL}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_STRING\_LITERAL@{TOKEN\_STRING\_LITERAL}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a7ed3e98b10f5d0b461a887fdd5b3dc01}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a7ed3e98b10f5d0b461a887fdd5b3dc01}} 
 TOKEN\+\_\+\+STRING\+\_\+\+LITERAL&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_BOOLEAN@{TOKEN\_BOOLEAN}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_BOOLEAN@{TOKEN\_BOOLEAN}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8caffddda84e7a25800278a2dcf86c26}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8caffddda84e7a25800278a2dcf86c26}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_BOOLEAN@{TOKEN\_BOOLEAN}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_BOOLEAN@{TOKEN\_BOOLEAN}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8caffddda84e7a25800278a2dcf86c26}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8caffddda84e7a25800278a2dcf86c26}} 
 TOKEN\+\_\+\+BOOLEAN&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_CHAR\_LITERAL@{TOKEN\_CHAR\_LITERAL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_CHAR\_LITERAL@{TOKEN\_CHAR\_LITERAL}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a69237e9ab97fc6f9306ee092834631df}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a69237e9ab97fc6f9306ee092834631df}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_CHAR\_LITERAL@{TOKEN\_CHAR\_LITERAL}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_CHAR\_LITERAL@{TOKEN\_CHAR\_LITERAL}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a69237e9ab97fc6f9306ee092834631df}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a69237e9ab97fc6f9306ee092834631df}} 
 TOKEN\+\_\+\+CHAR\+\_\+\+LITERAL&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_EQUAL@{TOKEN\_EQUAL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_EQUAL@{TOKEN\_EQUAL}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a3c83b3f347ded187c65076c9172392c3}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a3c83b3f347ded187c65076c9172392c3}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_EQUAL@{TOKEN\_EQUAL}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_EQUAL@{TOKEN\_EQUAL}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a3c83b3f347ded187c65076c9172392c3}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a3c83b3f347ded187c65076c9172392c3}} 
 TOKEN\+\_\+\+EQUAL&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_NOT\_EQUAL@{TOKEN\_NOT\_EQUAL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_NOT\_EQUAL@{TOKEN\_NOT\_EQUAL}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa6300763c80d89d4aaac59dfbf4c2c01}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa6300763c80d89d4aaac59dfbf4c2c01}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_NOT\_EQUAL@{TOKEN\_NOT\_EQUAL}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_NOT\_EQUAL@{TOKEN\_NOT\_EQUAL}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa6300763c80d89d4aaac59dfbf4c2c01}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa6300763c80d89d4aaac59dfbf4c2c01}} 
 TOKEN\+\_\+\+NOT\+\_\+\+EQUAL&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_LESS\_EQUAL@{TOKEN\_LESS\_EQUAL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_LESS\_EQUAL@{TOKEN\_LESS\_EQUAL}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a9618ea497ab02a326b67f03606d8f90f}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a9618ea497ab02a326b67f03606d8f90f}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_LESS\_EQUAL@{TOKEN\_LESS\_EQUAL}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_LESS\_EQUAL@{TOKEN\_LESS\_EQUAL}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a9618ea497ab02a326b67f03606d8f90f}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a9618ea497ab02a326b67f03606d8f90f}} 
 TOKEN\+\_\+\+LESS\+\_\+\+EQUAL&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_LESS\_THAN@{TOKEN\_LESS\_THAN}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_LESS\_THAN@{TOKEN\_LESS\_THAN}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a634d456dd4f4a4ab865352988aaca719}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a634d456dd4f4a4ab865352988aaca719}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_LESS\_THAN@{TOKEN\_LESS\_THAN}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_LESS\_THAN@{TOKEN\_LESS\_THAN}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a634d456dd4f4a4ab865352988aaca719}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a634d456dd4f4a4ab865352988aaca719}} 
 TOKEN\+\_\+\+LESS\+\_\+\+THAN&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_GREATER\_EQUAL@{TOKEN\_GREATER\_EQUAL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_GREATER\_EQUAL@{TOKEN\_GREATER\_EQUAL}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1b6033f79dc23f23aaf67708bd792991}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1b6033f79dc23f23aaf67708bd792991}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_GREATER\_EQUAL@{TOKEN\_GREATER\_EQUAL}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_GREATER\_EQUAL@{TOKEN\_GREATER\_EQUAL}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1b6033f79dc23f23aaf67708bd792991}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1b6033f79dc23f23aaf67708bd792991}} 
 TOKEN\+\_\+\+GREATER\+\_\+\+EQUAL&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_GREATER\_THAN@{TOKEN\_GREATER\_THAN}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_GREATER\_THAN@{TOKEN\_GREATER\_THAN}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af6a5d42d2ef50fb03f1a66d01c2a3470}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af6a5d42d2ef50fb03f1a66d01c2a3470}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_GREATER\_THAN@{TOKEN\_GREATER\_THAN}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_GREATER\_THAN@{TOKEN\_GREATER\_THAN}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af6a5d42d2ef50fb03f1a66d01c2a3470}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af6a5d42d2ef50fb03f1a66d01c2a3470}} 
 TOKEN\+\_\+\+GREATER\+\_\+\+THAN&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_ASSIGNMENT@{TOKEN\_ASSIGNMENT}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_ASSIGNMENT@{TOKEN\_ASSIGNMENT}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1f3658cf646576820d94a9a1c0504303}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1f3658cf646576820d94a9a1c0504303}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_ASSIGNMENT@{TOKEN\_ASSIGNMENT}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_ASSIGNMENT@{TOKEN\_ASSIGNMENT}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1f3658cf646576820d94a9a1c0504303}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1f3658cf646576820d94a9a1c0504303}} 
 TOKEN\+\_\+\+ASSIGNMENT&Operators. \\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_ADDITION@{TOKEN\_ADDITION}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_ADDITION@{TOKEN\_ADDITION}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa48683b3cba8786770d9bf800d15e545}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa48683b3cba8786770d9bf800d15e545}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_ADDITION@{TOKEN\_ADDITION}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_ADDITION@{TOKEN\_ADDITION}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa48683b3cba8786770d9bf800d15e545}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa48683b3cba8786770d9bf800d15e545}} 
 TOKEN\+\_\+\+ADDITION&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_SUBTRACTION@{TOKEN\_SUBTRACTION}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_SUBTRACTION@{TOKEN\_SUBTRACTION}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ae892958f58c3c970916498eb5e47a388}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ae892958f58c3c970916498eb5e47a388}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_SUBTRACTION@{TOKEN\_SUBTRACTION}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_SUBTRACTION@{TOKEN\_SUBTRACTION}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ae892958f58c3c970916498eb5e47a388}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ae892958f58c3c970916498eb5e47a388}} 
 TOKEN\+\_\+\+SUBTRACTION&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_MULTIPLY@{TOKEN\_MULTIPLY}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_MULTIPLY@{TOKEN\_MULTIPLY}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44afdcb399f2904bfc9ce2bd870ff04d1c2}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44afdcb399f2904bfc9ce2bd870ff04d1c2}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_MULTIPLY@{TOKEN\_MULTIPLY}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_MULTIPLY@{TOKEN\_MULTIPLY}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44afdcb399f2904bfc9ce2bd870ff04d1c2}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44afdcb399f2904bfc9ce2bd870ff04d1c2}} 
 TOKEN\+\_\+\+MULTIPLY&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_DIVISION@{TOKEN\_DIVISION}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_DIVISION@{TOKEN\_DIVISION}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a196db7f3d2018cad481d0ffdf266889c}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a196db7f3d2018cad481d0ffdf266889c}} 
-TOKEN\+\_\+\+DIVISION&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_DIVIDE@{TOKEN\_DIVIDE}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_DIVIDE@{TOKEN\_DIVIDE}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af54790adac514a4876395bd62d71a410}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af54790adac514a4876395bd62d71a410}} 
+TOKEN\+\_\+\+DIVIDE&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_BACKSLASH@{TOKEN\_BACKSLASH}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_BACKSLASH@{TOKEN\_BACKSLASH}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a04d79b81666e686448ea4bd2592f438b}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a04d79b81666e686448ea4bd2592f438b}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_BACKSLASH@{TOKEN\_BACKSLASH}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_BACKSLASH@{TOKEN\_BACKSLASH}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a04d79b81666e686448ea4bd2592f438b}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a04d79b81666e686448ea4bd2592f438b}} 
 TOKEN\+\_\+\+BACKSLASH&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_PIPE@{TOKEN\_PIPE}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_PIPE@{TOKEN\_PIPE}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a93000ce4e0f00f6f294a98192f705910}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a93000ce4e0f00f6f294a98192f705910}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_PIPE@{TOKEN\_PIPE}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_PIPE@{TOKEN\_PIPE}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a93000ce4e0f00f6f294a98192f705910}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a93000ce4e0f00f6f294a98192f705910}} 
 TOKEN\+\_\+\+PIPE&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_EXCLAMATION@{TOKEN\_EXCLAMATION}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_EXCLAMATION@{TOKEN\_EXCLAMATION}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0e70b5ecc56852cc6499f90d410555ec}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0e70b5ecc56852cc6499f90d410555ec}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_EXCLAMATION@{TOKEN\_EXCLAMATION}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_EXCLAMATION@{TOKEN\_EXCLAMATION}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0e70b5ecc56852cc6499f90d410555ec}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0e70b5ecc56852cc6499f90d410555ec}} 
 TOKEN\+\_\+\+EXCLAMATION&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_LPAREN@{TOKEN\_LPAREN}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_LPAREN@{TOKEN\_LPAREN}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af4143395fefba1c6a30e58240dd0c827}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af4143395fefba1c6a30e58240dd0c827}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_LPAREN@{TOKEN\_LPAREN}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_LPAREN@{TOKEN\_LPAREN}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af4143395fefba1c6a30e58240dd0c827}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af4143395fefba1c6a30e58240dd0c827}} 
 TOKEN\+\_\+\+LPAREN&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_RPAREN@{TOKEN\_RPAREN}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_RPAREN@{TOKEN\_RPAREN}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ace232c359d5697cc5c459c22a7be226b}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ace232c359d5697cc5c459c22a7be226b}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_RPAREN@{TOKEN\_RPAREN}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_RPAREN@{TOKEN\_RPAREN}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ace232c359d5697cc5c459c22a7be226b}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ace232c359d5697cc5c459c22a7be226b}} 
 TOKEN\+\_\+\+RPAREN&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_LEFT\_BRACKET@{TOKEN\_LEFT\_BRACKET}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_LEFT\_BRACKET@{TOKEN\_LEFT\_BRACKET}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a60e4bab14680522185007fe87240e707}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a60e4bab14680522185007fe87240e707}} 
-TOKEN\+\_\+\+LEFT\+\_\+\+BRACKET&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_RIGHT\_BRACKET@{TOKEN\_RIGHT\_BRACKET}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_RIGHT\_BRACKET@{TOKEN\_RIGHT\_BRACKET}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa42fbee15a56484e7cc6daaaa552107a}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa42fbee15a56484e7cc6daaaa552107a}} 
-TOKEN\+\_\+\+RIGHT\+\_\+\+BRACKET&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_CURLYL\_BRACKET@{TOKEN\_CURLYL\_BRACKET}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_CURLYL\_BRACKET@{TOKEN\_CURLYL\_BRACKET}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aea93445565e90032b651b3bfeab696ad}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aea93445565e90032b651b3bfeab696ad}} 
-TOKEN\+\_\+\+CURLYL\+\_\+\+BRACKET&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_CURLYR\_BRACKET@{TOKEN\_CURLYR\_BRACKET}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_CURLYR\_BRACKET@{TOKEN\_CURLYR\_BRACKET}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a177c279eee0ad7b261d2a217545ddc86}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a177c279eee0ad7b261d2a217545ddc86}} 
-TOKEN\+\_\+\+CURLYR\+\_\+\+BRACKET&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_COMMA@{TOKEN\_COMMA}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_COMMA@{TOKEN\_COMMA}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8d265e17914bc733c8b9a880dd097a9e}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8d265e17914bc733c8b9a880dd097a9e}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_COMMA@{TOKEN\_COMMA}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_COMMA@{TOKEN\_COMMA}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8d265e17914bc733c8b9a880dd097a9e}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8d265e17914bc733c8b9a880dd097a9e}} 
 TOKEN\+\_\+\+COMMA&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_SEMICOLON@{TOKEN\_SEMICOLON}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_SEMICOLON@{TOKEN\_SEMICOLON}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ac8c74b281e178c87923363a90f6ff371}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ac8c74b281e178c87923363a90f6ff371}} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_SEMICOLON@{TOKEN\_SEMICOLON}!Lexical\_analyser.h@{Lexical\_analyser.h}}\index{Lexical\_analyser.h@{Lexical\_analyser.h}!TOKEN\_SEMICOLON@{TOKEN\_SEMICOLON}}}\mbox{\Hypertarget{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ac8c74b281e178c87923363a90f6ff371}\label{Lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ac8c74b281e178c87923363a90f6ff371}} 
 TOKEN\+\_\+\+SEMICOLON&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_COMMENT@{TOKEN\_COMMENT}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_COMMENT@{TOKEN\_COMMENT}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0fe00080531042db460071402c40f763}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0fe00080531042db460071402c40f763}} 
-TOKEN\+\_\+\+COMMENT&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_IMPORT@{TOKEN\_IMPORT}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_IMPORT@{TOKEN\_IMPORT}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a00a4852749fa7e7e4675f7843ae16642}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a00a4852749fa7e7e4675f7843ae16642}} 
-TOKEN\+\_\+\+IMPORT&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_DISCARD@{TOKEN\_DISCARD}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_DISCARD@{TOKEN\_DISCARD}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a399667e371946cce1c1081aea2f2c52d}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a399667e371946cce1c1081aea2f2c52d}} 
-TOKEN\+\_\+\+DISCARD&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_COLON@{TOKEN\_COLON}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_COLON@{TOKEN\_COLON}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a92a35ac6329421e77882bf3739a75e47}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a92a35ac6329421e77882bf3739a75e47}} 
-TOKEN\+\_\+\+COLON&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_DOT@{TOKEN\_DOT}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_DOT@{TOKEN\_DOT}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ab565ebfaaa53dcee6ddda201e270733e}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ab565ebfaaa53dcee6ddda201e270733e}} 
-TOKEN\+\_\+\+DOT&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_UNDEFINED@{TOKEN\_UNDEFINED}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_UNDEFINED@{TOKEN\_UNDEFINED}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a4e9a7212ea985c5ffdbf0080c464cc88}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a4e9a7212ea985c5ffdbf0080c464cc88}} 
-TOKEN\+\_\+\+UNDEFINED&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_STRINGINIT\_ERROR@{TOKEN\_STRINGINIT\_ERROR}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_STRINGINIT\_ERROR@{TOKEN\_STRINGINIT\_ERROR}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a39b77bc78a559e8e8b728d82cc413595}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a39b77bc78a559e8e8b728d82cc413595}} 
-TOKEN\+\_\+\+STRINGINIT\+\_\+\+ERROR&\\
-\hline
-
 \end{DoxyEnumFields}
-
-
-\doxysubsection{Function Documentation}
-\mbox{\Hypertarget{lexical__analyser_8h_a1b68532a422d65e0eab79e3011af906e}\label{lexical__analyser_8h_a1b68532a422d65e0eab79e3011af906e}} 
-\index{lexical\_analyser.h@{lexical\_analyser.h}!get\_token@{get\_token}}
-\index{get\_token@{get\_token}!lexical\_analyser.h@{lexical\_analyser.h}}
-\doxysubsubsection{\texorpdfstring{get\_token()}{get\_token()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structToken}{Token}} get\+\_\+token (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{lexical__analyser_8h_acbb4fd03fd6564af6fe03306ec48364c}\label{lexical__analyser_8h_acbb4fd03fd6564af6fe03306ec48364c}} 
-\index{lexical\_analyser.h@{lexical\_analyser.h}!print\_token@{print\_token}}
-\index{print\_token@{print\_token}!lexical\_analyser.h@{lexical\_analyser.h}}
-\doxysubsubsection{\texorpdfstring{print\_token()}{print\_token()}}
-{\footnotesize\ttfamily void print\+\_\+token (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structToken}{Token}}}]{token }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{lexical__analyser_8h_a67367cc8618de258a4163191d1ac05b8}\label{lexical__analyser_8h_a67367cc8618de258a4163191d1ac05b8}} 
-\index{lexical\_analyser.h@{lexical\_analyser.h}!token\_type\_to\_string@{token\_type\_to\_string}}
-\index{token\_type\_to\_string@{token\_type\_to\_string}!lexical\_analyser.h@{lexical\_analyser.h}}
-\doxysubsubsection{\texorpdfstring{token\_type\_to\_string()}{token\_type\_to\_string()}}
-{\footnotesize\ttfamily const char$\ast$ token\+\_\+type\+\_\+to\+\_\+string (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44}{Token\+\_\+type}}}]{type }\end{DoxyParamCaption})}
-

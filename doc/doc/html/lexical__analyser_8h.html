@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IFJ-projekt01: lexical_analyser.h File Reference</title>
+<title>IFJ-projekt01: /home/administrator/IFJ/IFJ-project01/src/Lexical_analyser.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -67,16 +67,24 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
-<div class="title">lexical_analyser.h File Reference</div>  </div>
+<div class="title">Lexical_analyser.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="newstring_8h_source.html">newstring.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for Lexical_analyser.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="Lexical__analyser_8h__incl.png" border="0" usemap="#a_2home_2administrator_2IFJ_2IFJ-project01_2src_2Lexical__analyser_8h" alt=""/></div>
 </div>
-<p><a href="lexical__analyser_8h_source.html">Go to the source code of this file.</a></p>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="Lexical__analyser_8h__dep__incl.png" border="0" usemap="#a_2home_2administrator_2IFJ_2IFJ-project01_2src_2Lexical__analyser_8hdep" alt=""/></div>
+</div>
+</div>
+<p><a href="Lexical__analyser_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -87,147 +95,110 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a58fe1555b8da7f766b19a2c049bfbe44"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44">Token_type</a> { <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44aa130df27256cd45f5781fc74deeb50dc">TOKEN_EOF</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a6b0ab7cf8c0d1203475022b3d5600f85">TOKEN_EOL</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44ad6107c5bda42f7c5f4e947d891187ad1">TOKEN_EMPTY</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353">TOKEN_IDENTIFIER</a>
+<tr class="memitem:a58fe1555b8da7f766b19a2c049bfbe44"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44">Token_type</a> { <br />
+&#160;&#160;<a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44aa130df27256cd45f5781fc74deeb50dc">TOKEN_EOF</a>
+, <a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a6b0ab7cf8c0d1203475022b3d5600f85">TOKEN_EOL</a>
+, <a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44ad6107c5bda42f7c5f4e947d891187ad1">TOKEN_EMPTY</a>
+, <a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353">TOKEN_IDENTIFIER</a>
 , <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a11fe7a3403d4ff8c62af31ddf679877c">TOKEN_KEYWORD</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a25034ca7c95f724ac2509e57058adf18">TOKEN_NEWLINE</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a2691fdb432b1bdd5eb40ce09b7d33614">TOKEN_TAB</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a0d72fca2861c67c0d0d3ccd1e8325453">TOKEN_INT_LITERAL</a>
+&#160;&#160;<a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a11fe7a3403d4ff8c62af31ddf679877c">TOKEN_KEYWORD</a>
+, <a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a0d72fca2861c67c0d0d3ccd1e8325453">TOKEN_INT_LITERAL</a>
+, <a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44aab21ed2851d3c47e12244da5bdc568bf">TOKEN_FLOAT_LITERAL</a>
+, <a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a7ed3e98b10f5d0b461a887fdd5b3dc01">TOKEN_STRING_LITERAL</a>
 , <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44aab21ed2851d3c47e12244da5bdc568bf">TOKEN_FLOAT_LITERAL</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a7ed3e98b10f5d0b461a887fdd5b3dc01">TOKEN_STRING_LITERAL</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a8caffddda84e7a25800278a2dcf86c26">TOKEN_BOOLEAN</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a69237e9ab97fc6f9306ee092834631df">TOKEN_CHAR_LITERAL</a>
+&#160;&#160;<a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a8caffddda84e7a25800278a2dcf86c26">TOKEN_BOOLEAN</a>
+, <a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a69237e9ab97fc6f9306ee092834631df">TOKEN_CHAR_LITERAL</a>
+, <a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a3c83b3f347ded187c65076c9172392c3">TOKEN_EQUAL</a>
+, <a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44aa6300763c80d89d4aaac59dfbf4c2c01">TOKEN_NOT_EQUAL</a>
 , <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a3c83b3f347ded187c65076c9172392c3">TOKEN_EQUAL</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44aa6300763c80d89d4aaac59dfbf4c2c01">TOKEN_NOT_EQUAL</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a9618ea497ab02a326b67f03606d8f90f">TOKEN_LESS_EQUAL</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a634d456dd4f4a4ab865352988aaca719">TOKEN_LESS_THAN</a>
+&#160;&#160;<a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a9618ea497ab02a326b67f03606d8f90f">TOKEN_LESS_EQUAL</a>
+, <a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a634d456dd4f4a4ab865352988aaca719">TOKEN_LESS_THAN</a>
+, <a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a1b6033f79dc23f23aaf67708bd792991">TOKEN_GREATER_EQUAL</a>
+, <a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44af6a5d42d2ef50fb03f1a66d01c2a3470">TOKEN_GREATER_THAN</a>
 , <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a1b6033f79dc23f23aaf67708bd792991">TOKEN_GREATER_EQUAL</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44af6a5d42d2ef50fb03f1a66d01c2a3470">TOKEN_GREATER_THAN</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a1f3658cf646576820d94a9a1c0504303">TOKEN_ASSIGNMENT</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44aa48683b3cba8786770d9bf800d15e545">TOKEN_ADDITION</a>
+&#160;&#160;<a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a1f3658cf646576820d94a9a1c0504303">TOKEN_ASSIGNMENT</a>
+, <a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44aa48683b3cba8786770d9bf800d15e545">TOKEN_ADDITION</a>
+, <a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44ae892958f58c3c970916498eb5e47a388">TOKEN_SUBTRACTION</a>
+, <a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44afdcb399f2904bfc9ce2bd870ff04d1c2">TOKEN_MULTIPLY</a>
 , <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44ae892958f58c3c970916498eb5e47a388">TOKEN_SUBTRACTION</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44afdcb399f2904bfc9ce2bd870ff04d1c2">TOKEN_MULTIPLY</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a196db7f3d2018cad481d0ffdf266889c">TOKEN_DIVISION</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a04d79b81666e686448ea4bd2592f438b">TOKEN_BACKSLASH</a>
+&#160;&#160;<a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44af54790adac514a4876395bd62d71a410">TOKEN_DIVIDE</a>
+, <a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a04d79b81666e686448ea4bd2592f438b">TOKEN_BACKSLASH</a>
+, <a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a93000ce4e0f00f6f294a98192f705910">TOKEN_PIPE</a>
+, <a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a0e70b5ecc56852cc6499f90d410555ec">TOKEN_EXCLAMATION</a>
 , <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a93000ce4e0f00f6f294a98192f705910">TOKEN_PIPE</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a0e70b5ecc56852cc6499f90d410555ec">TOKEN_EXCLAMATION</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44af4143395fefba1c6a30e58240dd0c827">TOKEN_LPAREN</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44ace232c359d5697cc5c459c22a7be226b">TOKEN_RPAREN</a>
-, <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a60e4bab14680522185007fe87240e707">TOKEN_LEFT_BRACKET</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44aa42fbee15a56484e7cc6daaaa552107a">TOKEN_RIGHT_BRACKET</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44aea93445565e90032b651b3bfeab696ad">TOKEN_CURLYL_BRACKET</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a177c279eee0ad7b261d2a217545ddc86">TOKEN_CURLYR_BRACKET</a>
-, <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a8d265e17914bc733c8b9a880dd097a9e">TOKEN_COMMA</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44ac8c74b281e178c87923363a90f6ff371">TOKEN_SEMICOLON</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a0fe00080531042db460071402c40f763">TOKEN_COMMENT</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a00a4852749fa7e7e4675f7843ae16642">TOKEN_IMPORT</a>
-, <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a399667e371946cce1c1081aea2f2c52d">TOKEN_DISCARD</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a92a35ac6329421e77882bf3739a75e47">TOKEN_COLON</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44ab565ebfaaa53dcee6ddda201e270733e">TOKEN_DOT</a>
-, <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a4e9a7212ea985c5ffdbf0080c464cc88">TOKEN_UNDEFINED</a>
-, <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a39b77bc78a559e8e8b728d82cc413595">TOKEN_STRINGINIT_ERROR</a>
+&#160;&#160;<a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44af4143395fefba1c6a30e58240dd0c827">TOKEN_LPAREN</a>
+, <a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44ace232c359d5697cc5c459c22a7be226b">TOKEN_RPAREN</a>
+, <a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44a8d265e17914bc733c8b9a880dd097a9e">TOKEN_COMMA</a>
+, <a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44ac8c74b281e178c87923363a90f6ff371">TOKEN_SEMICOLON</a>
 <br />
  }</td></tr>
 <tr class="separator:a58fe1555b8da7f766b19a2c049bfbe44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7ba7e5475f5b6695b463ca219e2d448"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448">Keyword</a> { <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a20aedd56114ad17b1a5c45feebbbaff9">KEYWORD_IF</a>
-, <a class="el" href="lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a0b629d28c9ba070532b366e42a9ccb03">KEYWORD_ELSE</a>
-, <a class="el" href="lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a43dc6e1642447b459ba51eb4315255b1">KEYWORD_FN</a>
-, <a class="el" href="lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448ae16f6b556452b7e953dc64d00b131cb5">KEYWORD_CONST</a>
+<tr class="memitem:ab7ba7e5475f5b6695b463ca219e2d448"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448">Keyword</a> { <br />
+&#160;&#160;<a class="el" href="Lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a20aedd56114ad17b1a5c45feebbbaff9">KEYWORD_IF</a>
+, <a class="el" href="Lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a0b629d28c9ba070532b366e42a9ccb03">KEYWORD_ELSE</a>
+, <a class="el" href="Lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a43dc6e1642447b459ba51eb4315255b1">KEYWORD_FN</a>
+, <a class="el" href="Lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448ae16f6b556452b7e953dc64d00b131cb5">KEYWORD_CONST</a>
 , <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a0f316c447317035d1c08b78e2c90fb5e">KEYWORD_I32</a>
-, <a class="el" href="lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a1b1fedd5d8dadfe794ceb035d2126cef">KEYWORD_F64</a>
-, <a class="el" href="lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a2738663f65f4b121fcc01021173603e4">KEYWORD_U8</a>
-, <a class="el" href="lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a0b5adc50af578a7d0b33536cbcb6c707">KEYWORD_U8_ARRAY</a>
+&#160;&#160;<a class="el" href="Lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a0f316c447317035d1c08b78e2c90fb5e">KEYWORD_I32</a>
+, <a class="el" href="Lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a1b1fedd5d8dadfe794ceb035d2126cef">KEYWORD_F64</a>
+, <a class="el" href="Lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a8178adb693fbd4ddd894757a04951173">KEYWORD_NULL</a>
+, <a class="el" href="Lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a871b2340ce1ed01216617b721f0c5ebe">KEYWORD_PUB</a>
 , <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a078e25b70dcd3bb2fdf4738e3767435d">KEYWORD_I32_NULL</a>
-, <a class="el" href="lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a2b66536d063501967cbc18999682710f">KEYWORD_F64_NULL</a>
-, <a class="el" href="lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a16cfed60cea5bdccff22708701eaa149">KEYWORD_U8_NULL</a>
-, <a class="el" href="lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448ad63b3dcfb7fb501b618b6cd5ebfb1ecf">KEYWORD_U8_ARRAY_NULL</a>
+&#160;&#160;<a class="el" href="Lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a7ecaa69aa02833284594c30461fe01d2">KEYWORD_RETURN</a>
+, <a class="el" href="Lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a2738663f65f4b121fcc01021173603e4">KEYWORD_U8</a>
+, <a class="el" href="Lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a01486e1109a838a9a62cae7bc3c8b67d">KEYWORD_VAR</a>
+, <a class="el" href="Lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a0cf1d9cf4f3dcc4f4eecd4c5e492630a">KEYWORD_VOID</a>
 , <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a8178adb693fbd4ddd894757a04951173">KEYWORD_NULL</a>
-, <a class="el" href="lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a871b2340ce1ed01216617b721f0c5ebe">KEYWORD_PUB</a>
-, <a class="el" href="lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a7ecaa69aa02833284594c30461fe01d2">KEYWORD_RETURN</a>
-, <a class="el" href="lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a01486e1109a838a9a62cae7bc3c8b67d">KEYWORD_VAR</a>
-, <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448a0cf1d9cf4f3dcc4f4eecd4c5e492630a">KEYWORD_VOID</a>
-, <a class="el" href="lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448af606de6206b287c3f42e8c47d9fb319d">KEYWORD_WHILE</a>
+&#160;&#160;<a class="el" href="Lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448af606de6206b287c3f42e8c47d9fb319d">KEYWORD_WHILE</a>
 <br />
  }</td></tr>
 <tr class="separator:ab7ba7e5475f5b6695b463ca219e2d448"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d74787dedbc4e11c1ab15bf487e61f8"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8">State</a> { <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad">sStart</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a320954d35b1812927d1d94fc1cee2b3c">sIdentifierorKeyword</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a200c1fd85e4fb6eba004b7de17fd499c">sKeyword</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a450a0d34f9cfdb97cbda0e4693ef4696">sIdentifier</a>
+<tr class="memitem:a5d74787dedbc4e11c1ab15bf487e61f8"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8">State</a> { <br />
+&#160;&#160;<a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad">sStart</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a450a0d34f9cfdb97cbda0e4693ef4696">sIdentifier</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a200c1fd85e4fb6eba004b7de17fd499c">sKeyword</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a902570c2e2c9045d7499ed6dab5608e7">sNamespace</a>
 , <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a902570c2e2c9045d7499ed6dab5608e7">sNamespace</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a7361f1b0e6e81ac590cd754204ae8cd3">sIntLiteral</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8af265c1a80b908d47bab35d6107c38e10">sFloatLiteral</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a0fba407f02267367ab375fbcd8251f3e">sExponent</a>
+&#160;&#160;<a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a7361f1b0e6e81ac590cd754204ae8cd3">sIntLiteral</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8af265c1a80b908d47bab35d6107c38e10">sFloatLiteral</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a0fba407f02267367ab375fbcd8251f3e">sExponent</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8ac9b5cb9d0557140fc4e7a44442aa1d6d">sStringLiteral</a>
 , <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8ac9b5cb9d0557140fc4e7a44442aa1d6d">sStringLiteral</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a647f484374dd685dcd8512ff8b796251">sEscapeSequence</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a18707d0b35d09c9e8ba921fa087587eb">sOperator</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a8d45f5ea610302976656bb287c6ebf7e">sBackSlash</a>
+&#160;&#160;<a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a647f484374dd685dcd8512ff8b796251">sEscapeSequence</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a18707d0b35d09c9e8ba921fa087587eb">sOperator</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a8d45f5ea610302976656bb287c6ebf7e">sBackSlash</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a786cabd32ed690206849bd3c41710d3b">sDivision</a>
 , <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a786cabd32ed690206849bd3c41710d3b">sDivision</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a845ae9a4f0d69357879f20576bc8f8c7">sAssign</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a6547d3d833e25c66e4c5c461c5f8543e">sEqual</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8abd9024a34665ccc0f6b67741dda1f756">sNotEqual</a>
+&#160;&#160;<a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a845ae9a4f0d69357879f20576bc8f8c7">sAssign</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a6547d3d833e25c66e4c5c461c5f8543e">sEqual</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8abd9024a34665ccc0f6b67741dda1f756">sNotEqual</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8ae8cfd559c30598afbe78dfd4af372580">sLessEqual</a>
 , <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8ae8cfd559c30598afbe78dfd4af372580">sLessEqual</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a0329aab4e5cfe984949899bc59cbc153">sLessThan</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8ab2df5fcd85e3bf41266479b9e05f6f2e">sGreaterEqual</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8aa446c0b6cc245ad1796fc0ccee32bcb5">sGreaterThan</a>
+&#160;&#160;<a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a0329aab4e5cfe984949899bc59cbc153">sLessThan</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8ab2df5fcd85e3bf41266479b9e05f6f2e">sGreaterEqual</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8aa446c0b6cc245ad1796fc0ccee32bcb5">sGreaterThan</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8ad598db5b5b8ee727ec72f06e2e8e6981">sLeftParen</a>
 , <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8ad598db5b5b8ee727ec72f06e2e8e6981">sLeftParen</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a8695df75075662b916106eddfc0f18c8">sRightParen</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a073ff5b1c06535a2659402f4ddc1c70a">sLeftBracket</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a11a56d501aa10653ea41e6678ab21304">sRightBracket</a>
+&#160;&#160;<a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a8695df75075662b916106eddfc0f18c8">sRightParen</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a073ff5b1c06535a2659402f4ddc1c70a">sLeftBracket</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a11a56d501aa10653ea41e6678ab21304">sRightBracket</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8afd0c343ff1612190a8f4ef2e58cf7f59">sComma</a>
 , <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a55b60f4b83f4301f3637d94baf7fcf72">sCurlyLBracket</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a82a4f7eb47dd9eb7ded31da5fef74b7f">sCurlyRBracket</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8afd0c343ff1612190a8f4ef2e58cf7f59">sComma</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a761419ac8e3d80e75f5726cfc5c76d74">sSemicolon</a>
+&#160;&#160;<a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a761419ac8e3d80e75f5726cfc5c76d74">sSemicolon</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8ac269c488167b67c322709b75678d8851">sExclamation</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8abad91f5649f7b7ae2e4d1dce87e525fe">sPipe</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a9202f4b2de6a333dcef704283ee138db">sSingleQuote</a>
 , <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8ac269c488167b67c322709b75678d8851">sExclamation</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8abad91f5649f7b7ae2e4d1dce87e525fe">sPipe</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a9202f4b2de6a333dcef704283ee138db">sSingleQuote</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a4a4f49f27f2cde6f607a069a0892cfdf">sLeftSingleQuote</a>
+&#160;&#160;<a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a4a4f49f27f2cde6f607a069a0892cfdf">sLeftSingleQuote</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a5cd70e02de179244852c944edfff97f1">sWhitespace</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a2ce3524821ca4917141e32b96fc1de0f">sComment</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8af26b546b561fd1b2e8acbb25cab13d10">sError</a>
 , <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a5cd70e02de179244852c944edfff97f1">sWhitespace</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a2ce3524821ca4917141e32b96fc1de0f">sComment</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8ae43da8b6fefce8969b2632e2148d95e3">sImport</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8af26b546b561fd1b2e8acbb25cab13d10">sError</a>
-, <br />
-&#160;&#160;<a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8af0a0ecb685c176b46904ef031a62e9cb">sEOL</a>
-, <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a104fd3b580965ac0839203c53c53f6aa">sEnd</a>
+&#160;&#160;<a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8af0a0ecb685c176b46904ef031a62e9cb">sEOL</a>
+, <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8a104fd3b580965ac0839203c53c53f6aa">sEnd</a>
 <br />
  }</td></tr>
 <tr class="separator:a5d74787dedbc4e11c1ab15bf487e61f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a67367cc8618de258a4163191d1ac05b8"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexical__analyser_8h.html#a67367cc8618de258a4163191d1ac05b8">token_type_to_string</a> (<a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44">Token_type</a> type)</td></tr>
-<tr class="separator:a67367cc8618de258a4163191d1ac05b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acbb4fd03fd6564af6fe03306ec48364c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexical__analyser_8h.html#acbb4fd03fd6564af6fe03306ec48364c">print_token</a> (<a class="el" href="structToken.html">Token</a> token)</td></tr>
-<tr class="separator:acbb4fd03fd6564af6fe03306ec48364c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b68532a422d65e0eab79e3011af906e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structToken.html">Token</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexical__analyser_8h.html#a1b68532a422d65e0eab79e3011af906e">get_token</a> (FILE *<a class="el" href="main_8c.html#a702945180aa732857b380a007a7e2a21">file</a>)</td></tr>
-<tr class="separator:a1b68532a422d65e0eab79e3011af906e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="ab7ba7e5475f5b6695b463ca219e2d448"></a>
@@ -237,7 +208,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448">Keyword</a></td>
+          <td class="memname">enum <a class="el" href="Lexical__analyser_8h.html#ab7ba7e5475f5b6695b463ca219e2d448">Keyword</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -248,15 +219,10 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="ab7ba7e5475f5b6695b463ca219e2d448ae16f6b556452b7e953dc64d00b131cb5"></a>KEYWORD_CONST&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ab7ba7e5475f5b6695b463ca219e2d448a0f316c447317035d1c08b78e2c90fb5e"></a>KEYWORD_I32&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ab7ba7e5475f5b6695b463ca219e2d448a1b1fedd5d8dadfe794ceb035d2126cef"></a>KEYWORD_F64&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ab7ba7e5475f5b6695b463ca219e2d448a2738663f65f4b121fcc01021173603e4"></a>KEYWORD_U8&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ab7ba7e5475f5b6695b463ca219e2d448a0b5adc50af578a7d0b33536cbcb6c707"></a>KEYWORD_U8_ARRAY&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ab7ba7e5475f5b6695b463ca219e2d448a078e25b70dcd3bb2fdf4738e3767435d"></a>KEYWORD_I32_NULL&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ab7ba7e5475f5b6695b463ca219e2d448a2b66536d063501967cbc18999682710f"></a>KEYWORD_F64_NULL&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ab7ba7e5475f5b6695b463ca219e2d448a16cfed60cea5bdccff22708701eaa149"></a>KEYWORD_U8_NULL&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ab7ba7e5475f5b6695b463ca219e2d448ad63b3dcfb7fb501b618b6cd5ebfb1ecf"></a>KEYWORD_U8_ARRAY_NULL&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ab7ba7e5475f5b6695b463ca219e2d448a8178adb693fbd4ddd894757a04951173"></a>KEYWORD_NULL&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ab7ba7e5475f5b6695b463ca219e2d448a871b2340ce1ed01216617b721f0c5ebe"></a>KEYWORD_PUB&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ab7ba7e5475f5b6695b463ca219e2d448a7ecaa69aa02833284594c30461fe01d2"></a>KEYWORD_RETURN&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab7ba7e5475f5b6695b463ca219e2d448a2738663f65f4b121fcc01021173603e4"></a>KEYWORD_U8&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ab7ba7e5475f5b6695b463ca219e2d448a01486e1109a838a9a62cae7bc3c8b67d"></a>KEYWORD_VAR&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ab7ba7e5475f5b6695b463ca219e2d448a0cf1d9cf4f3dcc4f4eecd4c5e492630a"></a>KEYWORD_VOID&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ab7ba7e5475f5b6695b463ca219e2d448af606de6206b287c3f42e8c47d9fb319d"></a>KEYWORD_WHILE&#160;</td><td class="fielddoc"></td></tr>
@@ -271,15 +237,14 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8">State</a></td>
+          <td class="memname">enum <a class="el" href="Lexical__analyser_8h.html#a5d74787dedbc4e11c1ab15bf487e61f8">State</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad"></a>sStart&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8a320954d35b1812927d1d94fc1cee2b3c"></a>sIdentifierorKeyword&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8a200c1fd85e4fb6eba004b7de17fd499c"></a>sKeyword&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8a450a0d34f9cfdb97cbda0e4693ef4696"></a>sIdentifier&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8a200c1fd85e4fb6eba004b7de17fd499c"></a>sKeyword&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8a902570c2e2c9045d7499ed6dab5608e7"></a>sNamespace&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8a7361f1b0e6e81ac590cd754204ae8cd3"></a>sIntLiteral&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8af265c1a80b908d47bab35d6107c38e10"></a>sFloatLiteral&#160;</td><td class="fielddoc"></td></tr>
@@ -300,8 +265,6 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8a8695df75075662b916106eddfc0f18c8"></a>sRightParen&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8a073ff5b1c06535a2659402f4ddc1c70a"></a>sLeftBracket&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8a11a56d501aa10653ea41e6678ab21304"></a>sRightBracket&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8a55b60f4b83f4301f3637d94baf7fcf72"></a>sCurlyLBracket&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8a82a4f7eb47dd9eb7ded31da5fef74b7f"></a>sCurlyRBracket&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8afd0c343ff1612190a8f4ef2e58cf7f59"></a>sComma&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8a761419ac8e3d80e75f5726cfc5c76d74"></a>sSemicolon&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8ac269c488167b67c322709b75678d8851"></a>sExclamation&#160;</td><td class="fielddoc"></td></tr>
@@ -310,7 +273,6 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8a4a4f49f27f2cde6f607a069a0892cfdf"></a>sLeftSingleQuote&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8a5cd70e02de179244852c944edfff97f1"></a>sWhitespace&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8a2ce3524821ca4917141e32b96fc1de0f"></a>sComment&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8ae43da8b6fefce8969b2632e2148d95e3"></a>sImport&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8af26b546b561fd1b2e8acbb25cab13d10"></a>sError&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8af0a0ecb685c176b46904ef031a62e9cb"></a>sEOL&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5d74787dedbc4e11c1ab15bf487e61f8a104fd3b580965ac0839203c53c53f6aa"></a>sEnd&#160;</td><td class="fielddoc"></td></tr>
@@ -325,7 +287,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44">Token_type</a></td>
+          <td class="memname">enum <a class="el" href="Lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44">Token_type</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -335,8 +297,6 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44ad6107c5bda42f7c5f4e947d891187ad1"></a>TOKEN_EMPTY&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353"></a>TOKEN_IDENTIFIER&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44a11fe7a3403d4ff8c62af31ddf679877c"></a>TOKEN_KEYWORD&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44a25034ca7c95f724ac2509e57058adf18"></a>TOKEN_NEWLINE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44a2691fdb432b1bdd5eb40ce09b7d33614"></a>TOKEN_TAB&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44a0d72fca2861c67c0d0d3ccd1e8325453"></a>TOKEN_INT_LITERAL&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44aab21ed2851d3c47e12244da5bdc568bf"></a>TOKEN_FLOAT_LITERAL&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44a7ed3e98b10f5d0b461a887fdd5b3dc01"></a>TOKEN_STRING_LITERAL&#160;</td><td class="fielddoc"></td></tr>
@@ -353,81 +313,15 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44aa48683b3cba8786770d9bf800d15e545"></a>TOKEN_ADDITION&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44ae892958f58c3c970916498eb5e47a388"></a>TOKEN_SUBTRACTION&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44afdcb399f2904bfc9ce2bd870ff04d1c2"></a>TOKEN_MULTIPLY&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44a196db7f3d2018cad481d0ffdf266889c"></a>TOKEN_DIVISION&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44af54790adac514a4876395bd62d71a410"></a>TOKEN_DIVIDE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44a04d79b81666e686448ea4bd2592f438b"></a>TOKEN_BACKSLASH&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44a93000ce4e0f00f6f294a98192f705910"></a>TOKEN_PIPE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44a0e70b5ecc56852cc6499f90d410555ec"></a>TOKEN_EXCLAMATION&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44af4143395fefba1c6a30e58240dd0c827"></a>TOKEN_LPAREN&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44ace232c359d5697cc5c459c22a7be226b"></a>TOKEN_RPAREN&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44a60e4bab14680522185007fe87240e707"></a>TOKEN_LEFT_BRACKET&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44aa42fbee15a56484e7cc6daaaa552107a"></a>TOKEN_RIGHT_BRACKET&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44aea93445565e90032b651b3bfeab696ad"></a>TOKEN_CURLYL_BRACKET&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44a177c279eee0ad7b261d2a217545ddc86"></a>TOKEN_CURLYR_BRACKET&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44a8d265e17914bc733c8b9a880dd097a9e"></a>TOKEN_COMMA&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44ac8c74b281e178c87923363a90f6ff371"></a>TOKEN_SEMICOLON&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44a0fe00080531042db460071402c40f763"></a>TOKEN_COMMENT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44a00a4852749fa7e7e4675f7843ae16642"></a>TOKEN_IMPORT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44a399667e371946cce1c1081aea2f2c52d"></a>TOKEN_DISCARD&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44a92a35ac6329421e77882bf3739a75e47"></a>TOKEN_COLON&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44ab565ebfaaa53dcee6ddda201e270733e"></a>TOKEN_DOT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44a4e9a7212ea985c5ffdbf0080c464cc88"></a>TOKEN_UNDEFINED&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a58fe1555b8da7f766b19a2c049bfbe44a39b77bc78a559e8e8b728d82cc413595"></a>TOKEN_STRINGINIT_ERROR&#160;</td><td class="fielddoc"></td></tr>
 </table>
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a1b68532a422d65e0eab79e3011af906e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1b68532a422d65e0eab79e3011af906e">&#9670;&nbsp;</a></span>get_token()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structToken.html">Token</a> get_token </td>
-          <td>(</td>
-          <td class="paramtype">FILE *&#160;</td>
-          <td class="paramname"><em>file</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="acbb4fd03fd6564af6fe03306ec48364c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acbb4fd03fd6564af6fe03306ec48364c">&#9670;&nbsp;</a></span>print_token()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void print_token </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structToken.html">Token</a>&#160;</td>
-          <td class="paramname"><em>token</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a67367cc8618de258a4163191d1ac05b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67367cc8618de258a4163191d1ac05b8">&#9670;&nbsp;</a></span>token_type_to_string()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const char* token_type_to_string </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="lexical__analyser_8h.html#a58fe1555b8da7f766b19a2c049bfbe44">Token_type</a>&#160;</td>
-          <td class="paramname"><em>type</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
