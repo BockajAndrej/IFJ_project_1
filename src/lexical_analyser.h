@@ -65,11 +65,6 @@ typedef enum
     KEYWORD_I32,   // [ ] 32-bit integer type
     KEYWORD_F64,   // [ ] 64-bit float type
     KEYWORD_U8,    // [ ] 8-bit unsigned integer type
-    KEYWORD_U8_ARRAY,
-    KEYWORD_I32_NULL,      // [?i32]  can handle NULL
-    KEYWORD_F64_NULL,      // [?f64]
-    KEYWORD_U8_NULL,       // [?u8]
-    KEYWORD_U8_ARRAY_NULL, // [?[]u8]
     KEYWORD_NULL,          // [ ] null value
     KEYWORD_PUB,           // [ ] public visibility modifier
     KEYWORD_RETURN,        // [ ] return statement
