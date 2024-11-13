@@ -1,2 +1,621 @@
-\hypertarget{Syntactic__analysis_8h}{}\doxysection{/home/administrator/\+IFJ/\+IFJ-\/project01/src/\+Syntactic\+\_\+analysis.h File Reference}
-\label{Syntactic__analysis_8h}\index{/home/administrator/IFJ/IFJ-\/project01/src/Syntactic\_analysis.h@{/home/administrator/IFJ/IFJ-\/project01/src/Syntactic\_analysis.h}}
+\hypertarget{syntactic__analysis_8h}{}\doxysection{syntactic\+\_\+analysis.\+h File Reference}
+\label{syntactic__analysis_8h}\index{syntactic\_analysis.h@{syntactic\_analysis.h}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}lexical\+\_\+analyser.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}error.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{syntactic__analysis_8h_a53e9e8d433a1916251ad40f56caea6e3}{\+\_\+\+SYNTACTIC\+\_\+\+ANALYSIS\+\_\+H}}
+\item 
+\#define \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(s)~fprintf(stderr, \char`\"{}Line\+: \%u -\/ \char`\"{} s, \+\_\+\+\_\+\+LINE\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\+\_\+\+TOKEN\+\_\+\+RAW}}(token,  \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{syntactic__analysis_8h_a607ec0964227a0c6c98fd79770e51c11}{FIRST}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
+\begin{DoxyCompactList}\small\item\em Processes the FIRST rule in the syntactic analysis. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{syntactic__analysis_8h_a7eac9e4351cf87fecd3e9a66cf5f28d8}{STATEMENT}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
+\begin{DoxyCompactList}\small\item\em Processes the commands, coditions, ... \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{syntactic__analysis_8h_a49c6186e8aee36246b52305756b7a017}{VAR\+\_\+\+DEF}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
+\begin{DoxyCompactList}\small\item\em Processes command for variable declaration. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{syntactic__analysis_8h_ab1c09d376532dc76198f8d2d6c729fef}{CONST\+\_\+\+DEF}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
+\begin{DoxyCompactList}\small\item\em Processes command for constant declaration. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{syntactic__analysis_8h_afb9892407a0399d61e51261ff730599a}{FN\+\_\+\+DEF}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
+\begin{DoxyCompactList}\small\item\em Processes function declaration. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{syntactic__analysis_8h_ac9b33c13aa831335429748838739aef7}{IF\+\_\+\+DEF}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
+\begin{DoxyCompactList}\small\item\em Processes if condition. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{syntactic__analysis_8h_a047deda12297b3a39f2d50261fd7de70}{ELSE\+\_\+\+DEF}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
+\begin{DoxyCompactList}\small\item\em Processes else condition. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{syntactic__analysis_8h_a13efec100d0c39c874c413765ded4d10}{WHILE\+\_\+\+DEF}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
+\begin{DoxyCompactList}\small\item\em Processes while loop. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{syntactic__analysis_8h_a1012bbb9f570627aabec5e3eda7c4993}{RET\+\_\+\+DEF}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
+\begin{DoxyCompactList}\small\item\em Processes return command. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{syntactic__analysis_8h_a2999c303cc3fb4692b7e96d9a22e9c03}{CALL\+\_\+\+DEF}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
+\begin{DoxyCompactList}\small\item\em Processes calling functions, variables. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{syntactic__analysis_8h_af131918ae0d8a1cc29cb2c8d6dc13aff}{IF\+\_\+\+EXT}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
+\begin{DoxyCompactList}\small\item\em Extended function for \mbox{\hyperlink{syntactic__analysis_8c_a2999c303cc3fb4692b7e96d9a22e9c03}{CALL\+\_\+\+DEF()}} \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{syntactic__analysis_8h_ade39708cf9c0a95b1e75a94b3982f1aa}{CALL\+\_\+\+EXT}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
+\begin{DoxyCompactList}\small\item\em Extended function for \mbox{\hyperlink{syntactic__analysis_8c_a2999c303cc3fb4692b7e96d9a22e9c03}{CALL\+\_\+\+DEF()}} \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{syntactic__analysis_8h_a76e0ba812902123b4ec0d43c59c13c04}{ASSIGN\+\_\+\+VAR}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
+\begin{DoxyCompactList}\small\item\em Processes assigning expresions to the variable. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{syntactic__analysis_8h_aa1d8bc4c3095f3ba13e1fcc83038d948}{ASSIGN\+\_\+\+CONST}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
+\begin{DoxyCompactList}\small\item\em Processes assigning expresions to the constant. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{syntactic__analysis_8h_a7d21e9db61747d6734d9a7f27d33b4f4}{SCOPE}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
+\begin{DoxyCompactList}\small\item\em Function for determining the depth of infestation. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{syntactic__analysis_8h_acb21f12318c9d312a452616eb6c7262d}{PARAM}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
+\begin{DoxyCompactList}\small\item\em Function for processing parameters of declaraced function. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{syntactic__analysis_8h_a83f44b9d12d581ea924af4ba707819c3}{ARG}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
+\begin{DoxyCompactList}\small\item\em Function for processing argument of called function. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{syntactic__analysis_8h_a271ef1f0dc6a029b233bcb024b19b116}{ARGS}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
+\begin{DoxyCompactList}\small\item\em Function for processing another argument which is in queue. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{syntactic__analysis_8h_a38b7a13b9a5926c2c4b6af62cec86f85}{EXPRESSION}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}, \mbox{\hyperlink{structToken}{Token}} token)
+\begin{DoxyCompactList}\small\item\em Function for processing another argument which is in queue. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{syntactic__analysis_8h_a6a90cf37b546f64566f9de66bfee4864}{VAR\+\_\+\+TYPE}} (\mbox{\hyperlink{structToken}{Token}} t)
+\begin{DoxyCompactList}\small\item\em Function for verifaction enabled data types (VARIABLE/\+CONST) \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{syntactic__analysis_8h_aaef2bee27144c07c175bb36e4c28af9d}{VAL\+\_\+\+TYPE}} (\mbox{\hyperlink{structToken}{Token}} t)
+\begin{DoxyCompactList}\small\item\em Function for verifaction enabled data types (DATA TYPES) \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{syntactic__analysis_8h_aef5821c4ef2e8e26c864efa3564244f6}{FN\+\_\+\+TYPE}} (\mbox{\hyperlink{structToken}{Token}} t)
+\begin{DoxyCompactList}\small\item\em Function for verifaction enabled data types (FUNCTIONS) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Bockaj Andrej 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{syntactic__analysis_8h_a53e9e8d433a1916251ad40f56caea6e3}\label{syntactic__analysis_8h_a53e9e8d433a1916251ad40f56caea6e3}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!\_SYNTACTIC\_ANALYSIS\_H@{\_SYNTACTIC\_ANALYSIS\_H}}
+\index{\_SYNTACTIC\_ANALYSIS\_H@{\_SYNTACTIC\_ANALYSIS\_H}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{\_SYNTACTIC\_ANALYSIS\_H}{\_SYNTACTIC\_ANALYSIS\_H}}
+{\footnotesize\ttfamily \#define \+\_\+\+SYNTACTIC\+\_\+\+ANALYSIS\+\_\+H}
+
+\mbox{\Hypertarget{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}\label{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!GET\_TOKEN\_RAW@{GET\_TOKEN\_RAW}}
+\index{GET\_TOKEN\_RAW@{GET\_TOKEN\_RAW}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{GET\_TOKEN\_RAW}{GET\_TOKEN\_RAW}}
+{\footnotesize\ttfamily \#define GET\+\_\+\+TOKEN\+\_\+\+RAW(\begin{DoxyParamCaption}\item[{}]{token,  }\item[{}]{\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do}                            \(\backslash\)}
+\DoxyCodeLine{    \{                             \(\backslash\)}
+\DoxyCodeLine{        token = \mbox{\hyperlink{lexical__analyser_8c_a1b68532a422d65e0eab79e3011af906e}{get\_token}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});  \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{while} (token.type == \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0fe00080531042db460071402c40f763}{TOKEN\_COMMENT}} || token.type == \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a6b0ab7cf8c0d1203475022b3d5600f85}{TOKEN\_EOL}}); \(\backslash\)}
+\DoxyCodeLine{    print\_token(token);}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}\label{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!pmesg@{pmesg}}
+\index{pmesg@{pmesg}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{pmesg}{pmesg}}
+{\footnotesize\ttfamily \#define pmesg(\begin{DoxyParamCaption}\item[{}]{s }\end{DoxyParamCaption})~fprintf(stderr, \char`\"{}Line\+: \%u -\/ \char`\"{} s, \+\_\+\+\_\+\+LINE\+\_\+\+\_\+)}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{syntactic__analysis_8h_a83f44b9d12d581ea924af4ba707819c3}\label{syntactic__analysis_8h_a83f44b9d12d581ea924af4ba707819c3}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!ARG@{ARG}}
+\index{ARG@{ARG}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{ARG()}{ARG()}}
+{\footnotesize\ttfamily bool ARG (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Function for processing argument of called function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & A pointer to the file being analyzed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If syntactic analysis pass return true otherwise false Use case\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{t\_id}
+\DoxyCodeLine{t\_string}
+\DoxyCodeLine{\mbox{\hyperlink{syntactic__analysis_8c_a38b7a13b9a5926c2c4b6af62cec86f85}{EXPRESSION}}}
+
+\end{DoxyCode}
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{syntactic__analysis_8h_a271ef1f0dc6a029b233bcb024b19b116}\label{syntactic__analysis_8h_a271ef1f0dc6a029b233bcb024b19b116}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!ARGS@{ARGS}}
+\index{ARGS@{ARGS}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{ARGS()}{ARGS()}}
+{\footnotesize\ttfamily bool ARGS (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Function for processing another argument which is in queue. 
+
+First argument is processed in \mbox{\hyperlink{syntactic__analysis_8c_a83f44b9d12d581ea924af4ba707819c3}{ARG()}} but after that should be character \char`\"{},\char`\"{}. That sequence is repeaded unltil \char`\"{})\char`\"{} 
+\begin{DoxyParams}{Parameters}
+{\em file} & A pointer to the file being analyzed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If syntactic analysis pass return true otherwise false Use case\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{t\_)}
+\DoxyCodeLine{t\_,}
+
+\end{DoxyCode}
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{syntactic__analysis_8h_aa1d8bc4c3095f3ba13e1fcc83038d948}\label{syntactic__analysis_8h_aa1d8bc4c3095f3ba13e1fcc83038d948}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!ASSIGN\_CONST@{ASSIGN\_CONST}}
+\index{ASSIGN\_CONST@{ASSIGN\_CONST}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{ASSIGN\_CONST()}{ASSIGN\_CONST()}}
+{\footnotesize\ttfamily bool ASSIGN\+\_\+\+CONST (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Processes assigning expresions to the constant. 
+
+Processes functions arguments or assignment to a variable (= EXPRESSION) ~\newline
+ 
+\begin{DoxyParams}{Parameters}
+{\em file} & A pointer to the file being analyzed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If syntactic analysis pass return true otherwise false Use case\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{@\textcolor{keyword}{import}(t\_string);}
+\DoxyCodeLine{EXPRESSIONS;}
+
+\end{DoxyCode}
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{syntactic__analysis_8h_a76e0ba812902123b4ec0d43c59c13c04}\label{syntactic__analysis_8h_a76e0ba812902123b4ec0d43c59c13c04}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!ASSIGN\_VAR@{ASSIGN\_VAR}}
+\index{ASSIGN\_VAR@{ASSIGN\_VAR}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{ASSIGN\_VAR()}{ASSIGN\_VAR()}}
+{\footnotesize\ttfamily bool ASSIGN\+\_\+\+VAR (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Processes assigning expresions to the variable. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & A pointer to the file being analyzed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If syntactic analysis pass return true otherwise false Use case\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{@\textcolor{keyword}{import}(t\_string);}
+\DoxyCodeLine{EXPRESSIONS;}
+
+\end{DoxyCode}
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{syntactic__analysis_8h_a2999c303cc3fb4692b7e96d9a22e9c03}\label{syntactic__analysis_8h_a2999c303cc3fb4692b7e96d9a22e9c03}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!CALL\_DEF@{CALL\_DEF}}
+\index{CALL\_DEF@{CALL\_DEF}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{CALL\_DEF()}{CALL\_DEF()}}
+{\footnotesize\ttfamily bool CALL\+\_\+\+DEF (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Processes calling functions, variables. 
+
+\begin{DoxyNote}{Note}
+Works as preprocessing function for \mbox{\hyperlink{syntactic__analysis_8c_af131918ae0d8a1cc29cb2c8d6dc13aff}{IF\+\_\+\+EXT()}} 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em file} & A pointer to the file being analyzed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If syntactic analysis pass return true otherwise false Use case\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{@\textcolor{keyword}{import}(t\_string);}
+\DoxyCodeLine{EXPRESSIONS;}
+
+\end{DoxyCode}
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{syntactic__analysis_8h_ade39708cf9c0a95b1e75a94b3982f1aa}\label{syntactic__analysis_8h_ade39708cf9c0a95b1e75a94b3982f1aa}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!CALL\_EXT@{CALL\_EXT}}
+\index{CALL\_EXT@{CALL\_EXT}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{CALL\_EXT()}{CALL\_EXT()}}
+{\footnotesize\ttfamily bool CALL\+\_\+\+EXT (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Extended function for \mbox{\hyperlink{syntactic__analysis_8c_a2999c303cc3fb4692b7e96d9a22e9c03}{CALL\+\_\+\+DEF()}} 
+
+Processes functions arguments or assignment to a variable (= EXPRESSION) 
+\begin{DoxyParams}{Parameters}
+{\em file} & A pointer to the file being analyzed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If syntactic analysis pass return true otherwise false Use case\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{@\textcolor{keyword}{import}(t\_string);}
+\DoxyCodeLine{EXPRESSIONS;}
+
+\end{DoxyCode}
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{syntactic__analysis_8h_ab1c09d376532dc76198f8d2d6c729fef}\label{syntactic__analysis_8h_ab1c09d376532dc76198f8d2d6c729fef}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!CONST\_DEF@{CONST\_DEF}}
+\index{CONST\_DEF@{CONST\_DEF}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{CONST\_DEF()}{CONST\_DEF()}}
+{\footnotesize\ttfamily bool CONST\+\_\+\+DEF (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Processes command for constant declaration. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & A pointer to the file being analyzed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If syntactic analysis pass return true otherwise false Use case\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{@\textcolor{keyword}{import}(t\_string);}
+\DoxyCodeLine{EXPRESSIONS;}
+
+\end{DoxyCode}
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{syntactic__analysis_8h_a047deda12297b3a39f2d50261fd7de70}\label{syntactic__analysis_8h_a047deda12297b3a39f2d50261fd7de70}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!ELSE\_DEF@{ELSE\_DEF}}
+\index{ELSE\_DEF@{ELSE\_DEF}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{ELSE\_DEF()}{ELSE\_DEF()}}
+{\footnotesize\ttfamily bool ELSE\+\_\+\+DEF (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Processes else condition. 
+
+\begin{DoxyNote}{Note}
+Works as preprocessing function for \mbox{\hyperlink{syntactic__analysis_8c_af131918ae0d8a1cc29cb2c8d6dc13aff}{IF\+\_\+\+EXT()}} 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em file} & A pointer to the file being analyzed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If syntactic analysis pass return true otherwise false Use case\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{@\textcolor{keyword}{import}(t\_string);}
+\DoxyCodeLine{EXPRESSIONS;}
+
+\end{DoxyCode}
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{syntactic__analysis_8h_a38b7a13b9a5926c2c4b6af62cec86f85}\label{syntactic__analysis_8h_a38b7a13b9a5926c2c4b6af62cec86f85}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!EXPRESSION@{EXPRESSION}}
+\index{EXPRESSION@{EXPRESSION}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{EXPRESSION()}{EXPRESSION()}}
+{\footnotesize\ttfamily bool EXPRESSION (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file,  }\item[{\mbox{\hyperlink{structToken}{Token}}}]{token }\end{DoxyParamCaption})}
+
+
+
+Function for processing another argument which is in queue. 
+
+\begin{DoxyWarning}{Warning}
+First token is passed by argument (FIX)
+\end{DoxyWarning}
+It ends when \char`\"{};\char`\"{} or \char`\"{})\char`\"{} . Also works\+: ((2+3)$\ast$6)-\/9; Also works\+: factorial(256$\ast$(56-\/7)); \begin{DoxyNote}{Note}
+It can ends with \char`\"{})\char`\"{} because of declaration of function 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em file} & A pointer to the file being analyzed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If syntactic analysis pass return true otherwise false Use case\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{...}
+
+\end{DoxyCode}
+ 
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000003}{Todo}}]Musi obsahovat aspon 1 cislo (bude sa osetrovat v semantickej) 
+
+Problem pri const a = fn(a) + fn(b); (program ocakava za fn() znak \textquotesingle{};\textquotesingle{}) 
+
+Fix first token \end{DoxyRefDesc}
+\mbox{\Hypertarget{syntactic__analysis_8h_a607ec0964227a0c6c98fd79770e51c11}\label{syntactic__analysis_8h_a607ec0964227a0c6c98fd79770e51c11}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!FIRST@{FIRST}}
+\index{FIRST@{FIRST}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{FIRST()}{FIRST()}}
+{\footnotesize\ttfamily bool FIRST (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Processes the FIRST rule in the syntactic analysis. 
+
+First and the only one function called from main. Verifies part of code which is out of scope. 
+\begin{DoxyParams}{Parameters}
+{\em file} & A pointer to the file being analyzed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If syntactic analysis pass return true otherwise false Use case\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{@\textcolor{keyword}{import}(t\_string);}
+\DoxyCodeLine{EXPRESSIONS;}
+
+\end{DoxyCode}
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{syntactic__analysis_8h_afb9892407a0399d61e51261ff730599a}\label{syntactic__analysis_8h_afb9892407a0399d61e51261ff730599a}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!FN\_DEF@{FN\_DEF}}
+\index{FN\_DEF@{FN\_DEF}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{FN\_DEF()}{FN\_DEF()}}
+{\footnotesize\ttfamily bool FN\+\_\+\+DEF (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Processes function declaration. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & A pointer to the file being analyzed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If syntactic analysis pass return true otherwise false Use case\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{@\textcolor{keyword}{import}(t\_string);}
+\DoxyCodeLine{EXPRESSIONS;}
+
+\end{DoxyCode}
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{syntactic__analysis_8h_aef5821c4ef2e8e26c864efa3564244f6}\label{syntactic__analysis_8h_aef5821c4ef2e8e26c864efa3564244f6}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!FN\_TYPE@{FN\_TYPE}}
+\index{FN\_TYPE@{FN\_TYPE}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{FN\_TYPE()}{FN\_TYPE()}}
+{\footnotesize\ttfamily bool FN\+\_\+\+TYPE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structToken}{Token}}}]{t }\end{DoxyParamCaption})}
+
+
+
+Function for verifaction enabled data types (FUNCTIONS) 
+
+\begin{DoxyReturn}{Returns}
+If token is enabled data type return true otherwise false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{syntactic__analysis_8h_ac9b33c13aa831335429748838739aef7}\label{syntactic__analysis_8h_ac9b33c13aa831335429748838739aef7}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!IF\_DEF@{IF\_DEF}}
+\index{IF\_DEF@{IF\_DEF}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{IF\_DEF()}{IF\_DEF()}}
+{\footnotesize\ttfamily bool IF\+\_\+\+DEF (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Processes if condition. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & A pointer to the file being analyzed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If syntactic analysis pass return true otherwise false Use case\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{@\textcolor{keyword}{import}(t\_string);}
+\DoxyCodeLine{EXPRESSIONS;}
+
+\end{DoxyCode}
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{syntactic__analysis_8h_af131918ae0d8a1cc29cb2c8d6dc13aff}\label{syntactic__analysis_8h_af131918ae0d8a1cc29cb2c8d6dc13aff}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!IF\_EXT@{IF\_EXT}}
+\index{IF\_EXT@{IF\_EXT}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{IF\_EXT()}{IF\_EXT()}}
+{\footnotesize\ttfamily bool IF\+\_\+\+EXT (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Extended function for \mbox{\hyperlink{syntactic__analysis_8c_a2999c303cc3fb4692b7e96d9a22e9c03}{CALL\+\_\+\+DEF()}} 
+
+Processes functions arguments or assignment to a variable (= EXPRESSION) 
+\begin{DoxyParams}{Parameters}
+{\em file} & A pointer to the file being analyzed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If syntactic analysis pass return true otherwise false Use case\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{@\textcolor{keyword}{import}(t\_string);}
+\DoxyCodeLine{EXPRESSIONS;}
+
+\end{DoxyCode}
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{syntactic__analysis_8h_acb21f12318c9d312a452616eb6c7262d}\label{syntactic__analysis_8h_acb21f12318c9d312a452616eb6c7262d}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!PARAM@{PARAM}}
+\index{PARAM@{PARAM}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{PARAM()}{PARAM()}}
+{\footnotesize\ttfamily bool PARAM (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Function for processing parameters of declaraced function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & A pointer to the file being analyzed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If syntactic analysis pass return true otherwise false Use case\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{t\_)}
+\DoxyCodeLine{x : u8}
+\DoxyCodeLine{, y : u8}
+
+\end{DoxyCode}
+ 
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000002}{Todo}}]x \+: \mbox{[}\mbox{]}u8, y \+: \mbox{[}\mbox{]}u8 \end{DoxyRefDesc}
+\mbox{\Hypertarget{syntactic__analysis_8h_a1012bbb9f570627aabec5e3eda7c4993}\label{syntactic__analysis_8h_a1012bbb9f570627aabec5e3eda7c4993}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!RET\_DEF@{RET\_DEF}}
+\index{RET\_DEF@{RET\_DEF}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{RET\_DEF()}{RET\_DEF()}}
+{\footnotesize\ttfamily bool RET\+\_\+\+DEF (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Processes return command. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & A pointer to the file being analyzed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If syntactic analysis pass return true otherwise false Use case\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{@\textcolor{keyword}{import}(t\_string);}
+\DoxyCodeLine{EXPRESSIONS;}
+
+\end{DoxyCode}
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{syntactic__analysis_8h_a7d21e9db61747d6734d9a7f27d33b4f4}\label{syntactic__analysis_8h_a7d21e9db61747d6734d9a7f27d33b4f4}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!SCOPE@{SCOPE}}
+\index{SCOPE@{SCOPE}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{SCOPE()}{SCOPE()}}
+{\footnotesize\ttfamily bool SCOPE (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Function for determining the depth of infestation. 
+
+In scope are Statements. Everything which can be between \{\} except declaration of functions. 
+\begin{DoxyParams}{Parameters}
+{\em file} & A pointer to the file being analyzed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If syntactic analysis pass return true otherwise false Use case\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{@\textcolor{keyword}{import}(t\_string);}
+\DoxyCodeLine{EXPRESSIONS;}
+
+\end{DoxyCode}
+ 
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]Nefunkcny scope len na jeden riadok (bez \{\}) vytvorit vo funkcii ktora funkciu scope vola \end{DoxyRefDesc}
+\mbox{\Hypertarget{syntactic__analysis_8h_a7eac9e4351cf87fecd3e9a66cf5f28d8}\label{syntactic__analysis_8h_a7eac9e4351cf87fecd3e9a66cf5f28d8}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!STATEMENT@{STATEMENT}}
+\index{STATEMENT@{STATEMENT}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{STATEMENT()}{STATEMENT()}}
+{\footnotesize\ttfamily bool STATEMENT (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Processes the commands, coditions, ... 
+
+Fucntion is called in scope for verification part of code which is inside scope. 
+\begin{DoxyParams}{Parameters}
+{\em file} & A pointer to the file being analyzed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If syntactic analysis pass return true otherwise false Use case\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{@\textcolor{keyword}{import}(t\_string);}
+\DoxyCodeLine{EXPRESSIONS;}
+
+\end{DoxyCode}
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{syntactic__analysis_8h_aaef2bee27144c07c175bb36e4c28af9d}\label{syntactic__analysis_8h_aaef2bee27144c07c175bb36e4c28af9d}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!VAL\_TYPE@{VAL\_TYPE}}
+\index{VAL\_TYPE@{VAL\_TYPE}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{VAL\_TYPE()}{VAL\_TYPE()}}
+{\footnotesize\ttfamily bool VAL\+\_\+\+TYPE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structToken}{Token}}}]{t }\end{DoxyParamCaption})}
+
+
+
+Function for verifaction enabled data types (DATA TYPES) 
+
+\begin{DoxyReturn}{Returns}
+If token is enabled data type return true otherwise false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{syntactic__analysis_8h_a49c6186e8aee36246b52305756b7a017}\label{syntactic__analysis_8h_a49c6186e8aee36246b52305756b7a017}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!VAR\_DEF@{VAR\_DEF}}
+\index{VAR\_DEF@{VAR\_DEF}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{VAR\_DEF()}{VAR\_DEF()}}
+{\footnotesize\ttfamily bool VAR\+\_\+\+DEF (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Processes command for variable declaration. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & A pointer to the file being analyzed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If syntactic analysis pass return true otherwise false Use case\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{@\textcolor{keyword}{import}(t\_string);}
+\DoxyCodeLine{EXPRESSIONS;}
+
+\end{DoxyCode}
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{syntactic__analysis_8h_a6a90cf37b546f64566f9de66bfee4864}\label{syntactic__analysis_8h_a6a90cf37b546f64566f9de66bfee4864}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!VAR\_TYPE@{VAR\_TYPE}}
+\index{VAR\_TYPE@{VAR\_TYPE}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{VAR\_TYPE()}{VAR\_TYPE()}}
+{\footnotesize\ttfamily bool VAR\+\_\+\+TYPE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structToken}{Token}}}]{t }\end{DoxyParamCaption})}
+
+
+
+Function for verifaction enabled data types (VARIABLE/\+CONST) 
+
+\begin{DoxyReturn}{Returns}
+If token is enabled data type return true otherwise false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{syntactic__analysis_8h_a13efec100d0c39c874c413765ded4d10}\label{syntactic__analysis_8h_a13efec100d0c39c874c413765ded4d10}} 
+\index{syntactic\_analysis.h@{syntactic\_analysis.h}!WHILE\_DEF@{WHILE\_DEF}}
+\index{WHILE\_DEF@{WHILE\_DEF}!syntactic\_analysis.h@{syntactic\_analysis.h}}
+\doxysubsubsection{\texorpdfstring{WHILE\_DEF()}{WHILE\_DEF()}}
+{\footnotesize\ttfamily bool WHILE\+\_\+\+DEF (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Processes while loop. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & A pointer to the file being analyzed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If syntactic analysis pass return true otherwise false Use case\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{@\textcolor{keyword}{import}(t\_string);}
+\DoxyCodeLine{EXPRESSIONS;}
+
+\end{DoxyCode}
+ 
+\end{DoxyReturn}
