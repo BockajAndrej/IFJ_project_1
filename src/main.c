@@ -12,76 +12,70 @@
 FILE *file;
 
 
-void print_symbol(const Symbol *symbol) {
-    printf("Name: %s\n", symbol->name);
-    printf("Type: %s\n", symbol->type);
-    if (symbol->hasIntValue) {
-        printf("Integer Value: %d\n", symbol->intValue);
+void print_table(SymbolTable *table) {
+    Symbol *current = table->head;
+
+    printf("Current symbol table:\n");
+    while (current) {
+        printf(" - Name: %s, ", current->name);
+
+        switch (current->type) {
+            case VALUE_INT:
+                printf("Value: %d (int)\n", current->value.intValue);
+                break;
+            case VALUE_FLOAT:
+                printf("Value: %.2f (float)\n", current->value.floatValue);
+                break;
+            case VALUE_STRING:
+                printf("Value: %s (string)\n", current->value.strValue);
+                break;
+        }
+
+        current = current->next;
     }
-    if (symbol->hasFloatValue) {
-        printf("Float Value: %f\n", symbol->floatValue);
-    }
-    printf("Address: %u\n", symbol->address);
-    printf("-------------------\n");
+    printf("\n");
 }
+
 
 void test_hash_table() {
-    // Inicializácia tabuľky
-    HashTable *table = create_table();
-    if (table == NULL) {
-        printf("Chyba pri inicializácii hashovacej tabuľky.\n");
-        return;
+    SymbolTable *table = create_table();
+    printf("After creating the table:\n");
+    print_table(table);
+
+    int intValue = 10;
+    float floatValue = 3.14;
+    char *strValue = "Hello";
+
+    insert_symbol(table, "x", VALUE_INT, &intValue);
+    printf("After inserting 'x':\n");
+    print_table(table);
+
+    insert_symbol(table, "pi", VALUE_FLOAT, &floatValue);
+    printf("After inserting 'pi':\n");
+    print_table(table);
+
+    insert_symbol(table, "greeting", VALUE_STRING, strValue);
+    printf("After inserting 'greeting':\n");
+    print_table(table);
+
+    Symbol *s = search_symbol(table, "pi");
+    if (s && s->type == VALUE_FLOAT) {
+        printf("Found: %s -> %.2f\n", s->name, s->value.floatValue);
     }
 
-    // Vloženie symbolov
-    insert_symbol(table, "key1", "int", 42, 1, 0.0, 0, 1001);     // Len int hodnota
-    insert_symbol(table, "key2", "float", 0, 0, 3.14, 1, 1002);   // Len float hodnota
-    insert_symbol(table, "key3", "string", 0, 0, 0.0, 0, 1003);   // Bez int a float hodnôt
+    delete_symbol(table, "x");
+    printf("After deleting 'x':\n");
+    print_table(table);
 
-    // Vyhľadanie a výpis symbolov
-    Symbol *result = search_symbol(table, "key1");
-    if (result != NULL) {
-        printf("Nájdený symbol pre 'key1':\n");
-        print_symbol(result);
-    } else {
-        printf("Symbol pre 'key1' nebol nájdený.\n");
-    }
-
-    result = search_symbol(table, "key2");
-    if (result != NULL) {
-        printf("Nájdený symbol pre 'key2':\n");
-        print_symbol(result);
-    } else {
-        printf("Symbol pre 'key2' nebol nájdený.\n");
-    }
-
-    result = search_symbol(table, "key3");
-    if (result != NULL) {
-        printf("Nájdený symbol pre 'key3':\n");
-        print_symbol(result);
-    } else {
-        printf("Symbol pre 'key3' nebol nájdený.\n");
-    }
-
-    // Odstránenie symbolu a overenie
-    delete_symbol(table, "key1");
-    result = search_symbol(table, "key1");
-    if (result == NULL) {
-        printf("Symbol pre 'key1' bol úspešne odstránený.\n");
-    } else {
-        printf("Symbol pre 'key1' stále existuje.\n");
-    }
-
-    // Uvoľnenie pamäte tabuľky
     free_table(table);
-    printf("Pamäť tabuľky bola uvoľnená.\n");
 }
+
 
 
 int main(int argc, char **argv)
 {
     if(argc == 1){
-        test_hash_table(); // Volanie testovacej funkcie
+        test_hash_table();
         return 0;
     }
 
