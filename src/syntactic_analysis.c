@@ -681,4 +681,3 @@ bool FN_TYPE(Token t)
         return true;
     return false;
 }
-
