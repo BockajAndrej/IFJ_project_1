@@ -44,6 +44,7 @@ bool CALL_DEF(FILE *file);
 
 bool IF_EXT(FILE *file);
 bool CALL_EXT(FILE *file);
+bool CALL_OBJ(FILE *file);
 
 bool ASSIGN_VAR(FILE *file);
 bool ASSIGN_CONST(FILE *file);

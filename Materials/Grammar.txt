@@ -26,6 +26,8 @@ IF_EXT ::= SCOPE
 IF_EXT ::= t_| t_id t_| SCOPE
 CALL_EXT ::= t_( ARG t_) 
 CALL_EXT ::= t_= EXPRESSION
+CALL_EXT ::= t_. CALL_OBJ
+CALL_OBJ ::= t_id t_( string t_) t_;
 
 SCOPE ::=  t_{ STATEMENT 
 

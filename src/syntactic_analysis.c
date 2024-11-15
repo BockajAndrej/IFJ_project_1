@@ -408,9 +408,43 @@ bool CALL_EXT(FILE *file)
         if (!EXPRESSION(file, token))
             return false;
     }
+    // Object function
+    else if (token.type == TOKEN_DOT)
+    {
+        if (!CALL_OBJ(file))
+            return false;
+    }
     else
         return false;
     pmesg(" ------ END CALL_EXT ------\n");
+    return true;
+}
+//TODO: spracovanie aj s viacerymi parametrami
+bool CALL_OBJ(FILE *file){
+    pmesg(" ------ CALL_OBJ ------\n");
+    Token token;
+    // t_id
+    GET_TOKEN_RAW(token, file);
+    if (token.type != TOKEN_IDENTIFIER)
+        return false;
+    // t_(
+    GET_TOKEN_RAW(token, file);
+    if (token.type != TOKEN_LPAREN)
+        return false;
+    // t_string
+    // TODO: sem asi skor zadat neterminal arg len vymysliet aby bol string prvy
+    GET_TOKEN_RAW(token, file);
+    if (token.type != TOKEN_STRING_LITERAL)
+        return false;
+    // t_)
+    GET_TOKEN_RAW(token, file);
+    if (token.type != TOKEN_RPAREN)
+        return false;
+    // t_;
+    GET_TOKEN_RAW(token, file);
+    if (token.type != TOKEN_SEMICOLON)
+        return false;
+    pmesg(" ------ END CALL_OBJ ------\n");
     return true;
 }
 

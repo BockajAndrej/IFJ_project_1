@@ -10,11 +10,12 @@ pub fn main() void
         {
             if (INP < 0)
             {
-                //ifj.write("Faktorial nelze spocitat!\n");
+                ifj.write("Faktorial nelze spocitat!\n");
             }
             else
             {
                 const vysl = factorial(INP);
+                vysl = 25;
                 //ifj.write("Vysledek: ");
                 //ifj.write(vysl);
             }
