@@ -7,7 +7,8 @@
 #include "lexical_analyser.h"
 #include "syntactic_analysis.h"
 #include <error.h>
-#include "ADT.h"
+#include "symtable.h"
+#include "ast.h"
 
 FILE *file;
 
@@ -70,12 +71,58 @@ void test_hash_table() {
     free_table(table);
 }
 
+void test_ast() {
+    // 1. Vytvor koreňový uzol pre "if"
+    ASTNode *root = createNode(NODE_IF, NULL);
 
+    // 2. Vytvor podmienku "a > b"
+    ASTNode *condition = createNode(NODE_OP, ">");
+    condition->left = createNode(NODE_VAR, "a");
+    condition->right = createNode(NODE_VAR, "b");
+    addChild(root, condition); // Pridaj podmienku do koreňa
+
+    // 3. Telo "if" vetvy: c = a + b
+    ASTNode *if_body = createNode(NODE_ASSIGN, "=");
+    if_body->left = createNode(NODE_VAR, "c");
+    ASTNode *addition = createNode(NODE_OP, "+");
+    addition->left = createNode(NODE_VAR, "a");
+    addition->right = createNode(NODE_VAR, "b");
+    if_body->right = addition;
+    addStatementToBlock(root, if_body); // Pridaj telo "if"
+
+    // 4. Telo "else" vetvy: while (d < 10) { d = d + 1; }
+    ASTNode *else_body = createNode(NODE_WHILE, NULL);
+
+    ASTNode *loop_condition = createNode(NODE_OP, "<");
+    loop_condition->left = createNode(NODE_VAR, "d");
+    loop_condition->right = createNode(NODE_CONST, "10");
+    addChild(else_body, loop_condition); // Pridaj podmienku do cyklu
+
+    ASTNode *loop_body = createNode(NODE_ASSIGN, "=");
+    loop_body->left = createNode(NODE_VAR, "d");
+    ASTNode *increment = createNode(NODE_OP, "+");
+    increment->left = createNode(NODE_VAR, "d");
+    increment->right = createNode(NODE_CONST, "1");
+    loop_body->right = increment;
+    addStatementToBlock(else_body, loop_body); // Pridaj telo cyklu
+
+    addStatementToBlock(root, else_body); // Pridaj "else" vetvu
+
+    // 5. Vypíš štruktúru AST
+    printf("Výpis zložitého AST:\n");
+    printAST(root, 0);
+
+    // 6. Uvoľni pamäť
+    freeAST(root);
+
+    printf("Zložitý test AST dokončený.\n");
+}
 
 int main(int argc, char **argv)
 {
     if(argc == 1){
         test_hash_table();
+        test_ast();
         return 0;
     }
 

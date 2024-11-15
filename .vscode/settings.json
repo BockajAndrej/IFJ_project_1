@@ -6,6 +6,7 @@
         "error.h": "c",
         "lexical_analyser.h": "c",
         "newstring.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "string.h": "c"
     }
 }

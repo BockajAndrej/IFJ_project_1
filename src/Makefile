@@ -7,7 +7,7 @@ SRC_DIR=.
 DEST_DIR=../tests
 TESTDIR=$(DEST_DIR)/testdir
 SCRIPT=$(DEST_DIR)/is_it_ok.sh
-OBJ_FILES=main.o lexical_analyser.o newstring.o syntactic_analysis.o ADT.o
+OBJ_FILES=main.o lexical_analyser.o newstring.o syntactic_analysis.o symtable.o ast.o
 
 # Default target
 all: $(EXECUTABLE)
