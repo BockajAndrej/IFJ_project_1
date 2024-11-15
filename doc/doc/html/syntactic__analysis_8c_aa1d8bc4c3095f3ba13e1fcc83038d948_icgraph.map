@@ -1,0 +1,13 @@
+<map id="ASSIGN_CONST" name="ASSIGN_CONST">
+<area shape="rect" id="node1" title="Processes assigning expresions to the constant." alt="" coords="776,54,899,80"/>
+<area shape="rect" id="node2" href="$syntactic__analysis_8c.html#ab1c09d376532dc76198f8d2d6c729fef" title="Processes command for constant declaration." alt="" coords="628,54,728,80"/>
+<area shape="rect" id="node3" href="$syntactic__analysis_8c.html#a607ec0964227a0c6c98fd79770e51c11" title="Processes the FIRST rule in the syntactic analysis." alt="" coords="112,60,171,87"/>
+<area shape="rect" id="node5" href="$syntactic__analysis_8c.html#a7eac9e4351cf87fecd3e9a66cf5f28d8" title="Processes the commands, coditions, ..." alt="" coords="481,104,580,131"/>
+<area shape="rect" id="node4" href="$main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,60,60,87"/>
+<area shape="rect" id="node6" href="$syntactic__analysis_8c.html#a7d21e9db61747d6734d9a7f27d33b4f4" title="Function for determining the depth of infestation." alt="" coords="368,104,433,131"/>
+<area shape="rect" id="node7" href="$syntactic__analysis_8c.html#a047deda12297b3a39f2d50261fd7de70" title="Processes else condition." alt="" coords="228,35,315,62"/>
+<area shape="rect" id="node8" href="$syntactic__analysis_8c.html#afb9892407a0399d61e51261ff730599a" title="Processes function declaration." alt="" coords="235,86,308,112"/>
+<area shape="rect" id="node9" href="$syntactic__analysis_8c.html#af131918ae0d8a1cc29cb2c8d6dc13aff" title="Extended function for CALL_DEF()" alt="" coords="238,136,305,163"/>
+<area shape="rect" id="node11" href="$syntactic__analysis_8c.html#a13efec100d0c39c874c413765ded4d10" title="Processes while loop." alt="" coords="223,187,320,214"/>
+<area shape="rect" id="node10" href="$syntactic__analysis_8c.html#ac9b33c13aa831335429748838739aef7" title="Processes if condition." alt="" coords="108,162,175,188"/>
+</map>

@@ -1,0 +1,42 @@
+<map id="main" name="main">
+<area shape="rect" id="node1" title=" " alt="" coords="5,492,60,519"/>
+<area shape="rect" id="node2" href="$newstring_8c.html#a03217aede38d7cef89609b66fd21f2f7" title=" " alt="" coords="294,365,449,392"/>
+<area shape="rect" id="node3" href="$syntactic__analysis_8c.html#a607ec0964227a0c6c98fd79770e51c11" title="Processes the FIRST rule in the syntactic analysis." alt="" coords="141,289,200,316"/>
+<area shape="rect" id="node24" href="$lexical__analyser_8c.html#a1b68532a422d65e0eab79e3011af906e" title="Retrieves the next token from the input file." alt="" coords="127,492,214,519"/>
+<area shape="rect" id="node30" href="$lexical__analyser_8c.html#acbb4fd03fd6564af6fe03306ec48364c" title="Prints the details of a token." alt="" coords="123,615,218,641"/>
+<area shape="rect" id="node32" href="$main_8c.html#a61b668b23f9d1ce9068bff1a47a788de" title=" " alt="" coords="108,837,233,864"/>
+<area shape="rect" id="node4" href="$syntactic__analysis_8c.html#ab1c09d376532dc76198f8d2d6c729fef" title="Processes command for constant declaration." alt="" coords="892,56,992,83"/>
+<area shape="rect" id="node7" href="$syntactic__analysis_8c.html#afb9892407a0399d61e51261ff730599a" title="Processes function declaration." alt="" coords="335,315,408,341"/>
+<area shape="rect" id="node21" href="$syntactic__analysis_8c.html#a49c6186e8aee36246b52305756b7a017" title="Processes command for variable declaration." alt="" coords="901,107,983,133"/>
+<area shape="rect" id="node5" href="$syntactic__analysis_8c.html#aa1d8bc4c3095f3ba13e1fcc83038d948" title="Processes assigning expresions to the constant." alt="" coords="1192,56,1315,83"/>
+<area shape="rect" id="node6" href="$syntactic__analysis_8c.html#a38b7a13b9a5926c2c4b6af62cec86f85" title="Function for processing another argument which is in queue." alt="" coords="1363,157,1467,184"/>
+<area shape="rect" id="node8" href="$syntactic__analysis_8c.html#aef5821c4ef2e8e26c864efa3564244f6" title="Function for verifaction enabled data types (FUNCTIONS)" alt="" coords="755,461,834,488"/>
+<area shape="rect" id="node10" href="$syntactic__analysis_8c.html#acb21f12318c9d312a452616eb6c7262d" title="Function for processing parameters of declaraced function." alt="" coords="761,512,829,539"/>
+<area shape="rect" id="node11" href="$syntactic__analysis_8c.html#a7d21e9db61747d6734d9a7f27d33b4f4" title="Function for determining the depth of infestation." alt="" coords="571,315,636,341"/>
+<area shape="rect" id="node9" href="$syntactic__analysis_8c.html#aaef2bee27144c07c175bb36e4c28af9d" title="Function for verifaction enabled data types (DATA TYPES)" alt="" coords="1211,461,1296,488"/>
+<area shape="rect" id="node12" href="$syntactic__analysis_8c.html#a7eac9e4351cf87fecd3e9a66cf5f28d8" title="Processes the commands, coditions, ..." alt="" coords="745,219,844,245"/>
+<area shape="rect" id="node13" href="$syntactic__analysis_8c.html#a2999c303cc3fb4692b7e96d9a22e9c03" title="Processes calling functions, variables." alt="" coords="899,157,985,184"/>
+<area shape="rect" id="node17" href="$syntactic__analysis_8c.html#a047deda12297b3a39f2d50261fd7de70" title="Processes else condition." alt="" coords="899,360,985,387"/>
+<area shape="rect" id="node18" href="$syntactic__analysis_8c.html#ac9b33c13aa831335429748838739aef7" title="Processes if condition." alt="" coords="909,309,975,336"/>
+<area shape="rect" id="node20" href="$syntactic__analysis_8c.html#a1012bbb9f570627aabec5e3eda7c4993" title="Processes return command." alt="" coords="1213,208,1293,235"/>
+<area shape="rect" id="node23" href="$syntactic__analysis_8c.html#a13efec100d0c39c874c413765ded4d10" title="Processes while loop." alt="" coords="893,259,991,285"/>
+<area shape="rect" id="node14" href="$syntactic__analysis_8c.html#ade39708cf9c0a95b1e75a94b3982f1aa" title="Extended function for CALL_DEF()" alt="" coords="1049,107,1135,133"/>
+<area shape="rect" id="node15" href="$syntactic__analysis_8c.html#a83f44b9d12d581ea924af4ba707819c3" title="Function for processing argument of called function." alt="" coords="1228,5,1279,32"/>
+<area shape="rect" id="node16" href="$syntactic__analysis_8c.html#a271ef1f0dc6a029b233bcb024b19b116" title="Function for processing another argument which is in queue." alt="" coords="1385,5,1444,32"/>
+<area shape="rect" id="node19" href="$syntactic__analysis_8c.html#af131918ae0d8a1cc29cb2c8d6dc13aff" title="Extended function for CALL_DEF()" alt="" coords="1059,385,1125,412"/>
+<area shape="rect" id="node22" href="$syntactic__analysis_8c.html#a76e0ba812902123b4ec0d43c59c13c04" title="Processes assigning expresions to the variable." alt="" coords="1040,157,1144,184"/>
+<area shape="rect" id="node25" href="$newstring_8c.html#a723751a5d99efdf10145303c11895ce9" title=" " alt="" coords="281,569,461,610"/>
+<area shape="rect" id="node26" href="$newstring_8c.html#a33884f5f943a1e93cdba424756c663d9" title=" " alt="" coords="509,605,697,632"/>
+<area shape="rect" id="node27" href="$newstring_8c.html#aa1207c77da58ada32d94fe4e97aa5e1e" title=" " alt="" coords="291,416,452,443"/>
+<area shape="rect" id="node28" href="$newstring_8c.html#a5c4e413e494b26f4a5d9ddba7a274b3c" title=" " alt="" coords="296,467,447,493"/>
+<area shape="rect" id="node29" href="$lexical__analyser_8c.html#ade03459f3b506becbc1e389002a1126a" title="Checks if a given token is a keyword." alt="" coords="324,517,419,544"/>
+<area shape="rect" id="node31" href="$lexical__analyser_8c.html#a67367cc8618de258a4163191d1ac05b8" title="Converts a token type to its string representation." alt="" coords="292,685,451,712"/>
+<area shape="rect" id="node33" href="$ADT_8c.html#a99781ee05b9a784e40d6e179c04f42c9" title=" " alt="" coords="320,736,423,763"/>
+<area shape="rect" id="node34" href="$ADT_8c.html#a86337fb4e746828ec8da93815780b8e5" title=" " alt="" coords="312,787,431,813"/>
+<area shape="rect" id="node36" href="$ADT_8c.html#a586c12683a18644602e7029a8fb528c4" title=" " alt="" coords="327,837,415,864"/>
+<area shape="rect" id="node37" href="$ADT_8c.html#a498be84c0146adc44a4d75f3ddadfce8" title=" " alt="" coords="314,888,429,915"/>
+<area shape="rect" id="node39" href="$main_8c.html#a1127b7ccef7affaa427479522fd4024a" title=" " alt="" coords="325,939,417,965"/>
+<area shape="rect" id="node40" href="$ADT_8c.html#a87d79a5adc075526a4778d53c2948412" title=" " alt="" coords="311,989,431,1016"/>
+<area shape="rect" id="node35" href="$ADT_8c.html#ae7778847ae19a4693087f819ef97ada7" title=" " alt="" coords="557,787,649,813"/>
+<area shape="rect" id="node38" href="$ADT_8c.html#a69781ac22aa41ceaca20060ad642a403" title=" " alt="" coords="555,888,652,915"/>
+</map>

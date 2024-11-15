@@ -1,8 +1,15 @@
-\hypertarget{newstring_8c}{}\doxysection{newstring.\+c File Reference}
-\label{newstring_8c}\index{newstring.c@{newstring.c}}
+\hypertarget{newstring_8c}{}\doxysection{/home/kubo/\+IFJ\+\_\+\+Compiler/\+IFJ-\/project01/src/newstring.c File Reference}
+\label{newstring_8c}\index{/home/kubo/IFJ\_Compiler/IFJ-\/project01/src/newstring.c@{/home/kubo/IFJ\_Compiler/IFJ-\/project01/src/newstring.c}}
 {\ttfamily \#include \char`\"{}newstring.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$stdlib.\+h$>$}\newline
 {\ttfamily \#include $<$string.\+h$>$}\newline
+Include dependency graph for newstring.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=335pt]{newstring_8c__incl}
+\end{center}
+\end{figure}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -27,33 +34,189 @@ char \mbox{\hyperlink{newstring_8c_a965aca817e0dd5e3260af1f4304f5d66}{dynamic\+\
 \doxysubsubsection{\texorpdfstring{add\_double\_to\_dynamic\_string()}{add\_double\_to\_dynamic\_string()}}
 {\footnotesize\ttfamily bool add\+\_\+double\+\_\+to\+\_\+dynamic\+\_\+string (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDynamic__string}{Dynamic\+\_\+string}} $\ast$}]{s,  }\item[{double}]{value }\end{DoxyParamCaption})}
 
+
+
+Definition at line 55 of file newstring.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{56 \{}
+\DoxyCodeLine{57     \textcolor{keywordtype}{char} buffer[32];                                 \textcolor{comment}{// Buffer to hold the string representation of the double}}
+\DoxyCodeLine{58     snprintf(buffer, \textcolor{keyword}{sizeof}(buffer), \textcolor{stringliteral}{"{}\%f"{}}, value); \textcolor{comment}{// Convert double to string with 6 decimal places}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60     \textcolor{comment}{// Add each character of the string to the Dynamic\_string}}
+\DoxyCodeLine{61     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 0; buffer[i] != \textcolor{charliteral}{'\(\backslash\)0'}; i++)}
+\DoxyCodeLine{62     \{}
+\DoxyCodeLine{63         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(s, buffer[i]))}
+\DoxyCodeLine{64         \{}
+\DoxyCodeLine{65             \textcolor{keywordflow}{return} \textcolor{keyword}{false}; \textcolor{comment}{// Failed to add character}}
+\DoxyCodeLine{66         \}}
+\DoxyCodeLine{67     \}}
+\DoxyCodeLine{68     \textcolor{keywordflow}{return} \textcolor{keyword}{true}; \textcolor{comment}{// Successfully added the double value}}
+\DoxyCodeLine{69 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{newstring_8c_a723751a5d99efdf10145303c11895ce9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{newstring_8c_a723751a5d99efdf10145303c11895ce9_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{newstring_8c_a33884f5f943a1e93cdba424756c663d9}\label{newstring_8c_a33884f5f943a1e93cdba424756c663d9}} 
 \index{newstring.c@{newstring.c}!dynamic\_string\_add\_char@{dynamic\_string\_add\_char}}
 \index{dynamic\_string\_add\_char@{dynamic\_string\_add\_char}!newstring.c@{newstring.c}}
 \doxysubsubsection{\texorpdfstring{dynamic\_string\_add\_char()}{dynamic\_string\_add\_char()}}
 {\footnotesize\ttfamily bool dynamic\+\_\+string\+\_\+add\+\_\+char (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDynamic__string}{Dynamic\+\_\+string}} $\ast$}]{s,  }\item[{char}]{c }\end{DoxyParamCaption})}
 
+
+
+Definition at line 34 of file newstring.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{35 \{}
+\DoxyCodeLine{36     \textcolor{comment}{// Check if we need more space}}
+\DoxyCodeLine{37     \textcolor{keywordflow}{if} (s-\/>\mbox{\hyperlink{structDynamic__string_aca5065d841116c27e51c46501461c596}{length}} + 1 >= s-\/>\mbox{\hyperlink{structDynamic__string_af970355fd5056f2f3c224977368c4d57}{alloc\_size}})}
+\DoxyCodeLine{38     \{}
+\DoxyCodeLine{39         \textcolor{keywordtype}{size\_t} new\_size = s-\/>\mbox{\hyperlink{structDynamic__string_af970355fd5056f2f3c224977368c4d57}{alloc\_size}} + \mbox{\hyperlink{newstring_8h_a54494ca23d2144c7a459fe8f98f37674}{DYNAMIC\_STRING\_LEN\_INC}};}
+\DoxyCodeLine{40         \textcolor{keywordtype}{char} *new\_str = (\textcolor{keywordtype}{char} *)realloc(s-\/>\mbox{\hyperlink{structDynamic__string_ac9fdee687d9f337d1babcf26242ac6ad}{str}}, new\_size);}
+\DoxyCodeLine{41         \textcolor{keywordflow}{if} (new\_str == NULL)}
+\DoxyCodeLine{42         \{}
+\DoxyCodeLine{43             \textcolor{keywordflow}{return} \textcolor{keyword}{false}; \textcolor{comment}{// Memory reallocation failed}}
+\DoxyCodeLine{44         \}}
+\DoxyCodeLine{45         s-\/>\mbox{\hyperlink{structDynamic__string_ac9fdee687d9f337d1babcf26242ac6ad}{str}} = new\_str;}
+\DoxyCodeLine{46         s-\/>\mbox{\hyperlink{structDynamic__string_af970355fd5056f2f3c224977368c4d57}{alloc\_size}} = new\_size;}
+\DoxyCodeLine{47     \}}
+\DoxyCodeLine{48     s-\/>\mbox{\hyperlink{structDynamic__string_ac9fdee687d9f337d1babcf26242ac6ad}{str}}[s-\/>\mbox{\hyperlink{structDynamic__string_aca5065d841116c27e51c46501461c596}{length}}] = c;}
+\DoxyCodeLine{49     s-\/>\mbox{\hyperlink{structDynamic__string_aca5065d841116c27e51c46501461c596}{length}}++;}
+\DoxyCodeLine{50     s-\/>\mbox{\hyperlink{structDynamic__string_ac9fdee687d9f337d1babcf26242ac6ad}{str}}[s-\/>\mbox{\hyperlink{structDynamic__string_aca5065d841116c27e51c46501461c596}{length}}] = \textcolor{charliteral}{'\(\backslash\)0'}; \textcolor{comment}{// Null-\/terminate the string}}
+\DoxyCodeLine{51     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{52 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{newstring_8c_a33884f5f943a1e93cdba424756c663d9_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{newstring_8c_aa1207c77da58ada32d94fe4e97aa5e1e}\label{newstring_8c_aa1207c77da58ada32d94fe4e97aa5e1e}} 
 \index{newstring.c@{newstring.c}!dynamic\_string\_clear@{dynamic\_string\_clear}}
 \index{dynamic\_string\_clear@{dynamic\_string\_clear}!newstring.c@{newstring.c}}
 \doxysubsubsection{\texorpdfstring{dynamic\_string\_clear()}{dynamic\_string\_clear()}}
 {\footnotesize\ttfamily void dynamic\+\_\+string\+\_\+clear (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDynamic__string}{Dynamic\+\_\+string}} $\ast$}]{s }\end{DoxyParamCaption})}
 
+
+
+Definition at line 72 of file newstring.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{73 \{}
+\DoxyCodeLine{74     s-\/>\mbox{\hyperlink{structDynamic__string_aca5065d841116c27e51c46501461c596}{length}} = 0;}
+\DoxyCodeLine{75     \textcolor{keywordflow}{if} (s-\/>\mbox{\hyperlink{structDynamic__string_ac9fdee687d9f337d1babcf26242ac6ad}{str}} != NULL)}
+\DoxyCodeLine{76     \{}
+\DoxyCodeLine{77         s-\/>\mbox{\hyperlink{structDynamic__string_ac9fdee687d9f337d1babcf26242ac6ad}{str}}[0] = \textcolor{charliteral}{'\(\backslash\)0'}; \textcolor{comment}{// Reset to an empty string}}
+\DoxyCodeLine{78     \}}
+\DoxyCodeLine{79 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{newstring_8c_aa1207c77da58ada32d94fe4e97aa5e1e_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{newstring_8c_a965aca817e0dd5e3260af1f4304f5d66}\label{newstring_8c_a965aca817e0dd5e3260af1f4304f5d66}} 
 \index{newstring.c@{newstring.c}!dynamic\_string\_first\_char@{dynamic\_string\_first\_char}}
 \index{dynamic\_string\_first\_char@{dynamic\_string\_first\_char}!newstring.c@{newstring.c}}
 \doxysubsubsection{\texorpdfstring{dynamic\_string\_first\_char()}{dynamic\_string\_first\_char()}}
 {\footnotesize\ttfamily char dynamic\+\_\+string\+\_\+first\+\_\+char (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structDynamic__string}{Dynamic\+\_\+string}} $\ast$}]{s }\end{DoxyParamCaption})}
 
+
+
+Definition at line 82 of file newstring.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{83 \{}
+\DoxyCodeLine{84     \textcolor{keywordflow}{if} (s == NULL || s-\/>\mbox{\hyperlink{structDynamic__string_aca5065d841116c27e51c46501461c596}{length}} == 0)}
+\DoxyCodeLine{85     \{}
+\DoxyCodeLine{86         \textcolor{keywordflow}{return} \textcolor{charliteral}{'\(\backslash\)0'}; \textcolor{comment}{// Return null character if the string is empty or NULL}}
+\DoxyCodeLine{87     \}}
+\DoxyCodeLine{88     \textcolor{keywordflow}{return} s-\/>\mbox{\hyperlink{structDynamic__string_ac9fdee687d9f337d1babcf26242ac6ad}{str}}[0]; \textcolor{comment}{// Return the first character}}
+\DoxyCodeLine{89 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{newstring_8c_a03217aede38d7cef89609b66fd21f2f7}\label{newstring_8c_a03217aede38d7cef89609b66fd21f2f7}} 
 \index{newstring.c@{newstring.c}!dynamic\_string\_free@{dynamic\_string\_free}}
 \index{dynamic\_string\_free@{dynamic\_string\_free}!newstring.c@{newstring.c}}
 \doxysubsubsection{\texorpdfstring{dynamic\_string\_free()}{dynamic\_string\_free()}}
 {\footnotesize\ttfamily void dynamic\+\_\+string\+\_\+free (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDynamic__string}{Dynamic\+\_\+string}} $\ast$}]{s }\end{DoxyParamCaption})}
 
+
+
+Definition at line 22 of file newstring.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24     \textcolor{keywordflow}{if} (s-\/>\mbox{\hyperlink{structDynamic__string_ac9fdee687d9f337d1babcf26242ac6ad}{str}} != NULL)}
+\DoxyCodeLine{25     \{}
+\DoxyCodeLine{26         free(s-\/>\mbox{\hyperlink{structDynamic__string_ac9fdee687d9f337d1babcf26242ac6ad}{str}});}
+\DoxyCodeLine{27         s-\/>\mbox{\hyperlink{structDynamic__string_ac9fdee687d9f337d1babcf26242ac6ad}{str}} = NULL;}
+\DoxyCodeLine{28     \}}
+\DoxyCodeLine{29     s-\/>\mbox{\hyperlink{structDynamic__string_aca5065d841116c27e51c46501461c596}{length}} = 0;}
+\DoxyCodeLine{30     s-\/>\mbox{\hyperlink{structDynamic__string_af970355fd5056f2f3c224977368c4d57}{alloc\_size}} = 0;}
+\DoxyCodeLine{31 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{newstring_8c_a03217aede38d7cef89609b66fd21f2f7_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{newstring_8c_a5c4e413e494b26f4a5d9ddba7a274b3c}\label{newstring_8c_a5c4e413e494b26f4a5d9ddba7a274b3c}} 
 \index{newstring.c@{newstring.c}!dynamic\_string\_init@{dynamic\_string\_init}}
 \index{dynamic\_string\_init@{dynamic\_string\_init}!newstring.c@{newstring.c}}
 \doxysubsubsection{\texorpdfstring{dynamic\_string\_init()}{dynamic\_string\_init()}}
 {\footnotesize\ttfamily bool dynamic\+\_\+string\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDynamic__string}{Dynamic\+\_\+string}} $\ast$}]{s }\end{DoxyParamCaption})}
 
+
+
+Definition at line 8 of file newstring.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{9 \{}
+\DoxyCodeLine{10     s-\/>\mbox{\hyperlink{structDynamic__string_ac9fdee687d9f337d1babcf26242ac6ad}{str}} = (\textcolor{keywordtype}{char} *)malloc(\mbox{\hyperlink{newstring_8h_a54494ca23d2144c7a459fe8f98f37674}{DYNAMIC\_STRING\_LEN\_INC}});}
+\DoxyCodeLine{11     \textcolor{keywordflow}{if} (s-\/>\mbox{\hyperlink{structDynamic__string_ac9fdee687d9f337d1babcf26242ac6ad}{str}} == NULL)}
+\DoxyCodeLine{12     \{}
+\DoxyCodeLine{13         \textcolor{keywordflow}{return} \textcolor{keyword}{false}; \textcolor{comment}{// Memory allocation failed}}
+\DoxyCodeLine{14     \}}
+\DoxyCodeLine{15     s-\/>\mbox{\hyperlink{structDynamic__string_ac9fdee687d9f337d1babcf26242ac6ad}{str}}[0] = \textcolor{charliteral}{'\(\backslash\)0'}; \textcolor{comment}{// Initialize as an empty string}}
+\DoxyCodeLine{16     s-\/>\mbox{\hyperlink{structDynamic__string_aca5065d841116c27e51c46501461c596}{length}} = 0;}
+\DoxyCodeLine{17     s-\/>\mbox{\hyperlink{structDynamic__string_af970355fd5056f2f3c224977368c4d57}{alloc\_size}} = \mbox{\hyperlink{newstring_8h_a54494ca23d2144c7a459fe8f98f37674}{DYNAMIC\_STRING\_LEN\_INC}};}
+\DoxyCodeLine{18     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{19 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{newstring_8c_a5c4e413e494b26f4a5d9ddba7a274b3c_icgraph}
+\end{center}
+\end{figure}

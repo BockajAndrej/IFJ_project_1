@@ -1,0 +1,5 @@
+<map id="CONST_DEF" name="CONST_DEF">
+<area shape="rect" id="node1" title="Processes command for constant declaration." alt="" coords="5,5,105,32"/>
+<area shape="rect" id="node2" href="$syntactic__analysis_8c.html#aa1d8bc4c3095f3ba13e1fcc83038d948" title="Processes assigning expresions to the constant." alt="" coords="153,5,276,32"/>
+<area shape="rect" id="node3" href="$syntactic__analysis_8c.html#a38b7a13b9a5926c2c4b6af62cec86f85" title="Function for processing another argument which is in queue." alt="" coords="324,5,428,32"/>
+</map>
