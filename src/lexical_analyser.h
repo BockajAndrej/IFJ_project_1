@@ -350,9 +350,12 @@ typedef enum
     /**
      * @brief States for handling numeric literals.
      */
-    sIntLiteral,   ///< Represents an integer literal (non-negative, decimal format).
-    sFloatLiteral, ///< Represents a floating-point literal, including support for decimal and exponential notation.
-    sExponent,     ///< Handles the exponent part (e.g., "e" or "E") of floating-point numbers.
+    sIntLiteral,    ///< Represents an integer literal (e.g., "123"), parsed before encountering a '.' or 'e/E'.
+    sFloatLiteral,  ///< Represents a floating-point literal, including numbers with a fractional part (e.g., "123.45").
+    sExponentStart, ///< Represents the transition state after encountering 'e' or 'E', awaiting an exponent or sign.
+    sDot,           ///< Represents the state after encountering '.', ensuring a digit follows to form a valid float.
+    sExponent,      ///< Handles the parsing of the numeric exponent part (e.g., "1.23e4"), ensuring valid digits follow.
+    sExponentSign,  ///< Represents the sign ('+' or '-') immediately following 'e/E' in a floating-point literal.
 
     /**
      * @brief States for handling string literals.
@@ -372,7 +375,6 @@ typedef enum
     sLessThan,     ///< Represents the less than operator ('<').
     sGreaterEqual, ///< Represents the greater than or equal to operator ('>=').
     sGreaterThan,  ///< Represents the greater than operator ('>').
-    sExponentSign, ///< Represents the sign (e.g., '+' or '-') within an exponent part of a floating-point literal.
 
     /**
      * @brief States for handling quotation marks and character literals.
