@@ -502,12 +502,12 @@ Token get_token(FILE *file)
             else if (c == '.')
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                state = sFloatLiteral;
+                state = sDot; // Transition to sDot instead of sFloatLiteral directly
             }
             else if (c == 'e' || c == 'E')
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                state = sExponent;
+                state = sExponentStart; // Transition to sExponentStart instead of sExponent directly
             }
             else
             {
@@ -518,9 +518,23 @@ Token get_token(FILE *file)
             }
         }
         break;
+        case sDot:
+        {
+            if (isdigit(c))
+            {
+                dynamic_string_add_char(&token.value.valueString, c);
+                state = sFloatLiteral;
+            }
+            else
+            {
+                token.type = TOKEN_UNDEFINED;
+                ungetc(c, file);
+                return token;
+            }
+        }
+        break;
         case sFloatLiteral:
         {
-            // Handle floating-point literal logic here
             if (isdigit(c))
             {
                 dynamic_string_add_char(&token.value.valueString, c);
@@ -529,17 +543,17 @@ Token get_token(FILE *file)
             else if (c == 'e' || c == 'E')
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                state = sExponent;
+                state = sExponentStart;
             }
             else
             {
-                token.type = TOKEN_FLOAT_LITERAL; // Set token type to float literal
-                ungetc(c, file);                  // Put the character back for further processing
-                return token;                     // Return the float token
+                token.type = TOKEN_FLOAT_LITERAL;
+                ungetc(c, file);
+                return token;
             }
         }
         break;
-        case sExponent:
+        case sExponentStart:
         {
             if (c == '+' || c == '-')
             {
@@ -553,17 +567,7 @@ Token get_token(FILE *file)
             }
             else
             {
-                double calculatedNum = strtod(token.value.valueString.str, NULL);
-
-                dynamic_string_clear(&token.value.valueString);
-
-                if (!add_double_to_dynamic_string(&token.value.valueString, calculatedNum))
-                {
-                    token.type = TOKEN_UNDEFINED; // Handle error if addition fails
-                    return token;                 // Return error token
-                }
-                token.type = TOKEN_FLOAT_LITERAL; // Set token type to float literal
-                ungetc(c, file);
+                token.type = TOKEN_UNDEFINED;
                 return token;
             }
         }
@@ -578,6 +582,27 @@ Token get_token(FILE *file)
             else
             {
                 token.type = TOKEN_UNDEFINED;
+                return token;
+            }
+        }
+        break;
+        case sExponent:
+        {
+            if (isdigit(c))
+            {
+                dynamic_string_add_char(&token.value.valueString, c);
+                state = sExponent;
+            }
+            else
+            {
+                double calculatedNum = strtod(token.value.valueString.str, NULL);
+                dynamic_string_clear(&token.value.valueString);
+                if (!add_double_to_dynamic_string(&token.value.valueString, calculatedNum))
+                {
+                    token.type = TOKEN_UNDEFINED;
+                    return token;
+                }
+                token.type = TOKEN_FLOAT_LITERAL;
                 ungetc(c, file);
                 return token;
             }
@@ -608,69 +633,59 @@ Token get_token(FILE *file)
         break;
         case sEscapeSequence:
         {
-            if (c == 'n')
+            switch (c)
             {
-                dynamic_string_add_char(&token.value.valueString, '\n'); // Newline escape
-            }
-            else if (c == 't')
+            case 'n':
+                dynamic_string_add_char(&token.value.valueString, '\n'); // Newline
+                break;
+            case 't':
+                dynamic_string_add_char(&token.value.valueString, '\t'); // Tab
+                break;
+            case 'r':
+                dynamic_string_add_char(&token.value.valueString, '\r'); // Carriage return
+                break;
+            case '\"':
+                dynamic_string_add_char(&token.value.valueString, '\"'); // Double quote
+                break;
+            case '\\':
+                dynamic_string_add_char(&token.value.valueString, '\\'); // Backslash
+                break;
+            case 'x': // Hexadecimal escape
             {
-                dynamic_string_add_char(&token.value.valueString, '\t'); // Tab escape
-            }
-            else if (c == 'r')
-            {
-                dynamic_string_add_char(&token.value.valueString, '\r'); // Carriage return escape
-            }
-            else if (c == '\"')
-            {
-                dynamic_string_add_char(&token.value.valueString, '\"'); // Quote escape
-            }
-            else if (c == '\\')
-            {
-                dynamic_string_add_char(&token.value.valueString, '\\'); // Backslash escape
-            }
-            else if (c == 'x') // Hexadecimal escape
-            {
-                char hex[3];               // Buffer to hold hex digits
-                hex[0] = (char)getc(file); // First hex digit
-                hex[1] = (char)getc(file); // Second hex digit
-                hex[2] = '\0';             // Null-terminate the string
+                char hex[3];
+                hex[0] = (char)getc(file);
+                hex[1] = (char)getc(file);
+                hex[2] = '\0';
 
-                // Check if the hex characters are valid
                 if (isxdigit(hex[0]) && isxdigit(hex[1]))
                 {
-                    int value = (int)strtol(hex, NULL, 16);                         // Convert hex to integer
-                    dynamic_string_add_char(&token.value.valueString, (char)value); // Add the character to the string
+                    int value = (int)strtol(hex, NULL, 16);
+                    dynamic_string_add_char(&token.value.valueString, (char)value);
                 }
                 else
                 {
                     token.type = TOKEN_UNDEFINED; // Invalid hex escape
                     return token;
                 }
+                break;
             }
-            else
-            {
-                token.type = TOKEN_UNDEFINED; // Invalid escape sequence
-                return token;
+            default: // Unrecognized escape, add the character as-is
+                dynamic_string_add_char(&token.value.valueString, c);
+                break;
             }
 
-            state = sStringLiteral; // Return to string literal state
+            state = sStringLiteral;
         }
         break;
         case sBackSlash:
         {
             c = (char)getc(file); // Read the next character
             if (c == 'n')
-            {
                 token.type = TOKEN_NEWLINE; // Example for newline escape
-            }
             else if (c == 't')
-            {
                 token.type = TOKEN_TAB; // Example for tab escape
-            }
             else if (c == '\\')
-            {
                 token.type = TOKEN_BACKSLASH; // Token for backslash itself
-            }
             else
             {
                 ungetc(c, file);              // Put back the character if it's not a recognized escape
@@ -689,8 +704,8 @@ Token get_token(FILE *file)
             }
             else
             {
-                ungetc(c, file);             // Put back the character if it's not '='
-                token.type = TOKEN_DIVISION; // Token is just '=' (assignment)
+                ungetc(c, file);             // Put back the character if it's not '/'
+                token.type = TOKEN_DIVISION; // Token is just '/' (division)
                 return token;
             }
         }
