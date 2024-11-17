@@ -393,7 +393,6 @@ typedef enum
      * @brief States indicating errors or the end of input.
      */
     sError, ///< Indicates an error state due to invalid input or characters.
-    sEOL,   ///< End-of-line state for newline characters.
     sEnd    ///< End-of-file state or input completion.
 } State;
 

@@ -274,7 +274,6 @@ Token get_token(FILE *file)
         switch (state)
         {
         case sStart:
-
             if (c == ' ' || c == '\t')
             {
                 state = sStart;
@@ -291,7 +290,6 @@ Token get_token(FILE *file)
             }
             else if (c == '\n') /* EOL, end of line  should add \t \r support? */
             {
-                state = sEOL;           // Přepni na stav konce řádku
                 token.type = TOKEN_EOL; // Předpokládáme, že TOKEN_EOL je definován
                 return token;           // Vrať token EOL
             }
@@ -455,22 +453,24 @@ Token get_token(FILE *file)
                 state = sGreaterThan; // Move to greater than state
                 dynamic_string_add_char(&token.value.valueString, c);
             }
-            else if (c == '\'') // Single quote for character literal
+            /*else if (c == '\'') // Single quote for character literal
             {
                 state = sSingleQuote;            // Move to state for single quote
                 token.type = TOKEN_CHAR_LITERAL; // Set token type for character literal
-            }
+            }*/
             else if (c == '\\') // Backslash for escape sequences
             {
-                state = sBackSlash;           // Move to escape sequence handling state
-                token.type = TOKEN_BACKSLASH; // Set token type for backslash
+                // state = sBackSlash;           // Move to escape sequence handling state
+                // token.type = TOKEN_BACKSLASH; // Set token type for backslash
+                dynamic_string_add_char(&token.value.valueString, c);
+                token.type = TOKEN_BACKSLASH;
+                return token;
             }
             else if (c == '!') // Logical NOT or not equal
             {
                 dynamic_string_add_char(&token.value.valueString, c);
                 state = sExclamation;
             }
-
             break;
 
         case sIdentifierorKeyword:
@@ -677,7 +677,7 @@ Token get_token(FILE *file)
             state = sStringLiteral;
         }
         break;
-        case sBackSlash:
+        /*case sBackSlash:
         {
             c = (char)getc(file); // Read the next character
             if (c == 'n')
@@ -695,6 +695,7 @@ Token get_token(FILE *file)
             return token;
         }
         break;
+        */
         case sDivision:
         {
             if (c == '/')
@@ -806,17 +807,11 @@ Token get_token(FILE *file)
             }
         }
         break;
-
-        case sEOL:
-            state = sStart;
-            break;
-
         default:
             state = sError; // ! Invalid state fallback
             break;
         }
     }
-    // Uvoľni pamäť pred návratom
     dynamic_string_free(&token.value.valueString);
-    return token; // Vráť token
+    return token;
 }
