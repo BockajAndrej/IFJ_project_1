@@ -4,7 +4,9 @@ digraph "is_keyword"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="RL";
-  Node1 [label="is_keyword",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 [label="is_keyword",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Checks if a given token is a keyword."];
   Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
-  Node2 [label="get_token",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Lexical__analyser_8c.html#a1b68532a422d65e0eab79e3011af906e",tooltip=" "];
+  Node2 [label="get_token",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$lexical__analyser_8c.html#a1b68532a422d65e0eab79e3011af906e",tooltip="Retrieves the next token from the input file."];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="main",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627",tooltip=" "];
 }

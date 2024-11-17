@@ -37,7 +37,6 @@ void print_table(SymbolTable *table) {
     printf("\n");
 }
 
-
 void test_hash_table() {
     SymbolTable *table = create_table();
     printf("After creating the table:\n");
@@ -47,15 +46,15 @@ void test_hash_table() {
     float floatValue = 3.14;
     char *strValue = "Hello";
 
-    insert_symbol(table, "x", VALUE_INT, &intValue);
+    insert_symbol(table, 0, "x", VALUE_INT, &intValue);
     printf("After inserting 'x':\n");
     print_table(table);
 
-    insert_symbol(table, "pi", VALUE_FLOAT, &floatValue);
+    insert_symbol(table, 0, "pi", VALUE_FLOAT, &floatValue);
     printf("After inserting 'pi':\n");
     print_table(table);
 
-    insert_symbol(table, "greeting", VALUE_STRING, strValue);
+    insert_symbol(table, 0, "greeting", VALUE_STRING, strValue);
     printf("After inserting 'greeting':\n");
     print_table(table);
 
@@ -71,58 +70,101 @@ void test_hash_table() {
     free_table(table);
 }
 
-void test_ast() {
-    // 1. Vytvor koreňový uzol pre "if"
-    ASTNode *root = createNode(NODE_IF, NULL);
+void ast_test() {
+    // 1. Vytvor koreňový uzol
+    BinaryTreeNode* root = createBinaryNode(NODE_OP, TYPE_INT, "+");
+    setStartNode(root); // Nastavenie koreňa ako počiatočného uzla
 
-    // 2. Vytvor podmienku "a > b"
-    ASTNode *condition = createNode(NODE_OP, ">");
-    condition->left = createNode(NODE_VAR, "a");
-    condition->right = createNode(NODE_VAR, "b");
-    addChild(root, condition); // Pridaj podmienku do koreňa
+    // 2. Pridaj ľavý podstrom
+    insertLeft(root, NODE_OP, TYPE_INT, "*");
+    moveDownLeft();
 
-    // 3. Telo "if" vetvy: c = a + b
-    ASTNode *if_body = createNode(NODE_ASSIGN, "=");
-    if_body->left = createNode(NODE_VAR, "c");
-    ASTNode *addition = createNode(NODE_OP, "+");
-    addition->left = createNode(NODE_VAR, "a");
-    addition->right = createNode(NODE_VAR, "b");
-    if_body->right = addition;
-    addStatementToBlock(root, if_body); // Pridaj telo "if"
+    // 3. Pridaj deti k ľavému podstromu
+    insertLeft(currentNode, NODE_CONST, TYPE_INT, "2");
+    insertRight(currentNode, NODE_CONST, TYPE_INT, "3");
 
-    // 4. Telo "else" vetvy: while (d < 10) { d = d + 1; }
-    ASTNode *else_body = createNode(NODE_WHILE, NULL);
+    // 4. Návrat na koreň
+    moveUp();
 
-    ASTNode *loop_condition = createNode(NODE_OP, "<");
-    loop_condition->left = createNode(NODE_VAR, "d");
-    loop_condition->right = createNode(NODE_CONST, "10");
-    addChild(else_body, loop_condition); // Pridaj podmienku do cyklu
+    // 5. Pridaj pravý podstrom
+    insertRight(root, NODE_OP, TYPE_INT, "*");
+    moveDownRight();
 
-    ASTNode *loop_body = createNode(NODE_ASSIGN, "=");
-    loop_body->left = createNode(NODE_VAR, "d");
-    ASTNode *increment = createNode(NODE_OP, "+");
-    increment->left = createNode(NODE_VAR, "d");
-    increment->right = createNode(NODE_CONST, "1");
-    loop_body->right = increment;
-    addStatementToBlock(else_body, loop_body); // Pridaj telo cyklu
+    // 6. Pridaj deti k pravému podstromu
+    insertLeft(currentNode, NODE_CONST, TYPE_INT, "4");
+    insertRight(currentNode, NODE_CONST, TYPE_INT, "5");
 
-    addStatementToBlock(root, else_body); // Pridaj "else" vetvu
+    // 7. Výpis celej štruktúry stromu
+    printf("\nComplete Tree Structure:\n");
+    printBinaryTree(root, 0);
 
-    // 5. Vypíš štruktúru AST
-    printf("Výpis zložitého AST:\n");
-    printAST(root, 0);
+    // 8. Návrat do ľavého podstromu
+    moveUp();       // Späť na koreň
+    moveDownLeft(); // Do ľavého podstromu
 
-    // 6. Uvoľni pamäť
-    freeAST(root);
+    // 9. Získanie a výpis informácií o uzle "*"
+    NodeInfo info = getNodeInfo(currentNode);
+    printf("\nInfo o uzle ľavého podstromu (semantická analýza):\n");
+    printf("  Type: %s\n", NodeTypeToString(info.type));
+    printf("  Value: %s\n", info.value);
+    printf("  Data Type: %s\n", DataTypeToString(info.dataType));
+    printf("  Has Left: %s\n", info.hasLeft ? "Yes" : "No");
+    printf("  Has Right: %s\n", info.hasRight ? "Yes" : "No");
+    printf("  Parent Value: %s\n", info.parentValue);
 
-    printf("Zložitý test AST dokončený.\n");
+    // 10. Semantická analýza - overenie uzla
+    if (info.type == NODE_CONST && info.dataType == TYPE_INT) {
+        printf("  Uzol je platná konštanta s celým číslom.\n");
+    } else {
+        printf("  Chyba: Uzol nie je platná konštanta alebo nemá správny dátový typ.\n");
+    }
+
+    // 11. Uvoľnenie stromu
+    freeBinaryTree(root);
+    printf("\nTree successfully freed.\n");
 }
+/*
+NodeInfo info = getNodeInfo(currentNode);
+
+// Overenie typu uzla
+if (info.type == NODE_CONST) {
+    printf("Uzol je konštanta s hodnotou: %s\n", info.value);
+}
+
+// Overenie dátového typu
+if (info.dataType == TYPE_INT) {
+    printf("Dátový typ uzla je INTEGER.\n");
+}
+
+// Kontrola existencie detí
+if (info.hasLeft) {
+    printf("Uzol má ľavého potomka.\n");
+} else {
+    printf("Uzol nemá ľavého potomka.\n");
+}
+
+if (info.hasRight) {
+    printf("Uzol má pravého potomka.\n");
+}
+
+// Prístup k hodnote rodiča
+if (info.parentValue) {
+    printf("Hodnota rodiča je: %s\n", info.parentValue);
+} else {
+    printf("Uzol nemá rodiča.\n");
+}
+*/
+
+
+
+
+
 
 int main(int argc, char **argv)
 {
     if(argc == 1){
-        test_hash_table();
-        test_ast();
+        //test_hash_table();
+        ast_test();
         return 0;
     }
 

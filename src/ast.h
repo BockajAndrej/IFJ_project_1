@@ -1,46 +1,82 @@
 #ifndef AST_H
 #define AST_H
 
+#include <stdbool.h>
+
 // Typy uzlov
 typedef enum {
-    NODE_OP,       // operácia ( +, -, !=)
-    NODE_VAR,      // premenna (a, b)
-    NODE_CONST,    // constant (0, 1)
-    NODE_IF,       // podmienka (if-else)
-    NODE_WHILE,    // cyklus
-    NODE_FUNC_DEF, //def. funkcie
-    NODE_FUNC_CALL,//vloanie funkcie
-    NODE_ORELSE,   //orelse funkcia
-    NODE_BLOCK,    //blokc kodu
-    NODE_ASSIGN,   // priradenie (a = b - a)
-    NODE_RETURN,    // navratova
-    NODE_PROG       //cely program ako koren
+    NODE_OP,       // Operácia ( +, -, !=)
+    NODE_VAR,      // Premenná (a, b)
+    NODE_CONST,    // Konštanta (0, 1)
+    NODE_IF,       // Podmienka (if-else)
+    NODE_WHILE,    // Cyklus
+    NODE_FUNC_DEF, // Definícia funkcie
+    NODE_FUNC_CALL,// Volanie funkcie
+    NODE_ASSIGN,   // Priradenie (a = b)
+    NODE_RETURN,   // Návratová hodnota
+    NODE_PROG,     // Koreň programu
+    NODE_VAR_DECL, // Deklarácia premennej
+    NODE_LINE      // Nový riadok
 } NodeType;
 
-// Štruktúra uzla AST
-typedef struct ASTNode {
-    NodeType type;          // typ uzla
-    char* value;            // hodnota (napr. meno premennej alebo operátor)
-    struct ASTNode* left;   // lavý potomok
-    struct ASTNode* right;  // pravý potomok
-    struct ASTNode** body;  // telo pre while/if
-    int body_size;          // veľkosť tela (počet detí v zozname)
-    struct ASTNode** params;// zoznam parametrov
-    int params_size;        // pocet parametrov
-} ASTNode;
+// Typy dát
+typedef enum {
+    TYPE_NEW_LINE,
+    TYPE_INT,
+    TYPE_FLOAT,
+    TYPE_BOOL,
+    TYPE_STRING
+} DataType;
 
-// Funkcie pre AST
-char *copy_string(const char *str);
-void free_string(char *str);
+typedef enum {
+    AST_VALUE_INT,
+    AST_VALUE_FLOAT,
+    AST_VALUE_STRING
+} ASTValueType;
 
-ASTNode* createNode(NodeType type, const char* value);
-ASTNode* createFunctionNode(const char* name);
-ASTNode* createBlockNode();
-void addParameters(ASTNode* func, ASTNode* param);
-void addStatementToBlock(ASTNode* block, ASTNode* stmt);
-void addChild(ASTNode* parent, ASTNode* child);
-void freeAST(ASTNode* node);
-void printAST(ASTNode* node, int indent);
+// Štruktúra uzla binárneho stromu
+typedef struct BinaryTreeNode {
+    NodeType type;
+    DataType dataType;
+    ASTValueType valueType; // Typ hodnoty
+    union {
+        int intValue;
+        float floatValue;
+        char* strValue;
+    } value;
+    struct BinaryTreeNode* left;    // Ľavý potomok
+    struct BinaryTreeNode* right;   // Pravý potomok
+    struct BinaryTreeNode* parent;  // Rodič uzla
+} BinaryTreeNode;
 
+typedef struct {
+    NodeType type;
+    DataType dataType;
+    const char* value;
+    bool hasLeft;
+    bool hasRight;
+    const char* parentValue;
+} NodeInfo;
+
+extern BinaryTreeNode* currentNode;
+
+//FUNKCIE PRE SPRAVU STROMU
+BinaryTreeNode* createBinaryNode(NodeType type, DataType dataType, const char* value);
+void insertLeft(BinaryTreeNode* parent, NodeType type, DataType dataType, const char* value);
+void insertRight(BinaryTreeNode* parent, NodeType type, DataType dataType, const char* value);
+
+// FUNKCIE PRE POHYB V STOME
+NodeInfo getCurrentNodeInfo();
+void setStartNode(BinaryTreeNode* root);
+void moveUp();
+void moveDownLeft();
+void moveDownRight();
+NodeInfo getNodeInfo(BinaryTreeNode* node);
+
+//FREE A VYPIS
+void freeBinaryTree(BinaryTreeNode* root);
+void printBinaryTree(BinaryTreeNode* root, int level);
+const char* NodeTypeToString(NodeType type);
+const char* DataTypeToString(DataType type);
 
 #endif

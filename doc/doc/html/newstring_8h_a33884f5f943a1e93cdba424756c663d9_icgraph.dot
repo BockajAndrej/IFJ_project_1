@@ -8,6 +8,8 @@ digraph "dynamic_string_add_char"
   Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node2 [label="add_double_to_dynamic\l_string",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$newstring_8c.html#a723751a5d99efdf10145303c11895ce9",tooltip=" "];
   Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node3 [label="get_token",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$lexical__analyser_8c.html#a1b68532a422d65e0eab79e3011af906e",tooltip=" "];
+  Node3 [label="get_token",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$lexical__analyser_8c.html#a1b68532a422d65e0eab79e3011af906e",tooltip="Retrieves the next token from the input file."];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="main",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627",tooltip=" "];
   Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
 }

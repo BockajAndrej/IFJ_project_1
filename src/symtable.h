@@ -17,7 +17,8 @@ typedef struct Symbol {
         float floatValue; 
         char *strValue;   
     } value;
-    struct Symbol *next;  
+    struct Symbol *next;
+    int  level;
 } Symbol;
 
 
@@ -30,7 +31,7 @@ char *copy_string(const char *str);
 void free_string(char *str);
 
 SymbolTable *create_table();
-void insert_symbol(SymbolTable *table, const char *name, ValueType type, void *value);
+void insert_symbol(SymbolTable *table,int level, const char *name, ValueType type, void *value);
 Symbol *search_symbol(SymbolTable *table, const char *name);
 void delete_symbol(SymbolTable *table, const char *name);
 void free_table(SymbolTable *table);

@@ -1,17 +1,27 @@
-#include "lexical_analyser.h"
-#include <error.h>
-#include <ctype.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <stdio.h>
+/**
+ * @file lexical_analyser.c
+ * @author Jakub Filo
+ * @category Lexical Analysis
+ * @brief This file contains the implementation of the lexical analyser, including token processing and utility functions.
+ */
 
-#include <string.h>
+#include "lexical_analyser.h"
 #include "newstring.h"
 
+/**
+ * @def KEYWORD_COUNT
+ * @brief Defines the number of keywords in the language.
+ *
+ * Update this value if more keywords are added to the language.
+ */
 #define KEYWORD_COUNT 13 // Update this if you add more keywords
 
+/**
+ * @var keywords
+ * @brief Array of keyword strings used for identifying language keywords.
+ *
+ * Each element in the array corresponds to a specific keyword enumeration.
+ */
 const char *keywords[KEYWORD_COUNT] = {
     "if",     // KEYWORD_IF
     "else",   // KEYWORD_ELSE
@@ -28,7 +38,16 @@ const char *keywords[KEYWORD_COUNT] = {
     "while"   // KEYWORD_WHILE
 };
 
-// Function to check if an identifier is a keyword
+/**
+ * @brief Checks if a given token is a keyword.
+ * @details Iterates through the list of predefined keywords to determine if the token matches any keyword.
+ * If a match is found, it sets the `keyword_val` field of the token accordingly.
+ *
+ * @param token A pointer to the token to be checked.
+ * @return `true` if the token is a keyword, `false` otherwise.
+ *
+ * @see Keyword
+ */
 bool is_keyword(Token *token)
 {
     for (int i = 0; i < KEYWORD_COUNT; i++)
@@ -42,6 +61,13 @@ bool is_keyword(Token *token)
     return false; // It is not a keyword
 }
 
+/**
+ * @brief Converts a token type to its string representation.
+ * @details This function maps each `Token_type` enumeration to a corresponding string for easy readability.
+ *
+ * @param type The token type to convert.
+ * @return A constant character pointer representing the token type as a string.
+ */
 const char *token_type_to_string(Token_type type)
 {
     switch (type)
@@ -50,8 +76,6 @@ const char *token_type_to_string(Token_type type)
         return "TOKEN_EOF";
     case TOKEN_EOL:
         return "TOKEN_EOL";
-    case TOKEN_EMPTY:
-        return "TOKEN_EMPTY";
     case TOKEN_IDENTIFIER:
         return "TOKEN_IDENTI";
     case TOKEN_KEYWORD:
@@ -66,8 +90,6 @@ const char *token_type_to_string(Token_type type)
         return "TOKEN_FLOAT_L";
     case TOKEN_STRING_LITERAL:
         return "TOKEN_STRING_L";
-    case TOKEN_BOOLEAN:
-        return "TOKEN_BOOLEAN";
     case TOKEN_CHAR_LITERAL:
         return "TOKEN_CHAR_L";
     case TOKEN_EQUAL:
@@ -133,6 +155,13 @@ const char *token_type_to_string(Token_type type)
     }
 }
 
+/**
+ * @brief Prints the details of a token.
+ * @details This function outputs the token type, its value, and the keyword enumeration if applicable.
+ * It handles different token types to provide meaningful output.
+ *
+ * @param token The token to be printed.
+ */
 void print_token(Token token)
 {
 
@@ -146,10 +175,6 @@ void print_token(Token token)
         printf("EOL\n");
         break;
 
-    case TOKEN_EMPTY:
-        printf("EMPTY\n");
-        break;
-
     case TOKEN_NEWLINE:
         printf("NEWLINE\n");
         break;
@@ -161,7 +186,6 @@ void print_token(Token token)
     case TOKEN_INT_LITERAL:
     case TOKEN_FLOAT_LITERAL:
     case TOKEN_STRING_LITERAL:
-    case TOKEN_BOOLEAN:
     case TOKEN_CHAR_LITERAL:
     case TOKEN_IDENTIFIER:
     case TOKEN_KEYWORD:
@@ -206,6 +230,19 @@ void print_token(Token token)
     }
 }
 
+/**
+ * @brief Retrieves the next token from the input file.
+ * @details This function implements a finite state machine (FSM) to parse the input file character by character,
+ * constructing tokens based on the defined states. It handles various token types, including identifiers,
+ * keywords, literals, operators, and punctuation.
+ *
+ * @param file A pointer to the file being analyzed.
+ * @return The next token extracted from the file. If an error occurs during string initialization or reading,
+ * a TOKEN describing the error will be returned.
+ *
+ * @see Token
+ * @see State
+ */
 Token get_token(FILE *file)
 {
 
@@ -760,7 +797,7 @@ Token get_token(FILE *file)
             break;
 
         default:
-            state = sError; // Invalid state fallback
+            state = sError; // ! Invalid state fallback
             break;
         }
     }

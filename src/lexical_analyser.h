@@ -1,141 +1,404 @@
+/**
+ * @file lexical_analyser.h
+ * @author Jakub Filo
+ * @category Lexical analysis
+ * @brief This file contains functions for lexical analysis, processing input file, and extracting tokens.
+ */
+
 #ifndef LEXICAL_ANALYSER_H
 #define LEXICAL_ANALYSER_H
 
 #include <stdio.h>
+#include <error.h>
+#include <ctype.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
 #include "newstring.h"
 
+/**
+ * @enum Token_type
+ * @brief Enumeration of possible token types.
+ *
+ * This enumeration defines the various types of tokens that can be identified during lexical analysis.
+ * Each token type represents a specific category of syntactic element in the language.
+ */
 typedef enum
 {
-    TOKEN_EOF,        // 0 End of file marker
-    TOKEN_EOL,        // 1 End of line character
-    TOKEN_EMPTY,      // 2 Represents an empty token
-    TOKEN_IDENTIFIER, // 3 Variable or function name
-    TOKEN_KEYWORD,    // 4 Reserved keyword in the language
-    TOKEN_NEWLINE,    // 5 Newline character
-    TOKEN_TAB,        // 6 Tab character
-
-    TOKEN_INT_LITERAL,    // 7 Integer literal (whole number)
-    TOKEN_FLOAT_LITERAL,  // 8 Floating-point number
-    TOKEN_STRING_LITERAL, // 9 String value
-    TOKEN_BOOLEAN,        // 10 Boolean value (true/false)
-    TOKEN_CHAR_LITERAL,   // 11 char after '\'
-
-    TOKEN_EQUAL,         // 12 Equality comparison (==)
-    TOKEN_NOT_EQUAL,     // 13 Inequality check (!=)
-    TOKEN_LESS_EQUAL,    // 14 Less than or equal to (<=)
-    TOKEN_LESS_THAN,     // 15 Less than (<)
-    TOKEN_GREATER_EQUAL, // 16 Greater than or equal to (>=)
-    TOKEN_GREATER_THAN,  // 17 Greater than (>)
-
-    /// Operators
-    TOKEN_ASSIGNMENT,  // 18 Assignment operator (=)
-    TOKEN_ADDITION,    // 19 Addition operator (+)
-    TOKEN_SUBTRACTION, // 20 Subtraction operator (-)
-    TOKEN_MULTIPLY,    // 21 Multiplication operator (*)
-    TOKEN_DIVISION,    // 22 Division operator (result as double)
-    TOKEN_BACKSLASH,   // 23 '\'
-    TOKEN_PIPE,        // 24 | logic OR or in the condition thingy if () ||
-    TOKEN_EXCLAMATION, // 25 '!' symbol
-
-    TOKEN_LPAREN,         // 26 Left parenthesis '('
-    TOKEN_RPAREN,         // 27 Right parenthesis ')'
-    TOKEN_LEFT_BRACKET,   // 28 Left bracket '['
-    TOKEN_RIGHT_BRACKET,  // 29 Right bracket ']'
-    TOKEN_CURLYL_BRACKET, // 30 Left bracket '{'
-    TOKEN_CURLYR_BRACKET, // 31 Right bracket '}'
-    TOKEN_COMMA,          // 32 Comma ','
-    TOKEN_SEMICOLON,      // 33 Semicolon ';'
-    TOKEN_COMMENT,        // 34
-    TOKEN_IMPORT,         //@import
-    TOKEN_DISCARD,        // only '_'
+    /**
+     * @brief End-of-file marker.
+     * Indicates that the end of the input file has been reached.
+     */
+    TOKEN_EOF,
+    /**
+     * @brief End-of-line marker.
+     * Represents a newline character in the source code.
+     */
+    TOKEN_EOL,
+    /**
+     * @brief Identifier token.
+     * Represents variable names, function names, or other user-defined identifiers.
+     */
+    TOKEN_IDENTIFIER,
+    /**
+     * @brief Keyword token.
+     * Represents a reserved keyword in the language (e.g., if, else, return).
+     */
+    TOKEN_KEYWORD,
+    /**
+     * @brief Newline character token.
+     * Specifically used for handling newline characters (`\n`) in the input.
+     */
+    TOKEN_NEWLINE,
+    /**
+     * @brief Tab character token.
+     * Represents a tab character (`\t`) in the input.
+     */
+    TOKEN_TAB,
+    /**
+     * @brief Integer literal token.
+     * Represents whole numbers (e.g., 42, -7).
+     */
+    TOKEN_INT_LITERAL,
+    /**
+     * @brief Floating-point literal token.
+     * Represents decimal or exponential numbers (e.g., 3.14, 2.5e-10).
+     */
+    TOKEN_FLOAT_LITERAL,
+    /**
+     * @brief String literal token.
+     * Represents a sequence of characters enclosed in double quotes.
+     */
+    TOKEN_STRING_LITERAL,
+    /**
+     * @brief Boolean literal token.
+     * Represents a boolean value (`true` or `false`).
+     */
+    TOKEN_BOOLEAN,
+    /**
+     * @brief Character literal token.
+     * Represents a single character enclosed in single quotes (e.g., `'a'`).
+     */
+    TOKEN_CHAR_LITERAL,
+    /**
+     * @brief Equality comparison operator.
+     * Represents the equality operator (`==`).
+     */
+    TOKEN_EQUAL,
+    /**
+     * @brief Inequality comparison operator.
+     * Represents the not-equal-to operator (`!=`).
+     */
+    TOKEN_NOT_EQUAL,
+    /**
+     * @brief Less-than-or-equal-to operator.
+     * Represents the operator (`<=`).
+     */
+    TOKEN_LESS_EQUAL,
+    /**
+     * @brief Less-than operator.
+     * Represents the operator (`<`).
+     */
+    TOKEN_LESS_THAN,
+    /**
+     * @brief Greater-than-or-equal-to operator.
+     * Represents the operator (`>=`).
+     */
+    TOKEN_GREATER_EQUAL,
+    /**
+     * @brief Greater-than operator.
+     * Represents the operator (`>`).
+     */
+    TOKEN_GREATER_THAN,
+    /**
+     * @brief Assignment operator.
+     * Represents the assignment operator (`=`).
+     */
+    TOKEN_ASSIGNMENT,
+    /**
+     * @brief Addition operator.
+     * Represents the addition operator (`+`).
+     */
+    TOKEN_ADDITION,
+    /**
+     * @brief Subtraction operator.
+     * Represents the subtraction operator (`-`).
+     */
+    TOKEN_SUBTRACTION,
+    /**
+     * @brief Multiplication operator.
+     * Represents the multiplication operator (`*`).
+     */
+    TOKEN_MULTIPLY,
+    /**
+     * @brief Division operator.
+     * Represents the division operator (`/`) with a result as a floating-point number.
+     */
+    TOKEN_DIVISION,
+    /**
+     * @brief Backslash character token.
+     * Represents the backslash character (`\`).
+     */
+    TOKEN_BACKSLASH,
+    /**
+     * @brief Logical OR operator.
+     * Represents the logical OR operator (`||`).
+     */
+    TOKEN_PIPE,
+    /**
+     * @brief Exclamation mark token.
+     * Represents the exclamation mark (`!`), typically used in logical negation.
+     */
+    TOKEN_EXCLAMATION,
+    /**
+     * @brief Left parenthesis token.
+     * Represents the opening parenthesis (`(`).
+     */
+    TOKEN_LPAREN,
+    /**
+     * @brief Right parenthesis token.
+     * Represents the closing parenthesis (`)`).
+     */
+    TOKEN_RPAREN,
+    /**
+     * @brief Left square bracket token.
+     * Represents the opening square bracket (`[`).
+     */
+    TOKEN_LEFT_BRACKET,
+    /**
+     * @brief Right square bracket token.
+     * Represents the closing square bracket (`]`).
+     */
+    TOKEN_RIGHT_BRACKET,
+    /**
+     * @brief Left curly bracket token.
+     * Represents the opening curly bracket (`{`).
+     */
+    TOKEN_CURLYL_BRACKET,
+    /**
+     * @brief Right curly bracket token.
+     * Represents the closing curly bracket (`}`).
+     */
+    TOKEN_CURLYR_BRACKET,
+    /**
+     * @brief Comma token.
+     * Represents the comma (`,`) used for separating elements.
+     */
+    TOKEN_COMMA,
+    /**
+     * @brief Semicolon token.
+     * Represents the semicolon (`;`) used for statement termination.
+     */
+    TOKEN_SEMICOLON,
+    /**
+     * @brief Comment token.
+     * Represents comments in the code (e.g., `// This is a comment`).
+     */
+    TOKEN_COMMENT,
+    /**
+     * @brief Import token.
+     * Represents the `@import` statement.
+     */
+    TOKEN_IMPORT,
+    /**
+     * @brief Discard token.
+     * Represents the underscore (`_`), used for discarding values.
+     */
+    TOKEN_DISCARD,
+    /**
+     * @brief Colon token.
+     * Represents the colon (`:`).
+     */
     TOKEN_COLON,
+    /**
+     * @brief Dot token.
+     * Represents the dot (`.`), often used for member access or namespaces.
+     */
     TOKEN_DOT,
+    /**
+     * @brief Question mark token.
+     * Represents the question mark (`?`), often used in conditional expressions.
+     */
     TOKEN_QUESTION_MARK,
+    /**
+     * @brief Undefined token.
+     * Represents an unrecognized or invalid token.
+     */
     TOKEN_UNDEFINED,
+    /**
+     * @brief String initialization error token.
+     * Represents an error encountered during string initialization.
+     */
     TOKEN_STRINGINIT_ERROR
 
 } Token_type;
 
+/**
+ * @enum Keyword
+ * @brief Enumeration of language keywords.
+ *
+ * This enumeration defines the reserved keywords in the language and their corresponding roles in syntax.
+ * Keywords are case-sensitive and cannot be used as identifiers.
+ */
 typedef enum
 {
-    KEYWORD_IF,    // [a] if
-    KEYWORD_ELSE,  // [ ] else
-    KEYWORD_FN,    // [ ] function definition
-    KEYWORD_CONST, // [ ] constant declaration
-    KEYWORD_I32,   // [ ] 32-bit integer type
-    KEYWORD_F64,   // [ ] 64-bit float type
-    KEYWORD_U8,    // [ ] 8-bit unsigned integer type
-    KEYWORD_NULL,          // [ ] null value
-    KEYWORD_PUB,           // [ ] public visibility modifier
-    KEYWORD_RETURN,        // [ ] return statement
-    KEYWORD_VAR,           // [ ] variable declaration
-    KEYWORD_VOID,          // [ ] void return type
-    KEYWORD_WHILE,         // [ ] while loop
+    /**
+     * @brief Represents the `if` keyword.
+     * Used for conditional branching to execute code based on a boolean condition.
+     */
+    KEYWORD_IF,
+
+    /**
+     * @brief Represents the `else` keyword.
+     * Specifies the block of code to execute if the condition in the corresponding `if` statement is false.
+     */
+    KEYWORD_ELSE,
+
+    /**
+     * @brief Represents the `fn` keyword.
+     * Used to define a function in the language.
+     */
+    KEYWORD_FN,
+
+    /**
+     * @brief Represents the `const` keyword.
+     * Declares a constant value that cannot be modified after initialization.
+     */
+    KEYWORD_CONST,
+
+    /**
+     * @brief Represents the `i32` keyword.
+     * Specifies a 32-bit signed integer type.
+     */
+    KEYWORD_I32,
+
+    /**
+     * @brief Represents the `f64` keyword.
+     * Specifies a 64-bit floating-point type.
+     */
+    KEYWORD_F64,
+
+    /**
+     * @brief Represents the `u8` keyword.
+     * Specifies an 8-bit unsigned integer type.
+     */
+    KEYWORD_U8,
+
+    /**
+     * @brief Represents the `null` keyword.
+     * Denotes a null or uninitialized value.
+     */
+    KEYWORD_NULL,
+
+    /**
+     * @brief Represents the `pub` keyword.
+     * Indicates public visibility for functions, variables, or constants, allowing access from outside their scope.
+     */
+    KEYWORD_PUB,
+
+    /**
+     * @brief Represents the `return` keyword.
+     * Used to exit a function and optionally provide a return value.
+     */
+    KEYWORD_RETURN,
+
+    /**
+     * @brief Represents the `var` keyword.
+     * Declares a variable that can be reassigned during its lifetime.
+     */
+    KEYWORD_VAR,
+
+    /**
+     * @brief Represents the `void` keyword.
+     * Specifies that a function does not return a value.
+     */
+    KEYWORD_VOID,
+
+    /**
+     * @brief Represents the `while` keyword.
+     * Creates a loop that repeatedly executes code as long as a boolean condition evaluates to true.
+     */
+    KEYWORD_WHILE
+
 } Keyword;
 
+/**
+ * @enum State
+ * @brief Enumeration representing the states of a finite state machine (FSM) for lexical analysis.
+ *
+ * This FSM is used to tokenize input by transitioning between states based on the input character.
+ * Each state corresponds to a specific type of token or behavior during tokenization.
+ */
 typedef enum
 {
-    // Starting state, the initial state for the FSM.
+    /**
+     * @brief The initial state of the FSM.
+     * This state represents the starting point before processing any input character.
+     */
     sStart,
 
-    // States for handling identifiers and keywords.
-    sIdentifierorKeyword, // Identifier (variables, function names); case-sensitive
-    sKeyword,             // Keyword (const, else, fn, if, etc.)
-    sIdentifier,
+    /**
+     * @brief States for handling identifiers and keywords.
+     */
+    sIdentifierorKeyword, ///< Transition state for detecting identifiers or keywords; case-sensitive.
+    sKeyword,             ///< Indicates the token is a reserved keyword (e.g., const, else, fn, if, etc.).
+    sIdentifier,          ///< Indicates the token is an identifier (e.g., variable or function name).
 
-    // State for identifiers with namespace (e.g., ifj.write)
-    sNamespace, // Handles 'ifj' namespace and functions like ifj.write
+    /**
+     * @brief States for handling numeric literals.
+     */
+    sIntLiteral,   ///< Represents an integer literal (non-negative, decimal format).
+    sFloatLiteral, ///< Represents a floating-point literal, including support for decimal and exponential notation.
+    sExponent,     ///< Handles the exponent part (e.g., "e" or "E") of floating-point numbers.
 
-    // States for handling numbers.
-    sIntLiteral,   // Integer literal (non-negative, decimal format)
-    sFloatLiteral, // Floating-point literal (including exponent)
-    sExponent,     // Handles the exponent part of floating-point numbers
+    /**
+     * @brief States for handling string literals.
+     */
+    sStringLiteral,  ///< Represents a string literal enclosed in double quotes.
+    sEscapeSequence, ///< Handles escape sequences (e.g., \n, \t) within string literals.
 
-    // State for string literals.
-    sStringLiteral,  // String literal (starts and ends with double quotes)
-    sEscapeSequence, // Handles escape sequences inside string literals
+    /**
+     * @brief States for handling operators and punctuation.
+     */
+    sBackSlash,    ///< Handles the backslash character ('\').
+    sDivision,     ///< Represents the division operator ('/').
+    sAssign,       ///< Represents the assignment operator ('=').
+    sEqual,        ///< Represents the equality comparison operator ('==').
+    sNotEqual,     ///< Represents the inequality operator ('!=').
+    sLessEqual,    ///< Represents the less than or equal to operator ('<=').
+    sLessThan,     ///< Represents the less than operator ('<').
+    sGreaterEqual, ///< Represents the greater than or equal to operator ('>=').
+    sGreaterThan,  ///< Represents the greater than operator ('>').
+    sExponentSign, ///< Represents the sign (e.g., '+' or '-') within an exponent part of a floating-point literal.
 
-    // States for operators and punctuation.
-    sOperator,     // Arithmetic and logical operators (+, -, *)
-    sBackSlash,    //
-    sDivision,     // / as division
-    sAssign,       // Assignment operator (=)
-    sEqual,        // Equality comparison (==)
-    sNotEqual,     // Not equal (!=)
-    sLessEqual,    // Less than or equal (<=)
-    sLessThan,     // Less than (<)
-    sGreaterEqual, // Greater than or equal (>=)
-    sGreaterThan,  // Greater than (>)
+    /**
+     * @brief States for handling quotation marks and character literals.
+     */
+    sSingleQuote,     ///< Represents a single quote character (') used in character literals.
+    sLeftSingleQuote, ///< Represents a left single quotation mark (‘), often used in specialized typography.
+    sExclamation,     ///< Represents the exclamation mark ('!'), used in logical negation or other operators.
 
-    // States for parentheses, brackets, and punctuation.
-    sLeftParen,     // Left parenthesis '('
-    sRightParen,    // Right parenthesis ')'
-    sLeftBracket,   // Left bracket '[' for slices
-    sRightBracket,  // Right bracket ']' for slices
-    sCurlyLBracket, // Left bracket '[' for slices
-    sCurlyRBracket, // Right bracket ']' for slices
-    sComma,         // Comma ','
-    sSemicolon,     // Semicolon ';'
-    sExclamation,   // Exclamation mark '!', used in logical negation or operators
-    sPipe,          // pipe '|' character
-    sExponentSign,
+    /**
+     * @brief State for handling comments.
+     */
+    sComment, ///< Represents a line comment starting with "//".
+    sImport,  ///< Represents the '@' symbol for import statements.
 
-    // States for quotation marks.
-    sSingleQuote,     // Single quote ('), used for character literals
-    sLeftSingleQuote, // Left single quotation mark (‘), used in specific typography
-
-    // State for whitespace (ignored between tokens).
-    sWhitespace, // Spaces, tabs, newlines
-
-    // State for handling comments.
-    sComment, // Line comment starting with //
-    sImport,
-    // Error and end state.
-    sError, // Error state for invalid characters or input
-    sEOL,   // End of line state (newline character)
-    sEnd    // End of file or input state
+    /**
+     * @brief States indicating errors or the end of input.
+     */
+    sError, ///< Indicates an error state due to invalid input or characters.
+    sEOL,   ///< End-of-line state for newline characters.
+    sEnd    ///< End-of-file state or input completion.
 } State;
 
+/**
+ * @union Token_Value
+ * @brief Union for storing token values.
+ */
 typedef union
 {
     int intValue;               // Pre celočíselné literály
@@ -144,18 +407,36 @@ typedef union
     int boolValue;              // Pre booleans (0 alebo 1)
 } Token_Value;
 
+/**
+ * @struct Token
+ * @brief Structure representing a token.
+ */
 typedef struct
 {
-    Token_type type;   // Type of the token
-    Token_Value value; // Value of the token (union)
-    Keyword keyword_val;    // Flag to indicate if it's a keyword (0-x) or NULL (0)
-    int lineX, LineY;  // Line number in the source code
+    Token_type type;     // Type of the token
+    Token_Value value;   // Value of the token (union)
+    Keyword keyword_val; // Flag to indicate if it's a keyword (0-x) or NULL (0)
+    int lineX, LineY;    // Line number in the source code
 } Token;
 
+/**
+ * @brief Converts a token type to its string representation.
+ * @param type The token type to convert.
+ * @return String representation of the token type.
+ */
 const char *token_type_to_string(Token_type type);
+
+/**
+ * @brief Prints the details of a token.
+ * @param token The token to print.
+ */
 void print_token(Token token);
 
-// Deklarácia funkcie get_token
+/**
+ * @brief Retrieves the next token from the input file.
+ * @param file The file to read from.
+ * @return The next token.
+ */
 Token get_token(FILE *file);
 
 #endif // LEXICAL_ANALYSER_H

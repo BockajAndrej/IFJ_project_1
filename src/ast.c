@@ -3,174 +3,193 @@
 #include <string.h>
 #include "ast.h"
 
-
-char *copy_str(const char *str) {
-    if (str == NULL) return NULL; 
-
-    char *copy = malloc(strlen(str) + 1);
-    if (copy) { 
-        strcpy(copy, str); 
-    }
-    return copy; 
-}
-
-void free_str(char *str) {
-    if (str != NULL) { 
-        free(str);     
-    }
-}
-
-
-ASTNode* createNode(NodeType type, const char* value) {
-
-    ASTNode* node = (ASTNode*)malloc(sizeof(ASTNode));
-
-    if (!node) {
-        fprintf(stderr, "Error allocating memory for AST node\n");
+// Pomocná funkcia na kopírovanie reťazca
+char* copy_str(const char* str) {
+    if (!str) return NULL;
+    char* copy = malloc(strlen(str) + 1);
+    if (!copy) {
+        fprintf(stderr, "Error: Memory allocation failed for string copy.\n");
         exit(1);
     }
+    strcpy(copy, str);
+    return copy;
+}
 
+//VYTVORENIE UZLA
+BinaryTreeNode* createBinaryNode(NodeType type, DataType dataType, const char* value) {
+    BinaryTreeNode* node = malloc(sizeof(BinaryTreeNode));
+    if (!node) {
+        fprintf(stderr, "Error: Memory allocation failed for BinaryTreeNode.\n");
+        exit(1);
+    }
     node->type = type;
-    node->value = value ? copy_str(value) : NULL;
+    node->dataType = dataType;
+    node->valueType = AST_VALUE_STRING; // Predvolený typ
+    node->value.strValue = copy_str(value); // Uloženie hodnoty
     node->left = NULL;
     node->right = NULL;
-    node->body = NULL;
-    node->body_size = 0;
-    node->params = NULL;
-    node->params_size = 0;
-
+    node->parent = NULL;
     return node;
 }
 
-ASTNode* createFunctionNode(const char* name) {
-    return createNode(NODE_FUNC_DEF, name);
-}
-
-ASTNode* createBlockNode() {
-    return createNode(NODE_BLOCK, NULL);
-}
-
-void addChildToArray(ASTNode*** array, int* size, ASTNode* child) {
-    if (!array || !size || !child) return;
-
-    ASTNode** new_array = realloc(*array, (*size + 1) * sizeof(ASTNode*));
-    if (!new_array) {
-        fprintf(stderr, "Error reallocating memory for AST array\n");
-        exit(1);
+//VLOZENIE V LAVO
+void insertLeft(BinaryTreeNode* parent, NodeType type, DataType dataType, const char* value) {
+    if (!parent) {
+        fprintf(stderr, "Error: Parent node is NULL.\n");
+        return;
     }
-
-    *array = new_array;
-    (*array)[*size] = child;
-    (*size)++;
+    if (parent->left) {
+        fprintf(stderr, "Error: Left child already exists for node %s.\n", parent->value.strValue);
+        return;
+    }
+    BinaryTreeNode* child = createBinaryNode(type, dataType, value);
+    child->parent = parent;
+    parent->left = child;
 }
 
-void addParameter(ASTNode* func, ASTNode* param) {
-    addChildToArray(&func->params, &func->params_size, param);
+//VLOZENIA V PRAVO
+void insertRight(BinaryTreeNode* parent, NodeType type, DataType dataType, const char* value) {
+    if (!parent) {
+        fprintf(stderr, "Error: Parent node is NULL.\n");
+        return;
+    }
+    if (parent->right) {
+        fprintf(stderr, "Error: Right child already exists for node %s.\n", parent->value.strValue);
+        return;
+    }
+    BinaryTreeNode* child = createBinaryNode(type, dataType, value);
+    child->parent = parent;
+    parent->right = child;
 }
 
+//PREMENNA NA SLEDOVANIE UZLA
+BinaryTreeNode* currentNode = NULL;
 
-void addStatementToBlock(ASTNode* block, ASTNode* stmt) {
-    addChildToArray(&block->body, &block->body_size, stmt);
+
+
+
+//POHYB
+void setStartNode(BinaryTreeNode* root) {
+    currentNode = root;
 }
 
-
-
-void addChild(ASTNode* parent, ASTNode* child) {
-    addChildToArray(&parent->body, &parent->body_size, child);;
-}
-
-
-void freeAST(ASTNode* node) {
-    if (!node) return;
-
-    if (node->value) {
-        free_str(node->value); 
-        node->value = NULL;
-    }
-
-    if (node->body) {
-        for (int i = 0; i < node->body_size; i++) {
-            if (node->body[i]) {
-                freeAST(node->body[i]); 
-            }
-        }
-        free(node->body);
-        node->body = NULL;
-    }
-
-    if (node->params) {
-        for (int i = 0; i < node->params_size; i++) {
-            if (node->params[i]) {
-                freeAST(node->params[i]);
-            }
-        }
-        free(node->params);
-        node->params = NULL;
-    }
-
-
-    if (node->left) {
-        freeAST(node->left);
-        node->left = NULL;
-    }
-    if (node->right) {
-        freeAST(node->right);
-        node->right = NULL;
-    }
-
-        free(node);
-}
-
-
-
-
-
-void printAST(ASTNode* node, int indent) {
-    if (!node) return;
-
-    // Vytváranie odsadenia
-    for (int i = 0; i < indent; i++) printf("  ");
-
-    // Výpis uzla podľa jeho typu
-    if (node->type == NODE_IF || node->type == NODE_WHILE) {
-        printf("%s", node->type == NODE_IF ? "IF" : "WHILE");
-
-        // Výpis podmienky
-        if (node->body_size > 0 && node->body[0]) {
-            printf(" (");
-            printAST(node->body[0], 0); // Podmienka je prvý uzol v body
-            printf(")");
-        }
-        printf("\n");
-
-        // Výpis tela
-        for (int i = 1; i < node->body_size; i++) {
-            printAST(node->body[i], indent + 1);
-        }
-    } else if (node->type == NODE_OP) {
-        printf("OPERATION (%s)\n", node->value);
-    } else if (node->type == NODE_VAR) {
-        printf("VARIABLE (%s)\n", node->value);
-    } else if (node->type == NODE_CONST) {
-        printf("CONSTANT (%s)\n", node->value);
-    } else if (node->type == NODE_ASSIGN) {
-        printf("ASSIGN (%s)\n", node->value);
-        if (node->left) printAST(node->left, indent + 1);
-        if (node->right) printAST(node->right, indent + 1);
+void moveUp() {
+    if (currentNode && currentNode->parent) {
+        currentNode = currentNode->parent;
     } else {
-        printf("%s (%s)\n",
-            node->type == NODE_FUNC_DEF ? "FUNCTION DEF" :
-            node->type == NODE_PROG ? "PROGRAM" : "UNKNOWN",
-            node->value ? node->value : "NULL");
-    }
-
-    // Rekurzívne spracovanie ďalších uzlov
-    if (node->left) printAST(node->left, indent + 1);
-    if (node->right) printAST(node->right, indent + 1);
-    if (node->body && (node->type != NODE_IF && node->type != NODE_WHILE)) {
-        for (int i = 0; i < node->body_size; i++) {
-            printAST(node->body[i], indent + 1);
-        }
+        printf("Error: Cannot move up, current node has no parent.\n");
     }
 }
 
+void moveDownLeft() {
+    if (currentNode && currentNode->left) {
+        currentNode = currentNode->left;
+    } else {
+        printf("Error: Cannot move left from the current node.\n");
+    }
+}
+
+void moveDownRight() {
+    if (currentNode && currentNode->right) {
+        currentNode = currentNode->right;
+    } else {
+        printf("Error: Cannot move right from the current node.\n");
+    }
+}
+
+NodeInfo getNodeInfo(BinaryTreeNode* node) {
+    NodeInfo info = {0};
+
+    if (!node) {
+        info.value = "NULL"; // Ak je uzol NULL, vrátime informácie s hodnotou NULL
+        return info;
+    }
+
+    info.type = node->type;
+    info.dataType = node->dataType;
+
+    // Nastavenie hodnoty uzla
+    if (node->valueType == AST_VALUE_STRING && node->value.strValue) {
+        info.value = node->value.strValue;
+    } else if (node->valueType == AST_VALUE_INT) {
+        static char buffer[20];
+        snprintf(buffer, sizeof(buffer), "%d", node->value.intValue);
+        info.value = buffer;
+    } else if (node->valueType == AST_VALUE_FLOAT) {
+        static char buffer[20];
+        snprintf(buffer, sizeof(buffer), "%.2f", node->value.floatValue);
+        info.value = buffer;
+    } else {
+        info.value = "NULL";
+    }
+
+    // Nastavenie informácií o deťoch
+    info.hasLeft = (node->left != NULL);
+    info.hasRight = (node->right != NULL);
+
+    // Nastavenie hodnoty rodiča
+    if (node->parent && node->parent->value.strValue) {
+        info.parentValue = node->parent->value.strValue;
+    } else {
+        info.parentValue = "NULL";
+    }
+
+    return info;
+}
+
+
+
+
+//FREE A VYPIS
+void freeBinaryTree(BinaryTreeNode* root) {
+    if (!root) return;
+
+    freeBinaryTree(root->left);
+    freeBinaryTree(root->right);
+
+    if (root->valueType == AST_VALUE_STRING && root->value.strValue) {
+        free(root->value.strValue);
+    }
+    free(root);
+}
+
+void printBinaryTree(BinaryTreeNode* root, int level) {
+    if (!root) return;
+
+    for (int i = 0; i < level; i++) {
+        printf("  ");
+    }
+    printf("NODE_TYPE: %s, VALUE: %s\n", NodeTypeToString(root->type), root->value.strValue ? root->value.strValue : "NULL");
+
+    printBinaryTree(root->left, level + 1);
+    printBinaryTree(root->right, level + 1);
+}
+
+const char* NodeTypeToString(NodeType type) {
+    switch (type) {
+        case NODE_OP: return "NODE_OP";
+        case NODE_VAR: return "NODE_VAR";
+        case NODE_CONST: return "NODE_CONST";
+        case NODE_IF: return "NODE_IF";
+        case NODE_WHILE: return "NODE_WHILE";
+        case NODE_FUNC_DEF: return "NODE_FUNC_DEF";
+        case NODE_FUNC_CALL: return "NODE_FUNC_CALL";
+        case NODE_ASSIGN: return "NODE_ASSIGN";
+        case NODE_RETURN: return "NODE_RETURN";
+        case NODE_PROG: return "NODE_PROG";
+        case NODE_VAR_DECL: return "NODE_VAR_DECL";
+        case NODE_LINE: return "NODE_LINE";
+        default: return "UNKNOWN_NODE_TYPE";
+    }
+}
+
+const char* DataTypeToString(DataType type) {
+    switch (type) {
+        case TYPE_INT: return "TYPE_INT";
+        case TYPE_FLOAT: return "TYPE_FLOAT";
+        case TYPE_BOOL: return "TYPE_BOOL";
+        case TYPE_STRING: return "TYPE_STRING";
+        case TYPE_NEW_LINE: return "TYPE_NEW_LINE";
+        default: return "UNKNOWN_DATA_TYPE";
+    }
+}

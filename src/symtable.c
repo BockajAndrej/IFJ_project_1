@@ -8,7 +8,6 @@
 char *copy_string(const char *str) {
     if (str == NULL) return NULL; 
 
- 
     char *copy = malloc(strlen(str) + 1);
     if (copy) { 
         strcpy(copy, str); 
@@ -33,15 +32,16 @@ SymbolTable *create_table() {
 }
 
 
-void insert_symbol(SymbolTable *table, const char *name, ValueType type, void *value) {
+void insert_symbol(SymbolTable *table, int level, const char *name, ValueType type, void *value) {
     Symbol *new_symbol = malloc(sizeof(Symbol));
     if (!new_symbol) {
         fprintf(stderr, "Chyba alokácie pamäte pre symbol\n");
         return;
     }
 
-    new_symbol->name = copy_string(name); 
-    new_symbol->type = type;         
+    new_symbol->name = copy_string(name);
+    new_symbol->type = type;   
+    new_symbol->level = level;      
 
 
     switch (type) {
@@ -55,7 +55,6 @@ void insert_symbol(SymbolTable *table, const char *name, ValueType type, void *v
             new_symbol->value.strValue = copy_string((char *)value);
             break;
     }
-
 
     new_symbol->next = table->head;
     table->head = new_symbol;

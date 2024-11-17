@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['hashtable_204',['HashTable',['../structHashTable.html',1,'']]]
+  ['symbol_191',['Symbol',['../structSymbol.html',1,'']]],
+  ['symboltable_192',['SymbolTable',['../structSymbolTable.html',1,'']]]
 ];

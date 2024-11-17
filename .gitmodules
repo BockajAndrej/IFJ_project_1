@@ -1,0 +1,3 @@
+[submodule "src/IFJ-project01"]
+	path = src/IFJ-project01
+	url = https://github.com/BockajAndrej/IFJ-project01
