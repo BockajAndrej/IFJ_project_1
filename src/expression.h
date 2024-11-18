@@ -6,6 +6,7 @@
  */
 typedef enum
 {
+    N_DOLLAR,    /// $
     N_EQ_N,    /// E -> E == E  -
     N_NEQ_N,   /// E -> E != E  -
     N_LEQ_N,   /// E -> E <= E  -

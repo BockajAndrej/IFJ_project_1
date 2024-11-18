@@ -46,6 +46,9 @@ test: zip
 uni_tests:
 	$(CC) $(TEST_UNIT_CFLAGS) -o uni_test $(TEST_UNIT_SCRIPT) $(TEST_UNIT_SOURCES)
 
+valgrind: $(EXECUTABLE)
+	valgrind --leak-check=full --track-origins=yes ./$(EXECUTABLE) ../tests/inputs/03.txt
+
 # Clean all build files
 clean:
 	rm -f $(DEST_DIR)/$(ZIP_NAME)

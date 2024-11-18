@@ -681,10 +681,10 @@ bool EXPRESSION(FILE *file, Token token)
     // LOGIKA : Ak v expresne bude znak "(" prva zatvorka bude este expression ale ta dalsia uz to bude koncit.
     pmesg(" ------ EXPRESSION ------\n");
     Stack stack;
-    Stack_item item;
+    Stack_item curPrecItem;
     Prec_table_symbol_enum tmp_sym;
 
-    initStack(&stack);
+    initStack(&stack, precedence);
 
     const int N = 10;
     char table[10][10] = {
@@ -700,7 +700,7 @@ bool EXPRESSION(FILE *file, Token token)
         {'<', '<', '<', '<', '<', '<', '<', 'X', '<', ' '}};
 
     int tmp_char = find_OP(N, table, token, &stack, &tmp_sym);
-    
+
     // Ends when it gen ' ' (means: $$)
     while (tmp_char != ' ')
     {
@@ -720,49 +720,49 @@ bool EXPRESSION(FILE *file, Token token)
 
             do
             {
-                pop(&stack, &item);
+                RemoveTop(&stack, &curPrecItem);
                 switch (state)
                 {
                 case sStartExc:
-                    if (item.symbol.precedence == ID || item.symbol.precedence == INT_NUM || item.symbol.precedence == FLOAT_NUM)
+                    if (curPrecItem.data.precedence.symbol == ID || curPrecItem.data.precedence.symbol == INT_NUM || curPrecItem.data.precedence.symbol == FLOAT_NUM)
                         state = sFinalExc;
-                    else if (item.symbol.precedence == RPAR)
+                    else if (curPrecItem.data.precedence.symbol == RPAR)
                         state = sLParExc;
-                    else if (item.symbol.precedence == NTERMINAL)
+                    else if (curPrecItem.data.precedence.symbol == NTERMINAL)
                         state = sNTerExc;
                     break;
                 case sLParExc:
-                    if (item.symbol.precedence == NTERMINAL)
+                    if (curPrecItem.data.precedence.symbol == NTERMINAL)
                         state = sLParExc1;
                     break;
                 case sLParExc1:
-                    if (item.symbol.precedence == LPAR)
+                    if (curPrecItem.data.precedence.symbol == LPAR)
                         state = sFinalExc;
                     break;
                 case sNTerExc:
-                    if (item.symbol.precedence == EQ)
+                    if (curPrecItem.data.precedence.symbol == EQ)
                         state = sNTerExc1;
-                    else if (item.symbol.precedence == NEQ)
+                    else if (curPrecItem.data.precedence.symbol == NEQ)
                         state = sNTerExc1;
-                    else if (item.symbol.precedence == LEQ)
+                    else if (curPrecItem.data.precedence.symbol == LEQ)
                         state = sNTerExc1;
-                    else if (item.symbol.precedence == LTN)
+                    else if (curPrecItem.data.precedence.symbol == LTN)
                         state = sNTerExc1;
-                    else if (item.symbol.precedence == GEQ)
+                    else if (curPrecItem.data.precedence.symbol == GEQ)
                         state = sNTerExc1;
-                    else if (item.symbol.precedence == GTN)
+                    else if (curPrecItem.data.precedence.symbol == GTN)
                         state = sNTerExc1;
-                    else if (item.symbol.precedence == ADD)
+                    else if (curPrecItem.data.precedence.symbol == ADD)
                         state = sNTerExc1;
-                    else if (item.symbol.precedence == SUB)
+                    else if (curPrecItem.data.precedence.symbol == SUB)
                         state = sNTerExc1;
-                    else if (item.symbol.precedence == MUL)
+                    else if (curPrecItem.data.precedence.symbol == MUL)
                         state = sNTerExc1;
-                    else if (item.symbol.precedence == DIV)
+                    else if (curPrecItem.data.precedence.symbol == DIV)
                         state = sNTerExc1;
                     break;
                 case sNTerExc1:
-                    if (item.symbol.precedence == NTERMINAL)
+                    if (curPrecItem.data.precedence.symbol == NTERMINAL)
                         state = sFinalExc;
                     break;
                 case sFinalExc:
@@ -771,38 +771,41 @@ bool EXPRESSION(FILE *file, Token token)
                 default:
                     break;
                 }
-            } while (item.type);
+            } while (curPrecItem.data.precedence.type);
 
             if (!isExpressionCorrect)
-                {
-                    printf("STATE = %d", state);
-                    return false;
-                }
+            {
+                printf("STATE = %d", state);
+                return false;
+            }
             // Vkladanie neterminalu
-            item.symbol.precedence = NTERMINAL;
-            item.type = true;
-            push(&stack, item);
+            curPrecItem.data.precedence.symbol = NTERMINAL;
+            curPrecItem.data.precedence.type = true;
+            curPrecItem.type = precedence;
+            push(&stack, curPrecItem);
         }
         // Vkladanie do stacku
         else if (tmp_char == '<')
         {
             printf("- Shift\n");
-            item.symbol.operand = tmp_char;
-            item.type = false;
-            pushAfterTerminal(&stack, item);
-            item.symbol.precedence = tmp_sym;
-            item.type = true;
-            push(&stack, item);
+            curPrecItem.type = precedence;
+            curPrecItem.data.precedence.symbol = tmp_char;
+            curPrecItem.data.precedence.type = false;
+            pushAfterTerminal(&stack, curPrecItem);
+            curPrecItem.data.precedence.symbol = tmp_sym;
+            curPrecItem.data.precedence.type = true;
+            push(&stack, curPrecItem);
         }
         else if (tmp_char == '=')
         {
-            item.symbol.precedence = tmp_sym;
-            item.type = true;
-            push(&stack, item);
+            curPrecItem.data.precedence.symbol = tmp_sym;
+            curPrecItem.data.precedence.type = true;
+            curPrecItem.type = precedence;
+            push(&stack, curPrecItem);
         }
         else
             return false;
-        
+
         PrintAllStack(&stack);
         // Znaci ze prebelha redukcia a chceme spracovat rovnaky token
         if (!isExpressionCorrect)
