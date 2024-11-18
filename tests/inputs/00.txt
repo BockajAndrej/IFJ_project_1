@@ -7,3 +7,4 @@ pub fn main() void {
     var a: i32 = 0;
     const r = foo(param);
 }
+
