@@ -51,3 +51,4 @@ clean:
 	rm -f $(DEST_DIR)/$(ZIP_NAME)
 	rm -rf $(TESTDIR)
 	rm -f $(OBJ_FILES) $(EXECUTABLE)
+	rm -f uni_test
