@@ -74,10 +74,10 @@ void test_hash_table() {
 
 int main(int argc, char **argv)
 {
-    if(argc == 1){
-        test_hash_table();
-        return 0;
-    }
+    // if(argc == 1){
+    //     test_hash_table();
+    //     return 0;
+    // }
 
     
     // Skontroluj, či bol zadaný súbor ako argument
