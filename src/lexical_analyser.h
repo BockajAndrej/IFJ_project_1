@@ -232,7 +232,9 @@ typedef enum
      * @brief String initialization error token.
      * Represents an error encountered during string initialization.
      */
-    TOKEN_STRINGINIT_ERROR
+    TOKEN_STRINGINIT_ERROR,
+
+    TOKEN_EMPTY
 
 } Token_type;
 

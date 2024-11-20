@@ -2,28 +2,30 @@
 #define AST_H
 
 #include <stdbool.h>
+#include "lexical_analyser.h"
 
 // Typy uzlov
 typedef enum
 {
-    NODE_OP,    // Operácia ( +, -, !=)
-    NODE_VAR,   // Premenná (a, b)
-    NODE_CONST, // Konštanta (0, 1)
-    NODE_IF,    // Podmienka (if-else)
-    NODE_ELSIF, // Else if
-    NODE_ELSIF_PREP,
-    NODE_ELSE,
-    NODE_PREP_IF,   // priprava na podmienku a telo
-    NODE_PREP2_IF,
-    NODE_NONNULL,   // value inside |example| in if or while
-    NODE_WHILE,     // Cyklus
-    NODE_FUNC_DEF,  // Definícia funkcie
-    NODE_FUNC_CALL, // Volanie funkcie
-    NODE_ASSIGN,    // Priradenie (a = b)
-    NODE_RETURN,    // Návratová hodnota
-    NODE_PROG,      // Koreň programu
-    NODE_VAR_DECL,  // Deklarácia premennej
-    NODE_LINE       // Nový riadok
+    NODE_OP,         // Operácia ( +, -, !=)
+    NODE_VAR,        // Premenná (a, b)
+    NODE_CONST,      // Konštanta (0, 1)
+    NODE_STRING,     // String hodnota
+    NODE_IF,         // Podmienka (if-else)
+    NODE_ELSIF,      // Else if
+    NODE_ELSIF_PREP, // Else if pomocná
+    NODE_ELSE,       // Else
+    NODE_PREP_IF,    // If pomocná <npode_prep2_if   >N_prog
+    NODE_PREP2_IF,   // If pomocna na podmienku vlavo, nonnull hodnotu vpravo
+    NODE_NONNULL,    // value inside |example| in if or while
+    NODE_WHILE,      // Cyklus
+    NODE_FUNC_DEF,   // Definícia funkcie
+    NODE_FUNC_CALL,  // Volanie funkcie
+    NODE_ASSIGN,     // Priradenie (a = b)
+    NODE_RETURN,     // Návratová hodnota
+    NODE_PROG,       // Koreň programu
+    NODE_VAR_DECL,   // Deklarácia premennej
+    NODE_LINE        // Nový riadok
 } NodeType;
 
 // Typy dát
@@ -49,14 +51,10 @@ typedef enum
 typedef struct BinaryTreeNode
 {
     NodeType type;
-    DataType dataType;
-    ASTValueType valueType; // Typ hodnoty
-    union
-    {
-        int intValue;
-        float floatValue;
-        char *strValue;
-    } value;
+    // DataType dataType;
+    Token_type tokenType;
+    // ASTValueType valueType; // Typ hodnoty
+    char *strValue;
     struct BinaryTreeNode *left;   // Ľavý potomok
     struct BinaryTreeNode *right;  // Pravý potomok
     struct BinaryTreeNode *parent; // Rodič uzla
@@ -65,7 +63,7 @@ typedef struct BinaryTreeNode
 typedef struct
 {
     NodeType type;
-    DataType dataType;
+    Token_type tokenTypeL;
     const char *value;
     bool hasLeft;
     bool hasRight;
@@ -75,13 +73,13 @@ typedef struct
 extern BinaryTreeNode *currentNode;
 
 // FUNKCIE PRE SPRAVU STROMU
-BinaryTreeNode *createBinaryNode(NodeType type, DataType dataType, const char *value);
-void insertLeft(BinaryTreeNode *parent, NodeType type, DataType dataType, const char *value);
-void insertLeftMoveLeft(BinaryTreeNode *parent, NodeType type, DataType dataType, const char *value);
-void insertLeftMoveRight(BinaryTreeNode *parent, NodeType type, DataType dataType, const char *value);
-void insertRight(BinaryTreeNode *parent, NodeType type, DataType dataType, const char *value);
-void insertRightMoveRight(BinaryTreeNode *parent, NodeType type, DataType dataType, const char *value);
-void insertRightMoveLeft(BinaryTreeNode *parent, NodeType type, DataType dataType, const char *value);
+BinaryTreeNode *createBinaryNode(NodeType type, Token_type tokenType, const char *value);
+void insertLeft(BinaryTreeNode *parent, NodeType type, Token_type tokenType, const char *value);
+void insertLeftMoveLeft(BinaryTreeNode *parent, NodeType type, Token_type tokenType, const char *value);
+void insertLeftMoveRight(BinaryTreeNode *parent, NodeType type, Token_type tokenType, const char *value);
+void insertRight(BinaryTreeNode *parent, NodeType type, Token_type tokenType, const char *value);
+void insertRightMoveRight(BinaryTreeNode *parent, NodeType type, Token_type tokenType, const char *value);
+void insertRightMoveLeft(BinaryTreeNode *parent, NodeType type, Token_type tokenType, const char *value);
 
 // FUNKCIE PRE POHYB V STOME
 NodeInfo getCurrentNodeInfo();

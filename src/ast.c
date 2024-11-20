@@ -19,7 +19,7 @@ char *copy_str(const char *str)
 }
 
 // VYTVORENIE UZLA
-BinaryTreeNode *createBinaryNode(NodeType type, DataType dataType, const char *value)
+BinaryTreeNode *createBinaryNode(NodeType type, Token_type tokenType, const char *value)
 {
     BinaryTreeNode *node = malloc(sizeof(BinaryTreeNode));
     if (!node)
@@ -28,9 +28,10 @@ BinaryTreeNode *createBinaryNode(NodeType type, DataType dataType, const char *v
         exit(1);
     }
     node->type = type;
-    node->dataType = dataType;
-    node->valueType = AST_VALUE_STRING;     // Predvolený typ
-    node->value.strValue = copy_str(value); // Uloženie hodnoty
+    node->tokenType = tokenType;
+    // node->dataType = dataType;
+    // node->valueType = AST_VALUE_STRING;     // Predvolený typ
+    node->strValue = copy_str(value); // Uloženie hodnoty
     node->left = NULL;
     node->right = NULL;
     node->parent = NULL;
@@ -38,7 +39,7 @@ BinaryTreeNode *createBinaryNode(NodeType type, DataType dataType, const char *v
 }
 
 // VLOZENIE V LAVO
-void insertLeft(BinaryTreeNode *parent, NodeType type, DataType dataType, const char *value)
+void insertLeft(BinaryTreeNode *parent, NodeType type, Token_type tokenType, const char *value)
 {
     if (!parent)
     {
@@ -47,28 +48,28 @@ void insertLeft(BinaryTreeNode *parent, NodeType type, DataType dataType, const 
     }
     if (parent->left)
     {
-        fprintf(stderr, "Error: Left child already exists for node %s.\n", parent->value.strValue);
+        fprintf(stderr, "Error: Left child already exists for node %s.\n", parent->strValue);
         return;
     }
-    BinaryTreeNode *child = createBinaryNode(type, dataType, value);
+    BinaryTreeNode *child = createBinaryNode(type, tokenType, value);
     child->parent = parent;
     parent->left = child;
 }
 
-void insertLeftMoveLeft(BinaryTreeNode *parent, NodeType type, DataType dataType, const char *value)
+void insertLeftMoveLeft(BinaryTreeNode *parent, NodeType type, Token_type tokenType, const char *value)
 {
-    insertLeft(parent, type, dataType, value);
+    insertLeft(parent, type, tokenType, value);
     moveDownLeft();
 }
 
-void insertLeftMoveRight(BinaryTreeNode *parent, NodeType type, DataType dataType, const char *value)
+void insertLeftMoveRight(BinaryTreeNode *parent, NodeType type, Token_type tokenType, const char *value)
 {
-    insertLeft(parent, type, dataType, value);
+    insertLeft(parent, type, tokenType, value);
     moveDownRight();
 }
 
 // VLOZENIA V PRAVO
-void insertRight(BinaryTreeNode *parent, NodeType type, DataType dataType, const char *value)
+void insertRight(BinaryTreeNode *parent, NodeType type, Token_type tokenType, const char *value)
 {
     if (!parent)
     {
@@ -77,23 +78,23 @@ void insertRight(BinaryTreeNode *parent, NodeType type, DataType dataType, const
     }
     if (parent->right)
     {
-        fprintf(stderr, "Error: Right child already exists for node %s.\n", parent->value.strValue);
+        fprintf(stderr, "Error: Right child already exists for node %s.\n", parent->strValue);
         return;
     }
-    BinaryTreeNode *child = createBinaryNode(type, dataType, value);
+    BinaryTreeNode *child = createBinaryNode(type, tokenType, value);
     child->parent = parent;
     parent->right = child;
 }
 
-void insertRightMoveRight(BinaryTreeNode *parent, NodeType type, DataType dataType, const char *value)
+void insertRightMoveRight(BinaryTreeNode *parent, NodeType type, Token_type tokenType, const char *value)
 {
-    insertRight(parent, type, dataType, value);
+    insertRight(parent, type, tokenType, value);
     moveDownRight();
 }
 
-void insertRightMoveLeft(BinaryTreeNode *parent, NodeType type, DataType dataType, const char *value)
+void insertRightMoveLeft(BinaryTreeNode *parent, NodeType type, Token_type tokenType, const char *value)
 {
-    insertRight(parent, type, dataType, value);
+    insertRight(parent, type, tokenType, value);
     moveDownLeft();
 }
 
@@ -165,44 +166,44 @@ NodeInfo getNodeInfo(BinaryTreeNode *node)
         return info;
     }
 
-    info.type = node->type;
-    info.dataType = node->dataType;
+    // info.type = node->type;
+    // info.dataType = node->dataType;
 
-    // Nastavenie hodnoty uzla
-    if (node->valueType == AST_VALUE_STRING && node->value.strValue)
-    {
-        info.value = node->value.strValue;
-    }
-    else if (node->valueType == AST_VALUE_INT)
-    {
-        static char buffer[20];
-        snprintf(buffer, sizeof(buffer), "%d", node->value.intValue);
-        info.value = buffer;
-    }
-    else if (node->valueType == AST_VALUE_FLOAT)
-    {
-        static char buffer[20];
-        snprintf(buffer, sizeof(buffer), "%.2f", node->value.floatValue);
-        info.value = buffer;
-    }
-    else
-    {
-        info.value = "NULL";
-    }
+    // // Nastavenie hodnoty uzla
+    // if (node->valueType == AST_VALUE_STRING && node->value.strValue)
+    // {
+    //     info.value = node->value.strValue;
+    // }
+    // else if (node->valueType == AST_VALUE_INT)
+    // {
+    //     static char buffer[20];
+    //     snprintf(buffer, sizeof(buffer), "%d", node->value.intValue);
+    //     info.value = buffer;
+    // }
+    // else if (node->valueType == AST_VALUE_FLOAT)
+    // {
+    //     static char buffer[20];
+    //     snprintf(buffer, sizeof(buffer), "%.2f", node->value.floatValue);
+    //     info.value = buffer;
+    // }
+    // else
+    // {
+    //     info.value = "NULL";
+    // }
 
-    // Nastavenie informácií o deťoch
-    info.hasLeft = (node->left != NULL);
-    info.hasRight = (node->right != NULL);
+    // // Nastavenie informácií o deťoch
+    // info.hasLeft = (node->left != NULL);
+    // info.hasRight = (node->right != NULL);
 
-    // Nastavenie hodnoty rodiča
-    if (node->parent && node->parent->value.strValue)
-    {
-        info.parentValue = node->parent->value.strValue;
-    }
-    else
-    {
-        info.parentValue = "NULL";
-    }
+    // // Nastavenie hodnoty rodiča
+    // if (node->parent && node->parent->value.strValue)
+    // {
+    //     info.parentValue = node->parent->value.strValue;
+    // }
+    // else
+    // {
+    //     info.parentValue = "NULL";
+    // }
 
     return info;
 }
@@ -216,9 +217,9 @@ void freeBinaryTree(BinaryTreeNode *root)
     freeBinaryTree(root->left);
     freeBinaryTree(root->right);
 
-    if (root->valueType == AST_VALUE_STRING && root->value.strValue)
+    if (root->strValue != NULL)
     {
-        free(root->value.strValue);
+        free(root->strValue);
     }
     free(root);
 }
@@ -259,8 +260,8 @@ void printBinaryTreeHelper(BinaryTreeNode *node, char *prefix, int isLast)
     else
         printf("├── ");
 
-    printf("%s%s (\"%s\")%s\n", color, NodeTypeToString(node->type),
-           node->value.strValue ? node->value.strValue : "NULL",
+    printf("%s%s (\"%s\") %s %s\n", color, NodeTypeToString(node->type),
+           node->strValue ? node->strValue : "NULL", token_type_to_string(node->tokenType),
            COLOR_RESET);
 
     char newPrefix[1024];
@@ -301,6 +302,8 @@ const char *NodeTypeToString(NodeType type)
         return "NODE_VAR";
     case NODE_CONST:
         return "NODE_CONST";
+    case NODE_STRING:
+        return "NODE_STRING";
     case NODE_IF:
         return "NODE_IF";
     case NODE_WHILE:

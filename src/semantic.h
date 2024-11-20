@@ -13,7 +13,8 @@
 
 void ast_test();
 void ast_IfElse_1();
-
+void ast_valdef();
+void ast_val_expression();
 void check_logic();
 
 #endif

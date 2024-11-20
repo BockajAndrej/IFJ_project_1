@@ -10,68 +10,69 @@
 void ast_test()
 {
     // 1. Vytvor koreňový uzol
-    BinaryTreeNode *root = createBinaryNode(NODE_OP, TYPE_INT, "+");
-    setStartNode(root); // Nastavenie koreňa ako počiatočného uzla
+    // BinaryTreeNode *root = createBinaryNode(NODE_OP, TYPE_INT, "+");
+    // setStartNode(root); // Nastavenie koreňa ako počiatočného uzla
 
-    // 2. Pridaj ľavý podstrom
-    insertLeft(root, NODE_OP, TYPE_INT, "*");
-    moveDownLeft();
+    // // 2. Pridaj ľavý podstrom
+    // insertLeft(root, NODE_OP, TYPE_INT, "*");
+    // moveDownLeft();
 
-    // 3. Pridaj deti k ľavému podstromu
-    insertLeft(currentNode, NODE_CONST, TYPE_INT, "2");
-    insertRight(currentNode, NODE_CONST, TYPE_INT, "3");
+    // // 3. Pridaj deti k ľavému podstromu
+    // insertLeft(currentNode, NODE_CONST, TYPE_INT, "2");
+    // insertRight(currentNode, NODE_CONST, TYPE_INT, "3");
 
-    // 4. Návrat na koreň
-    moveUp(1);
+    // // 4. Návrat na koreň
+    // moveUp(1);
 
-    // 5. Pridaj pravý podstrom
-    insertRight(root, NODE_OP, TYPE_INT, "*");
-    moveDownRight();
+    // // 5. Pridaj pravý podstrom
+    // insertRight(root, NODE_OP, TYPE_INT, "*");
+    // moveDownRight();
 
-    // 6. Pridaj deti k pravému podstromu
-    insertLeft(currentNode, NODE_CONST, TYPE_INT, "4");
-    insertRight(currentNode, NODE_CONST, TYPE_INT, "5");
+    // // 6. Pridaj deti k pravému podstromu
+    // insertLeft(currentNode, NODE_CONST, TYPE_INT, "4");
+    // insertRight(currentNode, NODE_CONST, TYPE_INT, "5");
 
-    // 7. Výpis celej štruktúry stromu
-    printf("\nComplete Tree Structure:\n");
-    printBinaryTree(root);
+    // // 7. Výpis celej štruktúry stromu
+    // printf("\nComplete Tree Structure:\n");
+    // printBinaryTree(root);
 
-    // 8. Návrat do ľavého podstromu
-    moveUp(1);      // Späť na koreň
-    moveDownLeft(); // Do ľavého podstromu
+    // // 8. Návrat do ľavého podstromu
+    // moveUp(1);      // Späť na koreň
+    // moveDownLeft(); // Do ľavého podstromu
 
-    // 9. Získanie a výpis informácií o uzle "*"
-    NodeInfo info = getNodeInfo(currentNode);
-    printf("\nInfo o uzle ľavého podstromu (semantická analýza):\n");
-    printf("  Type: %s\n", NodeTypeToString(info.type));
-    printf("  Value: %s\n", info.value);
-    printf("  Data Type: %s\n", DataTypeToString(info.dataType));
-    printf("  Has Left: %s\n", info.hasLeft ? "Yes" : "No");
-    printf("  Has Right: %s\n", info.hasRight ? "Yes" : "No");
-    printf("  Parent Value: %s\n", info.parentValue);
+    // // 9. Získanie a výpis informácií o uzle "*"
+    // NodeInfo info = getNodeInfo(currentNode);
+    // printf("\nInfo o uzle ľavého podstromu (semantická analýza):\n");
+    // printf("  Type: %s\n", NodeTypeToString(info.type));
+    // printf("  Value: %s\n", info.value);
+    // printf("  Data Type: %s\n", DataTypeToString(info.dataType));
+    // printf("  Has Left: %s\n", info.hasLeft ? "Yes" : "No");
+    // printf("  Has Right: %s\n", info.hasRight ? "Yes" : "No");
+    // printf("  Parent Value: %s\n", info.parentValue);
 
-    // 10. Semantická analýza - overenie uzla
-    if (info.type == NODE_CONST && info.dataType == TYPE_INT)
-    {
-        printf("  Uzol je platná konštanta s celým číslom.\n");
-    }
-    else
-    {
-        printf("  Chyba: Uzol nie je platná konštanta alebo nemá správny dátový typ.\n");
-    }
+    // // 10. Semantická analýza - overenie uzla
+    // if (info.type == NODE_CONST && info.dataType == TYPE_INT)
+    // {
+    //     printf("  Uzol je platná konštanta s celým číslom.\n");
+    // }
+    // else
+    // {
+    //     printf("  Chyba: Uzol nie je platná konštanta alebo nemá správny dátový typ.\n");
+    // }
 
     // 11. Uvoľnenie stromu
-    freeBinaryTree(root);
-    printf("\nTree successfully freed.\n");
+    // freeBinaryTree(root);
+    // printf("\nTree successfully freed.\n");
 }
 
 void ast_valdef()
 {
-    // int a = 3;
-    BinaryTreeNode *root = createBinaryNode(NODE_VAR_DECL, TYPE_INT, "a");
+    // i32 a = 3;
+    BinaryTreeNode *root = createBinaryNode(NODE_VAR_DECL, TOKEN_KEYWORD, "i32");
     setStartNode(root); // Nastavenie koreňa ako počiatočného uzla
-    insertRightMoveRight(root, NODE_ASSIGN, TYPE_EMPTY, "");
-    insertLeft(currentNode, NODE_CONST, TYPE_INT, "3");
+    insertLeft(root, NODE_VAR, TOKEN_IDENTIFIER, "a");
+    insertRightMoveRight(root, NODE_ASSIGN, TOKEN_ASSIGNMENT, "=");
+    insertLeft(currentNode, NODE_CONST, TOKEN_INT_LITERAL, "3");
 
     {
         printf("\nComplete Tree Structure:\n");
@@ -83,13 +84,14 @@ void ast_valdef()
 
 void ast_val_expression()
 {
-    // int a = 3 + C;
-    BinaryTreeNode *root = createBinaryNode(NODE_VAR_DECL, TYPE_INT, "a");
+    // i32 a = 3 + C;
+    BinaryTreeNode *root = createBinaryNode(NODE_VAR_DECL, TOKEN_KEYWORD, "i32");
     setStartNode(root);
-    insertRightMoveRight(root, NODE_ASSIGN, TYPE_EMPTY, "");
-    insertRightMoveRight(currentNode, NODE_OP, TYPE_EMPTY, "+");
-    insertLeft(currentNode, NODE_CONST, TYPE_INT, "3");
-    insertRight(currentNode, NODE_VAR, TYPE_INT, "c");
+    insertLeft(root, NODE_VAR, TOKEN_IDENTIFIER, "a");
+    insertRightMoveRight(root, NODE_ASSIGN, TOKEN_ASSIGNMENT, "=");
+    insertRightMoveRight(currentNode, NODE_OP, TOKEN_ADDITION, "+");
+    insertLeft(currentNode, NODE_CONST, TOKEN_INT_LITERAL, "3");
+    insertRight(currentNode, NODE_VAR, TOKEN_IDENTIFIER, "c");
 
     {
         printf("\nComplete Tree Structure:\n");
@@ -103,41 +105,44 @@ void ast_IfElse_1()
 {
 
     // if (a < 0) |val|
-    //     int a = 5;
+    //     i32 a = 5;
     // else if (a == 0)
-    //     float b = 9;
+    //     f64 b = 9;
     // else
-    //     bool c = false;
-    BinaryTreeNode *root = createBinaryNode(NODE_IF, TYPE_EMPTY, "");
+    //     []u8 c = "nieco";
+    BinaryTreeNode *root = createBinaryNode(NODE_IF, TOKEN_KEYWORD, "if");
     setStartNode(root);
-    insertRightMoveRight(root, NODE_PREP_IF, TYPE_EMPTY, "");
-    insertLeftMoveLeft(currentNode, NODE_PREP2_IF, TYPE_EMPTY, "");
-    insertRight(currentNode, NODE_NONNULL, TYPE_NONNULL, "val");
-    insertLeftMoveLeft(currentNode, NODE_OP, TYPE_EMPTY, "<");
-    insertLeft(currentNode, NODE_VAR, TYPE_INT, "a");    // TYPE_INT pravdepodobne bocky urci alebo budem vediet z hashtable
-    insertRight(currentNode, NODE_CONST, TYPE_INT, "0"); // spravit si funkciu na urcenie datatype?
+    insertRightMoveRight(root, NODE_PREP_IF, TOKEN_EMPTY, "");
+    insertLeftMoveLeft(currentNode, NODE_PREP2_IF, TOKEN_EMPTY, "");
+    insertRight(currentNode, NODE_NONNULL, TOKEN_IDENTIFIER, "val");
+    insertLeftMoveLeft(currentNode, NODE_OP, TOKEN_LESS_THAN, "<");
+    insertLeft(currentNode, NODE_VAR, TOKEN_IDENTIFIER, "a");
+    insertRight(currentNode, NODE_CONST, TOKEN_INT_LITERAL, "0");
     moveUp(2);
-    insertRightMoveRight(currentNode, NODE_PROG, TYPE_EMPTY, "");
-    insertRightMoveRight(currentNode, NODE_VAR_DECL, TYPE_INT, "a");
-    insertRightMoveRight(currentNode, NODE_ASSIGN, TYPE_EMPTY, "");
-    insertRight(currentNode, NODE_CONST, TYPE_INT, "3");
+    insertRightMoveRight(currentNode, NODE_PROG, TOKEN_EMPTY, "");
+    insertRightMoveRight(currentNode, NODE_VAR_DECL, TOKEN_KEYWORD, "i32");
+    insertLeft(currentNode, NODE_VAR, TOKEN_IDENTIFIER, "a");
+    insertRightMoveRight(currentNode, NODE_ASSIGN, TOKEN_ASSIGNMENT, "");
+    insertRight(currentNode, NODE_CONST, TOKEN_INT_LITERAL, "3");
     moveUp(4);
-    insertLeftMoveLeft(currentNode, NODE_ELSIF, TYPE_EMPTY, "");
-    insertRightMoveRight(currentNode, NODE_ELSIF_PREP, TYPE_EMPTY, "");
-    insertLeftMoveLeft(currentNode, NODE_OP, TYPE_EMPTY, "==");
-    insertLeft(currentNode, NODE_VAR, TYPE_INT, "a");
-    insertRight(currentNode, NODE_CONST, TYPE_INT, "0");
+    insertLeftMoveLeft(currentNode, NODE_ELSIF, TOKEN_EMPTY, "");
+    insertRightMoveRight(currentNode, NODE_ELSIF_PREP, TOKEN_EMPTY, "");
+    insertLeftMoveLeft(currentNode, NODE_OP, TOKEN_EQUAL, "==");
+    insertLeft(currentNode, NODE_VAR, TOKEN_IDENTIFIER, "a");
+    insertRight(currentNode, NODE_CONST, TOKEN_INT_LITERAL, "0");
     moveUp(1);
-    insertRightMoveRight(currentNode, NODE_PROG, TYPE_EMPTY, "");
-    insertRightMoveRight(currentNode, NODE_VAR_DECL, TYPE_FLOAT, "b");
-    insertRight(currentNode, NODE_ASSIGN, TYPE_EMPTY, "9");
+    insertRightMoveRight(currentNode, NODE_PROG, TOKEN_EMPTY, "");
+    insertRightMoveRight(currentNode, NODE_VAR_DECL, TOKEN_KEYWORD, "f64");
+    insertLeft(currentNode, NODE_VAR, TOKEN_IDENTIFIER, "b");
+    insertRightMoveRight(currentNode, NODE_ASSIGN, TOKEN_ASSIGNMENT, "=");
+    insertRight(currentNode, NODE_CONST, TOKEN_FLOAT_LITERAL, "9.6");
     moveUp(4);
-    moveDownLeft();
-    insertLeftMoveLeft(currentNode, NODE_ELSE, TYPE_EMPTY, "");
-    insertRightMoveRight(currentNode, NODE_PROG, TYPE_EMPTY, "");
-    insertRightMoveRight(currentNode, NODE_VAR_DECL, TYPE_BOOL, "c");
-    insertRightMoveRight(currentNode, NODE_ASSIGN, TYPE_EMPTY, "");
-    insertRight(currentNode, NODE_CONST, TYPE_BOOL, "false");
+    insertLeftMoveLeft(currentNode, NODE_ELSE, TOKEN_EMPTY, "");
+    insertRightMoveRight(currentNode, NODE_PROG, TOKEN_EMPTY, "");
+    insertRightMoveRight(currentNode, NODE_VAR_DECL, TOKEN_KEYWORD, "[]u8");
+    insertLeft(currentNode, NODE_VAR, TOKEN_IDENTIFIER, "c");
+    insertRightMoveRight(currentNode, NODE_ASSIGN, TOKEN_ASSIGNMENT, "=");
+    insertRight(currentNode, NODE_CONST, TOKEN_STRING_LITERAL, "nieco");
 
     {
         printf("\nComplete Tree Structure:\n");

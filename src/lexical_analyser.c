@@ -80,6 +80,8 @@ const char *token_type_to_string(Token_type type)
         return "TOKEN_IDENTI";
     case TOKEN_KEYWORD:
         return "TOKEN_KEYWORD";
+    case TOKEN_EMPTY:
+        return "TOKEN_EMPTY";
     case TOKEN_NEWLINE:
         return "TOKEN_NEWLINE";
     case TOKEN_TAB:
