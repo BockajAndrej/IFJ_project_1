@@ -1,0 +1,7 @@
+<map id="CALL_DEF" name="CALL_DEF">
+<area shape="rect" id="node1" title="Processes calling functions, variables." alt="" coords="5,31,92,57"/>
+<area shape="rect" id="node2" href="$syntactic__analysis_8c.html#ade39708cf9c0a95b1e75a94b3982f1aa" title="Extended function for CALL_DEF()" alt="" coords="140,31,227,57"/>
+<area shape="rect" id="node3" href="$syntactic__analysis_8c.html#a83f44b9d12d581ea924af4ba707819c3" title="Function for processing argument of called function." alt="" coords="275,5,325,32"/>
+<area shape="rect" id="node5" href="$syntactic__analysis_8c.html#a38b7a13b9a5926c2c4b6af62cec86f85" title="Function for processing another argument which is in queue." alt="" coords="373,56,477,83"/>
+<area shape="rect" id="node4" href="$syntactic__analysis_8c.html#a271ef1f0dc6a029b233bcb024b19b116" title="Function for processing another argument which is in queue." alt="" coords="396,5,455,32"/>
+</map>

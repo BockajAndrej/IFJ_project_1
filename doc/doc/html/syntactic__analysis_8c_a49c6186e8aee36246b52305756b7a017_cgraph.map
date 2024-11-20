@@ -1,0 +1,6 @@
+<map id="VAR_DEF" name="VAR_DEF">
+<area shape="rect" id="node1" title="Processes command for variable declaration." alt="" coords="5,31,87,57"/>
+<area shape="rect" id="node2" href="$syntactic__analysis_8c.html#a76e0ba812902123b4ec0d43c59c13c04" title="Processes assigning expresions to the variable." alt="" coords="135,31,239,57"/>
+<area shape="rect" id="node3" href="$syntactic__analysis_8c.html#a38b7a13b9a5926c2c4b6af62cec86f85" title="Function for processing another argument which is in queue." alt="" coords="287,5,391,32"/>
+<area shape="rect" id="node4" href="$syntactic__analysis_8c.html#aaef2bee27144c07c175bb36e4c28af9d" title="Function for verifaction enabled data types (DATA TYPES)" alt="" coords="296,56,381,83"/>
+</map>

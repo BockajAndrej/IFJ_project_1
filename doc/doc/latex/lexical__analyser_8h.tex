@@ -1,72 +1,91 @@
-\hypertarget{lexical__analyser_8h}{}\doxysection{lexical\+\_\+analyser.\+h File Reference}
-\label{lexical__analyser_8h}\index{lexical\_analyser.h@{lexical\_analyser.h}}
+\hypertarget{lexical__analyser_8h}{}\doxysection{/home/kubo/\+IFJ\+\_\+\+Compiler/\+IFJ-\/project01/src/lexical\+\_\+analyser.h File Reference}
+\label{lexical__analyser_8h}\index{/home/kubo/IFJ\_Compiler/IFJ-\/project01/src/lexical\_analyser.h@{/home/kubo/IFJ\_Compiler/IFJ-\/project01/src/lexical\_analyser.h}}
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$error.\+h$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}newstring.\+h\char`\"{}}\newline
+Include dependency graph for lexical\+\_\+analyser.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{lexical__analyser_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{lexical__analyser_8h__dep__incl}
+\end{center}
+\end{figure}
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
 union \mbox{\hyperlink{unionToken__Value}{Token\+\_\+\+Value}}
-\item 
+\begin{DoxyCompactList}\small\item\em Union for storing token values. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structToken}{Token}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Structure representing a token. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
 enum \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44}{Token\+\_\+type}} \{ \newline
 \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa130df27256cd45f5781fc74deeb50dc}{TOKEN\+\_\+\+EOF}}
 , \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a6b0ab7cf8c0d1203475022b3d5600f85}{TOKEN\+\_\+\+EOL}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ad6107c5bda42f7c5f4e947d891187ad1}{TOKEN\+\_\+\+EMPTY}}
 , \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353}{TOKEN\+\_\+\+IDENTIFIER}}
+, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a11fe7a3403d4ff8c62af31ddf679877c}{TOKEN\+\_\+\+KEYWORD}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a11fe7a3403d4ff8c62af31ddf679877c}{TOKEN\+\_\+\+KEYWORD}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a25034ca7c95f724ac2509e57058adf18}{TOKEN\+\_\+\+NEWLINE}}
+\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a25034ca7c95f724ac2509e57058adf18}{TOKEN\+\_\+\+NEWLINE}}
 , \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a2691fdb432b1bdd5eb40ce09b7d33614}{TOKEN\+\_\+\+TAB}}
 , \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0d72fca2861c67c0d0d3ccd1e8325453}{TOKEN\+\_\+\+INT\+\_\+\+LITERAL}}
+, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aab21ed2851d3c47e12244da5bdc568bf}{TOKEN\+\_\+\+FLOAT\+\_\+\+LITERAL}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aab21ed2851d3c47e12244da5bdc568bf}{TOKEN\+\_\+\+FLOAT\+\_\+\+LITERAL}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a7ed3e98b10f5d0b461a887fdd5b3dc01}{TOKEN\+\_\+\+STRING\+\_\+\+LITERAL}}
+\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a7ed3e98b10f5d0b461a887fdd5b3dc01}{TOKEN\+\_\+\+STRING\+\_\+\+LITERAL}}
 , \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8caffddda84e7a25800278a2dcf86c26}{TOKEN\+\_\+\+BOOLEAN}}
 , \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a69237e9ab97fc6f9306ee092834631df}{TOKEN\+\_\+\+CHAR\+\_\+\+LITERAL}}
+, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a3c83b3f347ded187c65076c9172392c3}{TOKEN\+\_\+\+EQUAL}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a3c83b3f347ded187c65076c9172392c3}{TOKEN\+\_\+\+EQUAL}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa6300763c80d89d4aaac59dfbf4c2c01}{TOKEN\+\_\+\+NOT\+\_\+\+EQUAL}}
+\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa6300763c80d89d4aaac59dfbf4c2c01}{TOKEN\+\_\+\+NOT\+\_\+\+EQUAL}}
 , \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a9618ea497ab02a326b67f03606d8f90f}{TOKEN\+\_\+\+LESS\+\_\+\+EQUAL}}
 , \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a634d456dd4f4a4ab865352988aaca719}{TOKEN\+\_\+\+LESS\+\_\+\+THAN}}
+, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1b6033f79dc23f23aaf67708bd792991}{TOKEN\+\_\+\+GREATER\+\_\+\+EQUAL}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1b6033f79dc23f23aaf67708bd792991}{TOKEN\+\_\+\+GREATER\+\_\+\+EQUAL}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af6a5d42d2ef50fb03f1a66d01c2a3470}{TOKEN\+\_\+\+GREATER\+\_\+\+THAN}}
+\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af6a5d42d2ef50fb03f1a66d01c2a3470}{TOKEN\+\_\+\+GREATER\+\_\+\+THAN}}
 , \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1f3658cf646576820d94a9a1c0504303}{TOKEN\+\_\+\+ASSIGNMENT}}
 , \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa48683b3cba8786770d9bf800d15e545}{TOKEN\+\_\+\+ADDITION}}
+, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ae892958f58c3c970916498eb5e47a388}{TOKEN\+\_\+\+SUBTRACTION}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ae892958f58c3c970916498eb5e47a388}{TOKEN\+\_\+\+SUBTRACTION}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44afdcb399f2904bfc9ce2bd870ff04d1c2}{TOKEN\+\_\+\+MULTIPLY}}
+\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44afdcb399f2904bfc9ce2bd870ff04d1c2}{TOKEN\+\_\+\+MULTIPLY}}
 , \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a196db7f3d2018cad481d0ffdf266889c}{TOKEN\+\_\+\+DIVISION}}
 , \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a04d79b81666e686448ea4bd2592f438b}{TOKEN\+\_\+\+BACKSLASH}}
+, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a93000ce4e0f00f6f294a98192f705910}{TOKEN\+\_\+\+PIPE}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a93000ce4e0f00f6f294a98192f705910}{TOKEN\+\_\+\+PIPE}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0e70b5ecc56852cc6499f90d410555ec}{TOKEN\+\_\+\+EXCLAMATION}}
+\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0e70b5ecc56852cc6499f90d410555ec}{TOKEN\+\_\+\+EXCLAMATION}}
 , \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af4143395fefba1c6a30e58240dd0c827}{TOKEN\+\_\+\+LPAREN}}
 , \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ace232c359d5697cc5c459c22a7be226b}{TOKEN\+\_\+\+RPAREN}}
+, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a60e4bab14680522185007fe87240e707}{TOKEN\+\_\+\+LEFT\+\_\+\+BRACKET}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a60e4bab14680522185007fe87240e707}{TOKEN\+\_\+\+LEFT\+\_\+\+BRACKET}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa42fbee15a56484e7cc6daaaa552107a}{TOKEN\+\_\+\+RIGHT\+\_\+\+BRACKET}}
+\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa42fbee15a56484e7cc6daaaa552107a}{TOKEN\+\_\+\+RIGHT\+\_\+\+BRACKET}}
 , \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aea93445565e90032b651b3bfeab696ad}{TOKEN\+\_\+\+CURLYL\+\_\+\+BRACKET}}
 , \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a177c279eee0ad7b261d2a217545ddc86}{TOKEN\+\_\+\+CURLYR\+\_\+\+BRACKET}}
+, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8d265e17914bc733c8b9a880dd097a9e}{TOKEN\+\_\+\+COMMA}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8d265e17914bc733c8b9a880dd097a9e}{TOKEN\+\_\+\+COMMA}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ac8c74b281e178c87923363a90f6ff371}{TOKEN\+\_\+\+SEMICOLON}}
+\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ac8c74b281e178c87923363a90f6ff371}{TOKEN\+\_\+\+SEMICOLON}}
 , \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0fe00080531042db460071402c40f763}{TOKEN\+\_\+\+COMMENT}}
 , \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a00a4852749fa7e7e4675f7843ae16642}{TOKEN\+\_\+\+IMPORT}}
+, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a399667e371946cce1c1081aea2f2c52d}{TOKEN\+\_\+\+DISCARD}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a399667e371946cce1c1081aea2f2c52d}{TOKEN\+\_\+\+DISCARD}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a92a35ac6329421e77882bf3739a75e47}{TOKEN\+\_\+\+COLON}}
+\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a92a35ac6329421e77882bf3739a75e47}{TOKEN\+\_\+\+COLON}}
 , \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ab565ebfaaa53dcee6ddda201e270733e}{TOKEN\+\_\+\+DOT}}
 , \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a6a2dcbbac94d846452b6469ba7cec1d1}{TOKEN\+\_\+\+QUESTION\+\_\+\+MARK}}
+, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a4e9a7212ea985c5ffdbf0080c464cc88}{TOKEN\+\_\+\+UNDEFINED}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a4e9a7212ea985c5ffdbf0080c464cc88}{TOKEN\+\_\+\+UNDEFINED}}
-, \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a39b77bc78a559e8e8b728d82cc413595}{TOKEN\+\_\+\+STRINGINIT\+\_\+\+ERROR}}
+\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a39b77bc78a559e8e8b728d82cc413595}{TOKEN\+\_\+\+STRINGINIT\+\_\+\+ERROR}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em Enumeration of possible token types. \end{DoxyCompactList}\item 
 enum \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448}{Keyword}} \{ \newline
 \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a20aedd56114ad17b1a5c45feebbbaff9}{KEYWORD\+\_\+\+IF}}
 , \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0b629d28c9ba070532b366e42a9ccb03}{KEYWORD\+\_\+\+ELSE}}
@@ -85,50 +104,35 @@ enum \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448}{Ke
 , \newline
 \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448af606de6206b287c3f42e8c47d9fb319d}{KEYWORD\+\_\+\+WHILE}}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em Enumeration of language keywords. \end{DoxyCompactList}\item 
 enum \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8}{State}} \{ \newline
 \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}{s\+Start}}
 , \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a320954d35b1812927d1d94fc1cee2b3c}{s\+Identifieror\+Keyword}}
 , \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a200c1fd85e4fb6eba004b7de17fd499c}{s\+Keyword}}
 , \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a450a0d34f9cfdb97cbda0e4693ef4696}{s\+Identifier}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a902570c2e2c9045d7499ed6dab5608e7}{s\+Namespace}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7361f1b0e6e81ac590cd754204ae8cd3}{s\+Int\+Literal}}
+\mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7361f1b0e6e81ac590cd754204ae8cd3}{s\+Int\+Literal}}
 , \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af265c1a80b908d47bab35d6107c38e10}{s\+Float\+Literal}}
 , \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0fba407f02267367ab375fbcd8251f3e}{s\+Exponent}}
+, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac9b5cb9d0557140fc4e7a44442aa1d6d}{s\+String\+Literal}}
 , \newline
-\mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac9b5cb9d0557140fc4e7a44442aa1d6d}{s\+String\+Literal}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a647f484374dd685dcd8512ff8b796251}{s\+Escape\+Sequence}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a18707d0b35d09c9e8ba921fa087587eb}{s\+Operator}}
+\mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a647f484374dd685dcd8512ff8b796251}{s\+Escape\+Sequence}}
 , \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a8d45f5ea610302976656bb287c6ebf7e}{s\+Back\+Slash}}
-, \newline
-\mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a786cabd32ed690206849bd3c41710d3b}{s\+Division}}
+, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a786cabd32ed690206849bd3c41710d3b}{s\+Division}}
 , \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a845ae9a4f0d69357879f20576bc8f8c7}{s\+Assign}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a6547d3d833e25c66e4c5c461c5f8543e}{s\+Equal}}
+, \newline
+\mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a6547d3d833e25c66e4c5c461c5f8543e}{s\+Equal}}
 , \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8abd9024a34665ccc0f6b67741dda1f756}{s\+Not\+Equal}}
-, \newline
-\mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ae8cfd559c30598afbe78dfd4af372580}{s\+Less\+Equal}}
+, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ae8cfd559c30598afbe78dfd4af372580}{s\+Less\+Equal}}
 , \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0329aab4e5cfe984949899bc59cbc153}{s\+Less\+Than}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ab2df5fcd85e3bf41266479b9e05f6f2e}{s\+Greater\+Equal}}
+, \newline
+\mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ab2df5fcd85e3bf41266479b9e05f6f2e}{s\+Greater\+Equal}}
 , \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8aa446c0b6cc245ad1796fc0ccee32bcb5}{s\+Greater\+Than}}
-, \newline
-\mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ad598db5b5b8ee727ec72f06e2e8e6981}{s\+Left\+Paren}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a8695df75075662b916106eddfc0f18c8}{s\+Right\+Paren}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a073ff5b1c06535a2659402f4ddc1c70a}{s\+Left\+Bracket}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a11a56d501aa10653ea41e6678ab21304}{s\+Right\+Bracket}}
-, \newline
-\mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a55b60f4b83f4301f3637d94baf7fcf72}{s\+Curly\+LBracket}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a82a4f7eb47dd9eb7ded31da5fef74b7f}{s\+Curly\+RBracket}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8afd0c343ff1612190a8f4ef2e58cf7f59}{s\+Comma}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a761419ac8e3d80e75f5726cfc5c76d74}{s\+Semicolon}}
-, \newline
-\mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac269c488167b67c322709b75678d8851}{s\+Exclamation}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8abad91f5649f7b7ae2e4d1dce87e525fe}{s\+Pipe}}
 , \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a518a0ec5848a834a5723a2b106923dda}{s\+Exponent\+Sign}}
 , \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a9202f4b2de6a333dcef704283ee138db}{s\+Single\+Quote}}
 , \newline
 \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a4a4f49f27f2cde6f607a069a0892cfdf}{s\+Left\+Single\+Quote}}
-, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a5cd70e02de179244852c944edfff97f1}{s\+Whitespace}}
+, \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac269c488167b67c322709b75678d8851}{s\+Exclamation}}
 , \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a2ce3524821ca4917141e32b96fc1de0f}{s\+Comment}}
 , \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ae43da8b6fefce8969b2632e2148d95e3}{s\+Import}}
 , \newline
@@ -136,16 +140,22 @@ enum \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8}{St
 , \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af0a0ecb685c176b46904ef031a62e9cb}{s\+EOL}}
 , \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a104fd3b580965ac0839203c53c53f6aa}{s\+End}}
  \}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Enumeration representing the states of a finite state machine (FSM) for lexical analysis. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 const char $\ast$ \mbox{\hyperlink{lexical__analyser_8h_a67367cc8618de258a4163191d1ac05b8}{token\+\_\+type\+\_\+to\+\_\+string}} (\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44}{Token\+\_\+type}} type)
-\item 
+\begin{DoxyCompactList}\small\item\em Converts a token type to its string representation. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{lexical__analyser_8h_acbb4fd03fd6564af6fe03306ec48364c}{print\+\_\+token}} (\mbox{\hyperlink{structToken}{Token}} token)
-\item 
+\begin{DoxyCompactList}\small\item\em Prints the details of a token. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structToken}{Token}} \mbox{\hyperlink{lexical__analyser_8h_a1b68532a422d65e0eab79e3011af906e}{get\+\_\+token}} (FILE $\ast$\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}})
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Retrieves the next token from the input file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Jakub Filo 
+\end{DoxyAuthor}
 
 
 \doxysubsection{Enumeration Type Documentation}
@@ -155,400 +165,493 @@ void \mbox{\hyperlink{lexical__analyser_8h_acbb4fd03fd6564af6fe03306ec48364c}{pr
 \doxysubsubsection{\texorpdfstring{Keyword}{Keyword}}
 {\footnotesize\ttfamily enum \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448}{Keyword}}}
 
-\begin{DoxyEnumFields}{Enumerator}
+
+
+Enumeration of language keywords. 
+
+This enumeration defines the reserved keywords in the language and their corresponding roles in syntax. Keywords are case-\/sensitive and cannot be used as identifiers. \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_IF@{KEYWORD\_IF}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_IF@{KEYWORD\_IF}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a20aedd56114ad17b1a5c45feebbbaff9}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a20aedd56114ad17b1a5c45feebbbaff9}} 
-KEYWORD\+\_\+\+IF&\\
+KEYWORD\+\_\+\+IF&Represents the {\ttfamily if} keyword. Used for conditional branching to execute code based on a boolean condition. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_ELSE@{KEYWORD\_ELSE}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_ELSE@{KEYWORD\_ELSE}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0b629d28c9ba070532b366e42a9ccb03}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0b629d28c9ba070532b366e42a9ccb03}} 
-KEYWORD\+\_\+\+ELSE&\\
+KEYWORD\+\_\+\+ELSE&Represents the {\ttfamily else} keyword. Specifies the block of code to execute if the condition in the corresponding {\ttfamily if} statement is false. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_FN@{KEYWORD\_FN}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_FN@{KEYWORD\_FN}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a43dc6e1642447b459ba51eb4315255b1}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a43dc6e1642447b459ba51eb4315255b1}} 
-KEYWORD\+\_\+\+FN&\\
+KEYWORD\+\_\+\+FN&Represents the {\ttfamily fn} keyword. Used to define a function in the language. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_CONST@{KEYWORD\_CONST}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_CONST@{KEYWORD\_CONST}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448ae16f6b556452b7e953dc64d00b131cb5}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448ae16f6b556452b7e953dc64d00b131cb5}} 
-KEYWORD\+\_\+\+CONST&\\
+KEYWORD\+\_\+\+CONST&Represents the {\ttfamily const} keyword. Declares a constant value that cannot be modified after initialization. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_I32@{KEYWORD\_I32}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_I32@{KEYWORD\_I32}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0f316c447317035d1c08b78e2c90fb5e}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0f316c447317035d1c08b78e2c90fb5e}} 
-KEYWORD\+\_\+\+I32&\\
+KEYWORD\+\_\+\+I32&Represents the {\ttfamily i32} keyword. Specifies a 32-\/bit signed integer type. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_F64@{KEYWORD\_F64}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_F64@{KEYWORD\_F64}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a1b1fedd5d8dadfe794ceb035d2126cef}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a1b1fedd5d8dadfe794ceb035d2126cef}} 
-KEYWORD\+\_\+\+F64&\\
+KEYWORD\+\_\+\+F64&Represents the {\ttfamily f64} keyword. Specifies a 64-\/bit floating-\/point type. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_U8@{KEYWORD\_U8}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_U8@{KEYWORD\_U8}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a2738663f65f4b121fcc01021173603e4}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a2738663f65f4b121fcc01021173603e4}} 
-KEYWORD\+\_\+\+U8&\\
+KEYWORD\+\_\+\+U8&Represents the {\ttfamily u8} keyword. Specifies an 8-\/bit unsigned integer type. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_NULL@{KEYWORD\_NULL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_NULL@{KEYWORD\_NULL}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a8178adb693fbd4ddd894757a04951173}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a8178adb693fbd4ddd894757a04951173}} 
-KEYWORD\+\_\+\+NULL&\\
+KEYWORD\+\_\+\+NULL&Represents the {\ttfamily null} keyword. Denotes a null or uninitialized value. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_PUB@{KEYWORD\_PUB}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_PUB@{KEYWORD\_PUB}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a871b2340ce1ed01216617b721f0c5ebe}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a871b2340ce1ed01216617b721f0c5ebe}} 
-KEYWORD\+\_\+\+PUB&\\
+KEYWORD\+\_\+\+PUB&Represents the {\ttfamily pub} keyword. Indicates public visibility for functions, variables, or constants, allowing access from outside their scope. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_RETURN@{KEYWORD\_RETURN}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_RETURN@{KEYWORD\_RETURN}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a7ecaa69aa02833284594c30461fe01d2}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a7ecaa69aa02833284594c30461fe01d2}} 
-KEYWORD\+\_\+\+RETURN&\\
+KEYWORD\+\_\+\+RETURN&Represents the {\ttfamily return} keyword. Used to exit a function and optionally provide a return value. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_VAR@{KEYWORD\_VAR}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_VAR@{KEYWORD\_VAR}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a01486e1109a838a9a62cae7bc3c8b67d}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a01486e1109a838a9a62cae7bc3c8b67d}} 
-KEYWORD\+\_\+\+VAR&\\
+KEYWORD\+\_\+\+VAR&Represents the {\ttfamily var} keyword. Declares a variable that can be reassigned during its lifetime. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_VOID@{KEYWORD\_VOID}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_VOID@{KEYWORD\_VOID}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0cf1d9cf4f3dcc4f4eecd4c5e492630a}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0cf1d9cf4f3dcc4f4eecd4c5e492630a}} 
-KEYWORD\+\_\+\+VOID&\\
+KEYWORD\+\_\+\+VOID&Represents the {\ttfamily void} keyword. Specifies that a function does not return a value. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{KEYWORD\_WHILE@{KEYWORD\_WHILE}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!KEYWORD\_WHILE@{KEYWORD\_WHILE}}}\mbox{\Hypertarget{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448af606de6206b287c3f42e8c47d9fb319d}\label{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448af606de6206b287c3f42e8c47d9fb319d}} 
-KEYWORD\+\_\+\+WHILE&\\
+KEYWORD\+\_\+\+WHILE&Represents the {\ttfamily while} keyword. Creates a loop that repeatedly executes code as long as a boolean condition evaluates to true. \\
 \hline
 
 \end{DoxyEnumFields}
+
+
+Definition at line 246 of file lexical\+\_\+analyser.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{247 \{}
+\DoxyCodeLine{252     \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a20aedd56114ad17b1a5c45feebbbaff9}{KEYWORD\_IF}},}
+\DoxyCodeLine{253 }
+\DoxyCodeLine{258     \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0b629d28c9ba070532b366e42a9ccb03}{KEYWORD\_ELSE}},}
+\DoxyCodeLine{259 }
+\DoxyCodeLine{264     \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a43dc6e1642447b459ba51eb4315255b1}{KEYWORD\_FN}},}
+\DoxyCodeLine{265 }
+\DoxyCodeLine{270     \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448ae16f6b556452b7e953dc64d00b131cb5}{KEYWORD\_CONST}},}
+\DoxyCodeLine{271 }
+\DoxyCodeLine{276     \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0f316c447317035d1c08b78e2c90fb5e}{KEYWORD\_I32}},}
+\DoxyCodeLine{277 }
+\DoxyCodeLine{282     \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a1b1fedd5d8dadfe794ceb035d2126cef}{KEYWORD\_F64}},}
+\DoxyCodeLine{283 }
+\DoxyCodeLine{288     \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a2738663f65f4b121fcc01021173603e4}{KEYWORD\_U8}},}
+\DoxyCodeLine{289 }
+\DoxyCodeLine{294     \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a8178adb693fbd4ddd894757a04951173}{KEYWORD\_NULL}},}
+\DoxyCodeLine{295 }
+\DoxyCodeLine{300     \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a871b2340ce1ed01216617b721f0c5ebe}{KEYWORD\_PUB}},}
+\DoxyCodeLine{301 }
+\DoxyCodeLine{306     \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a7ecaa69aa02833284594c30461fe01d2}{KEYWORD\_RETURN}},}
+\DoxyCodeLine{307 }
+\DoxyCodeLine{312     \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a01486e1109a838a9a62cae7bc3c8b67d}{KEYWORD\_VAR}},}
+\DoxyCodeLine{313 }
+\DoxyCodeLine{318     \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0cf1d9cf4f3dcc4f4eecd4c5e492630a}{KEYWORD\_VOID}},}
+\DoxyCodeLine{319 }
+\DoxyCodeLine{324     \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448af606de6206b287c3f42e8c47d9fb319d}{KEYWORD\_WHILE}}}
+\DoxyCodeLine{325 }
+\DoxyCodeLine{326 \} \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448}{Keyword}};}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8}} 
 \index{lexical\_analyser.h@{lexical\_analyser.h}!State@{State}}
 \index{State@{State}!lexical\_analyser.h@{lexical\_analyser.h}}
 \doxysubsubsection{\texorpdfstring{State}{State}}
 {\footnotesize\ttfamily enum \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8}{State}}}
 
-\begin{DoxyEnumFields}{Enumerator}
+
+
+Enumeration representing the states of a finite state machine (FSM) for lexical analysis. 
+
+This FSM is used to tokenize input by transitioning between states based on the input character. Each state corresponds to a specific type of token or behavior during tokenization. \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sStart@{sStart}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sStart@{sStart}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}} 
-s\+Start&\\
+s\+Start&The initial state of the FSM. This state represents the starting point before processing any input character. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sIdentifierorKeyword@{sIdentifierorKeyword}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sIdentifierorKeyword@{sIdentifierorKeyword}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a320954d35b1812927d1d94fc1cee2b3c}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a320954d35b1812927d1d94fc1cee2b3c}} 
-s\+Identifieror\+Keyword&\\
+s\+Identifieror\+Keyword&States for handling identifiers and keywords. Transition state for detecting identifiers or keywords; case-\/sensitive. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sKeyword@{sKeyword}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sKeyword@{sKeyword}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a200c1fd85e4fb6eba004b7de17fd499c}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a200c1fd85e4fb6eba004b7de17fd499c}} 
-s\+Keyword&\\
+s\+Keyword&Indicates the token is a reserved keyword (e.\+g., const, else, fn, if, etc.). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sIdentifier@{sIdentifier}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sIdentifier@{sIdentifier}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a450a0d34f9cfdb97cbda0e4693ef4696}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a450a0d34f9cfdb97cbda0e4693ef4696}} 
-s\+Identifier&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sNamespace@{sNamespace}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sNamespace@{sNamespace}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a902570c2e2c9045d7499ed6dab5608e7}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a902570c2e2c9045d7499ed6dab5608e7}} 
-s\+Namespace&\\
+s\+Identifier&Indicates the token is an identifier (e.\+g., variable or function name). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sIntLiteral@{sIntLiteral}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sIntLiteral@{sIntLiteral}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7361f1b0e6e81ac590cd754204ae8cd3}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7361f1b0e6e81ac590cd754204ae8cd3}} 
-s\+Int\+Literal&\\
+s\+Int\+Literal&States for handling numeric literals. Represents an integer literal (non-\/negative, decimal format). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sFloatLiteral@{sFloatLiteral}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sFloatLiteral@{sFloatLiteral}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af265c1a80b908d47bab35d6107c38e10}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af265c1a80b908d47bab35d6107c38e10}} 
-s\+Float\+Literal&\\
+s\+Float\+Literal&Represents a floating-\/point literal, including support for decimal and exponential notation. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sExponent@{sExponent}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sExponent@{sExponent}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0fba407f02267367ab375fbcd8251f3e}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0fba407f02267367ab375fbcd8251f3e}} 
-s\+Exponent&\\
+s\+Exponent&Handles the exponent part (e.\+g., \char`\"{}e\char`\"{} or \char`\"{}\+E\char`\"{}) of floating-\/point numbers. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sStringLiteral@{sStringLiteral}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sStringLiteral@{sStringLiteral}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac9b5cb9d0557140fc4e7a44442aa1d6d}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac9b5cb9d0557140fc4e7a44442aa1d6d}} 
-s\+String\+Literal&\\
+s\+String\+Literal&States for handling string literals. Represents a string literal enclosed in double quotes. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sEscapeSequence@{sEscapeSequence}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sEscapeSequence@{sEscapeSequence}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a647f484374dd685dcd8512ff8b796251}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a647f484374dd685dcd8512ff8b796251}} 
-s\+Escape\+Sequence&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sOperator@{sOperator}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sOperator@{sOperator}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a18707d0b35d09c9e8ba921fa087587eb}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a18707d0b35d09c9e8ba921fa087587eb}} 
-s\+Operator&\\
+s\+Escape\+Sequence&Handles escape sequences (e.\+g., ~\newline
+, \textbackslash{}t) within string literals. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sBackSlash@{sBackSlash}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sBackSlash@{sBackSlash}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a8d45f5ea610302976656bb287c6ebf7e}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a8d45f5ea610302976656bb287c6ebf7e}} 
-s\+Back\+Slash&\\
+s\+Back\+Slash&States for handling operators and punctuation. Handles the backslash character (\textquotesingle{}\textbackslash{}\textquotesingle{}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sDivision@{sDivision}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sDivision@{sDivision}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a786cabd32ed690206849bd3c41710d3b}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a786cabd32ed690206849bd3c41710d3b}} 
-s\+Division&\\
+s\+Division&Represents the division operator (\textquotesingle{}/\textquotesingle{}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sAssign@{sAssign}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sAssign@{sAssign}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a845ae9a4f0d69357879f20576bc8f8c7}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a845ae9a4f0d69357879f20576bc8f8c7}} 
-s\+Assign&\\
+s\+Assign&Represents the assignment operator (\textquotesingle{}=\textquotesingle{}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sEqual@{sEqual}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sEqual@{sEqual}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a6547d3d833e25c66e4c5c461c5f8543e}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a6547d3d833e25c66e4c5c461c5f8543e}} 
-s\+Equal&\\
+s\+Equal&Represents the equality comparison operator (\textquotesingle{}==\textquotesingle{}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sNotEqual@{sNotEqual}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sNotEqual@{sNotEqual}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8abd9024a34665ccc0f6b67741dda1f756}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8abd9024a34665ccc0f6b67741dda1f756}} 
-s\+Not\+Equal&\\
+s\+Not\+Equal&Represents the inequality operator (\textquotesingle{}!=\textquotesingle{}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sLessEqual@{sLessEqual}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sLessEqual@{sLessEqual}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ae8cfd559c30598afbe78dfd4af372580}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ae8cfd559c30598afbe78dfd4af372580}} 
-s\+Less\+Equal&\\
+s\+Less\+Equal&Represents the less than or equal to operator (\textquotesingle{}$<$=\textquotesingle{}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sLessThan@{sLessThan}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sLessThan@{sLessThan}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0329aab4e5cfe984949899bc59cbc153}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0329aab4e5cfe984949899bc59cbc153}} 
-s\+Less\+Than&\\
+s\+Less\+Than&Represents the less than operator (\textquotesingle{}$<$\textquotesingle{}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sGreaterEqual@{sGreaterEqual}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sGreaterEqual@{sGreaterEqual}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ab2df5fcd85e3bf41266479b9e05f6f2e}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ab2df5fcd85e3bf41266479b9e05f6f2e}} 
-s\+Greater\+Equal&\\
+s\+Greater\+Equal&Represents the greater than or equal to operator (\textquotesingle{}$>$=\textquotesingle{}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sGreaterThan@{sGreaterThan}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sGreaterThan@{sGreaterThan}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8aa446c0b6cc245ad1796fc0ccee32bcb5}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8aa446c0b6cc245ad1796fc0ccee32bcb5}} 
-s\+Greater\+Than&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sLeftParen@{sLeftParen}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sLeftParen@{sLeftParen}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ad598db5b5b8ee727ec72f06e2e8e6981}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ad598db5b5b8ee727ec72f06e2e8e6981}} 
-s\+Left\+Paren&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sRightParen@{sRightParen}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sRightParen@{sRightParen}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a8695df75075662b916106eddfc0f18c8}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a8695df75075662b916106eddfc0f18c8}} 
-s\+Right\+Paren&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sLeftBracket@{sLeftBracket}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sLeftBracket@{sLeftBracket}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a073ff5b1c06535a2659402f4ddc1c70a}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a073ff5b1c06535a2659402f4ddc1c70a}} 
-s\+Left\+Bracket&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sRightBracket@{sRightBracket}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sRightBracket@{sRightBracket}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a11a56d501aa10653ea41e6678ab21304}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a11a56d501aa10653ea41e6678ab21304}} 
-s\+Right\+Bracket&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sCurlyLBracket@{sCurlyLBracket}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sCurlyLBracket@{sCurlyLBracket}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a55b60f4b83f4301f3637d94baf7fcf72}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a55b60f4b83f4301f3637d94baf7fcf72}} 
-s\+Curly\+LBracket&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sCurlyRBracket@{sCurlyRBracket}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sCurlyRBracket@{sCurlyRBracket}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a82a4f7eb47dd9eb7ded31da5fef74b7f}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a82a4f7eb47dd9eb7ded31da5fef74b7f}} 
-s\+Curly\+RBracket&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sComma@{sComma}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sComma@{sComma}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8afd0c343ff1612190a8f4ef2e58cf7f59}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8afd0c343ff1612190a8f4ef2e58cf7f59}} 
-s\+Comma&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sSemicolon@{sSemicolon}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sSemicolon@{sSemicolon}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a761419ac8e3d80e75f5726cfc5c76d74}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a761419ac8e3d80e75f5726cfc5c76d74}} 
-s\+Semicolon&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sExclamation@{sExclamation}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sExclamation@{sExclamation}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac269c488167b67c322709b75678d8851}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac269c488167b67c322709b75678d8851}} 
-s\+Exclamation&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sPipe@{sPipe}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sPipe@{sPipe}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8abad91f5649f7b7ae2e4d1dce87e525fe}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8abad91f5649f7b7ae2e4d1dce87e525fe}} 
-s\+Pipe&\\
+s\+Greater\+Than&Represents the greater than operator (\textquotesingle{}$>$\textquotesingle{}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sExponentSign@{sExponentSign}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sExponentSign@{sExponentSign}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a518a0ec5848a834a5723a2b106923dda}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a518a0ec5848a834a5723a2b106923dda}} 
-s\+Exponent\+Sign&\\
+s\+Exponent\+Sign&Represents the sign (e.\+g., \textquotesingle{}+\textquotesingle{} or \textquotesingle{}-\/\textquotesingle{}) within an exponent part of a floating-\/point literal. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sSingleQuote@{sSingleQuote}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sSingleQuote@{sSingleQuote}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a9202f4b2de6a333dcef704283ee138db}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a9202f4b2de6a333dcef704283ee138db}} 
-s\+Single\+Quote&\\
+s\+Single\+Quote&States for handling quotation marks and character literals. Represents a single quote character (\textquotesingle{}) used in character literals. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sLeftSingleQuote@{sLeftSingleQuote}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sLeftSingleQuote@{sLeftSingleQuote}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a4a4f49f27f2cde6f607a069a0892cfdf}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a4a4f49f27f2cde6f607a069a0892cfdf}} 
-s\+Left\+Single\+Quote&\\
+s\+Left\+Single\+Quote&Represents a left single quotation mark (‘), often used in specialized typography. \\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{sWhitespace@{sWhitespace}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sWhitespace@{sWhitespace}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a5cd70e02de179244852c944edfff97f1}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a5cd70e02de179244852c944edfff97f1}} 
-s\+Whitespace&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{sExclamation@{sExclamation}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sExclamation@{sExclamation}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac269c488167b67c322709b75678d8851}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac269c488167b67c322709b75678d8851}} 
+s\+Exclamation&Represents the exclamation mark (\textquotesingle{}!\textquotesingle{}), used in logical negation or other operators. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sComment@{sComment}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sComment@{sComment}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a2ce3524821ca4917141e32b96fc1de0f}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a2ce3524821ca4917141e32b96fc1de0f}} 
-s\+Comment&\\
+s\+Comment&State for handling comments. Represents a line comment starting with \char`\"{}//\char`\"{}. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sImport@{sImport}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sImport@{sImport}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ae43da8b6fefce8969b2632e2148d95e3}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ae43da8b6fefce8969b2632e2148d95e3}} 
-s\+Import&\\
+s\+Import&Represents the \textquotesingle{}@\textquotesingle{} symbol for import statements. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sError@{sError}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sError@{sError}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af26b546b561fd1b2e8acbb25cab13d10}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af26b546b561fd1b2e8acbb25cab13d10}} 
-s\+Error&\\
+s\+Error&States indicating errors or the end of input. Indicates an error state due to invalid input or characters. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sEOL@{sEOL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sEOL@{sEOL}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af0a0ecb685c176b46904ef031a62e9cb}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af0a0ecb685c176b46904ef031a62e9cb}} 
-s\+EOL&\\
+s\+EOL&End-\/of-\/line state for newline characters. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{sEnd@{sEnd}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!sEnd@{sEnd}}}\mbox{\Hypertarget{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a104fd3b580965ac0839203c53c53f6aa}\label{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a104fd3b580965ac0839203c53c53f6aa}} 
-s\+End&\\
+s\+End&End-\/of-\/file state or input completion. \\
 \hline
 
 \end{DoxyEnumFields}
+
+
+Definition at line 335 of file lexical\+\_\+analyser.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{336 \{}
+\DoxyCodeLine{341     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}{sStart}},}
+\DoxyCodeLine{342 }
+\DoxyCodeLine{346     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a320954d35b1812927d1d94fc1cee2b3c}{sIdentifierorKeyword}}, }
+\DoxyCodeLine{347     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a200c1fd85e4fb6eba004b7de17fd499c}{sKeyword}},             }
+\DoxyCodeLine{348     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a450a0d34f9cfdb97cbda0e4693ef4696}{sIdentifier}},          }
+\DoxyCodeLine{349 }
+\DoxyCodeLine{353     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7361f1b0e6e81ac590cd754204ae8cd3}{sIntLiteral}},   }
+\DoxyCodeLine{354     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af265c1a80b908d47bab35d6107c38e10}{sFloatLiteral}}, }
+\DoxyCodeLine{355     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0fba407f02267367ab375fbcd8251f3e}{sExponent}},     }
+\DoxyCodeLine{356 }
+\DoxyCodeLine{360     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac9b5cb9d0557140fc4e7a44442aa1d6d}{sStringLiteral}},  }
+\DoxyCodeLine{361     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a647f484374dd685dcd8512ff8b796251}{sEscapeSequence}}, }
+\DoxyCodeLine{362 }
+\DoxyCodeLine{366     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a8d45f5ea610302976656bb287c6ebf7e}{sBackSlash}},    }
+\DoxyCodeLine{367     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a786cabd32ed690206849bd3c41710d3b}{sDivision}},     }
+\DoxyCodeLine{368     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a845ae9a4f0d69357879f20576bc8f8c7}{sAssign}},       }
+\DoxyCodeLine{369     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a6547d3d833e25c66e4c5c461c5f8543e}{sEqual}},        }
+\DoxyCodeLine{370     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8abd9024a34665ccc0f6b67741dda1f756}{sNotEqual}},     }
+\DoxyCodeLine{371     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ae8cfd559c30598afbe78dfd4af372580}{sLessEqual}},    }
+\DoxyCodeLine{372     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0329aab4e5cfe984949899bc59cbc153}{sLessThan}},     }
+\DoxyCodeLine{373     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ab2df5fcd85e3bf41266479b9e05f6f2e}{sGreaterEqual}}, }
+\DoxyCodeLine{374     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8aa446c0b6cc245ad1796fc0ccee32bcb5}{sGreaterThan}},  }
+\DoxyCodeLine{375     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a518a0ec5848a834a5723a2b106923dda}{sExponentSign}}, }
+\DoxyCodeLine{376 }
+\DoxyCodeLine{380     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a9202f4b2de6a333dcef704283ee138db}{sSingleQuote}},     }
+\DoxyCodeLine{381     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a4a4f49f27f2cde6f607a069a0892cfdf}{sLeftSingleQuote}}, }
+\DoxyCodeLine{382     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac269c488167b67c322709b75678d8851}{sExclamation}},     }
+\DoxyCodeLine{383 }
+\DoxyCodeLine{387     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a2ce3524821ca4917141e32b96fc1de0f}{sComment}}, }
+\DoxyCodeLine{388     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ae43da8b6fefce8969b2632e2148d95e3}{sImport}},  }
+\DoxyCodeLine{389 }
+\DoxyCodeLine{393     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af26b546b561fd1b2e8acbb25cab13d10}{sError}}, }
+\DoxyCodeLine{394     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af0a0ecb685c176b46904ef031a62e9cb}{sEOL}},   }
+\DoxyCodeLine{395     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a104fd3b580965ac0839203c53c53f6aa}{sEnd}}    }
+\DoxyCodeLine{396 \} \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8}{State}};}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44}} 
 \index{lexical\_analyser.h@{lexical\_analyser.h}!Token\_type@{Token\_type}}
 \index{Token\_type@{Token\_type}!lexical\_analyser.h@{lexical\_analyser.h}}
 \doxysubsubsection{\texorpdfstring{Token\_type}{Token\_type}}
 {\footnotesize\ttfamily enum \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44}{Token\+\_\+type}}}
 
-\begin{DoxyEnumFields}{Enumerator}
+
+
+Enumeration of possible token types. 
+
+This enumeration defines the various types of tokens that can be identified during lexical analysis. Each token type represents a specific category of syntactic element in the language. \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_EOF@{TOKEN\_EOF}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_EOF@{TOKEN\_EOF}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa130df27256cd45f5781fc74deeb50dc}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa130df27256cd45f5781fc74deeb50dc}} 
-TOKEN\+\_\+\+EOF&\\
+TOKEN\+\_\+\+EOF&End-\/of-\/file marker. Indicates that the end of the input file has been reached. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_EOL@{TOKEN\_EOL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_EOL@{TOKEN\_EOL}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a6b0ab7cf8c0d1203475022b3d5600f85}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a6b0ab7cf8c0d1203475022b3d5600f85}} 
-TOKEN\+\_\+\+EOL&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_EMPTY@{TOKEN\_EMPTY}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_EMPTY@{TOKEN\_EMPTY}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ad6107c5bda42f7c5f4e947d891187ad1}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ad6107c5bda42f7c5f4e947d891187ad1}} 
-TOKEN\+\_\+\+EMPTY&\\
+TOKEN\+\_\+\+EOL&End-\/of-\/line marker. Represents a newline character in the source code. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_IDENTIFIER@{TOKEN\_IDENTIFIER}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_IDENTIFIER@{TOKEN\_IDENTIFIER}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353}} 
-TOKEN\+\_\+\+IDENTIFIER&\\
+TOKEN\+\_\+\+IDENTIFIER&Identifier token. Represents variable names, function names, or other user-\/defined identifiers. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_KEYWORD@{TOKEN\_KEYWORD}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_KEYWORD@{TOKEN\_KEYWORD}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a11fe7a3403d4ff8c62af31ddf679877c}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a11fe7a3403d4ff8c62af31ddf679877c}} 
-TOKEN\+\_\+\+KEYWORD&\\
+TOKEN\+\_\+\+KEYWORD&Keyword token. Represents a reserved keyword in the language (e.\+g., if, else, return). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_NEWLINE@{TOKEN\_NEWLINE}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_NEWLINE@{TOKEN\_NEWLINE}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a25034ca7c95f724ac2509e57058adf18}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a25034ca7c95f724ac2509e57058adf18}} 
-TOKEN\+\_\+\+NEWLINE&\\
+TOKEN\+\_\+\+NEWLINE&Newline character token. Specifically used for handling newline characters ({\ttfamily \textbackslash{}n}) in the input. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_TAB@{TOKEN\_TAB}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_TAB@{TOKEN\_TAB}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a2691fdb432b1bdd5eb40ce09b7d33614}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a2691fdb432b1bdd5eb40ce09b7d33614}} 
-TOKEN\+\_\+\+TAB&\\
+TOKEN\+\_\+\+TAB&Tab character token. Represents a tab character ({\ttfamily \textbackslash{}t}) in the input. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_INT\_LITERAL@{TOKEN\_INT\_LITERAL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_INT\_LITERAL@{TOKEN\_INT\_LITERAL}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0d72fca2861c67c0d0d3ccd1e8325453}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0d72fca2861c67c0d0d3ccd1e8325453}} 
-TOKEN\+\_\+\+INT\+\_\+\+LITERAL&\\
+TOKEN\+\_\+\+INT\+\_\+\+LITERAL&Integer literal token. Represents whole numbers (e.\+g., 42, -\/7). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_FLOAT\_LITERAL@{TOKEN\_FLOAT\_LITERAL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_FLOAT\_LITERAL@{TOKEN\_FLOAT\_LITERAL}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aab21ed2851d3c47e12244da5bdc568bf}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aab21ed2851d3c47e12244da5bdc568bf}} 
-TOKEN\+\_\+\+FLOAT\+\_\+\+LITERAL&\\
+TOKEN\+\_\+\+FLOAT\+\_\+\+LITERAL&Floating-\/point literal token. Represents decimal or exponential numbers (e.\+g., 3.\+14, 2.\+5e-\/10). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_STRING\_LITERAL@{TOKEN\_STRING\_LITERAL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_STRING\_LITERAL@{TOKEN\_STRING\_LITERAL}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a7ed3e98b10f5d0b461a887fdd5b3dc01}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a7ed3e98b10f5d0b461a887fdd5b3dc01}} 
-TOKEN\+\_\+\+STRING\+\_\+\+LITERAL&\\
+TOKEN\+\_\+\+STRING\+\_\+\+LITERAL&String literal token. Represents a sequence of characters enclosed in double quotes. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_BOOLEAN@{TOKEN\_BOOLEAN}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_BOOLEAN@{TOKEN\_BOOLEAN}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8caffddda84e7a25800278a2dcf86c26}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8caffddda84e7a25800278a2dcf86c26}} 
-TOKEN\+\_\+\+BOOLEAN&\\
+TOKEN\+\_\+\+BOOLEAN&Boolean literal token. Represents a boolean value ({\ttfamily true} or {\ttfamily false}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_CHAR\_LITERAL@{TOKEN\_CHAR\_LITERAL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_CHAR\_LITERAL@{TOKEN\_CHAR\_LITERAL}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a69237e9ab97fc6f9306ee092834631df}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a69237e9ab97fc6f9306ee092834631df}} 
-TOKEN\+\_\+\+CHAR\+\_\+\+LITERAL&\\
+TOKEN\+\_\+\+CHAR\+\_\+\+LITERAL&Character literal token. Represents a single character enclosed in single quotes (e.\+g., `\textquotesingle{}a'\`{}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_EQUAL@{TOKEN\_EQUAL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_EQUAL@{TOKEN\_EQUAL}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a3c83b3f347ded187c65076c9172392c3}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a3c83b3f347ded187c65076c9172392c3}} 
-TOKEN\+\_\+\+EQUAL&\\
+TOKEN\+\_\+\+EQUAL&Equality comparison operator. Represents the equality operator ({\ttfamily ==}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_NOT\_EQUAL@{TOKEN\_NOT\_EQUAL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_NOT\_EQUAL@{TOKEN\_NOT\_EQUAL}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa6300763c80d89d4aaac59dfbf4c2c01}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa6300763c80d89d4aaac59dfbf4c2c01}} 
-TOKEN\+\_\+\+NOT\+\_\+\+EQUAL&\\
+TOKEN\+\_\+\+NOT\+\_\+\+EQUAL&Inequality comparison operator. Represents the not-\/equal-\/to operator ({\ttfamily !=}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_LESS\_EQUAL@{TOKEN\_LESS\_EQUAL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_LESS\_EQUAL@{TOKEN\_LESS\_EQUAL}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a9618ea497ab02a326b67f03606d8f90f}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a9618ea497ab02a326b67f03606d8f90f}} 
-TOKEN\+\_\+\+LESS\+\_\+\+EQUAL&\\
+TOKEN\+\_\+\+LESS\+\_\+\+EQUAL&Less-\/than-\/or-\/equal-\/to operator. Represents the operator ({\ttfamily $<$=}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_LESS\_THAN@{TOKEN\_LESS\_THAN}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_LESS\_THAN@{TOKEN\_LESS\_THAN}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a634d456dd4f4a4ab865352988aaca719}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a634d456dd4f4a4ab865352988aaca719}} 
-TOKEN\+\_\+\+LESS\+\_\+\+THAN&\\
+TOKEN\+\_\+\+LESS\+\_\+\+THAN&Less-\/than operator. Represents the operator ({\ttfamily $<$}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_GREATER\_EQUAL@{TOKEN\_GREATER\_EQUAL}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_GREATER\_EQUAL@{TOKEN\_GREATER\_EQUAL}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1b6033f79dc23f23aaf67708bd792991}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1b6033f79dc23f23aaf67708bd792991}} 
-TOKEN\+\_\+\+GREATER\+\_\+\+EQUAL&\\
+TOKEN\+\_\+\+GREATER\+\_\+\+EQUAL&Greater-\/than-\/or-\/equal-\/to operator. Represents the operator ({\ttfamily $>$=}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_GREATER\_THAN@{TOKEN\_GREATER\_THAN}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_GREATER\_THAN@{TOKEN\_GREATER\_THAN}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af6a5d42d2ef50fb03f1a66d01c2a3470}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af6a5d42d2ef50fb03f1a66d01c2a3470}} 
-TOKEN\+\_\+\+GREATER\+\_\+\+THAN&\\
+TOKEN\+\_\+\+GREATER\+\_\+\+THAN&Greater-\/than operator. Represents the operator ({\ttfamily $>$}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_ASSIGNMENT@{TOKEN\_ASSIGNMENT}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_ASSIGNMENT@{TOKEN\_ASSIGNMENT}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1f3658cf646576820d94a9a1c0504303}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1f3658cf646576820d94a9a1c0504303}} 
-TOKEN\+\_\+\+ASSIGNMENT&Operators. \\
+TOKEN\+\_\+\+ASSIGNMENT&Assignment operator. Represents the assignment operator ({\ttfamily =}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_ADDITION@{TOKEN\_ADDITION}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_ADDITION@{TOKEN\_ADDITION}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa48683b3cba8786770d9bf800d15e545}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa48683b3cba8786770d9bf800d15e545}} 
-TOKEN\+\_\+\+ADDITION&\\
+TOKEN\+\_\+\+ADDITION&Addition operator. Represents the addition operator ({\ttfamily +}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_SUBTRACTION@{TOKEN\_SUBTRACTION}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_SUBTRACTION@{TOKEN\_SUBTRACTION}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ae892958f58c3c970916498eb5e47a388}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ae892958f58c3c970916498eb5e47a388}} 
-TOKEN\+\_\+\+SUBTRACTION&\\
+TOKEN\+\_\+\+SUBTRACTION&Subtraction operator. Represents the subtraction operator ({\ttfamily -\/}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_MULTIPLY@{TOKEN\_MULTIPLY}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_MULTIPLY@{TOKEN\_MULTIPLY}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44afdcb399f2904bfc9ce2bd870ff04d1c2}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44afdcb399f2904bfc9ce2bd870ff04d1c2}} 
-TOKEN\+\_\+\+MULTIPLY&\\
+TOKEN\+\_\+\+MULTIPLY&Multiplication operator. Represents the multiplication operator ({\ttfamily $\ast$}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_DIVISION@{TOKEN\_DIVISION}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_DIVISION@{TOKEN\_DIVISION}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a196db7f3d2018cad481d0ffdf266889c}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a196db7f3d2018cad481d0ffdf266889c}} 
-TOKEN\+\_\+\+DIVISION&\\
+TOKEN\+\_\+\+DIVISION&Division operator. Represents the division operator ({\ttfamily /}) with a result as a floating-\/point number. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_BACKSLASH@{TOKEN\_BACKSLASH}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_BACKSLASH@{TOKEN\_BACKSLASH}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a04d79b81666e686448ea4bd2592f438b}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a04d79b81666e686448ea4bd2592f438b}} 
-TOKEN\+\_\+\+BACKSLASH&\\
+TOKEN\+\_\+\+BACKSLASH&Backslash character token. Represents the backslash character ({\ttfamily \textbackslash{}}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_PIPE@{TOKEN\_PIPE}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_PIPE@{TOKEN\_PIPE}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a93000ce4e0f00f6f294a98192f705910}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a93000ce4e0f00f6f294a98192f705910}} 
-TOKEN\+\_\+\+PIPE&\\
+TOKEN\+\_\+\+PIPE&Logical OR operator. Represents the logical OR operator ({\ttfamily $\vert$$\vert$}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_EXCLAMATION@{TOKEN\_EXCLAMATION}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_EXCLAMATION@{TOKEN\_EXCLAMATION}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0e70b5ecc56852cc6499f90d410555ec}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0e70b5ecc56852cc6499f90d410555ec}} 
-TOKEN\+\_\+\+EXCLAMATION&\\
+TOKEN\+\_\+\+EXCLAMATION&Exclamation mark token. Represents the exclamation mark ({\ttfamily !}), typically used in logical negation. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_LPAREN@{TOKEN\_LPAREN}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_LPAREN@{TOKEN\_LPAREN}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af4143395fefba1c6a30e58240dd0c827}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af4143395fefba1c6a30e58240dd0c827}} 
-TOKEN\+\_\+\+LPAREN&\\
+TOKEN\+\_\+\+LPAREN&Left parenthesis token. Represents the opening parenthesis ({\ttfamily (}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_RPAREN@{TOKEN\_RPAREN}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_RPAREN@{TOKEN\_RPAREN}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ace232c359d5697cc5c459c22a7be226b}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ace232c359d5697cc5c459c22a7be226b}} 
-TOKEN\+\_\+\+RPAREN&\\
+TOKEN\+\_\+\+RPAREN&Right parenthesis token. Represents the closing parenthesis ({\ttfamily )}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_LEFT\_BRACKET@{TOKEN\_LEFT\_BRACKET}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_LEFT\_BRACKET@{TOKEN\_LEFT\_BRACKET}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a60e4bab14680522185007fe87240e707}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a60e4bab14680522185007fe87240e707}} 
-TOKEN\+\_\+\+LEFT\+\_\+\+BRACKET&\\
+TOKEN\+\_\+\+LEFT\+\_\+\+BRACKET&Left square bracket token. Represents the opening square bracket ({\ttfamily \mbox{[}}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_RIGHT\_BRACKET@{TOKEN\_RIGHT\_BRACKET}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_RIGHT\_BRACKET@{TOKEN\_RIGHT\_BRACKET}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa42fbee15a56484e7cc6daaaa552107a}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa42fbee15a56484e7cc6daaaa552107a}} 
-TOKEN\+\_\+\+RIGHT\+\_\+\+BRACKET&\\
+TOKEN\+\_\+\+RIGHT\+\_\+\+BRACKET&Right square bracket token. Represents the closing square bracket ({\ttfamily \mbox{]}}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_CURLYL\_BRACKET@{TOKEN\_CURLYL\_BRACKET}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_CURLYL\_BRACKET@{TOKEN\_CURLYL\_BRACKET}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aea93445565e90032b651b3bfeab696ad}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aea93445565e90032b651b3bfeab696ad}} 
-TOKEN\+\_\+\+CURLYL\+\_\+\+BRACKET&\\
+TOKEN\+\_\+\+CURLYL\+\_\+\+BRACKET&Left curly bracket token. Represents the opening curly bracket ({\ttfamily \{}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_CURLYR\_BRACKET@{TOKEN\_CURLYR\_BRACKET}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_CURLYR\_BRACKET@{TOKEN\_CURLYR\_BRACKET}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a177c279eee0ad7b261d2a217545ddc86}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a177c279eee0ad7b261d2a217545ddc86}} 
-TOKEN\+\_\+\+CURLYR\+\_\+\+BRACKET&\\
+TOKEN\+\_\+\+CURLYR\+\_\+\+BRACKET&Right curly bracket token. Represents the closing curly bracket ({\ttfamily \}}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_COMMA@{TOKEN\_COMMA}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_COMMA@{TOKEN\_COMMA}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8d265e17914bc733c8b9a880dd097a9e}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8d265e17914bc733c8b9a880dd097a9e}} 
-TOKEN\+\_\+\+COMMA&\\
+TOKEN\+\_\+\+COMMA&Comma token. Represents the comma ({\ttfamily ,}) used for separating elements. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_SEMICOLON@{TOKEN\_SEMICOLON}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_SEMICOLON@{TOKEN\_SEMICOLON}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ac8c74b281e178c87923363a90f6ff371}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ac8c74b281e178c87923363a90f6ff371}} 
-TOKEN\+\_\+\+SEMICOLON&\\
+TOKEN\+\_\+\+SEMICOLON&Semicolon token. Represents the semicolon ({\ttfamily ;}) used for statement termination. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_COMMENT@{TOKEN\_COMMENT}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_COMMENT@{TOKEN\_COMMENT}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0fe00080531042db460071402c40f763}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0fe00080531042db460071402c40f763}} 
-TOKEN\+\_\+\+COMMENT&\\
+TOKEN\+\_\+\+COMMENT&Comment token. Represents comments in the code (e.\+g., {\ttfamily // This is a comment}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_IMPORT@{TOKEN\_IMPORT}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_IMPORT@{TOKEN\_IMPORT}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a00a4852749fa7e7e4675f7843ae16642}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a00a4852749fa7e7e4675f7843ae16642}} 
-TOKEN\+\_\+\+IMPORT&\\
+TOKEN\+\_\+\+IMPORT&Import token. Represents the {\ttfamily @import} statement. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_DISCARD@{TOKEN\_DISCARD}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_DISCARD@{TOKEN\_DISCARD}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a399667e371946cce1c1081aea2f2c52d}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a399667e371946cce1c1081aea2f2c52d}} 
-TOKEN\+\_\+\+DISCARD&\\
+TOKEN\+\_\+\+DISCARD&Discard token. Represents the underscore ({\ttfamily \+\_\+}), used for discarding values. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_COLON@{TOKEN\_COLON}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_COLON@{TOKEN\_COLON}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a92a35ac6329421e77882bf3739a75e47}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a92a35ac6329421e77882bf3739a75e47}} 
-TOKEN\+\_\+\+COLON&\\
+TOKEN\+\_\+\+COLON&Colon token. Represents the colon ({\ttfamily \+:}). \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_DOT@{TOKEN\_DOT}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_DOT@{TOKEN\_DOT}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ab565ebfaaa53dcee6ddda201e270733e}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ab565ebfaaa53dcee6ddda201e270733e}} 
-TOKEN\+\_\+\+DOT&\\
+TOKEN\+\_\+\+DOT&Dot token. Represents the dot ({\ttfamily .}), often used for member access or namespaces. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_QUESTION\_MARK@{TOKEN\_QUESTION\_MARK}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_QUESTION\_MARK@{TOKEN\_QUESTION\_MARK}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a6a2dcbbac94d846452b6469ba7cec1d1}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a6a2dcbbac94d846452b6469ba7cec1d1}} 
-TOKEN\+\_\+\+QUESTION\+\_\+\+MARK&\\
+TOKEN\+\_\+\+QUESTION\+\_\+\+MARK&Question mark token. Represents the question mark ({\ttfamily ?}), often used in conditional expressions. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_UNDEFINED@{TOKEN\_UNDEFINED}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_UNDEFINED@{TOKEN\_UNDEFINED}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a4e9a7212ea985c5ffdbf0080c464cc88}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a4e9a7212ea985c5ffdbf0080c464cc88}} 
-TOKEN\+\_\+\+UNDEFINED&\\
+TOKEN\+\_\+\+UNDEFINED&Undefined token. Represents an unrecognized or invalid token. \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{TOKEN\_STRINGINIT\_ERROR@{TOKEN\_STRINGINIT\_ERROR}!lexical\_analyser.h@{lexical\_analyser.h}}\index{lexical\_analyser.h@{lexical\_analyser.h}!TOKEN\_STRINGINIT\_ERROR@{TOKEN\_STRINGINIT\_ERROR}}}\mbox{\Hypertarget{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a39b77bc78a559e8e8b728d82cc413595}\label{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a39b77bc78a559e8e8b728d82cc413595}} 
-TOKEN\+\_\+\+STRINGINIT\+\_\+\+ERROR&\\
+TOKEN\+\_\+\+STRINGINIT\+\_\+\+ERROR&String initialization error token. Represents an error encountered during string initialization. \\
 \hline
 
 \end{DoxyEnumFields}
+
+
+Definition at line 29 of file lexical\+\_\+analyser.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{30 \{}
+\DoxyCodeLine{35     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa130df27256cd45f5781fc74deeb50dc}{TOKEN\_EOF}},}
+\DoxyCodeLine{40     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a6b0ab7cf8c0d1203475022b3d5600f85}{TOKEN\_EOL}},}
+\DoxyCodeLine{45     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353}{TOKEN\_IDENTIFIER}},}
+\DoxyCodeLine{50     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a11fe7a3403d4ff8c62af31ddf679877c}{TOKEN\_KEYWORD}},}
+\DoxyCodeLine{55     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a25034ca7c95f724ac2509e57058adf18}{TOKEN\_NEWLINE}},}
+\DoxyCodeLine{60     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a2691fdb432b1bdd5eb40ce09b7d33614}{TOKEN\_TAB}},}
+\DoxyCodeLine{65     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0d72fca2861c67c0d0d3ccd1e8325453}{TOKEN\_INT\_LITERAL}},}
+\DoxyCodeLine{70     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aab21ed2851d3c47e12244da5bdc568bf}{TOKEN\_FLOAT\_LITERAL}},}
+\DoxyCodeLine{75     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a7ed3e98b10f5d0b461a887fdd5b3dc01}{TOKEN\_STRING\_LITERAL}},}
+\DoxyCodeLine{80     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8caffddda84e7a25800278a2dcf86c26}{TOKEN\_BOOLEAN}},}
+\DoxyCodeLine{85     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a69237e9ab97fc6f9306ee092834631df}{TOKEN\_CHAR\_LITERAL}},}
+\DoxyCodeLine{90     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a3c83b3f347ded187c65076c9172392c3}{TOKEN\_EQUAL}},}
+\DoxyCodeLine{95     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa6300763c80d89d4aaac59dfbf4c2c01}{TOKEN\_NOT\_EQUAL}},}
+\DoxyCodeLine{100     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a9618ea497ab02a326b67f03606d8f90f}{TOKEN\_LESS\_EQUAL}},}
+\DoxyCodeLine{105     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a634d456dd4f4a4ab865352988aaca719}{TOKEN\_LESS\_THAN}},}
+\DoxyCodeLine{110     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1b6033f79dc23f23aaf67708bd792991}{TOKEN\_GREATER\_EQUAL}},}
+\DoxyCodeLine{115     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af6a5d42d2ef50fb03f1a66d01c2a3470}{TOKEN\_GREATER\_THAN}},}
+\DoxyCodeLine{120     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1f3658cf646576820d94a9a1c0504303}{TOKEN\_ASSIGNMENT}},}
+\DoxyCodeLine{125     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa48683b3cba8786770d9bf800d15e545}{TOKEN\_ADDITION}},}
+\DoxyCodeLine{130     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ae892958f58c3c970916498eb5e47a388}{TOKEN\_SUBTRACTION}},}
+\DoxyCodeLine{135     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44afdcb399f2904bfc9ce2bd870ff04d1c2}{TOKEN\_MULTIPLY}},}
+\DoxyCodeLine{140     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a196db7f3d2018cad481d0ffdf266889c}{TOKEN\_DIVISION}},}
+\DoxyCodeLine{145     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a04d79b81666e686448ea4bd2592f438b}{TOKEN\_BACKSLASH}},}
+\DoxyCodeLine{150     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a93000ce4e0f00f6f294a98192f705910}{TOKEN\_PIPE}},}
+\DoxyCodeLine{155     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0e70b5ecc56852cc6499f90d410555ec}{TOKEN\_EXCLAMATION}},}
+\DoxyCodeLine{160     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af4143395fefba1c6a30e58240dd0c827}{TOKEN\_LPAREN}},}
+\DoxyCodeLine{165     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ace232c359d5697cc5c459c22a7be226b}{TOKEN\_RPAREN}},}
+\DoxyCodeLine{170     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a60e4bab14680522185007fe87240e707}{TOKEN\_LEFT\_BRACKET}},}
+\DoxyCodeLine{175     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa42fbee15a56484e7cc6daaaa552107a}{TOKEN\_RIGHT\_BRACKET}},}
+\DoxyCodeLine{180     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aea93445565e90032b651b3bfeab696ad}{TOKEN\_CURLYL\_BRACKET}},}
+\DoxyCodeLine{185     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a177c279eee0ad7b261d2a217545ddc86}{TOKEN\_CURLYR\_BRACKET}},}
+\DoxyCodeLine{190     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8d265e17914bc733c8b9a880dd097a9e}{TOKEN\_COMMA}},}
+\DoxyCodeLine{195     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ac8c74b281e178c87923363a90f6ff371}{TOKEN\_SEMICOLON}},}
+\DoxyCodeLine{200     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0fe00080531042db460071402c40f763}{TOKEN\_COMMENT}},}
+\DoxyCodeLine{205     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a00a4852749fa7e7e4675f7843ae16642}{TOKEN\_IMPORT}},}
+\DoxyCodeLine{210     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a399667e371946cce1c1081aea2f2c52d}{TOKEN\_DISCARD}},}
+\DoxyCodeLine{215     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a92a35ac6329421e77882bf3739a75e47}{TOKEN\_COLON}},}
+\DoxyCodeLine{220     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ab565ebfaaa53dcee6ddda201e270733e}{TOKEN\_DOT}},}
+\DoxyCodeLine{225     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a6a2dcbbac94d846452b6469ba7cec1d1}{TOKEN\_QUESTION\_MARK}},}
+\DoxyCodeLine{230     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a4e9a7212ea985c5ffdbf0080c464cc88}{TOKEN\_UNDEFINED}},}
+\DoxyCodeLine{235     \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a39b77bc78a559e8e8b728d82cc413595}{TOKEN\_STRINGINIT\_ERROR}}}
+\DoxyCodeLine{236 }
+\DoxyCodeLine{237 \} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44}{Token\_type}};}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Function Documentation}
@@ -558,15 +661,851 @@ TOKEN\+\_\+\+STRINGINIT\+\_\+\+ERROR&\\
 \doxysubsubsection{\texorpdfstring{get\_token()}{get\_token()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structToken}{Token}} get\+\_\+token (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file }\end{DoxyParamCaption})}
 
+
+
+Retrieves the next token from the input file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & The file to read from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The next token.
+\end{DoxyReturn}
+This function implements a finite state machine (FSM) to parse the input file character by character, constructing tokens based on the defined states. It handles various token types, including identifiers, keywords, literals, operators, and punctuation.
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & A pointer to the file being analyzed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The next token extracted from the file. If an error occurs during string initialization or reading, a TOKEN describing the error will be returned.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{structToken}{Token}} 
+
+\mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8}{State}} 
+\end{DoxySeeAlso}
+
+
+Definition at line 246 of file lexical\+\_\+analyser.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{247 \{}
+\DoxyCodeLine{248 }
+\DoxyCodeLine{249     \mbox{\hyperlink{structToken}{Token}} token;}
+\DoxyCodeLine{250     \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8}{State}} state;}
+\DoxyCodeLine{251 }
+\DoxyCodeLine{252     \textcolor{keywordflow}{if} (\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}} == NULL)}
+\DoxyCodeLine{253     \{}
+\DoxyCodeLine{254         printf(\textcolor{stringliteral}{"{}file null"{}}); \textcolor{comment}{// ! dorobit kde a čo?}}
+\DoxyCodeLine{255         token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa130df27256cd45f5781fc74deeb50dc}{TOKEN\_EOF}};}
+\DoxyCodeLine{256         \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{257     \}}
+\DoxyCodeLine{258     state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}{sStart}};}
+\DoxyCodeLine{259 }
+\DoxyCodeLine{260     \textcolor{comment}{// Inicializuj dynamic\_string pre hodnotu tokenu}}
+\DoxyCodeLine{261     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{newstring_8c_a5c4e413e494b26f4a5d9ddba7a274b3c}{dynamic\_string\_init}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}))}
+\DoxyCodeLine{262     \{}
+\DoxyCodeLine{263         token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a39b77bc78a559e8e8b728d82cc413595}{TOKEN\_STRINGINIT\_ERROR}};}
+\DoxyCodeLine{264         \textcolor{keywordflow}{return} token; \textcolor{comment}{// Vráť chybový token}}
+\DoxyCodeLine{265     \}}
+\DoxyCodeLine{266 }
+\DoxyCodeLine{267     \textcolor{keywordtype}{char} c;}
+\DoxyCodeLine{268 }
+\DoxyCodeLine{269     \textcolor{keywordflow}{while} (1)}
+\DoxyCodeLine{270     \{}
+\DoxyCodeLine{271         token.\mbox{\hyperlink{structToken_af5a5b44dc780e07fc9daccdfd019f000}{keyword\_val}} = 0;}
+\DoxyCodeLine{272         c = (char)getc(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{273 }
+\DoxyCodeLine{274         \textcolor{keywordflow}{switch} (state)}
+\DoxyCodeLine{275         \{}
+\DoxyCodeLine{276         \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}{sStart}}:}
+\DoxyCodeLine{277 }
+\DoxyCodeLine{278             \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{' '} || c == \textcolor{charliteral}{'\(\backslash\)t'})}
+\DoxyCodeLine{279             \{}
+\DoxyCodeLine{280                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}{sStart}};}
+\DoxyCodeLine{281             \}}
+\DoxyCodeLine{282             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == EOF)}
+\DoxyCodeLine{283             \{}
+\DoxyCodeLine{284                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa130df27256cd45f5781fc74deeb50dc}{TOKEN\_EOF}};}
+\DoxyCodeLine{285                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{286             \}}
+\DoxyCodeLine{287             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'@'})}
+\DoxyCodeLine{288             \{}
+\DoxyCodeLine{289                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ae43da8b6fefce8969b2632e2148d95e3}{sImport}};}
+\DoxyCodeLine{290                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{291             \}}
+\DoxyCodeLine{292             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'\(\backslash\)n'}) \textcolor{comment}{/* EOL, end of line  should add \(\backslash\)t \(\backslash\)r support? */}}
+\DoxyCodeLine{293             \{}
+\DoxyCodeLine{294                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af0a0ecb685c176b46904ef031a62e9cb}{sEOL}};           \textcolor{comment}{// Přepni na stav konce řádku}}
+\DoxyCodeLine{295                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a6b0ab7cf8c0d1203475022b3d5600f85}{TOKEN\_EOL}}; \textcolor{comment}{// Předpokládáme, že TOKEN\_EOL je definován}}
+\DoxyCodeLine{296                 \textcolor{keywordflow}{return} token;           \textcolor{comment}{// Vrať token EOL}}
+\DoxyCodeLine{297             \}}
+\DoxyCodeLine{298             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (isalpha(c)) \textcolor{comment}{// Check for identifiers/keywords}}
+\DoxyCodeLine{299             \{}
+\DoxyCodeLine{300                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a320954d35b1812927d1d94fc1cee2b3c}{sIdentifierorKeyword}};}
+\DoxyCodeLine{301                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{302             \}}
+\DoxyCodeLine{303             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'\_'})}
+\DoxyCodeLine{304             \{}
+\DoxyCodeLine{305                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{306 }
+\DoxyCodeLine{307                 \textcolor{comment}{// Read the next character without shadowing the original 'c'}}
+\DoxyCodeLine{308                 \textcolor{keywordtype}{char} next\_c = (char)getc(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{309 }
+\DoxyCodeLine{310                 \textcolor{comment}{// If the next character is a letter or a digit, treat it as part of an identifier}}
+\DoxyCodeLine{311                 \textcolor{keywordflow}{if} (isalnum(next\_c))}
+\DoxyCodeLine{312                 \{}
+\DoxyCodeLine{313                     \textcolor{comment}{// Add underscore to the identifier}}
+\DoxyCodeLine{314                     \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, next\_c); \textcolor{comment}{// Add the letter/digit to the identifier}}
+\DoxyCodeLine{315                     state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a320954d35b1812927d1d94fc1cee2b3c}{sIdentifierorKeyword}};                              \textcolor{comment}{// Transition to identifier state}}
+\DoxyCodeLine{316                 \}}
+\DoxyCodeLine{317                 \textcolor{keywordflow}{else}}
+\DoxyCodeLine{318                 \{}
+\DoxyCodeLine{319                     \textcolor{comment}{// If the next character is not valid, discard the underscore}}
+\DoxyCodeLine{320                     \textcolor{keywordflow}{if} (next\_c == \textcolor{charliteral}{'\(\backslash\)n'} || next\_c == EOF || next\_c == \textcolor{charliteral}{' '})}
+\DoxyCodeLine{321                     \{}
+\DoxyCodeLine{322                         token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a399667e371946cce1c1081aea2f2c52d}{TOKEN\_DISCARD}}; \textcolor{comment}{// Mark as discard}}
+\DoxyCodeLine{323                         \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{324                     \}}
+\DoxyCodeLine{325                     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{326                     \{}
+\DoxyCodeLine{327                         token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a4e9a7212ea985c5ffdbf0080c464cc88}{TOKEN\_UNDEFINED}}; \textcolor{comment}{// Invalid token}}
+\DoxyCodeLine{328                         ungetc(next\_c, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});         \textcolor{comment}{// Return the character back to the input}}
+\DoxyCodeLine{329                         \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{330                     \}}
+\DoxyCodeLine{331                 \}}
+\DoxyCodeLine{332             \}}
+\DoxyCodeLine{333             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (isdigit(c)) \textcolor{comment}{// Check for numbers}}
+\DoxyCodeLine{334             \{}
+\DoxyCodeLine{335                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7361f1b0e6e81ac590cd754204ae8cd3}{sIntLiteral}}; \textcolor{comment}{// Start reading an integer literal}}
+\DoxyCodeLine{336                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{337             \}}
+\DoxyCodeLine{338             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'\(\backslash\)"{}'}) \textcolor{comment}{// Start of string literal}}
+\DoxyCodeLine{339             \{}
+\DoxyCodeLine{340                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac9b5cb9d0557140fc4e7a44442aa1d6d}{sStringLiteral}};}
+\DoxyCodeLine{341             \}}
+\DoxyCodeLine{342             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'/'}) \textcolor{comment}{// Could be start of comment or division}}
+\DoxyCodeLine{343             \{}
+\DoxyCodeLine{344                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{345                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a786cabd32ed690206849bd3c41710d3b}{sDivision}};}
+\DoxyCodeLine{346             \}}
+\DoxyCodeLine{347             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'('}) \textcolor{comment}{// Left parenthesis}}
+\DoxyCodeLine{348             \{}
+\DoxyCodeLine{349                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{350                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af4143395fefba1c6a30e58240dd0c827}{TOKEN\_LPAREN}};}
+\DoxyCodeLine{351                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{352             \}}
+\DoxyCodeLine{353             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{')'}) \textcolor{comment}{// Right parenthesis}}
+\DoxyCodeLine{354             \{}
+\DoxyCodeLine{355                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{356                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ace232c359d5697cc5c459c22a7be226b}{TOKEN\_RPAREN}};}
+\DoxyCodeLine{357                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{358             \}}
+\DoxyCodeLine{359             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'\{'}) \textcolor{comment}{// Left parenthesis}}
+\DoxyCodeLine{360             \{}
+\DoxyCodeLine{361                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{362                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aea93445565e90032b651b3bfeab696ad}{TOKEN\_CURLYL\_BRACKET}};}
+\DoxyCodeLine{363                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{364             \}}
+\DoxyCodeLine{365             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'\}'}) \textcolor{comment}{// Right parenthesis}}
+\DoxyCodeLine{366             \{}
+\DoxyCodeLine{367                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{368                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a177c279eee0ad7b261d2a217545ddc86}{TOKEN\_CURLYR\_BRACKET}};}
+\DoxyCodeLine{369                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{370             \}}
+\DoxyCodeLine{371             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'['})}
+\DoxyCodeLine{372             \{}
+\DoxyCodeLine{373                 \textcolor{comment}{// dynamic\_string\_add\_char(\&token.value.valueString, c);}}
+\DoxyCodeLine{374                 \textcolor{comment}{// state = sIdentifierorKeyword;}}
+\DoxyCodeLine{375 }
+\DoxyCodeLine{376                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{377                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a60e4bab14680522185007fe87240e707}{TOKEN\_LEFT\_BRACKET}};}
+\DoxyCodeLine{378                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{379             \}}
+\DoxyCodeLine{380             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{']'})}
+\DoxyCodeLine{381             \{}
+\DoxyCodeLine{382                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{383                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa42fbee15a56484e7cc6daaaa552107a}{TOKEN\_RIGHT\_BRACKET}};}
+\DoxyCodeLine{384                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{385             \}}
+\DoxyCodeLine{386             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{','}) \textcolor{comment}{// Comma}}
+\DoxyCodeLine{387             \{}
+\DoxyCodeLine{388                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8d265e17914bc733c8b9a880dd097a9e}{TOKEN\_COMMA}}; \textcolor{comment}{// Set the token type for comma}}
+\DoxyCodeLine{389                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{390                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{391             \}}
+\DoxyCodeLine{392             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{';'}) \textcolor{comment}{// Semicolon}}
+\DoxyCodeLine{393             \{}
+\DoxyCodeLine{394                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{395                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ac8c74b281e178c87923363a90f6ff371}{TOKEN\_SEMICOLON}}; \textcolor{comment}{// Set the token type for semicolon}}
+\DoxyCodeLine{396                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}{sStart}};               \textcolor{comment}{// Return to the starting state}}
+\DoxyCodeLine{397                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{398             \}}
+\DoxyCodeLine{399             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{':'}) \textcolor{comment}{// Colon}}
+\DoxyCodeLine{400             \{}
+\DoxyCodeLine{401                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{402                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a92a35ac6329421e77882bf3739a75e47}{TOKEN\_COLON}}; \textcolor{comment}{// Set the token type for semicolon}}
+\DoxyCodeLine{403                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}{sStart}};           \textcolor{comment}{// Return to the starting state}}
+\DoxyCodeLine{404                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{405             \}}
+\DoxyCodeLine{406             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'.'}) \textcolor{comment}{// Dot}}
+\DoxyCodeLine{407             \{}
+\DoxyCodeLine{408                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{409                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ab565ebfaaa53dcee6ddda201e270733e}{TOKEN\_DOT}}; \textcolor{comment}{// Set the token type for semicolon}}
+\DoxyCodeLine{410                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}{sStart}};         \textcolor{comment}{// Return to the starting state}}
+\DoxyCodeLine{411                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{412             \}}
+\DoxyCodeLine{413             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'?'}) \textcolor{comment}{// Question mark}}
+\DoxyCodeLine{414             \{}
+\DoxyCodeLine{415                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{416                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a6a2dcbbac94d846452b6469ba7cec1d1}{TOKEN\_QUESTION\_MARK}};}
+\DoxyCodeLine{417                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{418             \}}
+\DoxyCodeLine{419             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'+'}) \textcolor{comment}{// Addition operator}}
+\DoxyCodeLine{420             \{}
+\DoxyCodeLine{421                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{422                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa48683b3cba8786770d9bf800d15e545}{TOKEN\_ADDITION}};}
+\DoxyCodeLine{423                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{424             \}}
+\DoxyCodeLine{425             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'-\/'}) \textcolor{comment}{// Subtraction operator}}
+\DoxyCodeLine{426             \{}
+\DoxyCodeLine{427                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{428                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ae892958f58c3c970916498eb5e47a388}{TOKEN\_SUBTRACTION}};}
+\DoxyCodeLine{429                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{430             \}}
+\DoxyCodeLine{431             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'*'}) \textcolor{comment}{// Multiplication operator}}
+\DoxyCodeLine{432             \{}
+\DoxyCodeLine{433                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{434                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44afdcb399f2904bfc9ce2bd870ff04d1c2}{TOKEN\_MULTIPLY}};}
+\DoxyCodeLine{435                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{436             \}}
+\DoxyCodeLine{437             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'|'}) \textcolor{comment}{// Check for bitwise OR / logical OR}}
+\DoxyCodeLine{438             \{}
+\DoxyCodeLine{439                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{440                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a93000ce4e0f00f6f294a98192f705910}{TOKEN\_PIPE}};}
+\DoxyCodeLine{441                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{442             \}}
+\DoxyCodeLine{443             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'='}) \textcolor{comment}{// Start of equality or assignment}}
+\DoxyCodeLine{444             \{}
+\DoxyCodeLine{445                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a845ae9a4f0d69357879f20576bc8f8c7}{sAssign}}; \textcolor{comment}{// Move to assignment state}}
+\DoxyCodeLine{446                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{447             \}}
+\DoxyCodeLine{448             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'<'}) \textcolor{comment}{// Start of less than or equal}}
+\DoxyCodeLine{449             \{}
+\DoxyCodeLine{450                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0329aab4e5cfe984949899bc59cbc153}{sLessThan}}; \textcolor{comment}{// Move to less than state}}
+\DoxyCodeLine{451                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{452             \}}
+\DoxyCodeLine{453             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'>'}) \textcolor{comment}{// Start of greater than or equal}}
+\DoxyCodeLine{454             \{}
+\DoxyCodeLine{455                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8aa446c0b6cc245ad1796fc0ccee32bcb5}{sGreaterThan}}; \textcolor{comment}{// Move to greater than state}}
+\DoxyCodeLine{456                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{457             \}}
+\DoxyCodeLine{458             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'\(\backslash\)''}) \textcolor{comment}{// Single quote for character literal}}
+\DoxyCodeLine{459             \{}
+\DoxyCodeLine{460                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a9202f4b2de6a333dcef704283ee138db}{sSingleQuote}};            \textcolor{comment}{// Move to state for single quote}}
+\DoxyCodeLine{461                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a69237e9ab97fc6f9306ee092834631df}{TOKEN\_CHAR\_LITERAL}}; \textcolor{comment}{// Set token type for character literal}}
+\DoxyCodeLine{462             \}}
+\DoxyCodeLine{463             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'\(\backslash\)\(\backslash\)'}) \textcolor{comment}{// Backslash for escape sequences}}
+\DoxyCodeLine{464             \{}
+\DoxyCodeLine{465                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a8d45f5ea610302976656bb287c6ebf7e}{sBackSlash}};           \textcolor{comment}{// Move to escape sequence handling state}}
+\DoxyCodeLine{466                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a04d79b81666e686448ea4bd2592f438b}{TOKEN\_BACKSLASH}}; \textcolor{comment}{// Set token type for backslash}}
+\DoxyCodeLine{467             \}}
+\DoxyCodeLine{468             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'!'}) \textcolor{comment}{// Logical NOT or not equal}}
+\DoxyCodeLine{469             \{}
+\DoxyCodeLine{470                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{471                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac269c488167b67c322709b75678d8851}{sExclamation}};}
+\DoxyCodeLine{472             \}}
+\DoxyCodeLine{473 }
+\DoxyCodeLine{474             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{475 }
+\DoxyCodeLine{476         \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a320954d35b1812927d1d94fc1cee2b3c}{sIdentifierorKeyword}}:}
+\DoxyCodeLine{477         \{}
+\DoxyCodeLine{478             \textcolor{keywordflow}{if} (isalnum(c) || c == \textcolor{charliteral}{'\_'})}
+\DoxyCodeLine{479             \{}
+\DoxyCodeLine{480                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{481                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a320954d35b1812927d1d94fc1cee2b3c}{sIdentifierorKeyword}};}
+\DoxyCodeLine{482             \}}
+\DoxyCodeLine{483             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{484             \{}
+\DoxyCodeLine{485                 ungetc(c, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{486                 \textcolor{keywordflow}{if} (\mbox{\hyperlink{lexical__analyser_8c_ade03459f3b506becbc1e389002a1126a}{is\_keyword}}(\&token))}
+\DoxyCodeLine{487                     token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a11fe7a3403d4ff8c62af31ddf679877c}{TOKEN\_KEYWORD}};}
+\DoxyCodeLine{488                 \textcolor{keywordflow}{else}}
+\DoxyCodeLine{489                     token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353}{TOKEN\_IDENTIFIER}};}
+\DoxyCodeLine{490 }
+\DoxyCodeLine{491                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{492             \}}
+\DoxyCodeLine{493         \}}
+\DoxyCodeLine{494         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{495         \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7361f1b0e6e81ac590cd754204ae8cd3}{sIntLiteral}}:}
+\DoxyCodeLine{496         \{}
+\DoxyCodeLine{497             \textcolor{keywordflow}{if} (isdigit(c))}
+\DoxyCodeLine{498             \{}
+\DoxyCodeLine{499                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{500                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a7361f1b0e6e81ac590cd754204ae8cd3}{sIntLiteral}};}
+\DoxyCodeLine{501             \}}
+\DoxyCodeLine{502             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'.'})}
+\DoxyCodeLine{503             \{}
+\DoxyCodeLine{504                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{505                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af265c1a80b908d47bab35d6107c38e10}{sFloatLiteral}};}
+\DoxyCodeLine{506             \}}
+\DoxyCodeLine{507             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'e'} || c == \textcolor{charliteral}{'E'})}
+\DoxyCodeLine{508             \{}
+\DoxyCodeLine{509                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{510                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0fba407f02267367ab375fbcd8251f3e}{sExponent}};}
+\DoxyCodeLine{511             \}}
+\DoxyCodeLine{512             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{513             \{}
+\DoxyCodeLine{514                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0d72fca2861c67c0d0d3ccd1e8325453}{TOKEN\_INT\_LITERAL}};}
+\DoxyCodeLine{515                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}{sStart}};}
+\DoxyCodeLine{516                 ungetc(c, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{517                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{518             \}}
+\DoxyCodeLine{519         \}}
+\DoxyCodeLine{520         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{521         \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af265c1a80b908d47bab35d6107c38e10}{sFloatLiteral}}:}
+\DoxyCodeLine{522         \{}
+\DoxyCodeLine{523             \textcolor{comment}{// Handle floating-\/point literal logic here}}
+\DoxyCodeLine{524             \textcolor{keywordflow}{if} (isdigit(c))}
+\DoxyCodeLine{525             \{}
+\DoxyCodeLine{526                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{527                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af265c1a80b908d47bab35d6107c38e10}{sFloatLiteral}};}
+\DoxyCodeLine{528             \}}
+\DoxyCodeLine{529             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'e'} || c == \textcolor{charliteral}{'E'})}
+\DoxyCodeLine{530             \{}
+\DoxyCodeLine{531                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{532                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0fba407f02267367ab375fbcd8251f3e}{sExponent}};}
+\DoxyCodeLine{533             \}}
+\DoxyCodeLine{534             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{535             \{}
+\DoxyCodeLine{536                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aab21ed2851d3c47e12244da5bdc568bf}{TOKEN\_FLOAT\_LITERAL}}; \textcolor{comment}{// Set token type to float literal}}
+\DoxyCodeLine{537                 ungetc(c, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});                  \textcolor{comment}{// Put the character back for further processing}}
+\DoxyCodeLine{538                 \textcolor{keywordflow}{return} token;                     \textcolor{comment}{// Return the float token}}
+\DoxyCodeLine{539             \}}
+\DoxyCodeLine{540         \}}
+\DoxyCodeLine{541         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{542         \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0fba407f02267367ab375fbcd8251f3e}{sExponent}}:}
+\DoxyCodeLine{543         \{}
+\DoxyCodeLine{544             \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'+'} || c == \textcolor{charliteral}{'-\/'})}
+\DoxyCodeLine{545             \{}
+\DoxyCodeLine{546                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{547                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a518a0ec5848a834a5723a2b106923dda}{sExponentSign}};}
+\DoxyCodeLine{548             \}}
+\DoxyCodeLine{549             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (isdigit(c))}
+\DoxyCodeLine{550             \{}
+\DoxyCodeLine{551                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{552                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0fba407f02267367ab375fbcd8251f3e}{sExponent}};}
+\DoxyCodeLine{553             \}}
+\DoxyCodeLine{554             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{555             \{}
+\DoxyCodeLine{556                 \textcolor{keywordtype}{double} calculatedNum = strtod(token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}.\mbox{\hyperlink{structDynamic__string_ac9fdee687d9f337d1babcf26242ac6ad}{str}}, NULL);}
+\DoxyCodeLine{557 }
+\DoxyCodeLine{558                 \mbox{\hyperlink{newstring_8c_aa1207c77da58ada32d94fe4e97aa5e1e}{dynamic\_string\_clear}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}});}
+\DoxyCodeLine{559 }
+\DoxyCodeLine{560                 \textcolor{keywordflow}{if} (!\mbox{\hyperlink{newstring_8c_a723751a5d99efdf10145303c11895ce9}{add\_double\_to\_dynamic\_string}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, calculatedNum))}
+\DoxyCodeLine{561                 \{}
+\DoxyCodeLine{562                     token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a4e9a7212ea985c5ffdbf0080c464cc88}{TOKEN\_UNDEFINED}}; \textcolor{comment}{// Handle error if addition fails}}
+\DoxyCodeLine{563                     \textcolor{keywordflow}{return} token;                 \textcolor{comment}{// Return error token}}
+\DoxyCodeLine{564                 \}}
+\DoxyCodeLine{565                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aab21ed2851d3c47e12244da5bdc568bf}{TOKEN\_FLOAT\_LITERAL}}; \textcolor{comment}{// Set token type to float literal}}
+\DoxyCodeLine{566                 ungetc(c, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{567                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{568             \}}
+\DoxyCodeLine{569         \}}
+\DoxyCodeLine{570         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{571         \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a518a0ec5848a834a5723a2b106923dda}{sExponentSign}}:}
+\DoxyCodeLine{572         \{}
+\DoxyCodeLine{573             \textcolor{keywordflow}{if} (isdigit(c))}
+\DoxyCodeLine{574             \{}
+\DoxyCodeLine{575                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{576                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0fba407f02267367ab375fbcd8251f3e}{sExponent}};}
+\DoxyCodeLine{577             \}}
+\DoxyCodeLine{578             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{579             \{}
+\DoxyCodeLine{580                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a4e9a7212ea985c5ffdbf0080c464cc88}{TOKEN\_UNDEFINED}};}
+\DoxyCodeLine{581                 ungetc(c, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{582                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{583             \}}
+\DoxyCodeLine{584         \}}
+\DoxyCodeLine{585         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{586         \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac9b5cb9d0557140fc4e7a44442aa1d6d}{sStringLiteral}}:}
+\DoxyCodeLine{587         \{}
+\DoxyCodeLine{588             \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'\(\backslash\)\(\backslash\)'}) \textcolor{comment}{// Check for escape sequences}}
+\DoxyCodeLine{589             \{}
+\DoxyCodeLine{590                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a647f484374dd685dcd8512ff8b796251}{sEscapeSequence}}; \textcolor{comment}{// Transition to escape sequence handling}}
+\DoxyCodeLine{591             \}}
+\DoxyCodeLine{592             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'"{}'}) \textcolor{comment}{// End of string literal}}
+\DoxyCodeLine{593             \{}
+\DoxyCodeLine{594                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a7ed3e98b10f5d0b461a887fdd5b3dc01}{TOKEN\_STRING\_LITERAL}}; \textcolor{comment}{// Set token type to string literal}}
+\DoxyCodeLine{595                 \textcolor{keywordflow}{return} token;                      \textcolor{comment}{// Return string token}}
+\DoxyCodeLine{596             \}}
+\DoxyCodeLine{597             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c < 32)}
+\DoxyCodeLine{598             \{}
+\DoxyCodeLine{599                 \textcolor{comment}{// Unexpected end of file without closing quote}}
+\DoxyCodeLine{600                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a4e9a7212ea985c5ffdbf0080c464cc88}{TOKEN\_UNDEFINED}}; \textcolor{comment}{// Set error token}}
+\DoxyCodeLine{601                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{602             \}}
+\DoxyCodeLine{603             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{604             \{}
+\DoxyCodeLine{605                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{606             \}}
+\DoxyCodeLine{607         \}}
+\DoxyCodeLine{608         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{609         \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a647f484374dd685dcd8512ff8b796251}{sEscapeSequence}}:}
+\DoxyCodeLine{610         \{}
+\DoxyCodeLine{611             \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'n'})}
+\DoxyCodeLine{612             \{}
+\DoxyCodeLine{613                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, \textcolor{charliteral}{'\(\backslash\)n'}); \textcolor{comment}{// Newline escape}}
+\DoxyCodeLine{614             \}}
+\DoxyCodeLine{615             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'t'})}
+\DoxyCodeLine{616             \{}
+\DoxyCodeLine{617                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, \textcolor{charliteral}{'\(\backslash\)t'}); \textcolor{comment}{// Tab escape}}
+\DoxyCodeLine{618             \}}
+\DoxyCodeLine{619             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'r'})}
+\DoxyCodeLine{620             \{}
+\DoxyCodeLine{621                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, \textcolor{charliteral}{'\(\backslash\)r'}); \textcolor{comment}{// Carriage return escape}}
+\DoxyCodeLine{622             \}}
+\DoxyCodeLine{623             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'\(\backslash\)"{}'})}
+\DoxyCodeLine{624             \{}
+\DoxyCodeLine{625                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, \textcolor{charliteral}{'\(\backslash\)"{}'}); \textcolor{comment}{// Quote escape}}
+\DoxyCodeLine{626             \}}
+\DoxyCodeLine{627             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'\(\backslash\)\(\backslash\)'})}
+\DoxyCodeLine{628             \{}
+\DoxyCodeLine{629                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, \textcolor{charliteral}{'\(\backslash\)\(\backslash\)'}); \textcolor{comment}{// Backslash escape}}
+\DoxyCodeLine{630             \}}
+\DoxyCodeLine{631             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'x'}) \textcolor{comment}{// Hexadecimal escape}}
+\DoxyCodeLine{632             \{}
+\DoxyCodeLine{633                 \textcolor{keywordtype}{char} hex[3];               \textcolor{comment}{// Buffer to hold hex digits}}
+\DoxyCodeLine{634                 hex[0] = (char)getc(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}); \textcolor{comment}{// First hex digit}}
+\DoxyCodeLine{635                 hex[1] = (char)getc(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}); \textcolor{comment}{// Second hex digit}}
+\DoxyCodeLine{636                 hex[2] = \textcolor{charliteral}{'\(\backslash\)0'};             \textcolor{comment}{// Null-\/terminate the string}}
+\DoxyCodeLine{637 }
+\DoxyCodeLine{638                 \textcolor{comment}{// Check if the hex characters are valid}}
+\DoxyCodeLine{639                 \textcolor{keywordflow}{if} (isxdigit(hex[0]) \&\& isxdigit(hex[1]))}
+\DoxyCodeLine{640                 \{}
+\DoxyCodeLine{641                     \textcolor{keywordtype}{int} value = (int)strtol(hex, NULL, 16);                         \textcolor{comment}{// Convert hex to integer}}
+\DoxyCodeLine{642                     \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, (\textcolor{keywordtype}{char})value); \textcolor{comment}{// Add the character to the string}}
+\DoxyCodeLine{643                 \}}
+\DoxyCodeLine{644                 \textcolor{keywordflow}{else}}
+\DoxyCodeLine{645                 \{}
+\DoxyCodeLine{646                     token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a4e9a7212ea985c5ffdbf0080c464cc88}{TOKEN\_UNDEFINED}}; \textcolor{comment}{// Invalid hex escape}}
+\DoxyCodeLine{647                     \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{648                 \}}
+\DoxyCodeLine{649             \}}
+\DoxyCodeLine{650             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{651             \{}
+\DoxyCodeLine{652                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a4e9a7212ea985c5ffdbf0080c464cc88}{TOKEN\_UNDEFINED}}; \textcolor{comment}{// Invalid escape sequence}}
+\DoxyCodeLine{653                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{654             \}}
+\DoxyCodeLine{655 }
+\DoxyCodeLine{656             state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac9b5cb9d0557140fc4e7a44442aa1d6d}{sStringLiteral}}; \textcolor{comment}{// Return to string literal state}}
+\DoxyCodeLine{657         \}}
+\DoxyCodeLine{658         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{659         \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a8d45f5ea610302976656bb287c6ebf7e}{sBackSlash}}:}
+\DoxyCodeLine{660         \{}
+\DoxyCodeLine{661             c = (char)getc(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}); \textcolor{comment}{// Read the next character}}
+\DoxyCodeLine{662             \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'n'})}
+\DoxyCodeLine{663             \{}
+\DoxyCodeLine{664                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a25034ca7c95f724ac2509e57058adf18}{TOKEN\_NEWLINE}}; \textcolor{comment}{// Example for newline escape}}
+\DoxyCodeLine{665             \}}
+\DoxyCodeLine{666             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'t'})}
+\DoxyCodeLine{667             \{}
+\DoxyCodeLine{668                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a2691fdb432b1bdd5eb40ce09b7d33614}{TOKEN\_TAB}}; \textcolor{comment}{// Example for tab escape}}
+\DoxyCodeLine{669             \}}
+\DoxyCodeLine{670             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'\(\backslash\)\(\backslash\)'})}
+\DoxyCodeLine{671             \{}
+\DoxyCodeLine{672                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a04d79b81666e686448ea4bd2592f438b}{TOKEN\_BACKSLASH}}; \textcolor{comment}{// Token for backslash itself}}
+\DoxyCodeLine{673             \}}
+\DoxyCodeLine{674             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{675             \{}
+\DoxyCodeLine{676                 ungetc(c, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});              \textcolor{comment}{// Put back the character if it's not a recognized escape}}
+\DoxyCodeLine{677                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a04d79b81666e686448ea4bd2592f438b}{TOKEN\_BACKSLASH}}; \textcolor{comment}{// Handle as just a backslash if needed}}
+\DoxyCodeLine{678             \}}
+\DoxyCodeLine{679             state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}{sStart}}; \textcolor{comment}{// Return to the starting state}}
+\DoxyCodeLine{680             \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{681         \}}
+\DoxyCodeLine{682         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{683         \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a786cabd32ed690206849bd3c41710d3b}{sDivision}}:}
+\DoxyCodeLine{684         \{}
+\DoxyCodeLine{685             \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'/'})}
+\DoxyCodeLine{686             \{}
+\DoxyCodeLine{687                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a2ce3524821ca4917141e32b96fc1de0f}{sComment}};}
+\DoxyCodeLine{688                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{689             \}}
+\DoxyCodeLine{690             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{691             \{}
+\DoxyCodeLine{692                 ungetc(c, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});             \textcolor{comment}{// Put back the character if it's not '='}}
+\DoxyCodeLine{693                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a196db7f3d2018cad481d0ffdf266889c}{TOKEN\_DIVISION}}; \textcolor{comment}{// Token is just '=' (assignment)}}
+\DoxyCodeLine{694                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{695             \}}
+\DoxyCodeLine{696         \}}
+\DoxyCodeLine{697         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{698         \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a2ce3524821ca4917141e32b96fc1de0f}{sComment}}:}
+\DoxyCodeLine{699         \{}
+\DoxyCodeLine{700             \textcolor{keywordflow}{while} (c != \textcolor{charliteral}{'\(\backslash\)n'} \&\& c != EOF) \textcolor{comment}{// Consume until end of line}}
+\DoxyCodeLine{701             \{}
+\DoxyCodeLine{702                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{703                 c = (char)getc(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{704             \}}
+\DoxyCodeLine{705             state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}{sStart}}; \textcolor{comment}{// Return to starting state after comment}}
+\DoxyCodeLine{706             token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0fe00080531042db460071402c40f763}{TOKEN\_COMMENT}};}
+\DoxyCodeLine{707             \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{708         \}}
+\DoxyCodeLine{709         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{710         \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a845ae9a4f0d69357879f20576bc8f8c7}{sAssign}}:}
+\DoxyCodeLine{711         \{}
+\DoxyCodeLine{712             \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'='})}
+\DoxyCodeLine{713             \{}
+\DoxyCodeLine{714                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a3c83b3f347ded187c65076c9172392c3}{TOKEN\_EQUAL}}; \textcolor{comment}{// Token is '==' (equality)}}
+\DoxyCodeLine{715                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{716             \}}
+\DoxyCodeLine{717             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{718             \{}
+\DoxyCodeLine{719                 ungetc(c, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});               \textcolor{comment}{// Put back the character if it's not '='}}
+\DoxyCodeLine{720                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1f3658cf646576820d94a9a1c0504303}{TOKEN\_ASSIGNMENT}}; \textcolor{comment}{// Token is just '=' (assignment)}}
+\DoxyCodeLine{721             \}}
+\DoxyCodeLine{722             state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}{sStart}}; \textcolor{comment}{// Return to the starting state}}
+\DoxyCodeLine{723             \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{724         \}}
+\DoxyCodeLine{725         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{726         \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac269c488167b67c322709b75678d8851}{sExclamation}}:}
+\DoxyCodeLine{727         \{}
+\DoxyCodeLine{728             \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'='})}
+\DoxyCodeLine{729             \{}
+\DoxyCodeLine{730                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa6300763c80d89d4aaac59dfbf4c2c01}{TOKEN\_NOT\_EQUAL}}; \textcolor{comment}{// Token is '!='}}
+\DoxyCodeLine{731                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{732             \}}
+\DoxyCodeLine{733             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{734             \{}
+\DoxyCodeLine{735                 ungetc(c, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});                \textcolor{comment}{// Put back the character if it's not '='}}
+\DoxyCodeLine{736                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0e70b5ecc56852cc6499f90d410555ec}{TOKEN\_EXCLAMATION}}; \textcolor{comment}{// Token is just '!'}}
+\DoxyCodeLine{737             \}}
+\DoxyCodeLine{738             \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{739             state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}{sStart}}; \textcolor{comment}{// Return to the starting state}}
+\DoxyCodeLine{740         \}}
+\DoxyCodeLine{741         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{742         \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8a0329aab4e5cfe984949899bc59cbc153}{sLessThan}}:}
+\DoxyCodeLine{743         \{}
+\DoxyCodeLine{744             \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'='})}
+\DoxyCodeLine{745             \{}
+\DoxyCodeLine{746                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a9618ea497ab02a326b67f03606d8f90f}{TOKEN\_LESS\_EQUAL}}; \textcolor{comment}{// Token is '<='}}
+\DoxyCodeLine{747                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{748             \}}
+\DoxyCodeLine{749             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{750             \{}
+\DoxyCodeLine{751                 ungetc(c, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});              \textcolor{comment}{// Put back the character if it's not '='}}
+\DoxyCodeLine{752                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a634d456dd4f4a4ab865352988aaca719}{TOKEN\_LESS\_THAN}}; \textcolor{comment}{// Token is just '<'}}
+\DoxyCodeLine{753             \}}
+\DoxyCodeLine{754             state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}{sStart}}; \textcolor{comment}{// Return to the starting state}}
+\DoxyCodeLine{755             \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{756         \}}
+\DoxyCodeLine{757         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{758         \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8aa446c0b6cc245ad1796fc0ccee32bcb5}{sGreaterThan}}:}
+\DoxyCodeLine{759         \{}
+\DoxyCodeLine{760             \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'='})}
+\DoxyCodeLine{761             \{}
+\DoxyCodeLine{762                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1b6033f79dc23f23aaf67708bd792991}{TOKEN\_GREATER\_EQUAL}}; \textcolor{comment}{// Token is '>='}}
+\DoxyCodeLine{763                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{764             \}}
+\DoxyCodeLine{765             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{766             \{}
+\DoxyCodeLine{767                 ungetc(c, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});                 \textcolor{comment}{// Put back the character if it's not '='}}
+\DoxyCodeLine{768                 token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af6a5d42d2ef50fb03f1a66d01c2a3470}{TOKEN\_GREATER\_THAN}}; \textcolor{comment}{// Token is just '>'}}
+\DoxyCodeLine{769             \}}
+\DoxyCodeLine{770             state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}{sStart}}; \textcolor{comment}{// Return to the starting state}}
+\DoxyCodeLine{771             \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{772         \}}
+\DoxyCodeLine{773         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{774         \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ae43da8b6fefce8969b2632e2148d95e3}{sImport}}:}
+\DoxyCodeLine{775         \{}
+\DoxyCodeLine{776             \textcolor{keywordflow}{if} (isalpha(c))}
+\DoxyCodeLine{777             \{}
+\DoxyCodeLine{778                 \mbox{\hyperlink{newstring_8c_a33884f5f943a1e93cdba424756c663d9}{dynamic\_string\_add\_char}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}, c);}
+\DoxyCodeLine{779                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ae43da8b6fefce8969b2632e2148d95e3}{sImport}};}
+\DoxyCodeLine{780             \}}
+\DoxyCodeLine{781             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{782             \{}
+\DoxyCodeLine{783                 ungetc(c, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{784                 \textcolor{keywordflow}{if} (strcmp(token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}.\mbox{\hyperlink{structDynamic__string_ac9fdee687d9f337d1babcf26242ac6ad}{str}}, \textcolor{stringliteral}{"{}@import"{}}) == 0)}
+\DoxyCodeLine{785                     token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a00a4852749fa7e7e4675f7843ae16642}{TOKEN\_IMPORT}};}
+\DoxyCodeLine{786                 \textcolor{keywordflow}{else}}
+\DoxyCodeLine{787                     token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} = \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a4e9a7212ea985c5ffdbf0080c464cc88}{TOKEN\_UNDEFINED}};}
+\DoxyCodeLine{788 }
+\DoxyCodeLine{789                 state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}{sStart}};}
+\DoxyCodeLine{790                 \textcolor{keywordflow}{return} token;}
+\DoxyCodeLine{791             \}}
+\DoxyCodeLine{792         \}}
+\DoxyCodeLine{793         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{794 }
+\DoxyCodeLine{795         \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af0a0ecb685c176b46904ef031a62e9cb}{sEOL}}:}
+\DoxyCodeLine{796             state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8ac0a4c8ef528b9f9d6212253bd3b878ad}{sStart}};}
+\DoxyCodeLine{797             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{798 }
+\DoxyCodeLine{799         \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{800             state = \mbox{\hyperlink{lexical__analyser_8h_a5d74787dedbc4e11c1ab15bf487e61f8af26b546b561fd1b2e8acbb25cab13d10}{sError}}; \textcolor{comment}{// ! Invalid state fallback}}
+\DoxyCodeLine{801             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{802         \}}
+\DoxyCodeLine{803     \}}
+\DoxyCodeLine{804     \textcolor{comment}{// Uvoľni pamäť pred návratom}}
+\DoxyCodeLine{805     \mbox{\hyperlink{newstring_8c_a03217aede38d7cef89609b66fd21f2f7}{dynamic\_string\_free}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}});}
+\DoxyCodeLine{806     \textcolor{keywordflow}{return} token; \textcolor{comment}{// Vráť token}}
+\DoxyCodeLine{807 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{lexical__analyser_8h_a1b68532a422d65e0eab79e3011af906e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{lexical__analyser_8h_a1b68532a422d65e0eab79e3011af906e_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{lexical__analyser_8h_acbb4fd03fd6564af6fe03306ec48364c}\label{lexical__analyser_8h_acbb4fd03fd6564af6fe03306ec48364c}} 
 \index{lexical\_analyser.h@{lexical\_analyser.h}!print\_token@{print\_token}}
 \index{print\_token@{print\_token}!lexical\_analyser.h@{lexical\_analyser.h}}
 \doxysubsubsection{\texorpdfstring{print\_token()}{print\_token()}}
 {\footnotesize\ttfamily void print\+\_\+token (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structToken}{Token}}}]{token }\end{DoxyParamCaption})}
 
+
+
+Prints the details of a token. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em token} & The token to print.\\
+\hline
+\end{DoxyParams}
+This function outputs the token type, its value, and the keyword enumeration if applicable. It handles different token types to provide meaningful output.
+
+
+\begin{DoxyParams}{Parameters}
+{\em token} & The token to be printed. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 165 of file lexical\+\_\+analyser.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{166 \{}
+\DoxyCodeLine{167 }
+\DoxyCodeLine{168     \textcolor{keywordflow}{switch} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}})}
+\DoxyCodeLine{169     \{}
+\DoxyCodeLine{170     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa130df27256cd45f5781fc74deeb50dc}{TOKEN\_EOF}}:}
+\DoxyCodeLine{171         printf(\textcolor{stringliteral}{"{}EOF\(\backslash\)n"{}});}
+\DoxyCodeLine{172         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{173 }
+\DoxyCodeLine{174     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a6b0ab7cf8c0d1203475022b3d5600f85}{TOKEN\_EOL}}:}
+\DoxyCodeLine{175         printf(\textcolor{stringliteral}{"{}EOL\(\backslash\)n"{}});}
+\DoxyCodeLine{176         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{177 }
+\DoxyCodeLine{178     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a25034ca7c95f724ac2509e57058adf18}{TOKEN\_NEWLINE}}:}
+\DoxyCodeLine{179         printf(\textcolor{stringliteral}{"{}NEWLINE\(\backslash\)n"{}});}
+\DoxyCodeLine{180         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{181 }
+\DoxyCodeLine{182     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a2691fdb432b1bdd5eb40ce09b7d33614}{TOKEN\_TAB}}:}
+\DoxyCodeLine{183         printf(\textcolor{stringliteral}{"{}TAB\(\backslash\)n"{}});}
+\DoxyCodeLine{184         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{185 }
+\DoxyCodeLine{186     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0d72fca2861c67c0d0d3ccd1e8325453}{TOKEN\_INT\_LITERAL}}:}
+\DoxyCodeLine{187     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aab21ed2851d3c47e12244da5bdc568bf}{TOKEN\_FLOAT\_LITERAL}}:}
+\DoxyCodeLine{188     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a7ed3e98b10f5d0b461a887fdd5b3dc01}{TOKEN\_STRING\_LITERAL}}:}
+\DoxyCodeLine{189     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a69237e9ab97fc6f9306ee092834631df}{TOKEN\_CHAR\_LITERAL}}:}
+\DoxyCodeLine{190     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353}{TOKEN\_IDENTIFIER}}:}
+\DoxyCodeLine{191     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a11fe7a3403d4ff8c62af31ddf679877c}{TOKEN\_KEYWORD}}:}
+\DoxyCodeLine{192     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a3c83b3f347ded187c65076c9172392c3}{TOKEN\_EQUAL}}:}
+\DoxyCodeLine{193     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa6300763c80d89d4aaac59dfbf4c2c01}{TOKEN\_NOT\_EQUAL}}:}
+\DoxyCodeLine{194     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a9618ea497ab02a326b67f03606d8f90f}{TOKEN\_LESS\_EQUAL}}:}
+\DoxyCodeLine{195     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a634d456dd4f4a4ab865352988aaca719}{TOKEN\_LESS\_THAN}}:}
+\DoxyCodeLine{196     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1b6033f79dc23f23aaf67708bd792991}{TOKEN\_GREATER\_EQUAL}}:}
+\DoxyCodeLine{197     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af6a5d42d2ef50fb03f1a66d01c2a3470}{TOKEN\_GREATER\_THAN}}:}
+\DoxyCodeLine{198     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1f3658cf646576820d94a9a1c0504303}{TOKEN\_ASSIGNMENT}}:}
+\DoxyCodeLine{199     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa48683b3cba8786770d9bf800d15e545}{TOKEN\_ADDITION}}:}
+\DoxyCodeLine{200     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ae892958f58c3c970916498eb5e47a388}{TOKEN\_SUBTRACTION}}:}
+\DoxyCodeLine{201     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44afdcb399f2904bfc9ce2bd870ff04d1c2}{TOKEN\_MULTIPLY}}:}
+\DoxyCodeLine{202     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a196db7f3d2018cad481d0ffdf266889c}{TOKEN\_DIVISION}}:}
+\DoxyCodeLine{203     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a04d79b81666e686448ea4bd2592f438b}{TOKEN\_BACKSLASH}}:}
+\DoxyCodeLine{204     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a93000ce4e0f00f6f294a98192f705910}{TOKEN\_PIPE}}:}
+\DoxyCodeLine{205     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0e70b5ecc56852cc6499f90d410555ec}{TOKEN\_EXCLAMATION}}:}
+\DoxyCodeLine{206     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af4143395fefba1c6a30e58240dd0c827}{TOKEN\_LPAREN}}:}
+\DoxyCodeLine{207     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ace232c359d5697cc5c459c22a7be226b}{TOKEN\_RPAREN}}:}
+\DoxyCodeLine{208     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a60e4bab14680522185007fe87240e707}{TOKEN\_LEFT\_BRACKET}}:}
+\DoxyCodeLine{209     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa42fbee15a56484e7cc6daaaa552107a}{TOKEN\_RIGHT\_BRACKET}}:}
+\DoxyCodeLine{210     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aea93445565e90032b651b3bfeab696ad}{TOKEN\_CURLYL\_BRACKET}}:}
+\DoxyCodeLine{211     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a177c279eee0ad7b261d2a217545ddc86}{TOKEN\_CURLYR\_BRACKET}}:}
+\DoxyCodeLine{212     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8d265e17914bc733c8b9a880dd097a9e}{TOKEN\_COMMA}}:}
+\DoxyCodeLine{213     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ac8c74b281e178c87923363a90f6ff371}{TOKEN\_SEMICOLON}}:}
+\DoxyCodeLine{214     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0fe00080531042db460071402c40f763}{TOKEN\_COMMENT}}:}
+\DoxyCodeLine{215     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a00a4852749fa7e7e4675f7843ae16642}{TOKEN\_IMPORT}}:}
+\DoxyCodeLine{216     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a399667e371946cce1c1081aea2f2c52d}{TOKEN\_DISCARD}}:}
+\DoxyCodeLine{217     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ab565ebfaaa53dcee6ddda201e270733e}{TOKEN\_DOT}}:}
+\DoxyCodeLine{218     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a92a35ac6329421e77882bf3739a75e47}{TOKEN\_COLON}}:}
+\DoxyCodeLine{219     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a6a2dcbbac94d846452b6469ba7cec1d1}{TOKEN\_QUESTION\_MARK}}:}
+\DoxyCodeLine{220         printf(\textcolor{stringliteral}{"{}\%s\(\backslash\)t\(\backslash\)t\%s\(\backslash\)t\(\backslash\)t\%d\(\backslash\)n"{}}, \mbox{\hyperlink{lexical__analyser_8c_a67367cc8618de258a4163191d1ac05b8}{token\_type\_to\_string}}(token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}}), token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}.\mbox{\hyperlink{structDynamic__string_ac9fdee687d9f337d1babcf26242ac6ad}{str}}, token.\mbox{\hyperlink{structToken_af5a5b44dc780e07fc9daccdfd019f000}{keyword\_val}});}
+\DoxyCodeLine{221         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{222 }
+\DoxyCodeLine{223     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a4e9a7212ea985c5ffdbf0080c464cc88}{TOKEN\_UNDEFINED}}:}
+\DoxyCodeLine{224         printf(\textcolor{stringliteral}{"{}UNDEFINED\(\backslash\)t\%s\(\backslash\)t\(\backslash\)t-\/\(\backslash\)n"{}}, token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}}.\mbox{\hyperlink{structDynamic__string_ac9fdee687d9f337d1babcf26242ac6ad}{str}});}
+\DoxyCodeLine{225         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{226 }
+\DoxyCodeLine{227     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{228         printf(\textcolor{stringliteral}{"{}Unknown Type\(\backslash\)t-\/\(\backslash\)t\(\backslash\)t-\/\(\backslash\)t\(\backslash\)n"{}});}
+\DoxyCodeLine{229         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{230     \}}
+\DoxyCodeLine{231 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{lexical__analyser_8h_acbb4fd03fd6564af6fe03306ec48364c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{lexical__analyser_8h_acbb4fd03fd6564af6fe03306ec48364c_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{lexical__analyser_8h_a67367cc8618de258a4163191d1ac05b8}\label{lexical__analyser_8h_a67367cc8618de258a4163191d1ac05b8}} 
 \index{lexical\_analyser.h@{lexical\_analyser.h}!token\_type\_to\_string@{token\_type\_to\_string}}
 \index{token\_type\_to\_string@{token\_type\_to\_string}!lexical\_analyser.h@{lexical\_analyser.h}}
 \doxysubsubsection{\texorpdfstring{token\_type\_to\_string()}{token\_type\_to\_string()}}
 {\footnotesize\ttfamily const char$\ast$ token\+\_\+type\+\_\+to\+\_\+string (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44}{Token\+\_\+type}}}]{type }\end{DoxyParamCaption})}
 
+
+
+Converts a token type to its string representation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & The token type to convert. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String representation of the token type.
+\end{DoxyReturn}
+This function maps each {\ttfamily Token\+\_\+type} enumeration to a corresponding string for easy readability.
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & The token type to convert. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A constant character pointer representing the token type as a string. 
+\end{DoxyReturn}
+
+
+Definition at line 71 of file lexical\+\_\+analyser.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{72 \{}
+\DoxyCodeLine{73     \textcolor{keywordflow}{switch} (type)}
+\DoxyCodeLine{74     \{}
+\DoxyCodeLine{75     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa130df27256cd45f5781fc74deeb50dc}{TOKEN\_EOF}}:}
+\DoxyCodeLine{76         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_EOF"{}};}
+\DoxyCodeLine{77     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a6b0ab7cf8c0d1203475022b3d5600f85}{TOKEN\_EOL}}:}
+\DoxyCodeLine{78         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_EOL"{}};}
+\DoxyCodeLine{79     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353}{TOKEN\_IDENTIFIER}}:}
+\DoxyCodeLine{80         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_IDENTI"{}};}
+\DoxyCodeLine{81     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a11fe7a3403d4ff8c62af31ddf679877c}{TOKEN\_KEYWORD}}:}
+\DoxyCodeLine{82         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_KEYWORD"{}};}
+\DoxyCodeLine{83     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a25034ca7c95f724ac2509e57058adf18}{TOKEN\_NEWLINE}}:}
+\DoxyCodeLine{84         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_NEWLINE"{}};}
+\DoxyCodeLine{85     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a2691fdb432b1bdd5eb40ce09b7d33614}{TOKEN\_TAB}}:}
+\DoxyCodeLine{86         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_TAB"{}};}
+\DoxyCodeLine{87     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0d72fca2861c67c0d0d3ccd1e8325453}{TOKEN\_INT\_LITERAL}}:}
+\DoxyCodeLine{88         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_INT\_L"{}};}
+\DoxyCodeLine{89     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aab21ed2851d3c47e12244da5bdc568bf}{TOKEN\_FLOAT\_LITERAL}}:}
+\DoxyCodeLine{90         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_FLOAT\_L"{}};}
+\DoxyCodeLine{91     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a7ed3e98b10f5d0b461a887fdd5b3dc01}{TOKEN\_STRING\_LITERAL}}:}
+\DoxyCodeLine{92         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_STRING\_L"{}};}
+\DoxyCodeLine{93     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a69237e9ab97fc6f9306ee092834631df}{TOKEN\_CHAR\_LITERAL}}:}
+\DoxyCodeLine{94         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_CHAR\_L"{}};}
+\DoxyCodeLine{95     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a3c83b3f347ded187c65076c9172392c3}{TOKEN\_EQUAL}}:}
+\DoxyCodeLine{96         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_EQUAL"{}};}
+\DoxyCodeLine{97     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa6300763c80d89d4aaac59dfbf4c2c01}{TOKEN\_NOT\_EQUAL}}:}
+\DoxyCodeLine{98         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_NOT\_EQUAL"{}};}
+\DoxyCodeLine{99     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a9618ea497ab02a326b67f03606d8f90f}{TOKEN\_LESS\_EQUAL}}:}
+\DoxyCodeLine{100         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_LESS\_EQUAL"{}};}
+\DoxyCodeLine{101     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a634d456dd4f4a4ab865352988aaca719}{TOKEN\_LESS\_THAN}}:}
+\DoxyCodeLine{102         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_LESS\_THAN"{}};}
+\DoxyCodeLine{103     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1b6033f79dc23f23aaf67708bd792991}{TOKEN\_GREATER\_EQUAL}}:}
+\DoxyCodeLine{104         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_GREATER\_EQ"{}};}
+\DoxyCodeLine{105     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af6a5d42d2ef50fb03f1a66d01c2a3470}{TOKEN\_GREATER\_THAN}}:}
+\DoxyCodeLine{106         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_GREATER\_TH"{}};}
+\DoxyCodeLine{107     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1f3658cf646576820d94a9a1c0504303}{TOKEN\_ASSIGNMENT}}:}
+\DoxyCodeLine{108         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_ASSIGN"{}};}
+\DoxyCodeLine{109     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa48683b3cba8786770d9bf800d15e545}{TOKEN\_ADDITION}}:}
+\DoxyCodeLine{110         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_ADDITION"{}};}
+\DoxyCodeLine{111     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ae892958f58c3c970916498eb5e47a388}{TOKEN\_SUBTRACTION}}:}
+\DoxyCodeLine{112         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_SUBTRAC"{}};}
+\DoxyCodeLine{113     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44afdcb399f2904bfc9ce2bd870ff04d1c2}{TOKEN\_MULTIPLY}}:}
+\DoxyCodeLine{114         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_MULTIPLY"{}};}
+\DoxyCodeLine{115     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a196db7f3d2018cad481d0ffdf266889c}{TOKEN\_DIVISION}}:}
+\DoxyCodeLine{116         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_DIVISION"{}};}
+\DoxyCodeLine{117     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a04d79b81666e686448ea4bd2592f438b}{TOKEN\_BACKSLASH}}:}
+\DoxyCodeLine{118         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_BACKSLASH"{}};}
+\DoxyCodeLine{119     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a93000ce4e0f00f6f294a98192f705910}{TOKEN\_PIPE}}:}
+\DoxyCodeLine{120         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_PIPE"{}};}
+\DoxyCodeLine{121     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0e70b5ecc56852cc6499f90d410555ec}{TOKEN\_EXCLAMATION}}:}
+\DoxyCodeLine{122         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_EXCLAMATION"{}};}
+\DoxyCodeLine{123     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af4143395fefba1c6a30e58240dd0c827}{TOKEN\_LPAREN}}:}
+\DoxyCodeLine{124         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_LPAREN"{}};}
+\DoxyCodeLine{125     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ace232c359d5697cc5c459c22a7be226b}{TOKEN\_RPAREN}}:}
+\DoxyCodeLine{126         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_RPAREN"{}};}
+\DoxyCodeLine{127     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a60e4bab14680522185007fe87240e707}{TOKEN\_LEFT\_BRACKET}}:}
+\DoxyCodeLine{128         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_LEFT\_BR"{}};}
+\DoxyCodeLine{129     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa42fbee15a56484e7cc6daaaa552107a}{TOKEN\_RIGHT\_BRACKET}}:}
+\DoxyCodeLine{130         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_RIGHT\_BR"{}};}
+\DoxyCodeLine{131     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aea93445565e90032b651b3bfeab696ad}{TOKEN\_CURLYL\_BRACKET}}:}
+\DoxyCodeLine{132         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_CURLYL\_BR"{}};}
+\DoxyCodeLine{133     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a177c279eee0ad7b261d2a217545ddc86}{TOKEN\_CURLYR\_BRACKET}}:}
+\DoxyCodeLine{134         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_CURLYR\_BR"{}};}
+\DoxyCodeLine{135     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8d265e17914bc733c8b9a880dd097a9e}{TOKEN\_COMMA}}:}
+\DoxyCodeLine{136         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_COMMA"{}};}
+\DoxyCodeLine{137     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ac8c74b281e178c87923363a90f6ff371}{TOKEN\_SEMICOLON}}:}
+\DoxyCodeLine{138         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_SEMICOLON"{}};}
+\DoxyCodeLine{139     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a0fe00080531042db460071402c40f763}{TOKEN\_COMMENT}}:}
+\DoxyCodeLine{140         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_COMMENT"{}};}
+\DoxyCodeLine{141     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a4e9a7212ea985c5ffdbf0080c464cc88}{TOKEN\_UNDEFINED}}:}
+\DoxyCodeLine{142         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_UNDEFINED"{}};}
+\DoxyCodeLine{143     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a00a4852749fa7e7e4675f7843ae16642}{TOKEN\_IMPORT}}:}
+\DoxyCodeLine{144         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_IMPORT"{}};}
+\DoxyCodeLine{145     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a399667e371946cce1c1081aea2f2c52d}{TOKEN\_DISCARD}}:}
+\DoxyCodeLine{146         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_DISCARD"{}};}
+\DoxyCodeLine{147     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a92a35ac6329421e77882bf3739a75e47}{TOKEN\_COLON}}:}
+\DoxyCodeLine{148         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_COLON"{}};}
+\DoxyCodeLine{149     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ab565ebfaaa53dcee6ddda201e270733e}{TOKEN\_DOT}}:}
+\DoxyCodeLine{150         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_DOT"{}};}
+\DoxyCodeLine{151     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a6a2dcbbac94d846452b6469ba7cec1d1}{TOKEN\_QUESTION\_MARK}}:}
+\DoxyCodeLine{152         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}TOKEN\_QUEST"{}};}
+\DoxyCodeLine{153     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{154         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}UNKNOWN\_TOKEN"{}};}
+\DoxyCodeLine{155     \}}
+\DoxyCodeLine{156 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{lexical__analyser_8h_a67367cc8618de258a4163191d1ac05b8_icgraph}
+\end{center}
+\end{figure}

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['test_5fhash_5ftable_259',['test_hash_table',['../main_8c.html#a61b668b23f9d1ce9068bff1a47a788de',1,'main.c']]],
-  ['token_5ftype_5fto_5fstring_260',['token_type_to_string',['../lexical__analyser_8c.html#a67367cc8618de258a4163191d1ac05b8',1,'token_type_to_string(Token_type type):&#160;lexical_analyser.c'],['../lexical__analyser_8h.html#a67367cc8618de258a4163191d1ac05b8',1,'token_type_to_string(Token_type type):&#160;lexical_analyser.c']]]
+  ['val_5ftype_247',['VAL_TYPE',['../syntactic__analysis_8c.html#aaef2bee27144c07c175bb36e4c28af9d',1,'VAL_TYPE(Token t):&#160;syntactic_analysis.c'],['../syntactic__analysis_8h.html#aaef2bee27144c07c175bb36e4c28af9d',1,'VAL_TYPE(Token t):&#160;syntactic_analysis.c']]],
+  ['var_5fdef_248',['VAR_DEF',['../syntactic__analysis_8c.html#a49c6186e8aee36246b52305756b7a017',1,'VAR_DEF(FILE *file):&#160;syntactic_analysis.c'],['../syntactic__analysis_8h.html#a49c6186e8aee36246b52305756b7a017',1,'VAR_DEF(FILE *file):&#160;syntactic_analysis.c']]],
+  ['var_5ftype_249',['VAR_TYPE',['../syntactic__analysis_8c.html#a6a90cf37b546f64566f9de66bfee4864',1,'VAR_TYPE(Token t):&#160;syntactic_analysis.c'],['../syntactic__analysis_8h.html#a6a90cf37b546f64566f9de66bfee4864',1,'VAR_TYPE(Token t):&#160;syntactic_analysis.c']]]
 ];

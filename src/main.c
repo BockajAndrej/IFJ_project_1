@@ -7,7 +7,9 @@
 #include "lexical_analyser.h"
 #include "syntactic_analysis.h"
 #include <error.h>
-#include "ADT.h"
+#include "symtable.h"
+#include "ast.h"
+#include "semantic.h"
 
 FILE *file;
 
@@ -36,7 +38,6 @@ void print_table(SymbolTable *table) {
     printf("\n");
 }
 
-
 void test_hash_table() {
     SymbolTable *table = create_table();
     printf("After creating the table:\n");
@@ -46,15 +47,15 @@ void test_hash_table() {
     float floatValue = 3.14;
     char *strValue = "Hello";
 
-    insert_symbol(table, "x", VALUE_INT, &intValue);
+    insert_symbol(table, 0, "x", VALUE_INT, &intValue);
     printf("After inserting 'x':\n");
     print_table(table);
 
-    insert_symbol(table, "pi", VALUE_FLOAT, &floatValue);
+    insert_symbol(table, 0, "pi", VALUE_FLOAT, &floatValue);
     printf("After inserting 'pi':\n");
     print_table(table);
 
-    insert_symbol(table, "greeting", VALUE_STRING, strValue);
+    insert_symbol(table, 0, "greeting", VALUE_STRING, strValue);
     printf("After inserting 'greeting':\n");
     print_table(table);
 
@@ -70,16 +71,50 @@ void test_hash_table() {
     free_table(table);
 }
 
+/*
+NodeInfo info = getNodeInfo(currentNode);
+
+// Overenie typu uzla
+if (info.type == NODE_CONST) {
+    printf("Uzol je konštanta s hodnotou: %s\n", info.value);
+}
+
+// Overenie dátového typu
+if (info.dataType == TYPE_INT) {
+    printf("Dátový typ uzla je INTEGER.\n");
+}
+
+// Kontrola existencie detí
+if (info.hasLeft) {
+    printf("Uzol má ľavého potomka.\n");
+} else {
+    printf("Uzol nemá ľavého potomka.\n");
+}
+
+if (info.hasRight) {
+    printf("Uzol má pravého potomka.\n");
+}
+
+// Prístup k hodnote rodiča
+if (info.parentValue) {
+    printf("Hodnota rodiča je: %s\n", info.parentValue);
+} else {
+    printf("Uzol nemá rodiča.\n");
+}
+*/
 
 
 int main(int argc, char **argv)
 {
-    // if(argc == 1){
-    //     test_hash_table();
-    //     return 0;
-    // }
+    if(argc == 1){
+        //test_hash_table();
+        //ast_test(); nepouzivaj
+        ast_valdef();
+        ast_val_expression();
+        ast_IfElse_1();
+        return 0;
+    }
 
-    
     // Skontroluj, či bol zadaný súbor ako argument
     if (argc < 2)
         file = stdin;

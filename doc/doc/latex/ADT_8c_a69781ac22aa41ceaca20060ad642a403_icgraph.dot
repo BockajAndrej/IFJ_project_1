@@ -6,7 +6,7 @@ digraph "copy_string"
   rankdir="RL";
   Node1 [label="copy_string",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
   Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
-  Node2 [label="insert_symbol",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ADT_8c.html#a6dcf75b165c5731b136694076b6122c6",tooltip=" "];
+  Node2 [label="insert_symbol",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ADT_8c.html#a498be84c0146adc44a4d75f3ddadfce8",tooltip=" "];
   Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
   Node3 [label="test_hash_table",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8c.html#a61b668b23f9d1ce9068bff1a47a788de",tooltip=" "];
   Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
