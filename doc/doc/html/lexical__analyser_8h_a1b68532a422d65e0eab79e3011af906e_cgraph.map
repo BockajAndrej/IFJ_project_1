@@ -1,0 +1,9 @@
+<map id="get_token" name="get_token">
+<area shape="rect" id="node1" title="Retrieves the next token from the input file." alt="" coords="5,147,92,174"/>
+<area shape="rect" id="node2" href="$newstring_8c.html#a723751a5d99efdf10145303c11895ce9" title=" " alt="" coords="140,5,320,47"/>
+<area shape="rect" id="node3" href="$newstring_8c.html#a33884f5f943a1e93cdba424756c663d9" title=" " alt="" coords="368,42,556,69"/>
+<area shape="rect" id="node4" href="$newstring_8c.html#aa1207c77da58ada32d94fe4e97aa5e1e" title=" " alt="" coords="149,122,311,149"/>
+<area shape="rect" id="node5" href="$newstring_8c.html#a03217aede38d7cef89609b66fd21f2f7" title=" " alt="" coords="153,173,307,199"/>
+<area shape="rect" id="node6" href="$newstring_8c.html#a5c4e413e494b26f4a5d9ddba7a274b3c" title=" " alt="" coords="155,223,305,250"/>
+<area shape="rect" id="node7" href="$lexical__analyser_8c.html#ade03459f3b506becbc1e389002a1126a" title="Checks if a given token is a keyword." alt="" coords="183,274,277,301"/>
+</map>

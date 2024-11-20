@@ -1,0 +1,6 @@
+<map id="ARG" name="ARG">
+<area shape="rect" id="node1" title="Function for processing argument of called function." alt="" coords="5,31,56,57"/>
+<area shape="rect" id="node2" href="$syntactic__analysis_8c.html#a271ef1f0dc6a029b233bcb024b19b116" title="Function for processing another argument which is in queue." alt="" coords="104,5,163,32"/>
+<area shape="rect" id="node4" href="$syntactic__analysis_8c.html#a38b7a13b9a5926c2c4b6af62cec86f85" title="Function for processing another argument which is in queue." alt="" coords="309,31,413,57"/>
+<area shape="rect" id="node3" href="$syntactic__analysis_8c.html#a83f44b9d12d581ea924af4ba707819c3" title="Function for processing argument of called function." alt="" coords="211,5,261,32"/>
+</map>

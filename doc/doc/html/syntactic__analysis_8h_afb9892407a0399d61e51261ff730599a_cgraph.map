@@ -1,0 +1,22 @@
+<map id="FN_DEF" name="FN_DEF">
+<area shape="rect" id="node1" title="Processes function declaration." alt="" coords="5,56,79,83"/>
+<area shape="rect" id="node2" href="$syntactic__analysis_8c.html#aef5821c4ef2e8e26c864efa3564244f6" title="Function for verifaction enabled data types (FUNCTIONS)" alt="" coords="253,5,331,32"/>
+<area shape="rect" id="node4" href="$syntactic__analysis_8c.html#acb21f12318c9d312a452616eb6c7262d" title="Function for processing parameters of declaraced function." alt="" coords="127,56,195,83"/>
+<area shape="rect" id="node5" href="$syntactic__analysis_8c.html#a7d21e9db61747d6734d9a7f27d33b4f4" title="Function for determining the depth of infestation." alt="" coords="128,259,193,285"/>
+<area shape="rect" id="node3" href="$syntactic__analysis_8c.html#aaef2bee27144c07c175bb36e4c28af9d" title="Function for verifaction enabled data types (DATA TYPES)" alt="" coords="708,56,793,83"/>
+<area shape="rect" id="node6" href="$syntactic__analysis_8c.html#a7eac9e4351cf87fecd3e9a66cf5f28d8" title="Processes the commands, coditions, ..." alt="" coords="243,259,341,285"/>
+<area shape="rect" id="node7" href="$syntactic__analysis_8c.html#a2999c303cc3fb4692b7e96d9a22e9c03" title="Processes calling functions, variables." alt="" coords="396,309,483,336"/>
+<area shape="rect" id="node12" href="$syntactic__analysis_8c.html#ab1c09d376532dc76198f8d2d6c729fef" title="Processes command for constant declaration." alt="" coords="389,259,489,285"/>
+<area shape="rect" id="node14" href="$syntactic__analysis_8c.html#a047deda12297b3a39f2d50261fd7de70" title="Processes else condition." alt="" coords="396,411,483,437"/>
+<area shape="rect" id="node15" href="$syntactic__analysis_8c.html#ac9b33c13aa831335429748838739aef7" title="Processes if condition." alt="" coords="406,360,473,387"/>
+<area shape="rect" id="node17" href="$syntactic__analysis_8c.html#a1012bbb9f570627aabec5e3eda7c4993" title="Processes return command." alt="" coords="711,208,791,235"/>
+<area shape="rect" id="node18" href="$syntactic__analysis_8c.html#a49c6186e8aee36246b52305756b7a017" title="Processes command for variable declaration." alt="" coords="399,157,480,184"/>
+<area shape="rect" id="node20" href="$syntactic__analysis_8c.html#a13efec100d0c39c874c413765ded4d10" title="Processes while loop." alt="" coords="391,107,488,133"/>
+<area shape="rect" id="node8" href="$syntactic__analysis_8c.html#ade39708cf9c0a95b1e75a94b3982f1aa" title="Extended function for CALL_DEF()" alt="" coords="546,309,633,336"/>
+<area shape="rect" id="node9" href="$syntactic__analysis_8c.html#a83f44b9d12d581ea924af4ba707819c3" title="Function for processing argument of called function." alt="" coords="725,411,776,437"/>
+<area shape="rect" id="node11" href="$syntactic__analysis_8c.html#a38b7a13b9a5926c2c4b6af62cec86f85" title="Function for processing another argument which is in queue." alt="" coords="860,259,964,285"/>
+<area shape="rect" id="node10" href="$syntactic__analysis_8c.html#a271ef1f0dc6a029b233bcb024b19b116" title="Function for processing another argument which is in queue." alt="" coords="883,411,941,437"/>
+<area shape="rect" id="node13" href="$syntactic__analysis_8c.html#aa1d8bc4c3095f3ba13e1fcc83038d948" title="Processes assigning expresions to the constant." alt="" coords="689,259,812,285"/>
+<area shape="rect" id="node16" href="$syntactic__analysis_8c.html#af131918ae0d8a1cc29cb2c8d6dc13aff" title="Extended function for CALL_DEF()" alt="" coords="556,436,623,463"/>
+<area shape="rect" id="node19" href="$syntactic__analysis_8c.html#a76e0ba812902123b4ec0d43c59c13c04" title="Processes assigning expresions to the variable." alt="" coords="537,157,641,184"/>
+</map>

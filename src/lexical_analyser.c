@@ -1,17 +1,27 @@
-#include "lexical_analyser.h"
-#include <error.h>
-#include <ctype.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <stdio.h>
+/**
+ * @file lexical_analyser.c
+ * @author Jakub Filo
+ * @category Lexical Analysis
+ * @brief This file contains the implementation of the lexical analyser, including token processing and utility functions.
+ */
 
-#include <string.h>
+#include "lexical_analyser.h"
 #include "newstring.h"
 
+/**
+ * @def KEYWORD_COUNT
+ * @brief Defines the number of keywords in the language.
+ *
+ * Update this value if more keywords are added to the language.
+ */
 #define KEYWORD_COUNT 13 // Update this if you add more keywords
 
+/**
+ * @var keywords
+ * @brief Array of keyword strings used for identifying language keywords.
+ *
+ * Each element in the array corresponds to a specific keyword enumeration.
+ */
 const char *keywords[KEYWORD_COUNT] = {
     "if",     // KEYWORD_IF
     "else",   // KEYWORD_ELSE
@@ -28,7 +38,16 @@ const char *keywords[KEYWORD_COUNT] = {
     "while"   // KEYWORD_WHILE
 };
 
-// Function to check if an identifier is a keyword
+/**
+ * @brief Checks if a given token is a keyword.
+ * @details Iterates through the list of predefined keywords to determine if the token matches any keyword.
+ * If a match is found, it sets the `keyword_val` field of the token accordingly.
+ *
+ * @param token A pointer to the token to be checked.
+ * @return `true` if the token is a keyword, `false` otherwise.
+ *
+ * @see Keyword
+ */
 bool is_keyword(Token *token)
 {
     for (int i = 0; i < KEYWORD_COUNT; i++)
@@ -42,6 +61,13 @@ bool is_keyword(Token *token)
     return false; // It is not a keyword
 }
 
+/**
+ * @brief Converts a token type to its string representation.
+ * @details This function maps each `Token_type` enumeration to a corresponding string for easy readability.
+ *
+ * @param type The token type to convert.
+ * @return A constant character pointer representing the token type as a string.
+ */
 const char *token_type_to_string(Token_type type)
 {
     switch (type)
@@ -50,12 +76,12 @@ const char *token_type_to_string(Token_type type)
         return "TOKEN_EOF";
     case TOKEN_EOL:
         return "TOKEN_EOL";
-    case TOKEN_EMPTY:
-        return "TOKEN_EMPTY";
     case TOKEN_IDENTIFIER:
         return "TOKEN_IDENTI";
     case TOKEN_KEYWORD:
         return "TOKEN_KEYWORD";
+    case TOKEN_EMPTY:
+        return "TOKEN_EMPTY";
     case TOKEN_NEWLINE:
         return "TOKEN_NEWLINE";
     case TOKEN_TAB:
@@ -66,8 +92,6 @@ const char *token_type_to_string(Token_type type)
         return "TOKEN_FLOAT_L";
     case TOKEN_STRING_LITERAL:
         return "TOKEN_STRING_L";
-    case TOKEN_BOOLEAN:
-        return "TOKEN_BOOLEAN";
     case TOKEN_CHAR_LITERAL:
         return "TOKEN_CHAR_L";
     case TOKEN_EQUAL:
@@ -133,6 +157,13 @@ const char *token_type_to_string(Token_type type)
     }
 }
 
+/**
+ * @brief Prints the details of a token.
+ * @details This function outputs the token type, its value, and the keyword enumeration if applicable.
+ * It handles different token types to provide meaningful output.
+ *
+ * @param token The token to be printed.
+ */
 void print_token(Token token)
 {
 
@@ -146,10 +177,6 @@ void print_token(Token token)
         printf("EOL\n");
         break;
 
-    case TOKEN_EMPTY:
-        printf("EMPTY\n");
-        break;
-
     case TOKEN_NEWLINE:
         printf("NEWLINE\n");
         break;
@@ -161,7 +188,6 @@ void print_token(Token token)
     case TOKEN_INT_LITERAL:
     case TOKEN_FLOAT_LITERAL:
     case TOKEN_STRING_LITERAL:
-    case TOKEN_BOOLEAN:
     case TOKEN_CHAR_LITERAL:
     case TOKEN_IDENTIFIER:
     case TOKEN_KEYWORD:
@@ -206,6 +232,19 @@ void print_token(Token token)
     }
 }
 
+/**
+ * @brief Retrieves the next token from the input file.
+ * @details This function implements a finite state machine (FSM) to parse the input file character by character,
+ * constructing tokens based on the defined states. It handles various token types, including identifiers,
+ * keywords, literals, operators, and punctuation.
+ *
+ * @param file A pointer to the file being analyzed.
+ * @return The next token extracted from the file. If an error occurs during string initialization or reading,
+ * a TOKEN describing the error will be returned.
+ *
+ * @see Token
+ * @see State
+ */
 Token get_token(FILE *file)
 {
 
@@ -237,7 +276,6 @@ Token get_token(FILE *file)
         switch (state)
         {
         case sStart:
-
             if (c == ' ' || c == '\t')
             {
                 state = sStart;
@@ -254,7 +292,6 @@ Token get_token(FILE *file)
             }
             else if (c == '\n') /* EOL, end of line  should add \t \r support? */
             {
-                state = sEOL;           // Přepni na stav konce řádku
                 token.type = TOKEN_EOL; // Předpokládáme, že TOKEN_EOL je definován
                 return token;           // Vrať token EOL
             }
@@ -418,22 +455,24 @@ Token get_token(FILE *file)
                 state = sGreaterThan; // Move to greater than state
                 dynamic_string_add_char(&token.value.valueString, c);
             }
-            else if (c == '\'') // Single quote for character literal
+            /*else if (c == '\'') // Single quote for character literal
             {
                 state = sSingleQuote;            // Move to state for single quote
                 token.type = TOKEN_CHAR_LITERAL; // Set token type for character literal
-            }
+            }*/
             else if (c == '\\') // Backslash for escape sequences
             {
-                state = sBackSlash;           // Move to escape sequence handling state
-                token.type = TOKEN_BACKSLASH; // Set token type for backslash
+                // state = sBackSlash;           // Move to escape sequence handling state
+                // token.type = TOKEN_BACKSLASH; // Set token type for backslash
+                dynamic_string_add_char(&token.value.valueString, c);
+                token.type = TOKEN_BACKSLASH;
+                return token;
             }
             else if (c == '!') // Logical NOT or not equal
             {
                 dynamic_string_add_char(&token.value.valueString, c);
                 state = sExclamation;
             }
-
             break;
 
         case sIdentifierorKeyword:
@@ -465,12 +504,12 @@ Token get_token(FILE *file)
             else if (c == '.')
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                state = sFloatLiteral;
+                state = sDot; // Transition to sDot instead of sFloatLiteral directly
             }
             else if (c == 'e' || c == 'E')
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                state = sExponent;
+                state = sExponentStart; // Transition to sExponentStart instead of sExponent directly
             }
             else
             {
@@ -481,9 +520,23 @@ Token get_token(FILE *file)
             }
         }
         break;
+        case sDot:
+        {
+            if (isdigit(c))
+            {
+                dynamic_string_add_char(&token.value.valueString, c);
+                state = sFloatLiteral;
+            }
+            else
+            {
+                token.type = TOKEN_UNDEFINED;
+                ungetc(c, file);
+                return token;
+            }
+        }
+        break;
         case sFloatLiteral:
         {
-            // Handle floating-point literal logic here
             if (isdigit(c))
             {
                 dynamic_string_add_char(&token.value.valueString, c);
@@ -492,17 +545,17 @@ Token get_token(FILE *file)
             else if (c == 'e' || c == 'E')
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                state = sExponent;
+                state = sExponentStart;
             }
             else
             {
-                token.type = TOKEN_FLOAT_LITERAL; // Set token type to float literal
-                ungetc(c, file);                  // Put the character back for further processing
-                return token;                     // Return the float token
+                token.type = TOKEN_FLOAT_LITERAL;
+                ungetc(c, file);
+                return token;
             }
         }
         break;
-        case sExponent:
+        case sExponentStart:
         {
             if (c == '+' || c == '-')
             {
@@ -516,17 +569,7 @@ Token get_token(FILE *file)
             }
             else
             {
-                double calculatedNum = strtod(token.value.valueString.str, NULL);
-
-                dynamic_string_clear(&token.value.valueString);
-
-                if (!add_double_to_dynamic_string(&token.value.valueString, calculatedNum))
-                {
-                    token.type = TOKEN_UNDEFINED; // Handle error if addition fails
-                    return token;                 // Return error token
-                }
-                token.type = TOKEN_FLOAT_LITERAL; // Set token type to float literal
-                ungetc(c, file);
+                token.type = TOKEN_UNDEFINED;
                 return token;
             }
         }
@@ -541,6 +584,27 @@ Token get_token(FILE *file)
             else
             {
                 token.type = TOKEN_UNDEFINED;
+                return token;
+            }
+        }
+        break;
+        case sExponent:
+        {
+            if (isdigit(c))
+            {
+                dynamic_string_add_char(&token.value.valueString, c);
+                state = sExponent;
+            }
+            else
+            {
+                double calculatedNum = strtod(token.value.valueString.str, NULL);
+                dynamic_string_clear(&token.value.valueString);
+                if (!add_double_to_dynamic_string(&token.value.valueString, calculatedNum))
+                {
+                    token.type = TOKEN_UNDEFINED;
+                    return token;
+                }
+                token.type = TOKEN_FLOAT_LITERAL;
                 ungetc(c, file);
                 return token;
             }
@@ -571,69 +635,59 @@ Token get_token(FILE *file)
         break;
         case sEscapeSequence:
         {
-            if (c == 'n')
+            switch (c)
             {
-                dynamic_string_add_char(&token.value.valueString, '\n'); // Newline escape
-            }
-            else if (c == 't')
+            case 'n':
+                dynamic_string_add_char(&token.value.valueString, '\n'); // Newline
+                break;
+            case 't':
+                dynamic_string_add_char(&token.value.valueString, '\t'); // Tab
+                break;
+            case 'r':
+                dynamic_string_add_char(&token.value.valueString, '\r'); // Carriage return
+                break;
+            case '\"':
+                dynamic_string_add_char(&token.value.valueString, '\"'); // Double quote
+                break;
+            case '\\':
+                dynamic_string_add_char(&token.value.valueString, '\\'); // Backslash
+                break;
+            case 'x': // Hexadecimal escape
             {
-                dynamic_string_add_char(&token.value.valueString, '\t'); // Tab escape
-            }
-            else if (c == 'r')
-            {
-                dynamic_string_add_char(&token.value.valueString, '\r'); // Carriage return escape
-            }
-            else if (c == '\"')
-            {
-                dynamic_string_add_char(&token.value.valueString, '\"'); // Quote escape
-            }
-            else if (c == '\\')
-            {
-                dynamic_string_add_char(&token.value.valueString, '\\'); // Backslash escape
-            }
-            else if (c == 'x') // Hexadecimal escape
-            {
-                char hex[3];               // Buffer to hold hex digits
-                hex[0] = (char)getc(file); // First hex digit
-                hex[1] = (char)getc(file); // Second hex digit
-                hex[2] = '\0';             // Null-terminate the string
+                char hex[3];
+                hex[0] = (char)getc(file);
+                hex[1] = (char)getc(file);
+                hex[2] = '\0';
 
-                // Check if the hex characters are valid
                 if (isxdigit(hex[0]) && isxdigit(hex[1]))
                 {
-                    int value = (int)strtol(hex, NULL, 16);                         // Convert hex to integer
-                    dynamic_string_add_char(&token.value.valueString, (char)value); // Add the character to the string
+                    int value = (int)strtol(hex, NULL, 16);
+                    dynamic_string_add_char(&token.value.valueString, (char)value);
                 }
                 else
                 {
                     token.type = TOKEN_UNDEFINED; // Invalid hex escape
                     return token;
                 }
+                break;
             }
-            else
-            {
-                token.type = TOKEN_UNDEFINED; // Invalid escape sequence
-                return token;
+            default: // Unrecognized escape, add the character as-is
+                dynamic_string_add_char(&token.value.valueString, c);
+                break;
             }
 
-            state = sStringLiteral; // Return to string literal state
+            state = sStringLiteral;
         }
         break;
-        case sBackSlash:
+        /*case sBackSlash:
         {
             c = (char)getc(file); // Read the next character
             if (c == 'n')
-            {
                 token.type = TOKEN_NEWLINE; // Example for newline escape
-            }
             else if (c == 't')
-            {
                 token.type = TOKEN_TAB; // Example for tab escape
-            }
             else if (c == '\\')
-            {
                 token.type = TOKEN_BACKSLASH; // Token for backslash itself
-            }
             else
             {
                 ungetc(c, file);              // Put back the character if it's not a recognized escape
@@ -643,6 +697,7 @@ Token get_token(FILE *file)
             return token;
         }
         break;
+        */
         case sDivision:
         {
             if (c == '/')
@@ -652,8 +707,8 @@ Token get_token(FILE *file)
             }
             else
             {
-                ungetc(c, file);             // Put back the character if it's not '='
-                token.type = TOKEN_DIVISION; // Token is just '=' (assignment)
+                ungetc(c, file);             // Put back the character if it's not '/'
+                token.type = TOKEN_DIVISION; // Token is just '/' (division)
                 return token;
             }
         }
@@ -754,17 +809,11 @@ Token get_token(FILE *file)
             }
         }
         break;
-
-        case sEOL:
-            state = sStart;
-            break;
-
         default:
-            state = sError; // Invalid state fallback
+            state = sError; // ! Invalid state fallback
             break;
         }
     }
-    // Uvoľni pamäť pred návratom
     dynamic_string_free(&token.value.valueString);
-    return token; // Vráť token
+    return token;
 }

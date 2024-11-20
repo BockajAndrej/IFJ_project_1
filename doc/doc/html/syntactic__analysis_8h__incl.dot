@@ -1,9 +1,9 @@
-digraph "/home/administrator/IFJ/IFJ-project01/src/syntactic_analysis.h"
+digraph "/home/kubo/IFJ_Compiler/IFJ-project01/src/syntactic_analysis.h"
 {
  // LATEX_PDF_SIZE
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="/home/administrator\l/IFJ/IFJ-project01/src\l/syntactic_analysis.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 [label="/home/kubo/IFJ_Compiler\l/IFJ-project01/src/syntactic\l_analysis.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
   Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node2 [label="stdio.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
   Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
@@ -14,11 +14,19 @@ digraph "/home/administrator/IFJ/IFJ-project01/src/syntactic_analysis.h"
   Node5 [label="lexical_analyser.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$lexical__analyser_8h.html",tooltip=" "];
   Node5 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node5 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node6 [label="newstring.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$newstring_8h.html",tooltip=" "];
-  Node6 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node6 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node7 [label="stdlib.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
-  Node6 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node8 [label="error.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$error_8h.html",tooltip=" "];
+  Node6 [label="error.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$error_8h.html",tooltip=" "];
+  Node5 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="ctype.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node5 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="stdlib.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node5 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="math.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node5 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="newstring.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$newstring_8h.html",tooltip=" "];
+  Node10 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
 }

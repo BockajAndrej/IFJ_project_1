@@ -1,0 +1,4 @@
+pub fn decrement(n : i32, m : i32) i32
+{
+    n = a * (b + c) * d/8 ;
+}

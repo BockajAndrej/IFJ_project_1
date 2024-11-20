@@ -3,10 +3,20 @@
 // TODO : 1. Pocitanie tokenov (kazdy riadok resetuje)
 // TODO : 2. Nefunkcny scope len na jeden riadok (bez {}) vytvorit vo funkcii ktora funkciu scope vola
 
-/** @brief Processes the FIRST rule in the syntactic analysis. 
+typedef enum
+{
+    sStartExc,
+    sLParExc,
+    sLParExc1,
+    sNTerExc,
+    sNTerExc1,
+    sFinalExc
+} ExpressionFSM;
+
+/** @brief Processes the FIRST rule in the syntactic analysis.
  *  @details First and the only one function called from main. Verifies part of code which is out of scope.
  *  @param file A pointer to the file being analyzed.
- *  @return If syntactic analysis pass return true otherwise false 
+ *  @return If syntactic analysis pass return true otherwise false
  *  Use case:
  *  @code
  *  @import(t_string);
@@ -21,7 +31,7 @@ bool FIRST(FILE *file)
     // Ends at the end of file (not at end of line)
     if (token.type == TOKEN_EOF && token.type != TOKEN_EOL)
         return true;
-    // Processes functions variables and constants 
+    // Processes functions variables and constants
     switch (token.keyword_val)
     {
     case KEYWORD_PUB:
@@ -47,9 +57,9 @@ bool FIRST(FILE *file)
     return true;
 }
 /** @brief Processes the commands, coditions, ...
- *  @details Fucntion is called in scope for verification part of code which is inside scope. 
+ *  @details Fucntion is called in scope for verification part of code which is inside scope.
  *  @param file A pointer to the file being analyzed.
- *  @return If syntactic analysis pass return true otherwise false 
+ *  @return If syntactic analysis pass return true otherwise false
  *  Use case:
  *  @code
  *  @import(t_string);
@@ -66,10 +76,10 @@ bool STATEMENT(FILE *file)
         return true;
     else if (token.type == TOKEN_IDENTIFIER)
     {
-        if(!CALL_DEF(file))
+        if (!CALL_DEF(file))
             return false;
     }
-    // For sure if it is not keyword to be return false 
+    // For sure if it is not keyword to be return false
     else if (token.type != TOKEN_KEYWORD)
         return false;
     else
@@ -114,7 +124,7 @@ bool STATEMENT(FILE *file)
 
 /** @brief Processes command for variable declaration
  *  @param file A pointer to the file being analyzed.
- *  @return If syntactic analysis pass return true otherwise false 
+ *  @return If syntactic analysis pass return true otherwise false
  *  Use case:
  *  @code
  *  @import(t_string);
@@ -150,7 +160,7 @@ bool VAR_DEF(FILE *file)
 }
 /** @brief Processes command for constant declaration
  *  @param file A pointer to the file being analyzed.
- *  @return If syntactic analysis pass return true otherwise false 
+ *  @return If syntactic analysis pass return true otherwise false
  *  Use case:
  *  @code
  *  @import(t_string);
@@ -176,7 +186,7 @@ bool CONST_DEF(FILE *file)
 }
 /** @brief Processes function declaration
  *  @param file A pointer to the file being analyzed.
- *  @return If syntactic analysis pass return true otherwise false 
+ *  @return If syntactic analysis pass return true otherwise false
  *  Use case:
  *  @code
  *  @import(t_string);
@@ -219,7 +229,7 @@ bool FN_DEF(FILE *file)
 }
 /** @brief Processes if condition
  *  @param file A pointer to the file being analyzed.
- *  @return If syntactic analysis pass return true otherwise false 
+ *  @return If syntactic analysis pass return true otherwise false
  *  Use case:
  *  @code
  *  @import(t_string);
@@ -247,7 +257,7 @@ bool IF_DEF(FILE *file)
 /** @brief Processes else condition
  *  @note Works as preprocessing function for IF_EXT()
  *  @param file A pointer to the file being analyzed.
- *  @return If syntactic analysis pass return true otherwise false 
+ *  @return If syntactic analysis pass return true otherwise false
  *  Use case:
  *  @code
  *  @import(t_string);
@@ -271,7 +281,7 @@ bool ELSE_DEF(FILE *file)
 }
 /** @brief Processes while loop
  *  @param file A pointer to the file being analyzed.
- *  @return If syntactic analysis pass return true otherwise false 
+ *  @return If syntactic analysis pass return true otherwise false
  *  Use case:
  *  @code
  *  @import(t_string);
@@ -302,9 +312,9 @@ bool WHILE_DEF(FILE *file)
     pmesg(" ------ END WHILE_DEF ------\n");
     return true;
 }
-/** @brief Processes return command 
+/** @brief Processes return command
  *  @param file A pointer to the file being analyzed.
- *  @return If syntactic analysis pass return true otherwise false 
+ *  @return If syntactic analysis pass return true otherwise false
  *  Use case:
  *  @code
  *  @import(t_string);
@@ -321,10 +331,10 @@ bool RET_DEF(FILE *file)
     pmesg(" ------ END RET_DEF ------\n");
     return true;
 }
-/** @brief Processes calling functions, variables 
+/** @brief Processes calling functions, variables
  *  @note Works as preprocessing function for IF_EXT()
  *  @param file A pointer to the file being analyzed.
- *  @return If syntactic analysis pass return true otherwise false 
+ *  @return If syntactic analysis pass return true otherwise false
  *  Use case:
  *  @code
  *  @import(t_string);
@@ -340,10 +350,10 @@ bool CALL_DEF(FILE *file)
     return true;
 }
 
-/** @brief Extended function for CALL_DEF() 
+/** @brief Extended function for CALL_DEF()
  *  @details Processes functions arguments or assignment to a variable (= EXPRESSION)
  *  @param file A pointer to the file being analyzed.
- *  @return If syntactic analysis pass return true otherwise false 
+ *  @return If syntactic analysis pass return true otherwise false
  *  Use case:
  *  @code
  *  @import(t_string);
@@ -377,10 +387,10 @@ bool IF_EXT(FILE *file)
     pmesg(" ------ END IF_EXT ------\n");
     return true;
 }
-/** @brief Extended function for CALL_DEF() 
+/** @brief Extended function for CALL_DEF()
  *  @details Processes functions arguments or assignment to a variable (= EXPRESSION)
  *  @param file A pointer to the file being analyzed.
- *  @return If syntactic analysis pass return true otherwise false 
+ *  @return If syntactic analysis pass return true otherwise false
  *  Use case:
  *  @code
  *  @import(t_string);
@@ -419,8 +429,9 @@ bool CALL_EXT(FILE *file)
     pmesg(" ------ END CALL_EXT ------\n");
     return true;
 }
-//TODO: spracovanie aj s viacerymi parametrami
-bool CALL_OBJ(FILE *file){
+// TODO: spracovanie aj s viacerymi parametrami
+bool CALL_OBJ(FILE *file)
+{
     pmesg(" ------ CALL_OBJ ------\n");
     Token token;
     // t_id
@@ -449,9 +460,9 @@ bool CALL_OBJ(FILE *file){
 }
 
 /** @brief Processes assigning expresions to the variable
- *  @details 
+ *  @details
  *  @param file A pointer to the file being analyzed.
- *  @return If syntactic analysis pass return true otherwise false 
+ *  @return If syntactic analysis pass return true otherwise false
  *  Use case:
  *  @code
  *  @import(t_string);
@@ -473,9 +484,9 @@ bool ASSIGN_VAR(FILE *file)
     return true;
 }
 /** @brief Processes assigning expresions to the constant
- *  @details Processes functions arguments or assignment to a variable (= EXPRESSION)  
+ *  @details Processes functions arguments or assignment to a variable (= EXPRESSION)
  *  @param file A pointer to the file being analyzed.
- *  @return If syntactic analysis pass return true otherwise false 
+ *  @return If syntactic analysis pass return true otherwise false
  *  Use case:
  *  @code
  *  @import(t_string);
@@ -515,9 +526,9 @@ bool ASSIGN_CONST(FILE *file)
 }
 
 /** @brief Function for determining the depth of infestation
- *  @details In scope are Statements. Everything which can be between {} except declaration of functions. 
+ *  @details In scope are Statements. Everything which can be between {} except declaration of functions.
  *  @param file A pointer to the file being analyzed.
- *  @return If syntactic analysis pass return true otherwise false 
+ *  @return If syntactic analysis pass return true otherwise false
  *  Use case:
  *  @code
  *  @import(t_string);
@@ -535,7 +546,7 @@ bool SCOPE(FILE *file)
 }
 /** @brief Function for processing parameters of declaraced function
  *  @param file A pointer to the file being analyzed.
- *  @return If syntactic analysis pass return true otherwise false 
+ *  @return If syntactic analysis pass return true otherwise false
  *  Use case:
  *  @code
  *  t_)
@@ -590,7 +601,7 @@ bool PARAM(FILE *file)
 
 /** @brief Function for processing argument of called function
  *  @param file A pointer to the file being analyzed.
- *  @return If syntactic analysis pass return true otherwise false 
+ *  @return If syntactic analysis pass return true otherwise false
  *  Use case:
  *  @code
  *  t_id
@@ -622,10 +633,10 @@ bool ARG(FILE *file)
     pmesg(" ------ END ARG ------\n");
     return true;
 }
-/** @brief Function for processing another argument which is in queue 
+/** @brief Function for processing another argument which is in queue
  *  @details First argument is processed in ARG() but after that should be character ",". That sequence is repeaded unltil ")"
  *  @param file A pointer to the file being analyzed.
- *  @return If syntactic analysis pass return true otherwise false 
+ *  @return If syntactic analysis pass return true otherwise false
  *  Use case:
  *  @code
  *  t_)
@@ -651,12 +662,12 @@ bool ARGS(FILE *file)
     return true;
 }
 
-/** @brief Function for processing another argument which is in queue 
- *  @warning First token is passed by argument (FIX) 
+/** @brief Function for processing another argument which is in queue
+ *  @warning First token is passed by argument (FIX)
  *  @details It ends when ";" or ")" . Also works: ((2+3)*6)-9; Also works: factorial(256*(56-7));
  *  @note It can ends with ")" because of declaration of function
  *  @param file A pointer to the file being analyzed.
- *  @return If syntactic analysis pass return true otherwise false 
+ *  @return If syntactic analysis pass return true otherwise false
  *  Use case:
  *  @code
  *  ...
@@ -669,27 +680,180 @@ bool EXPRESSION(FILE *file, Token token)
 {
     // LOGIKA : Ak v expresne bude znak "(" prva zatvorka bude este expression ale ta dalsia uz to bude koncit.
     pmesg(" ------ EXPRESSION ------\n");
-    int endWhenCount = 0;
-    int countOfLeftParent = 0;
-    // TODO : Odstranit potom (len zebezpecenie kvoli cykleniu)
-    while (!(token.type == TOKEN_SEMICOLON || (token.type == TOKEN_RPAREN && countOfLeftParent <= 0)))
+    Stack precStack; // Stack pre precedencnu analyzu
+    Stack ruleStack; // Ukladanie pravidiel
+    Stack_item curPrecItem;
+    Stack_item curRuleItem;
+    Prec_table_symbol_enum tmp_sym;
+
+    curPrecItem.type = precedence;
+    curRuleItem.type = string;
+
+    initStack(&precStack, curPrecItem.type);
+    initStack(&ruleStack, curRuleItem.type);
+
+    const int N = 10;
+    char table[10][10] = {
+        {'<', '<', '<', '<', '<', '<', '<', '>', '<', '>'},
+        {'>', '>', '>', '<', '<', '<', '<', '>', '<', '>'},
+        {'>', '>', '>', '<', '>', '<', '<', '>', '<', '>'},
+        {'>', '>', '>', '>', '>', '<', '<', '>', '<', '>'},
+        {'>', '>', '>', '>', 'X', '<', '<', '>', '<', '>'},
+        {'>', '>', '>', '>', '>', 'X', 'X', '>', 'X', '>'},
+        {'<', '<', '<', '<', '<', '<', '<', '=', '<', 'X'},
+        {'>', '>', '>', '>', '>', 'X', 'X', '>', 'X', '>'},
+        {'>', '>', '>', '>', '>', 'X', 'X', '>', 'X', '>'},
+        {'<', '<', '<', '<', '<', '<', '<', 'X', '<', ' '}};
+
+    int tmp_char = find_OP(N, table, token, &precStack, &tmp_sym);
+
+    // Ends when it gen ' ' (means: $$)
+    while (tmp_char != ' ')
     {
-        if (token.type == TOKEN_LPAREN)
-            countOfLeftParent++;
-        else if (token.type == TOKEN_RPAREN)
-            countOfLeftParent--;
-        // TODO : Odstranit
-        if (endWhenCount++ > 50)
+        bool isExpressionCorrect = false;
+
+        if (tmp_char == EOF)
+        {
+            pmesg("ERROR FIND OP\n");
             return false;
-        GET_TOKEN_RAW(token, file);
+        }
+        // Redukovanie podla pravidla
+        else if (tmp_char == '>')
+        {
+            printf("- Reduction\n");
+            ExpressionFSM state = sStartExc;
+            isExpressionCorrect = false;
+
+            do
+            {
+                RemoveTop(&precStack, &curPrecItem);
+                
+                switch (state)
+                {
+                case sStartExc:
+                    
+                    if (curPrecItem.data.precedence.symbol == ID || curPrecItem.data.precedence.symbol == INT_NUM || curPrecItem.data.precedence.symbol == FLOAT_NUM)
+                    {
+                        curRuleItem.type = string;
+                        curRuleItem.data.token_val.valueString.str = curPrecItem.data.token_val.valueString.str;
+                        push(&ruleStack, curRuleItem);
+                        PrintAllStack(&ruleStack);
+                        state = sFinalExc;
+                    }
+                    else if (curPrecItem.data.precedence.symbol == RPAR)
+                        state = sLParExc;
+                    else if (curPrecItem.data.precedence.symbol == NTERMINAL)
+                        state = sNTerExc;
+                    break;
+                case sLParExc:
+                    if (curPrecItem.data.precedence.symbol == NTERMINAL)
+                        state = sLParExc1;
+                    break;
+                case sLParExc1:
+                    if (curPrecItem.data.precedence.symbol == LPAR)
+                        state = sFinalExc;
+                    break;
+                case sNTerExc:
+                    if (curPrecItem.data.precedence.symbol >= EQ && curPrecItem.data.precedence.symbol <= DIV)
+                        state = sNTerExc1;
+                    if (curPrecItem.data.precedence.symbol == EQ)
+                        curRuleItem.data.rules = N_EQ_N;
+                    else if (curPrecItem.data.precedence.symbol == NEQ)
+                        curRuleItem.data.rules = N_NEQ_N;
+                    else if (curPrecItem.data.precedence.symbol == LEQ)
+                        curRuleItem.data.rules = N_LEQ_N;
+                    else if (curPrecItem.data.precedence.symbol == LTN)
+                        curRuleItem.data.rules = N_LTN_N;
+                    else if (curPrecItem.data.precedence.symbol == GEQ)
+                        curRuleItem.data.rules = N_MEQ_N;
+                    else if (curPrecItem.data.precedence.symbol == GTN)
+                        curRuleItem.data.rules = N_MTN_N;
+                    else if (curPrecItem.data.precedence.symbol == ADD)
+                        curRuleItem.data.rules = N_PLUS_N;
+                    else if (curPrecItem.data.precedence.symbol == SUB)
+                        curRuleItem.data.rules = N_MINUS_N;
+                    else if (curPrecItem.data.precedence.symbol == MUL)
+                        curRuleItem.data.rules = N_MUL_N;
+                    else if (curPrecItem.data.precedence.symbol == DIV)
+                        curRuleItem.data.rules = N_IDIV_N;
+                    curRuleItem.type = rule;
+                    push(&ruleStack, curRuleItem);
+                    PrintAllStack(&ruleStack);
+                    break;
+                case sNTerExc1:
+                    if (curPrecItem.data.precedence.symbol == NTERMINAL)
+                        state = sFinalExc;
+                    break;
+                case sFinalExc:
+                    isExpressionCorrect = true;
+                    break;
+                default:
+                    break;
+                }
+            } while (curPrecItem.data.precedence.type);
+
+            if (!isExpressionCorrect)
+            {
+                printf("STATE = %d", state);
+                return false;
+            }
+            // Vkladanie neterminalu
+            curPrecItem.data.precedence.symbol = NTERMINAL;
+            curPrecItem.data.precedence.type = true;
+            push(&precStack, curPrecItem);
+        }
+        // Vkladanie do precStacku
+        else if (tmp_char == '<')
+        {
+            printf("- Shift\n");
+            curPrecItem.data.precedence.symbol = tmp_char;
+            curPrecItem.data.precedence.type = false;
+            pushAfterTerminal(&precStack, curPrecItem);
+            curPrecItem.data.token_val.valueString.str = token.value.valueString.str;
+            curPrecItem.data.precedence.symbol = tmp_sym;
+            curPrecItem.data.precedence.type = true;
+            push(&precStack, curPrecItem);
+        }
+        else if (tmp_char == '=')
+        {
+            curPrecItem.data.precedence.symbol = tmp_sym;
+            curPrecItem.data.precedence.type = true;
+            push(&precStack, curPrecItem);
+        }
+        // TODO Prerobit aby az nakonci hadzalo false (memory leak)
+        else
+            return false;
+
+        PrintAllStack(&precStack);
+        // Znaci ze prebelha redukcia a chceme spracovat rovnaky token
+        if (!isExpressionCorrect)
+        {
+            GET_TOKEN_RAW(token, file);
+        }
+        tmp_char = find_OP(N, table, token, &precStack, &tmp_sym);
+    }
+    // Naplnenie stromu
+    int i = 0;
+    while (!isEmpty(ruleStack.top))
+    {
+        RemoveTop(&ruleStack, &curRuleItem);
+        if (curRuleItem.type == rule)
+            printf("%d: - %d\n", i++, curRuleItem.data.rules);
+        else
+            printf("%d: - %s\n", i++, curRuleItem.data.token_val.valueString.str);
     }
 
+    printf("-------- END OF ABST -------\n RULE:\n");
+    PrintAllStack(&ruleStack);
+
+    freeStack(&precStack);
+    freeStack(&ruleStack);
     pmesg(" ------ END EXPRESSION ------\n");
     return true;
 }
 
 /** @brief Function for verifaction enabled data types (VARIABLE/CONST)
- *  @return If token is enabled data type return true otherwise false 
+ *  @return If token is enabled data type return true otherwise false
  */
 bool VAR_TYPE(Token t)
 {
@@ -698,7 +862,7 @@ bool VAR_TYPE(Token t)
     return false;
 }
 /** @brief Function for verifaction enabled data types (DATA TYPES)
- *  @return If token is enabled data type return true otherwise false 
+ *  @return If token is enabled data type return true otherwise false
  */
 bool VAL_TYPE(Token t)
 {
@@ -707,7 +871,7 @@ bool VAL_TYPE(Token t)
     return false;
 }
 /** @brief Function for verifaction enabled data types (FUNCTIONS)
- *  @return If token is enabled data type return true otherwise false 
+ *  @return If token is enabled data type return true otherwise false
  */
 bool FN_TYPE(Token t)
 {
@@ -716,4 +880,126 @@ bool FN_TYPE(Token t)
     return false;
 }
 
+// Nájde index operátora v tabuľke
+int find_OP(const int N, char table[N][N], Token token, Stack *precStack, Prec_table_symbol_enum *symbol)
+{
+    int x = -1, y = -1;
 
+    switch (token.type)
+    {
+    case TOKEN_EQUAL:
+        *symbol = EQ;
+        x = 0;
+        break;
+    case TOKEN_NOT_EQUAL:
+        *symbol = NEQ;
+        x = 0;
+        break;
+    case TOKEN_LESS_EQUAL:
+        *symbol = LEQ;
+        x = 0;
+        break;
+    case TOKEN_LESS_THAN:
+        *symbol = LTN;
+        x = 0;
+        break;
+    case TOKEN_GREATER_EQUAL:
+        *symbol = GEQ;
+        x = 0;
+        break;
+    case TOKEN_GREATER_THAN:
+        *symbol = GTN;
+        x = 0;
+        break;
+    case TOKEN_ADDITION:
+        *symbol = ADD;
+        x = 1;
+        break;
+    case TOKEN_SUBTRACTION:
+        *symbol = SUB;
+        x = 2;
+        break;
+    case TOKEN_MULTIPLY:
+        *symbol = MUL;
+        x = 3;
+        break;
+    case TOKEN_DIVISION:
+        *symbol = DIV;
+        x = 4;
+        break;
+    case TOKEN_LPAREN:
+        *symbol = LPAR;
+        x = 6;
+        break;
+    case TOKEN_RPAREN:
+        *symbol = RPAR;
+        x = 7;
+        break;
+    case TOKEN_IDENTIFIER:
+        *symbol = ID;
+        x = 5;
+        break;
+    case TOKEN_INT_LITERAL:
+        *symbol = INT_NUM;
+        x = 8;
+        break;
+    case TOKEN_FLOAT_LITERAL:
+        *symbol = FLOAT_NUM;
+        x = 8;
+        break;
+    case TOKEN_SEMICOLON:
+        *symbol = DOLLAR;
+        x = 9;
+        break;
+    default:
+        break;
+    }
+
+    switch (topTerminal(precStack))
+    {
+    case EQ:
+    case NEQ:
+    case LEQ:
+    case LTN:
+    case GEQ:
+    case GTN:
+        y = 0;
+        break;
+    case ADD:
+        y = 1;
+        break;
+    case SUB:
+        y = 2;
+        break;
+    case MUL:
+        y = 3;
+        break;
+    case DIV:
+        y = 4;
+        break;
+    case ID:
+        y = 5;
+        break;
+    case LPAR:
+        y = 6;
+        break;
+    case RPAR:
+        y = 7;
+        break;
+    case INT_NUM:
+    case FLOAT_NUM:
+        y = 8;
+        break;
+    case DOLLAR:
+    case EOF:
+        y = 9;
+        break;
+    default:
+        break;
+    }
+
+    // printf("IN THAT: X = %d, Y = %d\n", x, y);
+    if (x < 0 || y < 0)
+        return EOF;
+    return table[y][x];
+}

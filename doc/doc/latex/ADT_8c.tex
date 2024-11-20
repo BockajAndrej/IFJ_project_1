@@ -1,28 +1,33 @@
-\hypertarget{ADT_8c}{}\doxysection{ADT.\+c File Reference}
-\label{ADT_8c}\index{ADT.c@{ADT.c}}
+\hypertarget{ADT_8c}{}\doxysection{/home/kubo/\+IFJ\+\_\+\+Compiler/\+IFJ-\/project01/src/\+ADT.c File Reference}
+\label{ADT_8c}\index{/home/kubo/IFJ\_Compiler/IFJ-\/project01/src/ADT.c@{/home/kubo/IFJ\_Compiler/IFJ-\/project01/src/ADT.c}}
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
 {\ttfamily \#include $<$stdlib.\+h$>$}\newline
 {\ttfamily \#include $<$string.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}ADT.\+h\char`\"{}}\newline
+Include dependency graph for ADT.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{ADT_8c__incl}
+\end{center}
+\end{figure}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 char $\ast$ \mbox{\hyperlink{ADT_8c_a69781ac22aa41ceaca20060ad642a403}{copy\+\_\+string}} (const char $\ast$str)
-\begin{DoxyCompactList}\small\item\em Copies a string dynamically. \end{DoxyCompactList}\item 
+\item 
 void \mbox{\hyperlink{ADT_8c_ae7778847ae19a4693087f819ef97ada7}{free\+\_\+string}} (char $\ast$str)
-\begin{DoxyCompactList}\small\item\em Frees a dynamically allocated string. \end{DoxyCompactList}\item 
-unsigned int \mbox{\hyperlink{ADT_8c_a7c9e0d90bc8135bbc9d94ee1979c01ee}{hash}} (const char $\ast$key)
-\begin{DoxyCompactList}\small\item\em Hashes a string to generate an index in the hash table. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{structHashTable}{Hash\+Table}} $\ast$ \mbox{\hyperlink{ADT_8c_a9c5cd145c4b3c3ad00c3e8d4897aaf0f}{create\+\_\+table}} ()
-\begin{DoxyCompactList}\small\item\em Creates a new hash table. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{ADT_8c_a6dcf75b165c5731b136694076b6122c6}{insert\+\_\+symbol}} (\mbox{\hyperlink{structHashTable}{Hash\+Table}} $\ast$table, const char $\ast$name, const char $\ast$type, int int\+Value, int has\+Int, float float\+Value, int has\+Float, unsigned int address)
-\begin{DoxyCompactList}\small\item\em Inserts a symbol into the hash table. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{ADT_8c_a241a0981d96a30cf13c1bd65b79a3dc8}{delete\+\_\+symbol}} (\mbox{\hyperlink{structHashTable}{Hash\+Table}} $\ast$table, const char $\ast$name)
-\begin{DoxyCompactList}\small\item\em Deletes a symbol from the hash table by name. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{structSymbol}{Symbol}} $\ast$ \mbox{\hyperlink{ADT_8c_a9219c7b5ae4ce115fdd6657c6541e3bc}{search\+\_\+symbol}} (\mbox{\hyperlink{structHashTable}{Hash\+Table}} $\ast$table, const char $\ast$name)
-\begin{DoxyCompactList}\small\item\em Searches for a symbol in the hash table by name. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{ADT_8c_a86fe0b3ef8db644c46875b1da82175c6}{free\+\_\+table}} (\mbox{\hyperlink{structHashTable}{Hash\+Table}} $\ast$table)
-\begin{DoxyCompactList}\small\item\em Frees all memory associated with the hash table. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structSymbolTable}{Symbol\+Table}} $\ast$ \mbox{\hyperlink{ADT_8c_a99781ee05b9a784e40d6e179c04f42c9}{create\+\_\+table}} ()
+\item 
+void \mbox{\hyperlink{ADT_8c_a498be84c0146adc44a4d75f3ddadfce8}{insert\+\_\+symbol}} (\mbox{\hyperlink{structSymbolTable}{Symbol\+Table}} $\ast$table, const char $\ast$name, \mbox{\hyperlink{ADT_8h_ad9971b6ef33e02ba2c75d19c1d2518a1}{Value\+Type}} type, void $\ast$value)
+\item 
+\mbox{\hyperlink{structSymbol}{Symbol}} $\ast$ \mbox{\hyperlink{ADT_8c_a87d79a5adc075526a4778d53c2948412}{search\+\_\+symbol}} (\mbox{\hyperlink{structSymbolTable}{Symbol\+Table}} $\ast$table, const char $\ast$name)
+\item 
+void \mbox{\hyperlink{ADT_8c_a86337fb4e746828ec8da93815780b8e5}{delete\+\_\+symbol}} (\mbox{\hyperlink{structSymbolTable}{Symbol\+Table}} $\ast$table, const char $\ast$name)
+\item 
+void \mbox{\hyperlink{ADT_8c_a586c12683a18644602e7029a8fb528c4}{free\+\_\+table}} (\mbox{\hyperlink{structSymbolTable}{Symbol\+Table}} $\ast$table)
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
@@ -34,54 +39,108 @@ void \mbox{\hyperlink{ADT_8c_a86fe0b3ef8db644c46875b1da82175c6}{free\+\_\+table}
 
 
 
-Copies a string dynamically. 
-
-Dynamically copies a string.
-
-This function allocates memory for a new string and copies the content of the provided string into the newly allocated memory. If memory allocation fails, it returns NULL.
+Definition at line 8 of file ADT.\+c.
 
 
-\begin{DoxyParams}{Parameters}
-{\em str} & Pointer to the string to copy. \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-A dynamically allocated copy of the string, or NULL if memory allocation fails. 
-\end{DoxyReturn}
-\mbox{\Hypertarget{ADT_8c_a9c5cd145c4b3c3ad00c3e8d4897aaf0f}\label{ADT_8c_a9c5cd145c4b3c3ad00c3e8d4897aaf0f}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{8                                    \{}
+\DoxyCodeLine{9     \textcolor{keywordflow}{if} (str == NULL) \textcolor{keywordflow}{return} NULL; }
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11  }
+\DoxyCodeLine{12     \textcolor{keywordtype}{char} *copy = malloc(strlen(str) + 1);}
+\DoxyCodeLine{13     \textcolor{keywordflow}{if} (copy) \{ }
+\DoxyCodeLine{14         strcpy(copy, str); }
+\DoxyCodeLine{15     \}}
+\DoxyCodeLine{16     \textcolor{keywordflow}{return} copy; }
+\DoxyCodeLine{17 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ADT_8c_a69781ac22aa41ceaca20060ad642a403_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{ADT_8c_a99781ee05b9a784e40d6e179c04f42c9}\label{ADT_8c_a99781ee05b9a784e40d6e179c04f42c9}} 
 \index{ADT.c@{ADT.c}!create\_table@{create\_table}}
 \index{create\_table@{create\_table}!ADT.c@{ADT.c}}
 \doxysubsubsection{\texorpdfstring{create\_table()}{create\_table()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structHashTable}{Hash\+Table}}$\ast$ create\+\_\+table (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{structSymbolTable}{Symbol\+Table}}$\ast$ create\+\_\+table (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Creates a new hash table. 
+Definition at line 27 of file ADT.\+c.
 
-This function allocates memory for a new hash table and initializes all the entries to NULL. If memory allocation fails, it returns NULL.
 
-\begin{DoxyReturn}{Returns}
-Pointer to a newly allocated \mbox{\hyperlink{structHashTable}{Hash\+Table}}, or NULL if allocation fails. 
-\end{DoxyReturn}
-\mbox{\Hypertarget{ADT_8c_a241a0981d96a30cf13c1bd65b79a3dc8}\label{ADT_8c_a241a0981d96a30cf13c1bd65b79a3dc8}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{27                             \{}
+\DoxyCodeLine{28     \mbox{\hyperlink{structSymbolTable}{SymbolTable}} *table = malloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structSymbolTable}{SymbolTable}}));}
+\DoxyCodeLine{29     \textcolor{keywordflow}{if} (table) \{}
+\DoxyCodeLine{30         table-\/>\mbox{\hyperlink{structSymbolTable_aa6bbab3430167d972310989f002f5f0d}{head}} = NULL; }
+\DoxyCodeLine{31     \}}
+\DoxyCodeLine{32     \textcolor{keywordflow}{return} table;}
+\DoxyCodeLine{33 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ADT_8c_a99781ee05b9a784e40d6e179c04f42c9_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{ADT_8c_a86337fb4e746828ec8da93815780b8e5}\label{ADT_8c_a86337fb4e746828ec8da93815780b8e5}} 
 \index{ADT.c@{ADT.c}!delete\_symbol@{delete\_symbol}}
 \index{delete\_symbol@{delete\_symbol}!ADT.c@{ADT.c}}
 \doxysubsubsection{\texorpdfstring{delete\_symbol()}{delete\_symbol()}}
-{\footnotesize\ttfamily void delete\+\_\+symbol (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structHashTable}{Hash\+Table}} $\ast$}]{table,  }\item[{const char $\ast$}]{name }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void delete\+\_\+symbol (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structSymbolTable}{Symbol\+Table}} $\ast$}]{table,  }\item[{const char $\ast$}]{name }\end{DoxyParamCaption})}
 
 
 
-Deletes a symbol from the hash table by name. 
-
-This function searches for a symbol in the hash table and removes it, adjusting the linked list pointers accordingly. It also frees the memory allocated for the symbol\textquotesingle{}s name and type.
+Definition at line 77 of file ADT.\+c.
 
 
-\begin{DoxyParams}{Parameters}
-{\em table} & Pointer to the hash table. \\
-\hline
-{\em name} & Name of the symbol to delete. \\
-\hline
-\end{DoxyParams}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{77                                                          \{}
+\DoxyCodeLine{78     \mbox{\hyperlink{structSymbol}{Symbol}} *current = table-\/>\mbox{\hyperlink{structSymbolTable_aa6bbab3430167d972310989f002f5f0d}{head}};}
+\DoxyCodeLine{79     \mbox{\hyperlink{structSymbol}{Symbol}} *previous = NULL;}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81     \textcolor{keywordflow}{while} (current \&\& strcmp(current-\/>\mbox{\hyperlink{structSymbol_aa9ba617cd9de17ed73148893a6c14606}{name}}, name) != 0) \{}
+\DoxyCodeLine{82         previous = current;}
+\DoxyCodeLine{83         current = current-\/>\mbox{\hyperlink{structSymbol_af5a223ab45f0e4f002dbe8108c6085a9}{next}};}
+\DoxyCodeLine{84     \}}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86     \textcolor{keywordflow}{if} (!current) \textcolor{keywordflow}{return}; }
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88     \textcolor{keywordflow}{if} (previous) \{}
+\DoxyCodeLine{89         previous-\/>\mbox{\hyperlink{structSymbol_af5a223ab45f0e4f002dbe8108c6085a9}{next}} = current-\/>\mbox{\hyperlink{structSymbol_af5a223ab45f0e4f002dbe8108c6085a9}{next}};}
+\DoxyCodeLine{90     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{91         table-\/>\mbox{\hyperlink{structSymbolTable_aa6bbab3430167d972310989f002f5f0d}{head}} = current-\/>\mbox{\hyperlink{structSymbol_af5a223ab45f0e4f002dbe8108c6085a9}{next}};}
+\DoxyCodeLine{92     \}}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94     \mbox{\hyperlink{ADT_8c_ae7778847ae19a4693087f819ef97ada7}{free\_string}}(current-\/>\mbox{\hyperlink{structSymbol_aa9ba617cd9de17ed73148893a6c14606}{name}});}
+\DoxyCodeLine{95     \textcolor{keywordflow}{if} (current-\/>\mbox{\hyperlink{structSymbol_a428d9b6c7359a9ee924169d926d634fa}{type}} == \mbox{\hyperlink{ADT_8h_ad9971b6ef33e02ba2c75d19c1d2518a1a35da8b8ef95fd9827e1294f400d01c65}{VALUE\_STRING}}) \{}
+\DoxyCodeLine{96         free(current-\/>\mbox{\hyperlink{structSymbol_aed8aae8e4238ee0ef4332cf859ce11b7}{value}}.\mbox{\hyperlink{structSymbol_a258d262ddd1a28d136d6f623f010c941}{strValue}}); }
+\DoxyCodeLine{97     \}}
+\DoxyCodeLine{98     free(current);}
+\DoxyCodeLine{99 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{ADT_8c_a86337fb4e746828ec8da93815780b8e5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ADT_8c_a86337fb4e746828ec8da93815780b8e5_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{ADT_8c_ae7778847ae19a4693087f819ef97ada7}\label{ADT_8c_ae7778847ae19a4693087f819ef97ada7}} 
 \index{ADT.c@{ADT.c}!free\_string@{free\_string}}
 \index{free\_string@{free\_string}!ADT.c@{ADT.c}}
@@ -90,104 +149,142 @@ This function searches for a symbol in the hash table and removes it, adjusting 
 
 
 
-Frees a dynamically allocated string. 
-
-This function deallocates the memory previously allocated for a string, ensuring there are no memory leaks.
+Definition at line 19 of file ADT.\+c.
 
 
-\begin{DoxyParams}{Parameters}
-{\em str} & Pointer to the string to free. \\
-\hline
-\end{DoxyParams}
-\mbox{\Hypertarget{ADT_8c_a86fe0b3ef8db644c46875b1da82175c6}\label{ADT_8c_a86fe0b3ef8db644c46875b1da82175c6}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{19                             \{}
+\DoxyCodeLine{20     \textcolor{keywordflow}{if} (str != NULL) \{ }
+\DoxyCodeLine{21         free(str);     }
+\DoxyCodeLine{22     \}}
+\DoxyCodeLine{23 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ADT_8c_ae7778847ae19a4693087f819ef97ada7_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{ADT_8c_a586c12683a18644602e7029a8fb528c4}\label{ADT_8c_a586c12683a18644602e7029a8fb528c4}} 
 \index{ADT.c@{ADT.c}!free\_table@{free\_table}}
 \index{free\_table@{free\_table}!ADT.c@{ADT.c}}
 \doxysubsubsection{\texorpdfstring{free\_table()}{free\_table()}}
-{\footnotesize\ttfamily void free\+\_\+table (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structHashTable}{Hash\+Table}} $\ast$}]{table }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void free\+\_\+table (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structSymbolTable}{Symbol\+Table}} $\ast$}]{table }\end{DoxyParamCaption})}
 
 
 
-Frees all memory associated with the hash table. 
-
-This function iterates through each entry in the hash table and frees the memory associated with each symbol, followed by freeing the hash table itself.
+Definition at line 102 of file ADT.\+c.
 
 
-\begin{DoxyParams}{Parameters}
-{\em table} & Pointer to the hash table to free. \\
-\hline
-\end{DoxyParams}
-\mbox{\Hypertarget{ADT_8c_a7c9e0d90bc8135bbc9d94ee1979c01ee}\label{ADT_8c_a7c9e0d90bc8135bbc9d94ee1979c01ee}} 
-\index{ADT.c@{ADT.c}!hash@{hash}}
-\index{hash@{hash}!ADT.c@{ADT.c}}
-\doxysubsubsection{\texorpdfstring{hash()}{hash()}}
-{\footnotesize\ttfamily unsigned int hash (\begin{DoxyParamCaption}\item[{const char $\ast$}]{key }\end{DoxyParamCaption})}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{102                                     \{}
+\DoxyCodeLine{103     \mbox{\hyperlink{structSymbol}{Symbol}} *current = table-\/>\mbox{\hyperlink{structSymbolTable_aa6bbab3430167d972310989f002f5f0d}{head}};}
+\DoxyCodeLine{104     \textcolor{keywordflow}{while} (current) \{}
+\DoxyCodeLine{105         \mbox{\hyperlink{structSymbol}{Symbol}} *temp = current;}
+\DoxyCodeLine{106         current = current-\/>\mbox{\hyperlink{structSymbol_af5a223ab45f0e4f002dbe8108c6085a9}{next}};}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108         free(temp-\/>\mbox{\hyperlink{structSymbol_aa9ba617cd9de17ed73148893a6c14606}{name}});}
+\DoxyCodeLine{109         \textcolor{keywordflow}{if} (temp-\/>\mbox{\hyperlink{structSymbol_a428d9b6c7359a9ee924169d926d634fa}{type}} == \mbox{\hyperlink{ADT_8h_ad9971b6ef33e02ba2c75d19c1d2518a1a35da8b8ef95fd9827e1294f400d01c65}{VALUE\_STRING}}) \{}
+\DoxyCodeLine{110             free(temp-\/>\mbox{\hyperlink{structSymbol_aed8aae8e4238ee0ef4332cf859ce11b7}{value}}.\mbox{\hyperlink{structSymbol_a258d262ddd1a28d136d6f623f010c941}{strValue}});}
+\DoxyCodeLine{111         \}}
+\DoxyCodeLine{112         free(temp);}
+\DoxyCodeLine{113     \}}
+\DoxyCodeLine{114     free(table);}
+\DoxyCodeLine{115 \}}
 
-
-
-Hashes a string to generate an index in the hash table. 
-
-Hashes a string to an index in the table.
-
-This function calculates the hash value of the provided string using a simple polynomial rolling hash function, returning an index suitable for use in the hash table.
-
-
-\begin{DoxyParams}{Parameters}
-{\em key} & Pointer to the string to hash. \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Hash index within the range of the table size. 
-\end{DoxyReturn}
-\mbox{\Hypertarget{ADT_8c_a6dcf75b165c5731b136694076b6122c6}\label{ADT_8c_a6dcf75b165c5731b136694076b6122c6}} 
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ADT_8c_a586c12683a18644602e7029a8fb528c4_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{ADT_8c_a498be84c0146adc44a4d75f3ddadfce8}\label{ADT_8c_a498be84c0146adc44a4d75f3ddadfce8}} 
 \index{ADT.c@{ADT.c}!insert\_symbol@{insert\_symbol}}
 \index{insert\_symbol@{insert\_symbol}!ADT.c@{ADT.c}}
 \doxysubsubsection{\texorpdfstring{insert\_symbol()}{insert\_symbol()}}
-{\footnotesize\ttfamily void insert\+\_\+symbol (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structHashTable}{Hash\+Table}} $\ast$}]{table,  }\item[{const char $\ast$}]{name,  }\item[{const char $\ast$}]{type,  }\item[{int}]{int\+Value,  }\item[{int}]{has\+Int,  }\item[{float}]{float\+Value,  }\item[{int}]{has\+Float,  }\item[{unsigned int}]{address }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void insert\+\_\+symbol (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structSymbolTable}{Symbol\+Table}} $\ast$}]{table,  }\item[{const char $\ast$}]{name,  }\item[{\mbox{\hyperlink{ADT_8h_ad9971b6ef33e02ba2c75d19c1d2518a1}{Value\+Type}}}]{type,  }\item[{void $\ast$}]{value }\end{DoxyParamCaption})}
 
 
 
-Inserts a symbol into the hash table. 
-
-This function creates a new symbol entry and inserts it into the hash table at the index determined by the hash of the symbol\textquotesingle{}s name. If a collision occurs, the new symbol is added to the linked list at that index.
+Definition at line 36 of file ADT.\+c.
 
 
-\begin{DoxyParams}{Parameters}
-{\em table} & Pointer to the hash table. \\
-\hline
-{\em name} & Name of the symbol. \\
-\hline
-{\em type} & Type of the symbol. \\
-\hline
-{\em int\+Value} & Integer value of the symbol (if applicable). \\
-\hline
-{\em has\+Int} & Indicates if int\+Value is valid. \\
-\hline
-{\em float\+Value} & Floating-\/point value of the symbol (if applicable). \\
-\hline
-{\em has\+Float} & Indicates if float\+Value is valid. \\
-\hline
-{\em address} & Memory address of the symbol. \\
-\hline
-\end{DoxyParams}
-\mbox{\Hypertarget{ADT_8c_a9219c7b5ae4ce115fdd6657c6541e3bc}\label{ADT_8c_a9219c7b5ae4ce115fdd6657c6541e3bc}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{36                                                                                       \{}
+\DoxyCodeLine{37     \mbox{\hyperlink{structSymbol}{Symbol}} *new\_symbol = malloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structSymbol}{Symbol}}));}
+\DoxyCodeLine{38     \textcolor{keywordflow}{if} (!new\_symbol) \{}
+\DoxyCodeLine{39         fprintf(stderr, \textcolor{stringliteral}{"{}Chyba alokácie pamäte pre symbol\(\backslash\)n"{}});}
+\DoxyCodeLine{40         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{41     \}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43     new\_symbol-\/>\mbox{\hyperlink{structSymbol_aa9ba617cd9de17ed73148893a6c14606}{name}} = \mbox{\hyperlink{ADT_8c_a69781ac22aa41ceaca20060ad642a403}{copy\_string}}(name); }
+\DoxyCodeLine{44     new\_symbol-\/>\mbox{\hyperlink{structSymbol_a428d9b6c7359a9ee924169d926d634fa}{type}} = type;         }
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47     \textcolor{keywordflow}{switch} (type) \{}
+\DoxyCodeLine{48         \textcolor{keywordflow}{case} \mbox{\hyperlink{ADT_8h_ad9971b6ef33e02ba2c75d19c1d2518a1aba052e3feaa532e0d8beeb68a3aa6c83}{VALUE\_INT}}:}
+\DoxyCodeLine{49             new\_symbol-\/>\mbox{\hyperlink{structSymbol_aed8aae8e4238ee0ef4332cf859ce11b7}{value}}.\mbox{\hyperlink{structSymbol_a936e9fb2f8a62f8c44224e2183aea00a}{intValue}} = *(\textcolor{keywordtype}{int} *)value;}
+\DoxyCodeLine{50             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{51         \textcolor{keywordflow}{case} \mbox{\hyperlink{ADT_8h_ad9971b6ef33e02ba2c75d19c1d2518a1a636cea292b122aac7b4c4e193c4cb92f}{VALUE\_FLOAT}}:}
+\DoxyCodeLine{52             new\_symbol-\/>\mbox{\hyperlink{structSymbol_aed8aae8e4238ee0ef4332cf859ce11b7}{value}}.\mbox{\hyperlink{structSymbol_aadd4a19cc2a4c63594c12d1335144809}{floatValue}} = *(\textcolor{keywordtype}{float} *)value;}
+\DoxyCodeLine{53             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{54         \textcolor{keywordflow}{case} \mbox{\hyperlink{ADT_8h_ad9971b6ef33e02ba2c75d19c1d2518a1a35da8b8ef95fd9827e1294f400d01c65}{VALUE\_STRING}}:}
+\DoxyCodeLine{55             new\_symbol-\/>\mbox{\hyperlink{structSymbol_aed8aae8e4238ee0ef4332cf859ce11b7}{value}}.\mbox{\hyperlink{structSymbol_a258d262ddd1a28d136d6f623f010c941}{strValue}} = \mbox{\hyperlink{ADT_8c_a69781ac22aa41ceaca20060ad642a403}{copy\_string}}((\textcolor{keywordtype}{char} *)value);}
+\DoxyCodeLine{56             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{57     \}}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60     new\_symbol-\/>\mbox{\hyperlink{structSymbol_af5a223ab45f0e4f002dbe8108c6085a9}{next}} = table-\/>\mbox{\hyperlink{structSymbolTable_aa6bbab3430167d972310989f002f5f0d}{head}};}
+\DoxyCodeLine{61     table-\/>\mbox{\hyperlink{structSymbolTable_aa6bbab3430167d972310989f002f5f0d}{head}} = new\_symbol;}
+\DoxyCodeLine{62 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=275pt]{ADT_8c_a498be84c0146adc44a4d75f3ddadfce8_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ADT_8c_a498be84c0146adc44a4d75f3ddadfce8_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{ADT_8c_a87d79a5adc075526a4778d53c2948412}\label{ADT_8c_a87d79a5adc075526a4778d53c2948412}} 
 \index{ADT.c@{ADT.c}!search\_symbol@{search\_symbol}}
 \index{search\_symbol@{search\_symbol}!ADT.c@{ADT.c}}
 \doxysubsubsection{\texorpdfstring{search\_symbol()}{search\_symbol()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structSymbol}{Symbol}}$\ast$ search\+\_\+symbol (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structHashTable}{Hash\+Table}} $\ast$}]{table,  }\item[{const char $\ast$}]{name }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{structSymbol}{Symbol}}$\ast$ search\+\_\+symbol (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structSymbolTable}{Symbol\+Table}} $\ast$}]{table,  }\item[{const char $\ast$}]{name }\end{DoxyParamCaption})}
 
 
 
-Searches for a symbol in the hash table by name. 
-
-This function traverses the linked list at the index corresponding to the hash of the symbol\textquotesingle{}s name and returns a pointer to the symbol if found, or NULL if not found.
+Definition at line 65 of file ADT.\+c.
 
 
-\begin{DoxyParams}{Parameters}
-{\em table} & Pointer to the hash table. \\
-\hline
-{\em name} & Name of the symbol to search for. \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Pointer to the \mbox{\hyperlink{structSymbol}{Symbol}} if found, or NULL if not found. 
-\end{DoxyReturn}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{65                                                             \{}
+\DoxyCodeLine{66     \mbox{\hyperlink{structSymbol}{Symbol}} *current = table-\/>\mbox{\hyperlink{structSymbolTable_aa6bbab3430167d972310989f002f5f0d}{head}};}
+\DoxyCodeLine{67     \textcolor{keywordflow}{while} (current) \{}
+\DoxyCodeLine{68         \textcolor{keywordflow}{if} (strcmp(current-\/>\mbox{\hyperlink{structSymbol_aa9ba617cd9de17ed73148893a6c14606}{name}}, name) == 0) \{}
+\DoxyCodeLine{69             \textcolor{keywordflow}{return} current; }
+\DoxyCodeLine{70         \}}
+\DoxyCodeLine{71         current = current-\/>\mbox{\hyperlink{structSymbol_af5a223ab45f0e4f002dbe8108c6085a9}{next}};}
+\DoxyCodeLine{72     \}}
+\DoxyCodeLine{73     \textcolor{keywordflow}{return} NULL; }
+\DoxyCodeLine{74 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ADT_8c_a87d79a5adc075526a4778d53c2948412_icgraph}
+\end{center}
+\end{figure}
