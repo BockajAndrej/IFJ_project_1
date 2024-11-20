@@ -7,6 +7,13 @@
         "lexical_analyser.h": "c",
         "newstring.h": "c",
         "stdlib.h": "c",
-        "vector": "c"
+        "vector": "c",
+        "array": "c",
+        "functional": "c",
+        "tuple": "c",
+        "type_traits": "c",
+        "utility": "c",
+        "istream": "c",
+        "ostream": "c"
     }
 }

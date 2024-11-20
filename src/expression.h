@@ -7,19 +7,19 @@
 typedef enum
 {
     N_DOLLAR,    /// $
-    N_EQ_N,    /// E -> E == E  -
-    N_NEQ_N,   /// E -> E != E  -
-    N_LEQ_N,   /// E -> E <= E  -
-    N_LTN_N,   /// E -> E < E   -
-    N_MEQ_N,   /// E -> E >= E  -
-    N_MTN_N,   /// E -> E > E   -
-    N_PLUS_N,  /// E -> E + E   -
-    N_MINUS_N, /// E -> E - E   -
-    N_MUL_N,   /// E -> E * E   -
-    N_IDIV_N,  /// E -> E \ E
-    N_DIV_N,   /// E -> E / E   -
-    LB_N_RB,   /// E -> (E)     -
-    OP,        /// E -> i       -
+    N_EQ_N,    /// E -> E == E  -1
+    N_NEQ_N,   /// E -> E != E  -2
+    N_LEQ_N,   /// E -> E <= E  -3
+    N_LTN_N,   /// E -> E < E   -4
+    N_MEQ_N,   /// E -> E >= E  -5
+    N_MTN_N,   /// E -> E > E   -6
+    N_PLUS_N,  /// E -> E + E   -7
+    N_MINUS_N, /// E -> E - E   -8
+    N_MUL_N,   /// E -> E * E   -9
+    N_IDIV_N,  /// E -> E \ E   -10
+    N_DIV_N,   /// E -> E / E   -11
+    LB_N_RB,   /// E -> (E)     -12
+    OP,        /// E -> i       -13
     NOT_A_RULE /// rule doesn't exist
 } Prec_rules_enum;
 

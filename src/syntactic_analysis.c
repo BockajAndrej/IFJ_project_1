@@ -11,7 +11,7 @@ typedef enum
     sNTerExc,
     sNTerExc1,
     sFinalExc
-} ExceptionFSM;
+} ExpressionFSM;
 
 /** @brief Processes the FIRST rule in the syntactic analysis.
  *  @details First and the only one function called from main. Verifies part of code which is out of scope.
@@ -680,11 +680,17 @@ bool EXPRESSION(FILE *file, Token token)
 {
     // LOGIKA : Ak v expresne bude znak "(" prva zatvorka bude este expression ale ta dalsia uz to bude koncit.
     pmesg(" ------ EXPRESSION ------\n");
-    Stack stack;
+    Stack precStack; // Stack pre precedencnu analyzu
+    Stack ruleStack; // Ukladanie pravidiel
     Stack_item curPrecItem;
+    Stack_item curRuleItem;
     Prec_table_symbol_enum tmp_sym;
 
-    initStack(&stack, precedence);
+    curPrecItem.type = precedence;
+    curRuleItem.type = string;
+
+    initStack(&precStack, curPrecItem.type);
+    initStack(&ruleStack, curRuleItem.type);
 
     const int N = 10;
     char table[10][10] = {
@@ -699,7 +705,7 @@ bool EXPRESSION(FILE *file, Token token)
         {'>', '>', '>', '>', '>', 'X', 'X', '>', 'X', '>'},
         {'<', '<', '<', '<', '<', '<', '<', 'X', '<', ' '}};
 
-    int tmp_char = find_OP(N, table, token, &stack, &tmp_sym);
+    int tmp_char = find_OP(N, table, token, &precStack, &tmp_sym);
 
     // Ends when it gen ' ' (means: $$)
     while (tmp_char != ' ')
@@ -715,17 +721,25 @@ bool EXPRESSION(FILE *file, Token token)
         else if (tmp_char == '>')
         {
             printf("- Reduction\n");
-            ExceptionFSM state = sStartExc;
+            ExpressionFSM state = sStartExc;
             isExpressionCorrect = false;
 
             do
             {
-                RemoveTop(&stack, &curPrecItem);
+                RemoveTop(&precStack, &curPrecItem);
+                
                 switch (state)
                 {
                 case sStartExc:
+                    
                     if (curPrecItem.data.precedence.symbol == ID || curPrecItem.data.precedence.symbol == INT_NUM || curPrecItem.data.precedence.symbol == FLOAT_NUM)
+                    {
+                        curRuleItem.type = string;
+                        curRuleItem.data.token_val.valueString.str = curPrecItem.data.token_val.valueString.str;
+                        push(&ruleStack, curRuleItem);
+                        PrintAllStack(&ruleStack);
                         state = sFinalExc;
+                    }
                     else if (curPrecItem.data.precedence.symbol == RPAR)
                         state = sLParExc;
                     else if (curPrecItem.data.precedence.symbol == NTERMINAL)
@@ -740,26 +754,31 @@ bool EXPRESSION(FILE *file, Token token)
                         state = sFinalExc;
                     break;
                 case sNTerExc:
+                    if (curPrecItem.data.precedence.symbol >= EQ && curPrecItem.data.precedence.symbol <= DIV)
+                        state = sNTerExc1;
                     if (curPrecItem.data.precedence.symbol == EQ)
-                        state = sNTerExc1;
+                        curRuleItem.data.rules = N_EQ_N;
                     else if (curPrecItem.data.precedence.symbol == NEQ)
-                        state = sNTerExc1;
+                        curRuleItem.data.rules = N_NEQ_N;
                     else if (curPrecItem.data.precedence.symbol == LEQ)
-                        state = sNTerExc1;
+                        curRuleItem.data.rules = N_LEQ_N;
                     else if (curPrecItem.data.precedence.symbol == LTN)
-                        state = sNTerExc1;
+                        curRuleItem.data.rules = N_LTN_N;
                     else if (curPrecItem.data.precedence.symbol == GEQ)
-                        state = sNTerExc1;
+                        curRuleItem.data.rules = N_MEQ_N;
                     else if (curPrecItem.data.precedence.symbol == GTN)
-                        state = sNTerExc1;
+                        curRuleItem.data.rules = N_MTN_N;
                     else if (curPrecItem.data.precedence.symbol == ADD)
-                        state = sNTerExc1;
+                        curRuleItem.data.rules = N_PLUS_N;
                     else if (curPrecItem.data.precedence.symbol == SUB)
-                        state = sNTerExc1;
+                        curRuleItem.data.rules = N_MINUS_N;
                     else if (curPrecItem.data.precedence.symbol == MUL)
-                        state = sNTerExc1;
+                        curRuleItem.data.rules = N_MUL_N;
                     else if (curPrecItem.data.precedence.symbol == DIV)
-                        state = sNTerExc1;
+                        curRuleItem.data.rules = N_IDIV_N;
+                    curRuleItem.type = rule;
+                    push(&ruleStack, curRuleItem);
+                    PrintAllStack(&ruleStack);
                     break;
                 case sNTerExc1:
                     if (curPrecItem.data.precedence.symbol == NTERMINAL)
@@ -781,40 +800,54 @@ bool EXPRESSION(FILE *file, Token token)
             // Vkladanie neterminalu
             curPrecItem.data.precedence.symbol = NTERMINAL;
             curPrecItem.data.precedence.type = true;
-            curPrecItem.type = precedence;
-            push(&stack, curPrecItem);
+            push(&precStack, curPrecItem);
         }
-        // Vkladanie do stacku
+        // Vkladanie do precStacku
         else if (tmp_char == '<')
         {
             printf("- Shift\n");
-            curPrecItem.type = precedence;
             curPrecItem.data.precedence.symbol = tmp_char;
             curPrecItem.data.precedence.type = false;
-            pushAfterTerminal(&stack, curPrecItem);
+            pushAfterTerminal(&precStack, curPrecItem);
+            curPrecItem.data.token_val.valueString.str = token.value.valueString.str;
             curPrecItem.data.precedence.symbol = tmp_sym;
             curPrecItem.data.precedence.type = true;
-            push(&stack, curPrecItem);
+            push(&precStack, curPrecItem);
         }
         else if (tmp_char == '=')
         {
             curPrecItem.data.precedence.symbol = tmp_sym;
             curPrecItem.data.precedence.type = true;
-            curPrecItem.type = precedence;
-            push(&stack, curPrecItem);
+            push(&precStack, curPrecItem);
         }
+        // TODO Prerobit aby az nakonci hadzalo false (memory leak)
         else
             return false;
 
-        PrintAllStack(&stack);
+        PrintAllStack(&precStack);
         // Znaci ze prebelha redukcia a chceme spracovat rovnaky token
         if (!isExpressionCorrect)
         {
             GET_TOKEN_RAW(token, file);
         }
-        tmp_char = find_OP(N, table, token, &stack, &tmp_sym);
+        tmp_char = find_OP(N, table, token, &precStack, &tmp_sym);
     }
-    freeStack(&stack);
+    // Naplnenie stromu
+    int i = 0;
+    while (!isEmpty(ruleStack.top))
+    {
+        RemoveTop(&ruleStack, &curRuleItem);
+        if (curRuleItem.type == rule)
+            printf("%d: - %d\n", i++, curRuleItem.data.rules);
+        else
+            printf("%d: - %s\n", i++, curRuleItem.data.token_val.valueString.str);
+    }
+
+    printf("-------- END OF ABST -------\n RULE:\n");
+    PrintAllStack(&ruleStack);
+
+    freeStack(&precStack);
+    freeStack(&ruleStack);
     pmesg(" ------ END EXPRESSION ------\n");
     return true;
 }
@@ -848,7 +881,7 @@ bool FN_TYPE(Token t)
 }
 
 // Nájde index operátora v tabuľke
-int find_OP(const int N, char table[N][N], Token token, Stack *stack, Prec_table_symbol_enum *symbol)
+int find_OP(const int N, char table[N][N], Token token, Stack *precStack, Prec_table_symbol_enum *symbol)
 {
     int x = -1, y = -1;
 
@@ -922,7 +955,7 @@ int find_OP(const int N, char table[N][N], Token token, Stack *stack, Prec_table
         break;
     }
 
-    switch (topTerminal(stack))
+    switch (topTerminal(precStack))
     {
     case EQ:
     case NEQ:

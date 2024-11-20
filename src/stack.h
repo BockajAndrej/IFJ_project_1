@@ -26,7 +26,7 @@ typedef struct stack_item_1_t
     bool type;   // True => symbol = precedence
 }Stack_item_1;
 
-typedef union stack_item_0_t
+typedef struct stack_item_0_t
 {
     Stack_item_1 precedence;
     Token_Value token_val;
@@ -62,9 +62,10 @@ void pushAfterTerminal(Stack *s, const Stack_item item);
 
 // Funkcia na odstránenie a vrátenie vrcholového prvku zo zásobníka
 void RemoveTop(Stack *s, Stack_item *retItem);
+void RemoveBottom(Stack *s, Stack_item *retItem);
 
 // Funkcia na získanie vrcholového prvku bez jeho odstránenia
-void topElement(Stack *s, Stack_item *retItem);
+void getElement(Stack *s, Stack_item *retItem, bool dir);
 
 int topTerminal(Stack *s);
 
