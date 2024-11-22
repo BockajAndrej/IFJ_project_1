@@ -59,7 +59,8 @@ bool FIRST(FILE *file)
         return false;
         break;
     }
-    moveUp(infestNum);
+    printf("HERE\n");
+    moveUp(infestNum-1);
     infestNum = 0;
     insertLeftMoveLeft(currentNode, NODE_GENERAL, TOKEN_EMPTY, "");
     // Recursive calling itself for processing next code out of scope
@@ -539,8 +540,6 @@ bool ASSIGN_VAR(FILE *file)
     GET_TOKEN_RAW(token, file);
     if (!EXPRESSION(file, token))
         return false;
-    insertRightMoveRight(currentNode, NODE_VAR, token.type, "EXPESSION");
-    infestNum++;
     pmesg(" ------ END ASSIGN_VAR ------\n");
     return true;
 }
@@ -908,9 +907,9 @@ bool EXPRESSION(FILE *file, Token token)
         else
             return false;
         printf("RULES -----------\n");
-        PrintAllStack(&ruleStack);
+        // PrintAllStack(&ruleStack);
         printf("PREC ------------\n");
-        PrintAllStack(&precStack);
+        // PrintAllStack(&precStack);
         // Znaci ze prebelha redukcia a chceme spracovat rovnaky token
         if (!isExpressionCorrect)
         {
@@ -956,7 +955,7 @@ bool EXPRESSION(FILE *file, Token token)
     }
 
     printf("-------- END OF ABST -------\n RULE:\n");
-    PrintAllStack(&ruleStack);
+    // PrintAllStack(&ruleStack);
 
     freeStack(&precStack);
     freeStack(&ruleStack);

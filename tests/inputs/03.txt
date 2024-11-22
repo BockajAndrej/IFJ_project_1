@@ -1,6 +1,9 @@
-var result : i32 = 0;
-var variable : i32 = 0;
+var a : i32 = 12;
+var b : i32 = 23;
+var c : i32 = 34;
+
 pub fn decrement(n : i32, m : i32) i32
 {
     n = a * b + c * d/8 ;
+    n = (a * b + c) * d/8 ;
 }
