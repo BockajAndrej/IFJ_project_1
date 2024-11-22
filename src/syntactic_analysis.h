@@ -12,6 +12,8 @@
 #include <stdbool.h>
 
 #include "lexical_analyser.h"
+#include "ast.h"
+#include "stack.h"
 #include "error.h"
 
 // #define NDEBUG
@@ -44,6 +46,7 @@ bool CALL_DEF(FILE *file);
 
 bool IF_EXT(FILE *file);
 bool CALL_EXT(FILE *file);
+bool CALL_OBJ(FILE *file);
 
 bool ASSIGN_VAR(FILE *file);
 bool ASSIGN_CONST(FILE *file);
@@ -61,4 +64,5 @@ bool VAR_TYPE(Token t);
 bool VAL_TYPE(Token t);
 bool FN_TYPE(Token t);
 
+int find_OP(const int N, char table[N][N], Token token, Stack *precStack);
 #endif

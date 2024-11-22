@@ -28,6 +28,7 @@
  */
 typedef enum
 {
+    TOKEN_NTERMINAL,
     /**
      * @brief End-of-file marker.
      * Indicates that the end of the input file has been reached.

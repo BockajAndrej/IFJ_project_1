@@ -10,6 +10,7 @@ pub fn factorial(n : i32) i32
     if (n < 2)
     {
         result = 1;
+        n = a * b + c * d/8 ;
     }
     else
     {
@@ -20,3 +21,4 @@ pub fn factorial(n : i32) i32
     }
     return result;
 }
+
