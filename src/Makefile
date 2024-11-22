@@ -44,14 +44,23 @@ test: zip
 
 # Run unit tests
 uni_tests:
-	$(CC) $(TEST_UNIT_CFLAGS) -o uni_test $(TEST_UNIT_SCRIPT) $(TEST_UNIT_SOURCES)
+	$(CC) $(TEST_UNIT_CFLAGS) -o uni_test $(DEST_DIR)/uni_tests.c $(TEST_UNIT_SOURCES)
+
+unitTest_lexical:
+	$(CC) $(TEST_UNIT_CFLAGS) -o unitTest_lexical $(DEST_DIR)/unitTest_lexical.c $(TEST_UNIT_SOURCES)
+
+unitTest_semantic:
+	$(CC) $(TEST_UNIT_CFLAGS) -o unitTest_semantic $(DEST_DIR)/unitTest_semantic.c $(TEST_UNIT_SOURCES)
 
 valgrind: $(EXECUTABLE)
 	valgrind --leak-check=full --track-origins=yes ./$(EXECUTABLE) ../tests/inputs/03.txt
-
+	
 # Clean all build files
 clean:
 	rm -f $(DEST_DIR)/$(ZIP_NAME)
 	rm -rf $(TESTDIR)
 	rm -f $(OBJ_FILES) $(EXECUTABLE)
-	rm -f uni_test
+	rm -f ./uni_test
+	rm -f ./unitTest_lexical
+	rm -f ./unitTest_semantic
+	rm -f ./*.o
