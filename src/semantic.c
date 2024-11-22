@@ -101,6 +101,37 @@ void ast_val_expression()
     }
 }
 
+
+void ast_while_1()
+{
+    /*
+        while (c != NULL) |INP|
+        {
+            c = 3;
+        }
+    */
+    BinaryTreeNode *root = createBinaryNode(NODE_WHILE, TOKEN_KEYWORD, "while");
+    setStartNode(root);
+    insertRight(root, NODE_PROG, TOKEN_EMPTY, "");
+    insertLeftMoveLeft(root, NODE_WHILE_PREP, TOKEN_EMPTY, "");
+    insertRight(currentNode, NODE_NONNULL, TOKEN_IDENTIFIER, "INP");
+    insertLeftMoveLeft(currentNode, NODE_OP, TOKEN_NOT_EQUAL, "!=");
+    insertLeft(currentNode, NODE_VAR, TOKEN_IDENTIFIER, "c");
+    insertRight(currentNode, NODE_CONST, TOKEN_EMPTY, "NULL"); //! NULL ako token?
+    moveUp(2);
+    moveDownRight();
+    insertRightMoveRight(currentNode, NODE_ASSIGN, TOKEN_ASSIGNMENT, "=");
+    insertLeft(currentNode, NODE_VAR, TOKEN_IDENTIFIER, "c");
+    insertRight(currentNode, NODE_CONST, TOKEN_INT_LITERAL, "3");
+
+    {
+        printf("\nComplete Tree Structure:\n");
+        printBinaryTree(root);
+        freeBinaryTree(root);
+        printf("\nTree successfully freed.\n");
+    }
+}
+
 void ast_IfElse_1()
 {
 
@@ -150,8 +181,4 @@ void ast_IfElse_1()
         freeBinaryTree(root);
         printf("\nTree successfully freed.\n");
     }
-}
-
-void check_logic()
-{
 }

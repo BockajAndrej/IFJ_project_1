@@ -13,8 +13,7 @@
 
 FILE *file;
 
-
-void print_table(SymbolTable *table) {
+/*void print_table(SymbolTable *table) {
     Symbol *current = table->head;
 
     printf("Current symbol table:\n");
@@ -36,9 +35,9 @@ void print_table(SymbolTable *table) {
         current = current->next;
     }
     printf("\n");
-}
+}*/
 
-void test_hash_table() {
+/*void test_hash_table() {
     SymbolTable *table = create_table();
     printf("After creating the table:\n");
     print_table(table);
@@ -69,7 +68,7 @@ void test_hash_table() {
     print_table(table);
 
     free_table(table);
-}
+}*/
 
 /*
 NodeInfo info = getNodeInfo(currentNode);
@@ -103,15 +102,16 @@ if (info.parentValue) {
 }
 */
 
-
 int main(int argc, char **argv)
 {
-    if(argc == 1){
-        //test_hash_table();
-        //ast_test(); nepouzivaj
-        ast_valdef();
-        ast_val_expression();
-        ast_IfElse_1();
+    if (argc == 1)
+    {
+        // test_hash_table();
+        // ast_test(); nepouzivaj
+        // ast_valdef();
+        // ast_val_expression();
+        // ast_IfElse_1();
+        // ast_while_1();
         return 0;
     }
 

@@ -308,6 +308,8 @@ const char *NodeTypeToString(NodeType type)
         return "NODE_IF";
     case NODE_WHILE:
         return "NODE_WHILE";
+    case NODE_WHILE_PREP:
+        return "NODE_WHILE_PREP";
     case NODE_FUNC_DEF:
         return "NODE_FUNC_DEF";
     case NODE_FUNC_CALL:

@@ -19,13 +19,14 @@ typedef enum
     NODE_PREP2_IF,   // If pomocna na podmienku vlavo, nonnull hodnotu vpravo
     NODE_NONNULL,    // value inside |example| in if or while
     NODE_WHILE,      // Cyklus
-    NODE_FUNC_DEF,   // Definícia funkcie
-    NODE_FUNC_CALL,  // Volanie funkcie
-    NODE_ASSIGN,     // Priradenie (a = b)
-    NODE_RETURN,     // Návratová hodnota
-    NODE_PROG,       // Koreň programu
-    NODE_VAR_DECL,   // Deklarácia premennej
-    NODE_LINE        // Nový riadok
+    NODE_WHILE_PREP,
+    NODE_FUNC_DEF,  // Definícia funkcie
+    NODE_FUNC_CALL, // Volanie funkcie
+    NODE_ASSIGN,    // Priradenie (a = b)
+    NODE_RETURN,    // Návratová hodnota
+    NODE_PROG,      // Koreň programu
+    NODE_VAR_DECL,  // Deklarácia premennej
+    NODE_LINE       // Nový riadok
 } NodeType;
 
 // Typy dát

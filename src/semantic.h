@@ -16,5 +16,6 @@ void ast_IfElse_1();
 void ast_valdef();
 void ast_val_expression();
 void check_logic();
+void ast_while_1();
 
 #endif
