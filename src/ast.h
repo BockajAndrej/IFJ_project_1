@@ -38,8 +38,12 @@ typedef enum
     TYPE_FLOAT,
     TYPE_BOOL,
     TYPE_STRING,
+    TYPE_VOID,
     TYPE_EMPTY,
-    TYPE_NONNULL
+    TYPE_NONNULL,
+    TOKEN_UNKNOWN,
+
+    TYPE_U8_ARRAY //testing
 } DataType;
 
 typedef enum

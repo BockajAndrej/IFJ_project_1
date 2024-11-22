@@ -7,64 +7,6 @@
 
 #include "semantic.h"
 
-void ast_test()
-{
-    // 1. Vytvor koreňový uzol
-    // BinaryTreeNode *root = createBinaryNode(NODE_OP, TYPE_INT, "+");
-    // setStartNode(root); // Nastavenie koreňa ako počiatočného uzla
-
-    // // 2. Pridaj ľavý podstrom
-    // insertLeft(root, NODE_OP, TYPE_INT, "*");
-    // moveDownLeft();
-
-    // // 3. Pridaj deti k ľavému podstromu
-    // insertLeft(currentNode, NODE_CONST, TYPE_INT, "2");
-    // insertRight(currentNode, NODE_CONST, TYPE_INT, "3");
-
-    // // 4. Návrat na koreň
-    // moveUp(1);
-
-    // // 5. Pridaj pravý podstrom
-    // insertRight(root, NODE_OP, TYPE_INT, "*");
-    // moveDownRight();
-
-    // // 6. Pridaj deti k pravému podstromu
-    // insertLeft(currentNode, NODE_CONST, TYPE_INT, "4");
-    // insertRight(currentNode, NODE_CONST, TYPE_INT, "5");
-
-    // // 7. Výpis celej štruktúry stromu
-    // printf("\nComplete Tree Structure:\n");
-    // printBinaryTree(root);
-
-    // // 8. Návrat do ľavého podstromu
-    // moveUp(1);      // Späť na koreň
-    // moveDownLeft(); // Do ľavého podstromu
-
-    // // 9. Získanie a výpis informácií o uzle "*"
-    // NodeInfo info = getNodeInfo(currentNode);
-    // printf("\nInfo o uzle ľavého podstromu (semantická analýza):\n");
-    // printf("  Type: %s\n", NodeTypeToString(info.type));
-    // printf("  Value: %s\n", info.value);
-    // printf("  Data Type: %s\n", DataTypeToString(info.dataType));
-    // printf("  Has Left: %s\n", info.hasLeft ? "Yes" : "No");
-    // printf("  Has Right: %s\n", info.hasRight ? "Yes" : "No");
-    // printf("  Parent Value: %s\n", info.parentValue);
-
-    // // 10. Semantická analýza - overenie uzla
-    // if (info.type == NODE_CONST && info.dataType == TYPE_INT)
-    // {
-    //     printf("  Uzol je platná konštanta s celým číslom.\n");
-    // }
-    // else
-    // {
-    //     printf("  Chyba: Uzol nie je platná konštanta alebo nemá správny dátový typ.\n");
-    // }
-
-    // 11. Uvoľnenie stromu
-    // freeBinaryTree(root);
-    // printf("\nTree successfully freed.\n");
-}
-
 void ast_valdef()
 {
     // i32 a = 3;
@@ -100,7 +42,6 @@ void ast_val_expression()
         printf("\nTree successfully freed.\n");
     }
 }
-
 
 void ast_while_1()
 {
@@ -182,3 +123,243 @@ void ast_IfElse_1()
         printf("\nTree successfully freed.\n");
     }
 }
+
+DataType value_string_to_type(const char *typeStr)
+{
+    if (strcmp(typeStr, "i32") == 0)
+        return TYPE_INT;
+    if (strcmp(typeStr, "f64") == 0)
+        return TYPE_FLOAT;
+    if (strcmp(typeStr, "bool") == 0)
+        return TYPE_BOOL;
+    if (strcmp(typeStr, "string") == 0)
+        return TYPE_STRING;
+    if (strcmp(typeStr, "[]u8") == 0)
+        return TYPE_U8_ARRAY;
+    // Add more types as needed
+    return TOKEN_UNKNOWN;
+}
+
+/*const char *token_type_to_string(Token_type tokenType)
+{
+    switch (tokenType)
+    {
+    case TOKEN_INT_LITERAL:
+        return "int literal";
+    case TOKEN_FLOAT_LITERAL:
+        return "float literal";
+    case TOKEN_STRING_LITERAL:
+        return "string literal";
+    case TOKEN_IDENTIFIER:
+        return "identifier";
+    // Add other token types as needed
+    default:
+        return "unknown";
+    }
+}*/
+
+// Convert DataType to string for error messages
+const char *value_type_to_string(DataType type)
+{
+    switch (type)
+    {
+    case TYPE_INT:
+        return "int";
+    case TYPE_FLOAT:
+        return "float";
+    case TYPE_STRING:
+        return "string";
+    case TYPE_BOOL:
+        return "bool";
+    case TYPE_VOID:
+        return "void";
+    case TYPE_U8_ARRAY:
+        return "[]u8";
+    default:
+        return "unknown";
+    }
+}
+bool is_type_compatible(DataType declaredType, Token_type valueType)
+{
+    switch (declaredType)
+    {
+    case TYPE_INT:
+        return valueType == TOKEN_INT_LITERAL;
+    case TYPE_FLOAT:
+        return valueType == TOKEN_FLOAT_LITERAL || valueType == TOKEN_INT_LITERAL; // Allow implicit int to float
+    case TYPE_STRING:
+        return valueType == TOKEN_STRING_LITERAL;
+    // Add more type compatibility rules as needed
+    default:
+        return false;
+    }
+}
+
+bool are_types_compatible(DataType actual, DataType expected)
+{
+    if (actual == expected)
+        return true;
+    // Example: Allow implicit conversion from int to float
+    if (actual == TYPE_INT && expected == TYPE_FLOAT)
+        return true;
+    if (actual == TYPE_FLOAT && expected == TYPE_INT)
+        return false;
+    return false;
+}
+
+void process_var_declaration(BinaryTreeNode *node)
+{
+    // * IDENTIFIER LOGIC
+    BinaryTreeNode *varnode = node->right;
+    if (!varnode || varnode->tokenType != TOKEN_IDENTIFIER)
+    {
+        printf("Error: Expected variable name after 'var'.\n");
+        return;
+    }
+
+    char *varIdenti = varnode->strValue;
+    // ? DataType varType = TYPE_UNDEFINED; zo symtable urcit?
+
+    DataType varType;
+    Token_type initType = TOKEN_EMPTY;
+    char *initValue = NULL;
+
+    BinaryTreeNode *varColon = varnode->right;
+    // * COLON ":" LOGIC
+    if (varColon && varColon->tokenType == TOKEN_COLON)
+    {
+        BinaryTreeNode *varSpeci = varColon->right;
+        // * DATATYPE LOGIC
+        if (varSpeci && varSpeci->tokenType == TOKEN_KEYWORD)
+        {
+            varType = value_string_to_type(varSpeci->strValue);
+            if (varType == TOKEN_UNKNOWN)
+            {
+                printf("Error: Unknown type '%s' for variable '%s'.\n", varSpeci->strValue, varIdenti);
+                return;
+            }
+        }
+        else
+        {
+            printf("Error: Invalid type specifier for variable '%s'.\n", varIdenti);
+            return;
+        }
+
+        // * ASSIGN "=" LOGIC
+        BinaryTreeNode *varInit = varSpeci->right;
+        if (varInit && varInit->tokenType == TOKEN_ASSIGNMENT)
+        {
+            BinaryTreeNode *varValue = varInit->left;
+            if (varValue != NULL)
+            {
+                initType = varValue->tokenType;
+                initValue = varValue->strValue;
+
+                if (!is_type_compatible(varType, initType))
+                {
+                    printf("Type Error: Cannot assign '%s' to variable '%s' of type '%s'.\n", token_type_to_string(initType), varIdenti, value_type_to_string(varType));
+                    return;
+                }
+                // * TESTING OUTPUT
+                // Extract the value based on type
+                switch (varType)
+                {
+                case TYPE_INT:
+                    printf("Declared variable '%s' of type '%s' with value %d.\n", varIdenti, value_type_to_string(varType), atoi(initValue));
+                    break;
+                case TYPE_FLOAT:
+                    printf("Declared variable '%s' of type '%s' with value %f.\n", varIdenti, value_type_to_string(varType), atof(initValue));
+                    break;
+                case TYPE_STRING:
+                    printf("Declared variable '%s' of type '%s' with value '%s'.\n", varIdenti, value_type_to_string(varType), initValue);
+                    break;
+                // Handle other types as needed
+                default:
+                    printf("Declared variable '%s' of type '%s'.\n", varIdenti, value_type_to_string(varType));
+                    break;
+                }
+            }
+        }
+        else
+        {
+            // Declaration without initialization
+            printf("Declared variable '%s' of type '%s' without initialization.\n", varIdenti, value_type_to_string(varType));
+        }
+    }
+    else
+    {
+        // Declaration without type annotation
+        printf("Warning: Variable '%s' declared without type annotation.\n", varIdenti);
+        return;
+    }
+}
+
+void process_const_declaration(BinaryTreeNode *node)
+{
+    if (node)
+    {
+        /* code */
+    }
+
+    return;
+}
+void ProcessTree(BinaryTreeNode *root)
+{
+    if (root == NULL)
+        return;
+
+    BinaryTreeNode *node = root;
+
+    // check na token empty alebo node_general ? spytat sa bockyho
+    while (node != NULL)
+    {
+        if (node->type == NODE_GENERAL && node->right != NULL)
+        {
+            node = node->right;
+            switch (node->tokenType)
+            {
+            case TOKEN_KEYWORD:
+                if (strcmp(node->strValue, "var") == 0)
+                {
+                    process_var_declaration(node);
+                }
+                else if (strcmp(node->strValue, "const") == 0)
+                {
+                    process_const_declaration(node);
+                }
+                break;
+            default:
+                break;
+            }
+            //printf("koncim lmao %s-", node->strValue);
+            node = node->parent;
+            //printf("koncim lmao %s-", node->strValue);
+            node = node->left;
+        }
+        else if (node->type == NODE_GENERAL && node->left != NULL)
+        {
+            return;
+        }
+        else
+        {
+            return;
+        }
+    }
+}
+
+/*
+? 3 - sémantická chyba v programu – nedefinovaná funkce či proměnná.
+? 4 - sémantická chyba v programu – špatný počet/typ parametrů u volání funkce;
+špatný typ či nepovolené zahození návratové hodnoty z funkce.
+? 5 - sémantická chyba v programu – redefinice proměnné nebo funkce; přiřazení do
+nemodifikovatelné proměnné.
+? 6 - sémantická chyba v programu – chybějící/přebývající výraz v příkazu návratu
+z funkce.
+? 7 - sémantická chyba typové kompatibility v aritmetických, řetězcových a relačních
+výrazech; nekompatibilní typ výrazu (např. při přiřazení).
+? 8 - sémantická chyba odvození typu – typ proměnné není uveden a nelze odvodit od
+použitého výrazu.
+? 9 - sémantická chyba nevyužité proměnné v jejím rozsahu platnosti; modifikovatelná
+proměnná bez možnosti změny po její inicializaci.
+? 10 - ostatní sémantické chyby.
+*/

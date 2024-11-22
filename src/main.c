@@ -34,7 +34,7 @@ void print_table(SymbolTable *table) {
         current = current->next;
     }
     printf("\n");
-}*/
+}
 
 /*void test_hash_table() {
     SymbolTable *table = create_table();
@@ -78,10 +78,10 @@ int main(int argc, char **argv)
     if(argc == 1){
         //test_hash_table();
         //ast_test(); nepouzivaj
-        ast_valdef();
-        ast_val_expression();
-        ast_IfElse_1();
-        return 0;
+        //ast_valdef();
+        //ast_val_expression();
+        //ast_IfElse_1();
+        //return 0;
     }
 
     // Skontroluj, či bol zadaný súbor ako argument
@@ -105,6 +105,7 @@ int main(int argc, char **argv)
         return 1;
     }
     printBinaryTree(root);
+    ProcessTree(root);
     printf("%s", " --- ENDED SUCESFULLY --- \n");
 
     fclose(file); // Nezabudni zavrieť súbor
