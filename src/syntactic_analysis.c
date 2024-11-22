@@ -2,7 +2,8 @@
 
 // TODO : 1. Pocitanie tokenov (kazdy riadok resetuje)
 // TODO : 2. Nefunkcny scope len na jeden riadok (bez {}) vytvorit vo funkcii ktora funkciu scope vola
-
+static int infestNum = 0;
+static int scopeNum = 0;
 typedef enum
 {
     sStartExc,
@@ -10,7 +11,8 @@ typedef enum
     sLParExc1,
     sNTerExc,
     sNTerExc1,
-    sFinalExc
+    sFinalExc,
+    sErrorExc
 } ExpressionFSM;
 
 /** @brief Processes the FIRST rule in the syntactic analysis.
@@ -35,14 +37,20 @@ bool FIRST(FILE *file)
     switch (token.keyword_val)
     {
     case KEYWORD_PUB:
+        insertRightMoveRight(currentNode, NODE_FUNC_DEF, token.type, token.value.valueString.str);
+        infestNum++;
         if (!FN_DEF(file))
             return false;
         break;
     case KEYWORD_VAR:
+        insertRightMoveRight(currentNode, NODE_VAR_DECL, token.type, token.value.valueString.str);
+        infestNum++;
         if (!VAR_DEF(file))
             return false;
         break;
     case KEYWORD_CONST:
+        insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+        infestNum++;
         if (!CONST_DEF(file))
             return false;
         break;
@@ -51,6 +59,9 @@ bool FIRST(FILE *file)
         return false;
         break;
     }
+    moveUp(infestNum);
+    infestNum = 0;
+    insertLeftMoveLeft(currentNode, NODE_GENERAL, TOKEN_EMPTY, "");
     // Recursive calling itself for processing next code out of scope
     if (!FIRST(file))
         return false;
@@ -76,6 +87,8 @@ bool STATEMENT(FILE *file)
         return true;
     else if (token.type == TOKEN_IDENTIFIER)
     {
+        insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
+        infestNum++;
         if (!CALL_DEF(file))
             return false;
     }
@@ -87,26 +100,38 @@ bool STATEMENT(FILE *file)
         switch (token.keyword_val)
         {
         case KEYWORD_CONST:
+            insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+            infestNum++;
             if (!CONST_DEF(file))
                 return false;
             break;
         case KEYWORD_VAR:
+            insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
+            infestNum++;
             if (!VAR_DEF(file))
                 return false;
             break;
         case KEYWORD_IF:
+            insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
+            infestNum++;
             if (!IF_DEF(file))
                 return false;
             break;
         case KEYWORD_ELSE:
+            insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
+            infestNum++;
             if (!ELSE_DEF(file))
                 return false;
             break;
         case KEYWORD_WHILE:
+            insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
+            infestNum++;
             if (!WHILE_DEF(file))
                 return false;
             break;
         case KEYWORD_RETURN:
+            insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
+            infestNum++;
             if (!RET_DEF(file))
                 return false;
             break;
@@ -139,7 +164,8 @@ bool VAR_DEF(FILE *file)
     GET_TOKEN_RAW(token, file);
     if (token.type != TOKEN_IDENTIFIER)
         return false;
-
+    insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
+    infestNum++;
     GET_TOKEN_RAW(token, file);
     switch (token.type)
     {
@@ -148,6 +174,8 @@ bool VAR_DEF(FILE *file)
         return true;
     // var id : ASSIGN_VAR
     case TOKEN_COLON:
+        insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
+        infestNum++;
         if (!ASSIGN_VAR(file))
             return false;
         break;
@@ -173,10 +201,14 @@ bool CONST_DEF(FILE *file)
     Token token;
     // const id
     GET_TOKEN_RAW(token, file);
+    insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+    infestNum++;
     if (token.type != TOKEN_IDENTIFIER)
         return false;
     // const id =
     GET_TOKEN_RAW(token, file);
+    insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+    infestNum++;
     if (token.type != TOKEN_ASSIGNMENT)
         return false;
     if (!ASSIGN_CONST(file))
@@ -199,14 +231,20 @@ bool FN_DEF(FILE *file)
     Token token;
     // t_fn
     GET_TOKEN_RAW(token, file);
+    insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+    infestNum++;
     if (token.keyword_val != KEYWORD_FN)
         return false;
     // t_ID
     GET_TOKEN_RAW(token, file);
+    insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+    infestNum++;
     if (token.type != TOKEN_IDENTIFIER)
         return false;
     // t_(
     GET_TOKEN_RAW(token, file);
+    insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+    infestNum++;
     if (token.type != TOKEN_LPAREN)
         return false;
     // Parametre
@@ -214,10 +252,14 @@ bool FN_DEF(FILE *file)
         return false;
     // Return type
     GET_TOKEN_RAW(token, file);
+    insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+    infestNum++;
     if (!FN_TYPE(token))
         return false;
     // t_{
     GET_TOKEN_RAW(token, file);
+    insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+    infestNum++;
     if (token.type == TOKEN_CURLYL_BRACKET)
     {
         // SCOPE
@@ -242,10 +284,14 @@ bool IF_DEF(FILE *file)
     Token token;
     // t_(
     GET_TOKEN_RAW(token, file);
+    insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+    infestNum++;
     if (token.type != TOKEN_LPAREN)
         return false;
 
     GET_TOKEN_RAW(token, file);
+    insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+    infestNum++;
     if (!EXPRESSION(file, token))
         return false;
 
@@ -414,9 +460,13 @@ bool CALL_EXT(FILE *file)
     // Assignment to a variable
     else if (token.type == TOKEN_ASSIGNMENT)
     {
+        insertRightMoveRight(currentNode, NODE_FUNC_DEF, token.type, token.value.valueString.str);
+        infestNum++;
         GET_TOKEN_RAW(token, file);
         if (!EXPRESSION(file, token))
             return false;
+        insertRightMoveRight(currentNode, NODE_FUNC_DEF, token.type, token.value.valueString.str);
+        infestNum++;
     }
     // Object function
     else if (token.type == TOKEN_DOT)
@@ -473,13 +523,24 @@ bool ASSIGN_VAR(FILE *file)
 {
     pmesg(" ------ ASSIGN_VAR ------\n");
     Token token;
+    // var result : i32 ...
     GET_TOKEN_RAW(token, file);
     if (!VAL_TYPE(token))
         return false;
-    // Konci s t_;
+    insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
+    infestNum++;
+    // var result : i32 = ...
+    GET_TOKEN_RAW(token, file);
+    if (token.type != TOKEN_ASSIGNMENT)
+        return false;
+    insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
+    infestNum++;
+    // var result : i32 = 0;
     GET_TOKEN_RAW(token, file);
     if (!EXPRESSION(file, token))
         return false;
+    insertRightMoveRight(currentNode, NODE_VAR, token.type, "EXPESSION");
+    infestNum++;
     pmesg(" ------ END ASSIGN_VAR ------\n");
     return true;
 }
@@ -539,6 +600,7 @@ bool ASSIGN_CONST(FILE *file)
 bool SCOPE(FILE *file)
 {
     pmesg(" ------ SCOPE ------\n");
+    scopeNum++;
     if (!STATEMENT(file))
         return false;
     pmesg(" ------ END SCOPE ------\n");
@@ -684,10 +746,28 @@ bool EXPRESSION(FILE *file, Token token)
     Stack ruleStack; // Ukladanie pravidiel
     Stack_item curPrecItem;
     Stack_item curRuleItem;
-    Prec_table_symbol_enum tmp_sym;
+
+    // Program berie zanorenie exp len ako jeden blok
+    infestNum++;
+
+    // Pre vkladanie charakteru ktory nie je v tokene
+    Dynamic_string varLexThan;
+    if (!dynamic_string_init(&varLexThan))
+    {
+        fprintf(stderr, "Chyba: dynamic string init.\n");
+        exit(EXIT_FAILURE);
+    }
+    dynamic_string_add_char(&varLexThan, '<');
+    Dynamic_string varNotTerminal;
+    if (!dynamic_string_init(&varNotTerminal))
+    {
+        fprintf(stderr, "Chyba: dynamic string init.\n");
+        exit(EXIT_FAILURE);
+    }
+    dynamic_string_add_char(&varNotTerminal, 'E');
 
     curPrecItem.type = precedence;
-    curRuleItem.type = string;
+    curRuleItem.type = rule;
 
     initStack(&precStack, curPrecItem.type);
     initStack(&ruleStack, curRuleItem.type);
@@ -705,7 +785,7 @@ bool EXPRESSION(FILE *file, Token token)
         {'>', '>', '>', '>', '>', 'X', 'X', '>', 'X', '>'},
         {'<', '<', '<', '<', '<', '<', '<', 'X', '<', ' '}};
 
-    int tmp_char = find_OP(N, table, token, &precStack, &tmp_sym);
+    int tmp_char = find_OP(N, table, token, &precStack);
 
     // Ends when it gen ' ' (means: $$)
     while (tmp_char != ' ')
@@ -723,74 +803,71 @@ bool EXPRESSION(FILE *file, Token token)
             printf("- Reduction\n");
             ExpressionFSM state = sStartExc;
             isExpressionCorrect = false;
-
             do
             {
                 RemoveTop(&precStack, &curPrecItem);
-                
                 switch (state)
                 {
                 case sStartExc:
-                    
-                    if (curPrecItem.data.precedence.symbol == ID || curPrecItem.data.precedence.symbol == INT_NUM || curPrecItem.data.precedence.symbol == FLOAT_NUM)
+                    if (curPrecItem.data.token_type == TOKEN_IDENTIFIER || curPrecItem.data.token_type == TOKEN_INT_LITERAL || curPrecItem.data.token_type == TOKEN_FLOAT_LITERAL)
                     {
-                        curRuleItem.type = string;
-                        curRuleItem.data.token_val.valueString.str = curPrecItem.data.token_val.valueString.str;
+                        curRuleItem.type = rule;
+                        curRuleItem.data.isPrec = false;
+                        curRuleItem.data.token_val.valueString = curPrecItem.data.token_val.valueString;
+                        curRuleItem.data.token_type = curPrecItem.data.token_type;
                         push(&ruleStack, curRuleItem);
-                        PrintAllStack(&ruleStack);
                         state = sFinalExc;
                     }
-                    else if (curPrecItem.data.precedence.symbol == RPAR)
+                    else if (curPrecItem.data.token_type == TOKEN_RPAREN)
                         state = sLParExc;
-                    else if (curPrecItem.data.precedence.symbol == NTERMINAL)
+                    else if (curPrecItem.data.token_type == TOKEN_NTERMINAL)
                         state = sNTerExc;
                     break;
                 case sLParExc:
-                    if (curPrecItem.data.precedence.symbol == NTERMINAL)
+                    if (curPrecItem.data.token_type == TOKEN_NTERMINAL)
                         state = sLParExc1;
                     break;
                 case sLParExc1:
-                    if (curPrecItem.data.precedence.symbol == LPAR)
+                    if (curPrecItem.data.token_type == TOKEN_LPAREN)
                         state = sFinalExc;
                     break;
                 case sNTerExc:
-                    if (curPrecItem.data.precedence.symbol >= EQ && curPrecItem.data.precedence.symbol <= DIV)
+                    switch (curPrecItem.data.token_type)
+                    {
+                    case TOKEN_EQUAL:
+                    case TOKEN_NOT_EQUAL:
+                    case TOKEN_LESS_EQUAL:
+                    case TOKEN_LESS_THAN:
+                    case TOKEN_GREATER_EQUAL:
+                    case TOKEN_GREATER_THAN:
+                    case TOKEN_ADDITION:
+                    case TOKEN_SUBTRACTION:
+                    case TOKEN_MULTIPLY:
+                    case TOKEN_DIVISION:
                         state = sNTerExc1;
-                    if (curPrecItem.data.precedence.symbol == EQ)
-                        curRuleItem.data.rules = N_EQ_N;
-                    else if (curPrecItem.data.precedence.symbol == NEQ)
-                        curRuleItem.data.rules = N_NEQ_N;
-                    else if (curPrecItem.data.precedence.symbol == LEQ)
-                        curRuleItem.data.rules = N_LEQ_N;
-                    else if (curPrecItem.data.precedence.symbol == LTN)
-                        curRuleItem.data.rules = N_LTN_N;
-                    else if (curPrecItem.data.precedence.symbol == GEQ)
-                        curRuleItem.data.rules = N_MEQ_N;
-                    else if (curPrecItem.data.precedence.symbol == GTN)
-                        curRuleItem.data.rules = N_MTN_N;
-                    else if (curPrecItem.data.precedence.symbol == ADD)
-                        curRuleItem.data.rules = N_PLUS_N;
-                    else if (curPrecItem.data.precedence.symbol == SUB)
-                        curRuleItem.data.rules = N_MINUS_N;
-                    else if (curPrecItem.data.precedence.symbol == MUL)
-                        curRuleItem.data.rules = N_MUL_N;
-                    else if (curPrecItem.data.precedence.symbol == DIV)
-                        curRuleItem.data.rules = N_IDIV_N;
+                        break;
+                    default:
+                        state = sErrorExc;
+                        break;
+                    }
                     curRuleItem.type = rule;
+                    curRuleItem.data.isPrec = false;
+                    curRuleItem.data.token_val.valueString = curPrecItem.data.token_val.valueString;
+                    curRuleItem.data.token_type = curPrecItem.data.token_type;
                     push(&ruleStack, curRuleItem);
-                    PrintAllStack(&ruleStack);
                     break;
                 case sNTerExc1:
-                    if (curPrecItem.data.precedence.symbol == NTERMINAL)
+                    if (curPrecItem.data.token_type == TOKEN_NTERMINAL)
                         state = sFinalExc;
                     break;
                 case sFinalExc:
                     isExpressionCorrect = true;
                     break;
+                case sErrorExc:
                 default:
                     break;
                 }
-            } while (curPrecItem.data.precedence.type);
+            } while (curPrecItem.data.isPrec);
 
             if (!isExpressionCorrect)
             {
@@ -798,49 +875,84 @@ bool EXPRESSION(FILE *file, Token token)
                 return false;
             }
             // Vkladanie neterminalu
-            curPrecItem.data.precedence.symbol = NTERMINAL;
-            curPrecItem.data.precedence.type = true;
+            curPrecItem.type = precedence;
+            curPrecItem.data.isPrec = true;
+            curPrecItem.data.token_type = TOKEN_NTERMINAL;
+            curPrecItem.data.token_val.valueString = varNotTerminal;
             push(&precStack, curPrecItem);
         }
         // Vkladanie do precStacku
         else if (tmp_char == '<')
         {
             printf("- Shift\n");
-            curPrecItem.data.precedence.symbol = tmp_char;
-            curPrecItem.data.precedence.type = false;
+            // Vlozenie shift sign
+            curPrecItem.data.isPrec = false;
+            curPrecItem.data.token_type = TOKEN_EMPTY;
+            curPrecItem.data.token_val.valueString = varLexThan;
             pushAfterTerminal(&precStack, curPrecItem);
-            curPrecItem.data.token_val.valueString.str = token.value.valueString.str;
-            curPrecItem.data.precedence.symbol = tmp_sym;
-            curPrecItem.data.precedence.type = true;
+            // Vlozenie tokenu
+            curPrecItem.data.isPrec = true;
+            curPrecItem.data.token_type = token.type;
+            curPrecItem.data.token_val.valueString = token.value.valueString;
+            printf("SHIFT = %s - type: %d\n", token.value.valueString.str, token.type);
             push(&precStack, curPrecItem);
         }
         else if (tmp_char == '=')
         {
-            curPrecItem.data.precedence.symbol = tmp_sym;
-            curPrecItem.data.precedence.type = true;
+            curPrecItem.data.isPrec = true;
+            curPrecItem.data.token_type = token.type;
+            curPrecItem.data.token_val.valueString = token.value.valueString;
             push(&precStack, curPrecItem);
         }
         // TODO Prerobit aby az nakonci hadzalo false (memory leak)
         else
             return false;
-
+        printf("RULES -----------\n");
+        PrintAllStack(&ruleStack);
+        printf("PREC ------------\n");
         PrintAllStack(&precStack);
         // Znaci ze prebelha redukcia a chceme spracovat rovnaky token
         if (!isExpressionCorrect)
         {
             GET_TOKEN_RAW(token, file);
         }
-        tmp_char = find_OP(N, table, token, &precStack, &tmp_sym);
+        tmp_char = find_OP(N, table, token, &precStack);
     }
+
     // Naplnenie stromu
-    int i = 0;
-    while (!isEmpty(ruleStack.top))
+    bool dirRight = true;
+    for (int i = 0; !isEmpty(ruleStack.top); i++)
     {
         RemoveTop(&ruleStack, &curRuleItem);
-        if (curRuleItem.type == rule)
-            printf("%d: - %d\n", i++, curRuleItem.data.rules);
+        if (curRuleItem.data.token_type == TOKEN_IDENTIFIER || curRuleItem.data.token_type == TOKEN_INT_LITERAL || curRuleItem.data.token_type == TOKEN_FLOAT_LITERAL)
+        {
+            if (dirRight)
+            {
+                if (i == 0)
+                    insertLeft(currentNode, NODE_VAR, curRuleItem.data.token_type, curRuleItem.data.token_val.valueString.str);
+                else
+                    insertRight(currentNode, NODE_VAR, curRuleItem.data.token_type, curRuleItem.data.token_val.valueString.str);
+                dirRight = false;
+            }
+            else
+            {
+                insertLeft(currentNode, NODE_VAR, curRuleItem.data.token_type, curRuleItem.data.token_val.valueString.str);
+                while (moveUp(1))
+                    ;
+            }
+        }
         else
-            printf("%d: - %s\n", i++, curRuleItem.data.token_val.valueString.str);
+        {
+            if (i == 0)
+                insertLeftMoveLeft(currentNode, NODE_OP, curRuleItem.data.token_type, curRuleItem.data.token_val.valueString.str);
+            else if (dirRight)
+                insertRightMoveRight(currentNode, NODE_OP, curRuleItem.data.token_type, curRuleItem.data.token_val.valueString.str);
+            else
+            {
+                insertLeftMoveLeft(currentNode, NODE_OP, curRuleItem.data.token_type, curRuleItem.data.token_val.valueString.str);
+                dirRight = true;
+            }
+        }
     }
 
     printf("-------- END OF ABST -------\n RULE:\n");
@@ -881,74 +993,48 @@ bool FN_TYPE(Token t)
 }
 
 // Nájde index operátora v tabuľke
-int find_OP(const int N, char table[N][N], Token token, Stack *precStack, Prec_table_symbol_enum *symbol)
+int find_OP(const int N, char table[N][N], Token token, Stack *precStack)
 {
     int x = -1, y = -1;
 
     switch (token.type)
     {
     case TOKEN_EQUAL:
-        *symbol = EQ;
-        x = 0;
-        break;
     case TOKEN_NOT_EQUAL:
-        *symbol = NEQ;
-        x = 0;
-        break;
     case TOKEN_LESS_EQUAL:
-        *symbol = LEQ;
-        x = 0;
-        break;
     case TOKEN_LESS_THAN:
-        *symbol = LTN;
-        x = 0;
-        break;
     case TOKEN_GREATER_EQUAL:
-        *symbol = GEQ;
-        x = 0;
-        break;
     case TOKEN_GREATER_THAN:
-        *symbol = GTN;
         x = 0;
         break;
     case TOKEN_ADDITION:
-        *symbol = ADD;
         x = 1;
         break;
     case TOKEN_SUBTRACTION:
-        *symbol = SUB;
         x = 2;
         break;
     case TOKEN_MULTIPLY:
-        *symbol = MUL;
         x = 3;
         break;
     case TOKEN_DIVISION:
-        *symbol = DIV;
         x = 4;
         break;
     case TOKEN_LPAREN:
-        *symbol = LPAR;
         x = 6;
         break;
     case TOKEN_RPAREN:
-        *symbol = RPAR;
         x = 7;
         break;
     case TOKEN_IDENTIFIER:
-        *symbol = ID;
         x = 5;
         break;
     case TOKEN_INT_LITERAL:
-        *symbol = INT_NUM;
         x = 8;
         break;
     case TOKEN_FLOAT_LITERAL:
-        *symbol = FLOAT_NUM;
         x = 8;
         break;
     case TOKEN_SEMICOLON:
-        *symbol = DOLLAR;
         x = 9;
         break;
     default:
@@ -957,40 +1043,40 @@ int find_OP(const int N, char table[N][N], Token token, Stack *precStack, Prec_t
 
     switch (topTerminal(precStack))
     {
-    case EQ:
-    case NEQ:
-    case LEQ:
-    case LTN:
-    case GEQ:
-    case GTN:
+    case TOKEN_EQUAL:
+    case TOKEN_NOT_EQUAL:
+    case TOKEN_LESS_EQUAL:
+    case TOKEN_LESS_THAN:
+    case TOKEN_GREATER_EQUAL:
+    case TOKEN_GREATER_THAN:
         y = 0;
         break;
-    case ADD:
+    case TOKEN_ADDITION:
         y = 1;
         break;
-    case SUB:
+    case TOKEN_SUBTRACTION:
         y = 2;
         break;
-    case MUL:
+    case TOKEN_MULTIPLY:
         y = 3;
         break;
-    case DIV:
+    case TOKEN_DIVISION:
         y = 4;
         break;
-    case ID:
+    case TOKEN_IDENTIFIER:
         y = 5;
         break;
-    case LPAR:
+    case TOKEN_LPAREN:
         y = 6;
         break;
-    case RPAR:
+    case TOKEN_RPAREN:
         y = 7;
         break;
-    case INT_NUM:
-    case FLOAT_NUM:
+    case TOKEN_INT_LITERAL:
+    case TOKEN_FLOAT_LITERAL:
         y = 8;
         break;
-    case DOLLAR:
+    case TOKEN_EMPTY:
     case EOF:
         y = 9;
         break;
@@ -998,7 +1084,7 @@ int find_OP(const int N, char table[N][N], Token token, Stack *precStack, Prec_t
         break;
     }
 
-    // printf("IN THAT: X = %d, Y = %d\n", x, y);
+    printf("IN THAT: X = %d, Y = %d\n", x, y);
     if (x < 0 || y < 0)
         return EOF;
     return table[y][x];

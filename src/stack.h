@@ -10,27 +10,15 @@
 
 typedef enum typeOfData_t
 {
-    // Types for data union
     precedence,
     rule,
-    // Types for tokens
-    integer,
-    floating,
-    string, 
-    boolean
 }TypeOfData;
-
-typedef struct stack_item_1_t
-{
-    int symbol;
-    bool type;   // True => symbol = precedence
-}Stack_item_1;
 
 typedef struct stack_item_0_t
 {
-    Stack_item_1 precedence;
     Token_Value token_val;
-    Prec_rules_enum rules;
+    Token_type token_type;
+    bool isPrec;
 }Stack_item_0;
 
 typedef struct stack_item_t
@@ -62,10 +50,9 @@ void pushAfterTerminal(Stack *s, const Stack_item item);
 
 // Funkcia na odstránenie a vrátenie vrcholového prvku zo zásobníka
 void RemoveTop(Stack *s, Stack_item *retItem);
-void RemoveBottom(Stack *s, Stack_item *retItem);
 
 // Funkcia na získanie vrcholového prvku bez jeho odstránenia
-void getElement(Stack *s, Stack_item *retItem, bool dir);
+void getElement(Stack *s, Stack_item *retItem);
 
 int topTerminal(Stack *s);
 

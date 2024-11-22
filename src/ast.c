@@ -52,6 +52,7 @@ void insertLeft(BinaryTreeNode *parent, NodeType type, Token_type tokenType, con
         return;
     }
     BinaryTreeNode *child = createBinaryNode(type, tokenType, value);
+    child->isRight = false;
     child->parent = parent;
     parent->left = child;
 }
@@ -82,6 +83,7 @@ void insertRight(BinaryTreeNode *parent, NodeType type, Token_type tokenType, co
         return;
     }
     BinaryTreeNode *child = createBinaryNode(type, tokenType, value);
+    child->isRight = true;
     child->parent = parent;
     parent->right = child;
 }
@@ -107,14 +109,8 @@ void setStartNode(BinaryTreeNode *root)
     currentNode = root;
 }
 
-void moveUp(int levels)
+bool moveUp(int levels)
 {
-    if (levels <= 0)
-    {
-        printf("Error: Number of levels to move up must be positive.\n");
-        return;
-    }
-
     int movedLevels = 0;
     while (levels > 0)
     {
@@ -127,9 +123,10 @@ void moveUp(int levels)
         else
         {
             printf("Error: Cannot move up %d levels. Moved up %d level(s).\n", levels + movedLevels, movedLevels);
-            return;
+            return false;
         }
     }
+    return currentNode->isRight;
 }
 
 void moveDownLeft()
@@ -296,6 +293,8 @@ const char *NodeTypeToString(NodeType type)
 {
     switch (type)
     {
+    case NODE_GENERAL:
+        return "NODE_GENERAL";
     case NODE_OP:
         return "NODE_OP";
     case NODE_VAR:

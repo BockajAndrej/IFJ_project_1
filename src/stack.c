@@ -13,43 +13,27 @@ void initStack(Stack *s, TypeOfData type)
         fprintf(stderr, "Chyba: malloc initStack.\n");
         exit(EXIT_FAILURE);
     }
+    // Ukazovatele
     s->bottom = s->top;
-    s->top->type = type;
-    if (s->top->type == precedence)
-    {
-        s->top->data.precedence.type = true;
-        s->top->data.precedence.symbol = DOLLAR;
-    }
-    else if (s->top->type == rule)
-    {
-        s->top->data.rules = N_DOLLAR;
-    }
-    else
-    {
-        s->top->type = string;
-        if (!dynamic_string_init(&s->top->data.token_val.valueString))
-        {
-            fprintf(stderr, "Chyba: dynamic string init.\n");
-            exit(EXIT_FAILURE);
-        }
-        dynamic_string_add_char(&s->top->data.token_val.valueString, '$');
-    }
-
     s->top->next = NULL;
     s->top->prev = NULL;
+    // Plnenie hodnot
+    s->top->type = type;
+    s->top->data.isPrec = true;
+    s->top->data.token_type = TOKEN_EMPTY;
+    if (!dynamic_string_init(&s->top->data.token_val.valueString))
+    {
+        fprintf(stderr, "Chyba: dynamic string init.\n");
+        exit(EXIT_FAILURE);
+    }
+    dynamic_string_add_char(&s->top->data.token_val.valueString, '$');
     s->capacity = 1;
 }
 
 // Funkcia na kontrolu, či je zásobník prázdny
 bool isEmpty(Stack_item *s)
 {
-    if (s->type == precedence)
-        return ((s->data.precedence.type == true) && (s->data.precedence.symbol == DOLLAR));
-    else if (s->type == rule)
-        return s->data.rules == N_DOLLAR;
-    else if (s->type == string)
-        return strcmp(s->data.token_val.valueString.str, "$") == 0;
-    return false;
+    return ((strcmp(s->data.token_val.valueString.str, "$") == 0) && (s->data.token_type == TOKEN_EMPTY));
 }
 
 // Funkcia na pridanie prvku na vrchol zásobníka
@@ -66,37 +50,11 @@ void push(Stack *s, const Stack_item item)
     newItem->prev = s->top;
     s->top->next = newItem;
     s->top = newItem;
+    // Plnenie hodnot
     s->top->type = item.type;
-
-    if (s->top->type == precedence)
-    {
-        s->top->data.precedence.type = item.data.precedence.type;
-        s->top->data.precedence.symbol = item.data.precedence.symbol;
-    }
-    else if (s->top->type == rule)
-    {
-        s->top->data.rules = item.data.rules;
-    }
-    else
-    {
-        switch (s->top->type)
-        {
-        case integer:
-            s->top->data.token_val.intValue = item.data.token_val.intValue;
-            break;
-        case floating:
-            s->top->data.token_val.floatValue = item.data.token_val.floatValue;
-            break;
-        case string:
-            s->top->data.token_val.valueString = item.data.token_val.valueString;
-            break;
-        case boolean:
-            s->top->data.token_val.boolValue = item.data.token_val.boolValue;
-            break;
-        default:
-            break;
-        }
-    }
+    s->top->data.isPrec = item.data.isPrec;
+    s->top->data.token_type = item.data.token_type;
+    s->top->data.token_val = item.data.token_val;
     s->capacity++;
 }
 
@@ -127,8 +85,9 @@ void pushAfterTerminal(Stack *s, const Stack_item item)
             tmp->prev = newItem;
             // Plnenie hodnot
             newItem->type = item.type;
-            newItem->data.precedence.type = item.data.precedence.type;
-            newItem->data.precedence.symbol = item.data.precedence.symbol;
+            newItem->data.isPrec = item.data.isPrec;
+            newItem->data.token_type = item.data.token_type;
+            newItem->data.token_val = item.data.token_val;
             // Zvysenie aktualnej kapacity
             s->capacity++;
         }
@@ -142,7 +101,7 @@ void pushAfterTerminal(Stack *s, const Stack_item item)
 void RemoveTop(Stack *s, Stack_item *retItem)
 {
     // Naplnenie navratovej hodnoty
-    getElement(s, retItem, true);
+    getElement(s, retItem);
 
     Stack_item *tmp = s->top;
     s->top = s->top->prev;
@@ -151,107 +110,21 @@ void RemoveTop(Stack *s, Stack_item *retItem)
     free(tmp);
 }
 
-void RemoveBottom(Stack *s, Stack_item *retItem)
-{
-    // Naplnenie navratovej hodnoty
-    getElement(s, retItem, false);
-    Stack_item *tmp = s->bottom->next;
-    if (tmp->next != NULL)
-    {
-        tmp->next->prev = tmp->prev;
-        tmp->prev->next = tmp->next;
-    }
-    else
-    {
-        s->top = s->bottom;
-        s->top->next = NULL;
-    }
-    s->capacity--;
-    free(tmp);
-}
-
 /// @brief Funkcia na získanie vrcholového prvku bez jeho odstránenia
 /// @param s
 /// @param retItem
 /// @param dir Urcuje smer ci bottom(false) alebo top(true)
-void getElement(Stack *s, Stack_item *retItem, bool dir)
+void getElement(Stack *s, Stack_item *retItem)
 {
-    if (dir)
+    if (isEmpty(s->top))
     {
-        if (isEmpty(s->top))
-        {
-            fprintf(stderr, "Chyba: Pokus o pop z prázdneho zásobníka.\n");
-            exit(EXIT_FAILURE);
-        }
-        retItem->type = s->top->type;
-        if (retItem->type == precedence)
-        {
-            retItem->data.precedence.type = s->top->data.precedence.type;
-            retItem->data.precedence.symbol = s->top->data.precedence.symbol;
-        }
-        else if (retItem->type == rule)
-        {
-            retItem->data.rules = s->top->data.rules;
-        }
-        else
-        {
-            switch (s->top->type)
-            {
-            case integer:
-                retItem->data.token_val.intValue = s->top->data.token_val.intValue;
-                break;
-            case floating:
-                retItem->data.token_val.floatValue = s->top->data.token_val.floatValue;
-                break;
-            case string:
-                retItem->data.token_val.valueString = s->top->data.token_val.valueString;
-                break;
-            case boolean:
-                retItem->data.token_val.boolValue = s->top->data.token_val.boolValue;
-                break;
-            default:
-                break;
-            }
-        }
+        fprintf(stderr, "Chyba: Pokus o pop z prázdneho zásobníka.\n");
+        exit(EXIT_FAILURE);
     }
-    else
-    {
-        if (isEmpty(s->bottom->next))
-        {
-            fprintf(stderr, "Chyba: Pokus o get z prázdneho zásobníka.\n");
-            exit(EXIT_FAILURE);
-        }
-        retItem->type = s->bottom->next->type;
-        if (retItem->type == precedence)
-        {
-            retItem->data.precedence.type = s->bottom->next->data.precedence.type;
-            retItem->data.precedence.symbol = s->bottom->next->data.precedence.symbol;
-        }
-        else if (retItem->type == rule)
-        {
-            retItem->data.rules = s->bottom->next->data.rules;
-        }
-        else
-        {
-            switch (s->bottom->next->type)
-            {
-            case integer:
-                retItem->data.token_val.intValue = s->bottom->next->data.token_val.intValue;
-                break;
-            case floating:
-                retItem->data.token_val.floatValue = s->bottom->next->data.token_val.floatValue;
-                break;
-            case string:
-                retItem->data.token_val.valueString = s->bottom->next->data.token_val.valueString;
-                break;
-            case boolean:
-                retItem->data.token_val.boolValue = s->bottom->next->data.token_val.boolValue;
-                break;
-            default:
-                break;
-            }
-        }
-    }
+    retItem->type = s->top->type;
+    retItem->data.isPrec = s->top->data.isPrec;
+    retItem->data.token_type = s->top->data.token_type;
+    retItem->data.token_val = s->top->data.token_val;
 }
 
 int topTerminal(Stack *s)
@@ -261,7 +134,7 @@ int topTerminal(Stack *s)
     while (!isEmpty(tmp))
     {
         if (isTerminal(tmp))
-            return tmp->data.precedence.symbol;
+            return tmp->data.token_type;
         tmp = tmp->prev;
     }
     return EOF;
@@ -271,8 +144,7 @@ int topTerminal(Stack *s)
 void freeStack(Stack *s)
 {
     // Uvoľni pamäť pred návratom
-    if (s->top->type == string)
-        dynamic_string_free(&s->top->data.token_val.valueString);
+    dynamic_string_free(&s->top->data.token_val.valueString);
 
     while (s->top != NULL)
     {
@@ -287,7 +159,7 @@ void freeStack(Stack *s)
 bool isTerminal(Stack_item *Item)
 {
     if (Item->type == precedence)
-        return (Item->data.precedence.type == true && Item->data.precedence.symbol != NTERMINAL);
+        return (Item->data.isPrec && (Item->data.token_type != TOKEN_NTERMINAL));
     return false;
 }
 
@@ -297,34 +169,9 @@ void PrintAllStack(Stack *s)
     for (int i = s->capacity - 1; !isEmpty(tmp); i--)
     {
         if (s->top->type == precedence)
-        {
-            if (tmp->data.precedence.type)
-                printf("Stack enum %d: %d\n", i, tmp->data.precedence.symbol);
-            else
-                printf("Stack char %d: %c\n", i, tmp->data.precedence.symbol);
-        }
-        else if (s->top->type == rule)
-            printf("Rule Stack %d: %d\n", i, tmp->data.rules);
+            printf("Stack (prec) %d: %s - (type) = %d\n", i, tmp->data.token_val.valueString.str, tmp->data.token_type);
         else
-        {
-            switch (s->top->type)
-            {
-            case integer:
-                printf("Token int Stack %d: %d\n", i, tmp->data.token_val.intValue);
-                break;
-            case floating:
-                printf("Token float Stack %d: %f\n", i, tmp->data.token_val.floatValue);
-                break;
-            case string:
-                printf("Token string Stack %d: %s\n", i, tmp->data.token_val.valueString.str);
-                break;
-            case boolean:
-                printf("Token bool Stack %d: %d\n", i, tmp->data.token_val.boolValue);
-                break;
-            default:
-                break;
-            }
-        }
+            printf("Stack (token) %d: %s - (type) = %d\n", i, tmp->data.token_val.valueString.str, tmp->data.token_type);
         tmp = tmp->prev;
     }
 }

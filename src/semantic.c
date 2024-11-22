@@ -112,7 +112,7 @@ void ast_IfElse_1()
     //     []u8 c = "nieco";
     BinaryTreeNode *root = createBinaryNode(NODE_IF, TOKEN_KEYWORD, "if");
     setStartNode(root);
-    insertRightMoveRight(root, NODE_PREP_IF, TOKEN_EMPTY, "");
+    insertRightMoveRight(currentNode, NODE_PREP_IF, TOKEN_EMPTY, "");
     insertLeftMoveLeft(currentNode, NODE_PREP2_IF, TOKEN_EMPTY, "");
     insertRight(currentNode, NODE_NONNULL, TOKEN_IDENTIFIER, "val");
     insertLeftMoveLeft(currentNode, NODE_OP, TOKEN_LESS_THAN, "<");

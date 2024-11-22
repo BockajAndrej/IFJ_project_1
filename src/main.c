@@ -7,11 +7,9 @@
 #include "lexical_analyser.h"
 #include "syntactic_analysis.h"
 #include <error.h>
-#include "symtable.h"
 #include "ast.h"
 #include "semantic.h"
-
-FILE *file;
+#include "symtable.h"
 
 
 void print_table(SymbolTable *table) {
@@ -71,41 +69,13 @@ void test_hash_table() {
     free_table(table);
 }
 
-/*
-NodeInfo info = getNodeInfo(currentNode);
-
-// Overenie typu uzla
-if (info.type == NODE_CONST) {
-    printf("Uzol je konštanta s hodnotou: %s\n", info.value);
-}
-
-// Overenie dátového typu
-if (info.dataType == TYPE_INT) {
-    printf("Dátový typ uzla je INTEGER.\n");
-}
-
-// Kontrola existencie detí
-if (info.hasLeft) {
-    printf("Uzol má ľavého potomka.\n");
-} else {
-    printf("Uzol nemá ľavého potomka.\n");
-}
-
-if (info.hasRight) {
-    printf("Uzol má pravého potomka.\n");
-}
-
-// Prístup k hodnote rodiča
-if (info.parentValue) {
-    printf("Hodnota rodiča je: %s\n", info.parentValue);
-} else {
-    printf("Uzol nemá rodiča.\n");
-}
-*/
-
 
 int main(int argc, char **argv)
 {
+    FILE *file;
+    BinaryTreeNode *root = createBinaryNode(NODE_GENERAL, TOKEN_EMPTY, "");
+    setStartNode(root);
+
     if(argc == 1){
         //test_hash_table();
         //ast_test(); nepouzivaj
@@ -135,21 +105,8 @@ int main(int argc, char **argv)
         printf("%s", " --- WRONG END --- \n");
         return 1;
     }
-
+    printBinaryTree(root);
     printf("%s", " --- ENDED SUCESFULLY --- \n");
-
-    // Token token;
-    // // Print header for clarity
-    // printf("Token Type\tValue\t\tKeyword Value\n");
-    // printf("----------------------------------------------------------\n");
-
-    // do
-    // {
-    //     token = get_token(file);
-    //     print_token(token);
-
-    //     dynamic_string_free(&token.value.valueString);
-    // } while (token.type != TOKEN_EOF); // Continue until EOF
 
     fclose(file); // Nezabudni zavrieť súbor
     return EXIT_SUCCESS;

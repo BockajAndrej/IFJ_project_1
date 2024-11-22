@@ -7,6 +7,7 @@
 // Typy uzlov
 typedef enum
 {
+    NODE_GENERAL,    // Starting NODE
     NODE_OP,         // Operácia ( +, -, !=)
     NODE_VAR,        // Premenná (a, b)
     NODE_CONST,      // Konštanta (0, 1)
@@ -55,6 +56,7 @@ typedef struct BinaryTreeNode
     Token_type tokenType;
     // ASTValueType valueType; // Typ hodnoty
     char *strValue;
+    bool isRight;
     struct BinaryTreeNode *left;   // Ľavý potomok
     struct BinaryTreeNode *right;  // Pravý potomok
     struct BinaryTreeNode *parent; // Rodič uzla
@@ -84,7 +86,7 @@ void insertRightMoveLeft(BinaryTreeNode *parent, NodeType type, Token_type token
 // FUNKCIE PRE POHYB V STOME
 NodeInfo getCurrentNodeInfo();
 void setStartNode(BinaryTreeNode *root);
-void moveUp(int levels);
+bool moveUp(int levels);
 void moveDownLeft();
 void moveDownRight();
 NodeInfo getNodeInfo(BinaryTreeNode *node);

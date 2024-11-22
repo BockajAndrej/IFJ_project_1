@@ -12,6 +12,7 @@
 #include <stdbool.h>
 
 #include "lexical_analyser.h"
+#include "ast.h"
 #include "stack.h"
 #include "error.h"
 
@@ -63,5 +64,5 @@ bool VAR_TYPE(Token t);
 bool VAL_TYPE(Token t);
 bool FN_TYPE(Token t);
 
-int find_OP(const int N, char table[N][N], Token token, Stack *stack, Prec_table_symbol_enum *symbol);
+int find_OP(const int N, char table[N][N], Token token, Stack *precStack);
 #endif
