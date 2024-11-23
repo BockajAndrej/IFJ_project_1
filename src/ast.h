@@ -8,6 +8,7 @@
 typedef enum
 {
     NODE_GENERAL,    // Starting NODE
+    NODE_PARAM,
     NODE_OP,         // Operácia ( +, -, !=)
     NODE_VAR,        // Premenná (a, b)
     NODE_CONST,      // Konštanta (0, 1)

@@ -3,7 +3,7 @@ CC=gcc
 
 # Main
 EXECUTABLE=main
-CFLAGS=-std=c11 -Wall -Wextra -Werror -pedantic
+CFLAGS=-std=c11 -Wall -Wextra -Werror -pedantic -g
 OBJ_FILES=main.o stack.o expression.o lexical_analyser.o newstring.o syntactic_analysis.o ast.o semantic.o symtable.o
 
 # TESTS (General)

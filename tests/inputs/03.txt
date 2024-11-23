@@ -1,9 +1,14 @@
 var a : i32 = 12;
-var b : i32 = 23;
-var c : i32 = 34;
+var b : i32 = 12;
+const INP = 5;
 
 pub fn decrement(n : i32, m : i32) i32
 {
-    n = a * b + c * d/8 ;
-    n = (a * b + c) * d/8 ;
+    
+}
+
+
+pub fn increment(n : f64) i32
+{
+    
 }
