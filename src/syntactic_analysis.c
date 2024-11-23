@@ -59,8 +59,7 @@ bool FIRST(FILE *file)
         return false;
         break;
     }
-    printf("HERE\n");
-    moveUp(infestNum-1);
+    moveUp(infestNum);
     infestNum = 0;
     insertLeftMoveLeft(currentNode, NODE_GENERAL, TOKEN_EMPTY, "");
     // Recursive calling itself for processing next code out of scope
@@ -141,6 +140,9 @@ bool STATEMENT(FILE *file)
             break;
         }
     }
+    moveUp(infestNum - 1);
+    infestNum = 0;
+    insertLeftMoveLeft(currentNode, NODE_GENERAL, TOKEN_EMPTY, "");
     pmesg(" ------ END STATEMENT ------\n");
     // Recursive calling itself for processing next code out of scope
     if (!STATEMENT(file))
@@ -163,10 +165,10 @@ bool VAR_DEF(FILE *file)
     Token token;
     // var id
     GET_TOKEN_RAW(token, file);
-    if (token.type != TOKEN_IDENTIFIER)
-        return false;
     insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
     infestNum++;
+    if (token.type != TOKEN_IDENTIFIER)
+        return false;
     GET_TOKEN_RAW(token, file);
     switch (token.type)
     {
@@ -249,8 +251,14 @@ bool FN_DEF(FILE *file)
     if (token.type != TOKEN_LPAREN)
         return false;
     // Parametre
+    insertLeftMoveLeft(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+    int tmpinf = infestNum;
+    infestNum = 1;
     if (!PARAM(file))
         return false;
+    printf("INFEST = %d", infestNum);
+    moveUp(infestNum);
+    infestNum = tmpinf;
     // Return type
     GET_TOKEN_RAW(token, file);
     insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
@@ -526,16 +534,16 @@ bool ASSIGN_VAR(FILE *file)
     Token token;
     // var result : i32 ...
     GET_TOKEN_RAW(token, file);
+    insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
+    infestNum++;
     if (!VAL_TYPE(token))
         return false;
-    insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
-    infestNum++;
     // var result : i32 = ...
     GET_TOKEN_RAW(token, file);
-    if (token.type != TOKEN_ASSIGNMENT)
-        return false;
     insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
     infestNum++;
+    if (token.type != TOKEN_ASSIGNMENT)
+        return false;
     // var result : i32 = 0;
     GET_TOKEN_RAW(token, file);
     if (!EXPRESSION(file, token))
@@ -599,9 +607,16 @@ bool ASSIGN_CONST(FILE *file)
 bool SCOPE(FILE *file)
 {
     pmesg(" ------ SCOPE ------\n");
+    insertLeftMoveLeft(currentNode, NODE_GENERAL, TOKEN_EMPTY, "");
+    infestNum++;
+    // Defined parametrers of infestation
+    int tmp = infestNum;
+    infestNum = 0;
     scopeNum++;
     if (!STATEMENT(file))
         return false;
+    scopeNum--;
+    infestNum = tmp;
     pmesg(" ------ END SCOPE ------\n");
     return true;
 }
@@ -622,6 +637,8 @@ bool PARAM(FILE *file)
     Token token;
     // t_) (end of recursion)
     GET_TOKEN_RAW(token, file);
+    insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+    infestNum++;
     if (token.type == TOKEN_RPAREN)
         return true;
 
@@ -631,21 +648,31 @@ bool PARAM(FILE *file)
     case TOKEN_IDENTIFIER:
         // : u8
         GET_TOKEN_RAW(token, file);
+        insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+        infestNum++;
         if (token.type != TOKEN_COLON)
             return false;
         GET_TOKEN_RAW(token, file);
+        insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+        infestNum++;
         if (!VAL_TYPE(token))
             return false;
         break;
     case TOKEN_COMMA:
         // , y : u8
         GET_TOKEN_RAW(token, file);
+        insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+        infestNum++;
         if (token.type != TOKEN_IDENTIFIER)
             return false;
         GET_TOKEN_RAW(token, file);
+        insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+        infestNum++;
         if (token.type != TOKEN_COLON)
             return false;
         GET_TOKEN_RAW(token, file);
+        insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+        infestNum++;
         if (!VAL_TYPE(token))
             return false;
         break;
@@ -745,9 +772,6 @@ bool EXPRESSION(FILE *file, Token token)
     Stack ruleStack; // Ukladanie pravidiel
     Stack_item curPrecItem;
     Stack_item curRuleItem;
-
-    // Program berie zanorenie exp len ako jeden blok
-    infestNum++;
 
     // Pre vkladanie charakteru ktory nie je v tokene
     Dynamic_string varLexThan;
