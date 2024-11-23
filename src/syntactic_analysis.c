@@ -251,12 +251,11 @@ bool FN_DEF(FILE *file)
     if (token.type != TOKEN_LPAREN)
         return false;
     // Parametre
-    insertLeftMoveLeft(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+    insertLeftMoveLeft(currentNode, NODE_PARAM, token.type, token.value.valueString.str);
     int tmpinf = infestNum;
     infestNum = 1;
     if (!PARAM(file))
         return false;
-    printf("INFEST = %d", infestNum);
     moveUp(infestNum);
     infestNum = tmpinf;
     // Return type
@@ -571,16 +570,26 @@ bool ASSIGN_CONST(FILE *file)
     {
     // @import("ifj24.zig");
     case TOKEN_IMPORT:
+        insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+        infestNum++;
         GET_TOKEN_RAW(token, file);
+        insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+        infestNum++;
         if (token.type != TOKEN_LPAREN)
             return false;
         GET_TOKEN_RAW(token, file);
+        insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+        infestNum++;
         if (token.type != TOKEN_STRING_LITERAL)
             return false;
         GET_TOKEN_RAW(token, file);
+        insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+        infestNum++;
         if (token.type != TOKEN_RPAREN)
             return false;
         GET_TOKEN_RAW(token, file);
+        insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+        infestNum++;
         if (token.type != TOKEN_SEMICOLON)
             return false;
         break;
