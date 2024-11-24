@@ -123,7 +123,7 @@ bool moveUp(int levels)
         else
         {
             printf("Error: Cannot move up %d levels. Moved up %d level(s).\n", levels + movedLevels, movedLevels);
-            return false;
+            exit(EXIT_FAILURE);
         }
     }
     return currentNode->isRight;

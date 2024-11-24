@@ -77,7 +77,7 @@ bool FIRST(FILE *file)
  *  EXPRESSIONS;
  *  @endcode
  */
-bool STATEMENT(FILE *file)
+bool STATEMENT(FILE *file, int *infestNumLok)
 {
     pmesg(" ------ STATEMENT ------\n");
     Token token;
@@ -143,9 +143,10 @@ bool STATEMENT(FILE *file)
     moveUp(infestNum);
     infestNum = 0;
     insertLeftMoveLeft(currentNode, NODE_GENERAL, TOKEN_EMPTY, "");
+    *infestNumLok = *infestNumLok + 1;
     pmesg(" ------ END STATEMENT ------\n");
     // Recursive calling itself for processing next code out of scope
-    if (!STATEMENT(file))
+    if (!STATEMENT(file, infestNumLok))
         return false;
     return true;
 }
@@ -618,10 +619,14 @@ bool SCOPE(FILE *file)
     infestNum++;
     // Defined parametrers of infestation
     int tmp = infestNum;
+    int tmpLokinfest = 0;
     infestNum = 0;
     scopeNum++;
-    if (!STATEMENT(file))
+    if (!STATEMENT(file, &tmpLokinfest))
         return false;
+    printf("SCOPE inf = %d\n", infestNum);
+    printf("SCOPE num = %d\n", scopeNum);
+    moveUp(tmpLokinfest);
     scopeNum--;
     infestNum = tmp;
     pmesg(" ------ END SCOPE ------\n");
@@ -830,7 +835,7 @@ bool EXPRESSION(FILE *file, Token token)
         // Redukovanie podla pravidla
         else if (tmp_char == '>')
         {
-            printf("- Reduction\n");
+            // printf("- Reduction\n");
             ExpressionFSM state = sStartExc;
             isExpressionCorrect = false;
             do
@@ -914,7 +919,7 @@ bool EXPRESSION(FILE *file, Token token)
         // Vkladanie do precStacku
         else if (tmp_char == '<')
         {
-            printf("- Shift\n");
+            // printf("- Shift\n");
             // Vlozenie shift sign
             curPrecItem.data.isPrec = false;
             curPrecItem.data.token_type = TOKEN_EMPTY;
@@ -924,7 +929,7 @@ bool EXPRESSION(FILE *file, Token token)
             curPrecItem.data.isPrec = true;
             curPrecItem.data.token_type = token.type;
             curPrecItem.data.token_val.valueString = token.value.valueString;
-            printf("SHIFT = %s - type: %d\n", token.value.valueString.str, token.type);
+            // printf("SHIFT = %s - type: %d\n", token.value.valueString.str, token.type);
             push(&precStack, curPrecItem);
         }
         else if (tmp_char == '=')
@@ -937,10 +942,11 @@ bool EXPRESSION(FILE *file, Token token)
         // TODO Prerobit aby az nakonci hadzalo false (memory leak)
         else
             return false;
-        printf("RULES -----------\n");
+        // printf("RULES -----------\n");
         // PrintAllStack(&ruleStack);
-        printf("PREC ------------\n");
+        // printf("PREC ------------\n");
         // PrintAllStack(&precStack);
+
         // Znaci ze prebelha redukcia a chceme spracovat rovnaky token
         if (!isExpressionCorrect)
         {
@@ -949,6 +955,7 @@ bool EXPRESSION(FILE *file, Token token)
         tmp_char = find_OP(N, table, token, &precStack);
     }
 
+    // printf("------ NUMOF inf: %d\n", infestNum);
     // Naplnenie stromu
     bool dirRight = true;
     for (int i = 0; !isEmpty(ruleStack.top); i++)
@@ -967,8 +974,13 @@ bool EXPRESSION(FILE *file, Token token)
             else
             {
                 insertLeft(currentNode, NODE_VAR, curRuleItem.data.token_type, curRuleItem.data.token_val.valueString.str);
-                while (moveUp(1))
-                    ;
+                while (!moveUp(0)){
+                    // printf("_________HERE_______ : %s\n", curRuleItem.data.token_val.valueString.str);
+                    moveUp(1);
+                    infestNum--;
+                }
+                moveUp(1);
+                infestNum--;
             }
         }
         else
@@ -982,12 +994,10 @@ bool EXPRESSION(FILE *file, Token token)
                 insertLeftMoveLeft(currentNode, NODE_OP, curRuleItem.data.token_type, curRuleItem.data.token_val.valueString.str);
                 dirRight = true;
             }
+            infestNum++;
         }
     }
-
-    printf("-------- END OF ABST -------\n RULE:\n");
-    // PrintAllStack(&ruleStack);
-
+    // printf("------ NUMOF inf: %d\n", infestNum);
     freeStack(&precStack);
     freeStack(&ruleStack);
     pmesg(" ------ END EXPRESSION ------\n");
@@ -1114,7 +1124,7 @@ int find_OP(const int N, char table[N][N], Token token, Stack *precStack)
         break;
     }
 
-    printf("IN THAT: X = %d, Y = %d\n", x, y);
+    // printf("IN THAT: X = %d, Y = %d\n", x, y);
     if (x < 0 || y < 0)
         return EOF;
     return table[y][x];
