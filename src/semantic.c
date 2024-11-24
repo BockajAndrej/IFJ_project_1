@@ -140,24 +140,6 @@ DataType value_string_to_type(const char *typeStr)
     return TOKEN_UNKNOWN;
 }
 
-/*const char *token_type_to_string(Token_type tokenType)
-{
-    switch (tokenType)
-    {
-    case TOKEN_INT_LITERAL:
-        return "int literal";
-    case TOKEN_FLOAT_LITERAL:
-        return "float literal";
-    case TOKEN_STRING_LITERAL:
-        return "string literal";
-    case TOKEN_IDENTIFIER:
-        return "identifier";
-    // Add other token types as needed
-    default:
-        return "unknown";
-    }
-}*/
-
 // Convert DataType to string for error messages
 const char *value_type_to_string(DataType type)
 {
@@ -179,6 +161,7 @@ const char *value_type_to_string(DataType type)
         return "unknown";
     }
 }
+
 bool is_type_compatible(DataType declaredType, Token_type valueType)
 {
     switch (declaredType)
@@ -303,6 +286,85 @@ void process_const_declaration(BinaryTreeNode *node)
 
     return;
 }
+
+void process_func_def(BinaryTreeNode *funcDefNode)
+{
+    if (!funcDefNode)
+        return;
+
+    BinaryTreeNode *fnKeywordNode = funcDefNode->right;
+    if (!fnKeywordNode || strcmp(fnKeywordNode->strValue, "fn") != 0)
+    {
+        printf("Error: Expected 'fn' keyword after 'pub'.\n");
+        return;
+    }
+
+    // Function name
+    BinaryTreeNode *funcNameNode = fnKeywordNode->right;
+    if (!funcNameNode || funcNameNode->tokenType != TOKEN_IDENTIFIER)
+    {
+        printf("Error: Expected function name identifier.\n");
+        return;
+    }
+    //char *funcName = funcNameNode->strValue;
+}
+
+// ! mal by som traversovat strom cez moveright alebo moveleft?
+void parse_parameters(BinaryTreeNode *paramsListNode)
+{
+    if (!paramsListNode)
+        return;
+
+    BinaryTreeNode *current = paramsListNode;
+
+    while (current != NULL)
+    {
+        if (current->tokenType == TOKEN_IDENTIFIER)
+        {
+            char *paramName = current->strValue;
+            BinaryTreeNode *colonNode = current->right;
+            if (!colonNode || colonNode->tokenType != TOKEN_COLON)
+            {
+                printf("Error: Expected ':' after parameter name '%s'.\n", paramName);
+                return;
+            }
+
+            BinaryTreeNode *typeNode = colonNode->left;
+            if (!typeNode || typeNode->tokenType != TOKEN_KEYWORD)
+            {
+                printf("Error: Expected type specifier after ':' for parameter '%s'.\n", paramName);
+                return;
+            }
+
+            char *typeStr = typeNode->strValue;
+            DataType paramType = value_string_to_type(typeStr);
+            if (paramType == TYPE_EMPTY)
+            {
+                printf("Error: Unknown type '%s' for parameter '%s'.\n", typeStr, paramName);
+                return;
+            }
+
+            // Declare the parameter as a variable in the current scope
+            printf("Declared parameter '%s' of type '%s'.\n", paramName, value_type_to_string(paramType));
+
+            // Here you can insert the parameter into the symbol table if implemented
+            // insert_symbol(current_scope, paramName, paramType);
+
+            // Move to the next parameter (assuming separated by commas)
+            current = colonNode->right; // Move past the colon and type
+            if (current != NULL && current->tokenType == TOKEN_COMMA)
+            {
+                current = current->right; // Move to the next parameter identifier
+            }
+        }
+        else
+        {
+            printf("Error: Unexpected token in parameters list.\n");
+            return;
+        }
+    }
+}
+
 void ProcessTree(BinaryTreeNode *root)
 {
     if (root == NULL)
@@ -313,7 +375,7 @@ void ProcessTree(BinaryTreeNode *root)
     // check na token empty alebo node_general ? spytat sa bockyho
     while (node != NULL)
     {
-        if (node->type == NODE_GENERAL && node->right != NULL)
+        if (node->type == NODE_GENERAL)
         {
             node = node->right;
             switch (node->tokenType)
@@ -325,15 +387,17 @@ void ProcessTree(BinaryTreeNode *root)
                 }
                 else if (strcmp(node->strValue, "const") == 0)
                 {
-                    process_const_declaration(node);
+                    process_var_declaration(node);
+                }
+                else if (strcmp(node->strValue, "pub") == 0)
+                {
+                    process_func_def(node);
                 }
                 break;
             default:
                 break;
             }
-            //printf("koncim lmao %s-", node->strValue);
             node = node->parent;
-            //printf("koncim lmao %s-", node->strValue);
             node = node->left;
         }
         else if (node->type == NODE_GENERAL && node->left != NULL)
