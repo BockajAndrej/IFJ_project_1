@@ -16,7 +16,7 @@
 #include "stack.h"
 #include "error.h"
 
-// #define NDEBUG
+#define NDEBUG
 
 #ifndef NDEBUG // if not defined NDEBUG (no debugging)
 #define pmesg(s) fprintf(stderr, "Line: %u - " s, __LINE__)
@@ -33,7 +33,7 @@
     print_token(token);
 
 bool FIRST(FILE *file);
-bool STATEMENT(FILE *file);
+bool STATEMENT(FILE *file, int *infestNumLok);
 
 bool VAR_DEF(FILE *file);
 bool CONST_DEF(FILE *file);

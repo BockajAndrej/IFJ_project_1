@@ -29,3 +29,13 @@ m = 1;
     r =  9 + 10 * 11;
     var a : i32 = c;
     const res = a;
+
+pub fn decrement(n : i32, m : i32) i32
+{
+}
+
+
+pub fn increment(n : f64) i32
+{
+    
+}
