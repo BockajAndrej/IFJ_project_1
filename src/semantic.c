@@ -7,123 +7,6 @@
 
 #include "semantic.h"
 
-void ast_valdef()
-{
-    // i32 a = 3;
-    BinaryTreeNode *root = createBinaryNode(NODE_VAR_DECL, TOKEN_KEYWORD, "i32");
-    setStartNode(root); // Nastavenie koreňa ako počiatočného uzla
-    insertLeft(root, NODE_VAR, TOKEN_IDENTIFIER, "a");
-    insertRightMoveRight(root, NODE_ASSIGN, TOKEN_ASSIGNMENT, "=");
-    insertLeft(currentNode, NODE_CONST, TOKEN_INT_LITERAL, "3");
-
-    {
-        printf("\nComplete Tree Structure:\n");
-        printBinaryTree(root);
-        freeBinaryTree(root);
-        printf("\nTree successfully freed.\n");
-    }
-}
-
-void ast_val_expression()
-{
-    // i32 a = 3 + C;
-    BinaryTreeNode *root = createBinaryNode(NODE_VAR_DECL, TOKEN_KEYWORD, "i32");
-    setStartNode(root);
-    insertLeft(root, NODE_VAR, TOKEN_IDENTIFIER, "a");
-    insertRightMoveRight(root, NODE_ASSIGN, TOKEN_ASSIGNMENT, "=");
-    insertRightMoveRight(currentNode, NODE_OP, TOKEN_ADDITION, "+");
-    insertLeft(currentNode, NODE_CONST, TOKEN_INT_LITERAL, "3");
-    insertRight(currentNode, NODE_VAR, TOKEN_IDENTIFIER, "c");
-
-    {
-        printf("\nComplete Tree Structure:\n");
-        printBinaryTree(root);
-        freeBinaryTree(root);
-        printf("\nTree successfully freed.\n");
-    }
-}
-
-void ast_while_1()
-{
-    /*
-        while (c != NULL) |INP|
-        {
-            c = 3;
-        }
-    */
-    BinaryTreeNode *root = createBinaryNode(NODE_WHILE, TOKEN_KEYWORD, "while");
-    setStartNode(root);
-    insertRight(root, NODE_PROG, TOKEN_EMPTY, "");
-    insertLeftMoveLeft(root, NODE_WHILE_PREP, TOKEN_EMPTY, "");
-    insertRight(currentNode, NODE_NONNULL, TOKEN_IDENTIFIER, "INP");
-    insertLeftMoveLeft(currentNode, NODE_OP, TOKEN_NOT_EQUAL, "!=");
-    insertLeft(currentNode, NODE_VAR, TOKEN_IDENTIFIER, "c");
-    insertRight(currentNode, NODE_CONST, TOKEN_EMPTY, "NULL"); //! NULL ako token?
-    moveUp(2);
-    moveDownRight();
-    insertRightMoveRight(currentNode, NODE_ASSIGN, TOKEN_ASSIGNMENT, "=");
-    insertLeft(currentNode, NODE_VAR, TOKEN_IDENTIFIER, "c");
-    insertRight(currentNode, NODE_CONST, TOKEN_INT_LITERAL, "3");
-
-    {
-        printf("\nComplete Tree Structure:\n");
-        printBinaryTree(root);
-        freeBinaryTree(root);
-        printf("\nTree successfully freed.\n");
-    }
-}
-
-void ast_IfElse_1()
-{
-
-    // if (a < 0) |val|
-    //     i32 a = 5;
-    // else if (a == 0)
-    //     f64 b = 9;
-    // else
-    //     []u8 c = "nieco";
-    BinaryTreeNode *root = createBinaryNode(NODE_IF, TOKEN_KEYWORD, "if");
-    setStartNode(root);
-    insertRightMoveRight(currentNode, NODE_PREP_IF, TOKEN_EMPTY, "");
-    insertLeftMoveLeft(currentNode, NODE_PREP2_IF, TOKEN_EMPTY, "");
-    insertRight(currentNode, NODE_NONNULL, TOKEN_IDENTIFIER, "val");
-    insertLeftMoveLeft(currentNode, NODE_OP, TOKEN_LESS_THAN, "<");
-    insertLeft(currentNode, NODE_VAR, TOKEN_IDENTIFIER, "a");
-    insertRight(currentNode, NODE_CONST, TOKEN_INT_LITERAL, "0");
-    moveUp(2);
-    insertRightMoveRight(currentNode, NODE_PROG, TOKEN_EMPTY, "");
-    insertRightMoveRight(currentNode, NODE_VAR_DECL, TOKEN_KEYWORD, "i32");
-    insertLeft(currentNode, NODE_VAR, TOKEN_IDENTIFIER, "a");
-    insertRightMoveRight(currentNode, NODE_ASSIGN, TOKEN_ASSIGNMENT, "");
-    insertRight(currentNode, NODE_CONST, TOKEN_INT_LITERAL, "3");
-    moveUp(4);
-    insertLeftMoveLeft(currentNode, NODE_ELSIF, TOKEN_EMPTY, "");
-    insertRightMoveRight(currentNode, NODE_ELSIF_PREP, TOKEN_EMPTY, "");
-    insertLeftMoveLeft(currentNode, NODE_OP, TOKEN_EQUAL, "==");
-    insertLeft(currentNode, NODE_VAR, TOKEN_IDENTIFIER, "a");
-    insertRight(currentNode, NODE_CONST, TOKEN_INT_LITERAL, "0");
-    moveUp(1);
-    insertRightMoveRight(currentNode, NODE_PROG, TOKEN_EMPTY, "");
-    insertRightMoveRight(currentNode, NODE_VAR_DECL, TOKEN_KEYWORD, "f64");
-    insertLeft(currentNode, NODE_VAR, TOKEN_IDENTIFIER, "b");
-    insertRightMoveRight(currentNode, NODE_ASSIGN, TOKEN_ASSIGNMENT, "=");
-    insertRight(currentNode, NODE_CONST, TOKEN_FLOAT_LITERAL, "9.6");
-    moveUp(4);
-    insertLeftMoveLeft(currentNode, NODE_ELSE, TOKEN_EMPTY, "");
-    insertRightMoveRight(currentNode, NODE_PROG, TOKEN_EMPTY, "");
-    insertRightMoveRight(currentNode, NODE_VAR_DECL, TOKEN_KEYWORD, "[]u8");
-    insertLeft(currentNode, NODE_VAR, TOKEN_IDENTIFIER, "c");
-    insertRightMoveRight(currentNode, NODE_ASSIGN, TOKEN_ASSIGNMENT, "=");
-    insertRight(currentNode, NODE_CONST, TOKEN_STRING_LITERAL, "nieco");
-
-    {
-        printf("\nComplete Tree Structure:\n");
-        printBinaryTree(root);
-        freeBinaryTree(root);
-        printf("\nTree successfully freed.\n");
-    }
-}
-
 DataType value_string_to_type(const char *typeStr)
 {
     if (strcmp(typeStr, "i32") == 0)
@@ -136,6 +19,8 @@ DataType value_string_to_type(const char *typeStr)
         return TYPE_STRING;
     if (strcmp(typeStr, "[]u8") == 0)
         return TYPE_U8_ARRAY;
+    if (strcmp(typeStr, "void") == 0)
+        return TYPE_VOID;
     // Add more types as needed
     return TOKEN_UNKNOWN;
 }
@@ -146,9 +31,9 @@ const char *value_type_to_string(DataType type)
     switch (type)
     {
     case TYPE_INT:
-        return "int";
+        return "i32";
     case TYPE_FLOAT:
-        return "float";
+        return "f64";
     case TYPE_STRING:
         return "string";
     case TYPE_BOOL:
@@ -157,6 +42,8 @@ const char *value_type_to_string(DataType type)
         return "void";
     case TYPE_U8_ARRAY:
         return "[]u8";
+    case TYPE_EMPTY:
+        return "empty";
     default:
         return "unknown";
     }
@@ -187,6 +74,7 @@ bool are_types_compatible(DataType actual, DataType expected)
         return true;
     if (actual == TYPE_FLOAT && expected == TYPE_INT)
         return false;
+
     return false;
 }
 
@@ -320,80 +208,107 @@ void process_func_def(BinaryTreeNode *funcDefNode)
 
     BinaryTreeNode *funcName_node = move_right_until(funcDefNode->right, TOKEN_IDENTIFIER);
     char *funcName_str = funcName_node->strValue;
+    printf("Function name: %s\n", funcName_str);
 
     // procces parameters
     BinaryTreeNode *funcParams_start = move_left_until(funcName_node, TOKEN_LPAREN);
+    parse_parameters(funcParams_start);
 
-    //Return data type
-    BinaryTreeNode *funcReturn_start = move_right_until(funcName_node,TOKEN_KEYWORD);
-    printf("func return start > %s\n",funcReturn_start->strValue);
-    BinaryTreeNode *funcBody = move_right_until(funcReturn_start,TOKEN_KEYWORD);
+    // Return data type
+    BinaryTreeNode *funcReturn_type = move_right_until(funcName_node, TOKEN_KEYWORD);
+    DataType returnDef_type = value_string_to_type(funcReturn_type->strValue);
+
+    // NODE_GENERAL > TOKEN_EMPTY
+    // process return
+    BinaryTreeNode *funcBody = move_left_until(funcReturn_type->right, TOKEN_EMPTY);
+    BinaryTreeNode *funcReturnExp_type = ProcessTree(funcBody);
+
+    DataType returnExp_type = process_func_return(funcReturnExp_type);
+    printf("return Def Type %s\n", value_type_to_string(returnDef_type));
+    printf("return Exp Type %s\n", value_type_to_string(returnExp_type));
+
+    if (are_types_compatible(returnDef_type, returnExp_type))
+    {
+        printf("Return def type and return expression type MATCH\n");
+    }
+    else
+    {
+        printf("Return def type and return expression type do NOT MATCH\n");
+    }
+    return;
 }
 
-// ! mal by som traversovat strom cez moveright alebo moveleft?
 void parse_parameters(BinaryTreeNode *paramsListNode)
 {
     if (!paramsListNode)
         return;
 
-    BinaryTreeNode *current = paramsListNode;
-
-    while (current != NULL)
+    BinaryTreeNode *params_node = paramsListNode->right;
+    if (params_node->right == NULL || params_node->right->tokenType == TOKEN_RPAREN)
     {
-        if (current->tokenType == TOKEN_IDENTIFIER)
+        // No parameters return
+        return;
+    }
+
+    while (params_node != NULL && params_node->tokenType != TOKEN_RPAREN)
+    {
+        if (params_node->tokenType == TOKEN_IDENTIFIER)
         {
-            char *paramName = current->strValue;
-            BinaryTreeNode *colonNode = current->right;
-            if (!colonNode || colonNode->tokenType != TOKEN_COLON)
-            {
-                printf("Error: Expected ':' after parameter name '%s'.\n", paramName);
-                return;
-            }
+            // * Identifier after (
+            BinaryTreeNode *param_ident = params_node;
+            char *param_ident_str = param_ident->strValue;
 
-            BinaryTreeNode *typeNode = colonNode->left;
-            if (!typeNode || typeNode->tokenType != TOKEN_KEYWORD)
-            {
-                printf("Error: Expected type specifier after ':' for parameter '%s'.\n", paramName);
-                return;
-            }
-
-            char *typeStr = typeNode->strValue;
-            DataType paramType = value_string_to_type(typeStr);
-            if (paramType == TYPE_EMPTY)
-            {
-                printf("Error: Unknown type '%s' for parameter '%s'.\n", typeStr, paramName);
-                return;
-            }
+            BinaryTreeNode *param_type = move_right_until(param_ident, TOKEN_KEYWORD);
+            char *param_type_str = param_type->strValue;
+            DataType param_datatype = value_string_to_type(param_type_str);
 
             // Declare the parameter as a variable in the current scope
-            printf("Declared parameter '%s' of type '%s'.\n", paramName, value_type_to_string(paramType));
+            printf("Declared parameter '%s' of type '%s'.\n", param_ident_str, value_type_to_string(param_datatype));
 
             // Here you can insert the parameter into the symbol table if implemented
             // insert_symbol(current_scope, paramName, paramType);
 
-            // Move to the next parameter (assuming separated by commas)
-            current = colonNode->right; // Move past the colon and type
-            if (current != NULL && current->tokenType == TOKEN_COMMA)
+            // Move to the next token after the current parameter
+            if (param_type->right && param_type->right->tokenType == TOKEN_COMMA)
             {
-                current = current->right; // Move to the next parameter identifier
+                params_node = move_right_until(param_type->right, TOKEN_IDENTIFIER);
+            }
+            else
+            {
+                params_node = param_type->right; // Move to the next node
             }
         }
-        else
-        {
-            printf("Error: Unexpected token in parameters list.\n");
-            return;
-        }
     }
+    return;
 }
 
-void ProcessTree(BinaryTreeNode *root)
+DataType process_func_return(BinaryTreeNode *returnNode)
 {
+    if (returnNode->left == NULL && returnNode->right == NULL)
+    {
+        return TYPE_VOID;
+    }
+
+    return process_expression(returnNode);
+}
+
+DataType process_expression(BinaryTreeNode *returnNode)
+{
+    if (returnNode == NULL)
+    {
+        return TYPE_EMPTY;
+    }
+    return TYPE_BOOL;
+}
+
+BinaryTreeNode *ProcessTree(BinaryTreeNode *root)
+{
+
     if (root == NULL)
-        return;
+        return root;
 
     BinaryTreeNode *node = root;
 
-    // check na token empty alebo node_general ? spytat sa bockyho
     while (node != NULL)
     {
         if (node->type == NODE_GENERAL)
@@ -414,22 +329,31 @@ void ProcessTree(BinaryTreeNode *root)
                 {
                     process_func_def(node);
                 }
+                else if (strcmp(node->strValue, "return") == 0)
+                {
+                    // ? return z funkcie
+                    return node;
+                    // process_func_return(node);
+                }
                 break;
             default:
                 break;
             }
+            printf("Seg fault tu\n");
+
             node = node->parent;
             node = node->left;
         }
         else if (node->type == NODE_GENERAL && node->left != NULL)
         {
-            return;
+            return root;
         }
         else
         {
-            return;
+            return root;
         }
     }
+    return root; // ?
 }
 
 /*

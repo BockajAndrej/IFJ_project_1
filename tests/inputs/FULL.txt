@@ -1,7 +1,6 @@
-pub fn decrement(n:i32, m : i32) i32
+pub fn decrement(n:i32, m : i32) void
 {
     var a : i32 = 12;
     var b : i32 = 12;
-    a = 1 + 2 * 5;
-    return n - m;
+    return;
 }

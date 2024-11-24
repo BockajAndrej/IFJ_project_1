@@ -77,10 +77,6 @@ int main(int argc, char **argv)
 
     if(argc == 1){
         //test_hash_table();
-        //ast_test(); nepouzivaj
-        //ast_valdef();
-        //ast_val_expression();
-        //ast_IfElse_1();
         //return 0;
     }
 
