@@ -190,6 +190,32 @@ bool are_types_compatible(DataType actual, DataType expected)
     return false;
 }
 
+BinaryTreeNode *move_left_until(BinaryTreeNode *node, Token_type dest)
+{
+    while (node != NULL)
+    {
+        node = node->left;
+        if (node->tokenType == dest)
+        {
+            return node;
+        }
+    }
+    return NULL;
+}
+
+BinaryTreeNode *move_right_until(BinaryTreeNode *node, Token_type dest)
+{
+    while (node != NULL)
+    {
+        node = node->right;
+        if (node->tokenType == dest)
+        {
+            return node;
+        }
+    }
+    return NULL;
+}
+
 void process_var_declaration(BinaryTreeNode *node)
 {
     // * IDENTIFIER LOGIC
@@ -292,21 +318,16 @@ void process_func_def(BinaryTreeNode *funcDefNode)
     if (!funcDefNode)
         return;
 
-    BinaryTreeNode *fnKeywordNode = funcDefNode->right;
-    if (!fnKeywordNode || strcmp(fnKeywordNode->strValue, "fn") != 0)
-    {
-        printf("Error: Expected 'fn' keyword after 'pub'.\n");
-        return;
-    }
+    BinaryTreeNode *funcName_node = move_right_until(funcDefNode->right, TOKEN_IDENTIFIER);
+    char *funcName_str = funcName_node->strValue;
 
-    // Function name
-    BinaryTreeNode *funcNameNode = fnKeywordNode->right;
-    if (!funcNameNode || funcNameNode->tokenType != TOKEN_IDENTIFIER)
-    {
-        printf("Error: Expected function name identifier.\n");
-        return;
-    }
-    //char *funcName = funcNameNode->strValue;
+    // procces parameters
+    BinaryTreeNode *funcParams_start = move_left_until(funcName_node, TOKEN_LPAREN);
+
+    //Return data type
+    BinaryTreeNode *funcReturn_start = move_right_until(funcName_node,TOKEN_KEYWORD);
+    printf("func return start > %s\n",funcReturn_start->strValue);
+    BinaryTreeNode *funcBody = move_right_until(funcReturn_start,TOKEN_KEYWORD);
 }
 
 // ! mal by som traversovat strom cez moveright alebo moveleft?

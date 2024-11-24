@@ -23,6 +23,10 @@ DataType value_string_to_type(const char *typeStr);
 //const char *token_type_to_string(Token_type tokenType);
 const char *value_type_to_string(DataType type);
 bool are_types_compatible(DataType actual, DataType expected);
+BinaryTreeNode *move_left_until(BinaryTreeNode *node, Token_type dest);
+BinaryTreeNode *move_right_until(BinaryTreeNode *node, Token_type dest);
+
+
 void process_var_declaration(BinaryTreeNode *node);
 void process_const_declaration(BinaryTreeNode *node);
 void ProcessTree(BinaryTreeNode *root);
