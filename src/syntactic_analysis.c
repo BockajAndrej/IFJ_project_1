@@ -310,12 +310,11 @@ bool IF_DEF(FILE *file)
     infestNum++;
     if (token.type != TOKEN_LPAREN)
         return false;
-    printf("INF - %d , token - %s\n", infestNum, token.value.valueString.str);
+    // printf("INF - %d , token - %s\n", infestNum, token.value.valueString.str);
     // if(EXP)
     GET_TOKEN_RAW(token, file);
     if (!EXPRESSION(file, token))
         return false;
-    printf("INF - %d , token - %s\n", infestNum, token.value.valueString.str);
     // if(EXP)|ID|
     if (!IF_EXT(file))
         return false;
@@ -364,6 +363,8 @@ bool WHILE_DEF(FILE *file)
     // t_(
     Token token;
     GET_TOKEN_RAW(token, file);
+    insertLeftMoveLeft(currentNode, NODE_IF, token.type, token.value.valueString.str);
+    infestNum++;
     if (token.type != TOKEN_LPAREN)
         return false;
 
@@ -373,6 +374,10 @@ bool WHILE_DEF(FILE *file)
 
     // t_{
     GET_TOKEN_RAW(token, file);
+    moveDownRight(1);
+    infestNum++;
+    insertRightMoveRight(currentNode, NODE_IF, token.type, token.value.valueString.str);
+    infestNum++;
     if (token.type == TOKEN_CURLYL_BRACKET)
     {
         // SCOPE
