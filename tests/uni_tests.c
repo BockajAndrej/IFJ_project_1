@@ -274,12 +274,6 @@ char *consts_complex[] = {
 
 };
 
-
-
-
-
-
-
 /* Poznamky co nefunguje - 
 
     některé if/else/while
@@ -308,10 +302,7 @@ char *consts_complex[] = {
 
 */
 
-
 int i = 0;
-
-
 
 // Optional setup code for tests (runs before each test)
 void setUp(void) {
@@ -321,7 +312,8 @@ void setUp(void) {
     tempFile = tmpfile();
     if (tempFile == NULL)
         fprintf(stderr, "Failed to create temporary file");
-    
+    BinaryTreeNode *root = createBinaryNode(NODE_GENERAL, TOKEN_EMPTY, "");
+    setStartNode(root);
 }
 
 // Optional teardown code for tests (runs after each test)

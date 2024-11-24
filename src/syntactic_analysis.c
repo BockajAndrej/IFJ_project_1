@@ -151,6 +151,7 @@ bool STATEMENT(FILE *file, int *infestNumLok)
     // Need to be in condition because token else should have diferent aproach (inside if subtree)
     if (canShift)
     {
+        // Create new general_node for next command
         moveUp(infestNum);
         infestNum = 0;
         insertLeftMoveLeft(currentNode, NODE_GENERAL, TOKEN_EMPTY, "");
@@ -986,7 +987,7 @@ bool EXPRESSION(FILE *file, Token token)
         find_OP(N, table, token, &precStack, &tmp_char, &numOfLPar);
     }
 
-    printf("------1 NUMOF inf: %d\n", infestNum);
+    // printf("------1 NUMOF inf: %d\n", infestNum);
     // Naplnenie stromu
     bool dirRight = true;
     for (int i = 0; !isEmpty(ruleStack.top); i++)
@@ -1007,7 +1008,7 @@ bool EXPRESSION(FILE *file, Token token)
                 insertLeft(currentNode, NODE_VAR, curRuleItem.data.token_type, curRuleItem.data.token_val.valueString.str);
                 while (!moveUp(0))
                 {
-                    printf("_________HERE_______ : %s\n", curRuleItem.data.token_val.valueString.str);
+                    // printf("_________HERE_______ : %s\n", curRuleItem.data.token_val.valueString.str);
                     moveUp(1);
                     infestNum--;
                 }
@@ -1029,7 +1030,7 @@ bool EXPRESSION(FILE *file, Token token)
             infestNum++;
         }
     }
-    printf("------2 NUMOF inf: %d\n", infestNum);
+    // printf("------2 NUMOF inf: %d\n", infestNum);
     freeStack(&precStack);
     freeStack(&ruleStack);
     pmesg(" ------ END EXPRESSION ------\n");

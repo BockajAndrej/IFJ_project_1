@@ -14,31 +14,8 @@ pub fn factorial(n : i32) i32
     }
     else
     {
-        const decremented_n = decrement(n, 1);
-        const temp_result = factorial(decremented_n) + factorial(decremented_n);
         result = n * temp_result;
         factorial(decremented_n);
     }
     return result;
-}
-
-m = 1;
-    n = 2 + 3 ;
-    o =  4 + 5 + 6;
-    p =  7 * 8;
-    r =  9 + 10 * 11;
-    var a : i32 = c;
-    const res = a;
-
-var a : i32 = a * b + c * d/8 ;
-const INP = 5;
-var c : i32 = a * b + c * d + 8 * e + 7;
-const INP = 5;
-const c = 5 + 6;
-
-pub fn decrement(n : i32, m : i32) i32
-{
-    var a : i32 = 1;
-    var b : i32 = 2 + 3;
-    var c : i32 = 4 + 5 * 9 / 10;
 }
