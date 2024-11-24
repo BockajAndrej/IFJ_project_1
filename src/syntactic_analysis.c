@@ -140,7 +140,7 @@ bool STATEMENT(FILE *file)
             break;
         }
     }
-    moveUp(infestNum - 1);
+    moveUp(infestNum);
     infestNum = 0;
     insertLeftMoveLeft(currentNode, NODE_GENERAL, TOKEN_EMPTY, "");
     pmesg(" ------ END STATEMENT ------\n");
@@ -246,12 +246,10 @@ bool FN_DEF(FILE *file)
         return false;
     // t_(
     GET_TOKEN_RAW(token, file);
-    insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
-    infestNum++;
+    insertLeftMoveLeft(currentNode, NODE_CONST, token.type, token.value.valueString.str);
     if (token.type != TOKEN_LPAREN)
         return false;
     // Parametre
-    insertLeftMoveLeft(currentNode, NODE_PARAM, token.type, token.value.valueString.str);
     int tmpinf = infestNum;
     infestNum = 1;
     if (!PARAM(file))
