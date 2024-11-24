@@ -138,6 +138,7 @@ void moveDownLeft()
     else
     {
         printf("Error: Cannot move left from the current node.\n");
+        exit(EXIT_FAILURE);
     }
 }
 
@@ -150,6 +151,7 @@ void moveDownRight()
     else
     {
         printf("Error: Cannot move right from the current node.\n");
+        exit(EXIT_FAILURE);
     }
 }
 

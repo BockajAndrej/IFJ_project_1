@@ -80,6 +80,7 @@ bool FIRST(FILE *file)
 bool STATEMENT(FILE *file, int *infestNumLok)
 {
     pmesg(" ------ STATEMENT ------\n");
+    bool canShift = true;
     Token token;
     GET_TOKEN_RAW(token, file);
     // Recursion ends if scope ends
@@ -118,10 +119,16 @@ bool STATEMENT(FILE *file, int *infestNumLok)
                 return false;
             break;
         case KEYWORD_ELSE:
-            insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
+            moveUp(1);
+            moveDownRight(1);
+            insertLeftMoveLeft(currentNode, NODE_VAR, token.type, token.value.valueString.str);
             infestNum++;
             if (!ELSE_DEF(file))
                 return false;
+            moveUp(infestNum + 1);
+            infestNum = 0;
+            canShift = false;
+            moveDownLeft(1);
             break;
         case KEYWORD_WHILE:
             insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
@@ -140,10 +147,15 @@ bool STATEMENT(FILE *file, int *infestNumLok)
             break;
         }
     }
-    moveUp(infestNum);
-    infestNum = 0;
-    insertLeftMoveLeft(currentNode, NODE_GENERAL, TOKEN_EMPTY, "");
-    *infestNumLok = *infestNumLok + 1;
+
+    // Need to be in condition because token else should have diferent aproach (inside if subtree)
+    if (canShift)
+    {
+        moveUp(infestNum);
+        infestNum = 0;
+        insertLeftMoveLeft(currentNode, NODE_GENERAL, TOKEN_EMPTY, "");
+        *infestNumLok = *infestNumLok + 1;
+    }
     pmesg(" ------ END STATEMENT ------\n");
     // Recursive calling itself for processing next code out of scope
     if (!STATEMENT(file, infestNumLok))
@@ -289,6 +301,8 @@ bool IF_DEF(FILE *file)
 {
     pmesg(" ------ IF_DEF ------\n");
     Token token;
+    insertRightMoveRight(currentNode, NODE_IF, TOKEN_EMPTY, "AUX");
+    infestNum++;
     // t_(
     GET_TOKEN_RAW(token, file);
     insertLeftMoveLeft(currentNode, NODE_IF, token.type, token.value.valueString.str);
@@ -323,6 +337,8 @@ bool ELSE_DEF(FILE *file)
     Token token;
     // t_{
     GET_TOKEN_RAW(token, file);
+    insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
+    infestNum++;
     if (token.type == TOKEN_CURLYL_BRACKET)
     {
         // SCOPE
