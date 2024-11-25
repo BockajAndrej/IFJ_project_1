@@ -495,6 +495,8 @@ bool CALL_EXT(FILE *file)
     // Function call
     if (token.type == TOKEN_LPAREN)
     {
+        insertRightMoveRight(currentNode, NODE_FUNC_CALL, token.type, token.value.valueString.str);
+        infestNum++;
         if (!ARG(file))
             return false;
         GET_TOKEN_RAW(token, file);
@@ -504,7 +506,7 @@ bool CALL_EXT(FILE *file)
     // Assignment to a variable
     else if (token.type == TOKEN_ASSIGNMENT)
     {
-        insertRightMoveRight(currentNode, NODE_FUNC_DEF, token.type, token.value.valueString.str);
+        insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
         infestNum++;
         GET_TOKEN_RAW(token, file);
         if (!EXPRESSION(file, token))
@@ -749,12 +751,9 @@ bool ARG(FILE *file)
     pmesg(" ------ ARG ------\n");
     Token token;
     GET_TOKEN_RAW(token, file);
-    if (token.type == TOKEN_IDENTIFIER)
-    {
-        if (!ARGS(file))
-            return false;
-    }
-    else if (token.type == TOKEN_STRING_LITERAL)
+    insertRightMoveRight(currentNode, NODE_FUNC_CALL, token.type, token.value.valueString.str);
+    infestNum++;
+    if (token.type == TOKEN_IDENTIFIER || token.type == TOKEN_STRING_LITERAL || token.type == TOKEN_INT_LITERAL || token.type == TOKEN_FLOAT_LITERAL)
     {
         if (!ARGS(file))
             return false;
@@ -783,6 +782,8 @@ bool ARGS(FILE *file)
     pmesg(" ------ ARGS ------\n");
     Token token;
     GET_TOKEN_RAW(token, file);
+    insertRightMoveRight(currentNode, NODE_FUNC_CALL, token.type, token.value.valueString.str);
+    infestNum++;
     if (token.type == TOKEN_RPAREN)
         return true;
     if (token.type == TOKEN_COMMA)
