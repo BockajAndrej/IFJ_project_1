@@ -42,7 +42,7 @@ typedef enum
     TYPE_VOID,
     TYPE_EMPTY,
     TYPE_NONNULL,
-    TOKEN_UNKNOWN,
+    TYPE_UNKNOWN,
 
     TYPE_U8_ARRAY //testing
 } DataType;

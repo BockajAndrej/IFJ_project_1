@@ -359,7 +359,7 @@ const char *DataTypeToString(DataType type)
         return "TYPE_NONNULL";
     case TYPE_VOID:
         return "TYPE_VOID";
-    case TOKEN_UNKNOWN:
+    case TYPE_UNKNOWN:
         return "TOKEN_UNKNOWN";
     default:
         return "UNKNOWN_DATA_TYPE";

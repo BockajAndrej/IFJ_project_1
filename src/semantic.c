@@ -22,7 +22,7 @@ DataType value_string_to_type(const char *typeStr)
     if (strcmp(typeStr, "void") == 0)
         return TYPE_VOID;
     // Add more types as needed
-    return TOKEN_UNKNOWN;
+    return TYPE_UNKNOWN;
 }
 
 // Convert DataType to string for error messages
@@ -82,11 +82,9 @@ BinaryTreeNode *move_left_until(BinaryTreeNode *node, Token_type dest)
 {
     while (node != NULL)
     {
-        node = node->left;
         if (node->tokenType == dest)
-        {
             return node;
-        }
+        node = node->left;
     }
     return NULL;
 }
@@ -95,11 +93,9 @@ BinaryTreeNode *move_right_until(BinaryTreeNode *node, Token_type dest)
 {
     while (node != NULL)
     {
-        node = node->right;
         if (node->tokenType == dest)
-        {
             return node;
-        }
+        node = node->right;
     }
     return NULL;
 }
@@ -107,13 +103,7 @@ BinaryTreeNode *move_right_until(BinaryTreeNode *node, Token_type dest)
 void process_var_declaration(BinaryTreeNode *node)
 {
     // * IDENTIFIER LOGIC
-    BinaryTreeNode *varnode = node->right;
-    if (!varnode || varnode->tokenType != TOKEN_IDENTIFIER)
-    {
-        printf("Error: Expected variable name after 'var'.\n");
-        return;
-    }
-
+    BinaryTreeNode *varnode = move_right_until(node, TOKEN_IDENTIFIER);
     char *varIdenti = varnode->strValue;
     // ? DataType varType = TYPE_UNDEFINED; zo symtable urcit?
 
@@ -121,73 +111,64 @@ void process_var_declaration(BinaryTreeNode *node)
     Token_type initType = TOKEN_EMPTY;
     char *initValue = NULL;
 
-    BinaryTreeNode *varColon = varnode->right;
-    // * COLON ":" LOGIC
-    if (varColon && varColon->tokenType == TOKEN_COLON)
+    BinaryTreeNode *varSpeci = move_right_until(varnode, TOKEN_KEYWORD);
+
+    // * DATATYPE LOGIC
+    if (varSpeci == NULL) // * skrateny vyraz typu const a = 5; napr
     {
-        BinaryTreeNode *varSpeci = varColon->right;
-        // * DATATYPE LOGIC
-        if (varSpeci && varSpeci->tokenType == TOKEN_KEYWORD)
-        {
-            varType = value_string_to_type(varSpeci->strValue);
-            if (varType == TOKEN_UNKNOWN)
-            {
-                printf("Error: Unknown type '%s' for variable '%s'.\n", varSpeci->strValue, varIdenti);
-                return;
-            }
-        }
-        else
-        {
-            printf("Error: Invalid type specifier for variable '%s'.\n", varIdenti);
-            return;
-        }
-
-        // * ASSIGN "=" LOGIC
-        BinaryTreeNode *varInit = varSpeci->right;
-        if (varInit && varInit->tokenType == TOKEN_ASSIGNMENT)
-        {
-            BinaryTreeNode *varValue = varInit->left;
-            if (varValue != NULL)
-            {
-                initType = varValue->tokenType;
-                initValue = varValue->strValue;
-
-                if (!is_type_compatible(varType, initType))
-                {
-                    printf("Type Error: Cannot assign '%s' to variable '%s' of type '%s'.\n", token_type_to_string(initType), varIdenti, value_type_to_string(varType));
-                    return;
-                }
-                // * TESTING OUTPUT
-                // Extract the value based on type
-                switch (varType)
-                {
-                case TYPE_INT:
-                    printf("Declared variable '%s' of type '%s' with value %d.\n", varIdenti, value_type_to_string(varType), atoi(initValue));
-                    break;
-                case TYPE_FLOAT:
-                    printf("Declared variable '%s' of type '%s' with value %f.\n", varIdenti, value_type_to_string(varType), atof(initValue));
-                    break;
-                case TYPE_STRING:
-                    printf("Declared variable '%s' of type '%s' with value '%s'.\n", varIdenti, value_type_to_string(varType), initValue);
-                    break;
-                // Handle other types as needed
-                default:
-                    printf("Declared variable '%s' of type '%s'.\n", varIdenti, value_type_to_string(varType));
-                    break;
-                }
-            }
-        }
-        else
-        {
-            // Declaration without initialization
-            printf("Declared variable '%s' of type '%s' without initialization.\n", varIdenti, value_type_to_string(varType));
-        }
+        varType = TYPE_UNKNOWN;
     }
     else
     {
-        // Declaration without type annotation
-        printf("Warning: Variable '%s' declared without type annotation.\n", varIdenti);
-        return;
+        varType = value_string_to_type(varSpeci->strValue);
+        if (varType == TYPE_UNKNOWN)
+        {
+            printf("Error: Unknown type '%s' for variable '%s'.\n", varSpeci->strValue, varIdenti);
+            return;
+        }
+    }
+
+    // * ASSIGN "=" LOGIC
+    BinaryTreeNode *varInit = move_right_until(varnode, TOKEN_ASSIGNMENT);
+    BinaryTreeNode *varValue = varInit->left;
+    if (varValue->type == NODE_VAR)
+    {
+        initType = varValue->tokenType;
+        initValue = varValue->strValue;
+        if (varType == TYPE_UNKNOWN)
+        {
+            // TODO function append type to variable
+            
+        }
+        
+
+        if (!is_type_compatible(varType, initType))
+        {
+            printf("Type Error: Cannot assign '%s' to variable '%s' of type '%s'.\n", token_type_to_string(initType), varIdenti, value_type_to_string(varType));
+            return;
+        }
+        // * TESTING OUTPUT
+        // Extract the value based on type
+        switch (varType)
+        {
+        case TYPE_INT:
+            printf("Declared variable '%s' of type '%s' with value %d.\n", varIdenti, value_type_to_string(varType), atoi(initValue));
+            break;
+        case TYPE_FLOAT:
+            printf("Declared variable '%s' of type '%s' with value %f.\n", varIdenti, value_type_to_string(varType), atof(initValue));
+            break;
+        case TYPE_STRING:
+            printf("Declared variable '%s' of type '%s' with value '%s'.\n", varIdenti, value_type_to_string(varType), initValue);
+            break;
+        // Handle other types as needed
+        default:
+            printf("Declared variable '%s' of type '%s'.\n", varIdenti, value_type_to_string(varType));
+            break;
+        }
+    }
+    else if (varValue->type == NODE_OP)
+    {
+        // DataType varExpressType = process_expression(varValue);
     }
 }
 
@@ -224,8 +205,8 @@ void process_func_def(BinaryTreeNode *funcDefNode)
     BinaryTreeNode *funcReturnExp_type = ProcessTree(funcBody);
 
     DataType returnExp_type = process_func_return(funcReturnExp_type);
-    printf("return Def Type %s\n", value_type_to_string(returnDef_type));
-    printf("return Exp Type %s\n", value_type_to_string(returnExp_type));
+    printf("return Defined Type %s\n", value_type_to_string(returnDef_type));
+    printf("return Real Type %s\n", value_type_to_string(returnExp_type));
 
     if (are_types_compatible(returnDef_type, returnExp_type))
     {
@@ -235,6 +216,7 @@ void process_func_def(BinaryTreeNode *funcDefNode)
     {
         printf("Return def type and return expression type do NOT MATCH\n");
     }
+    printf("Exiting function '%s' body.\n", funcName_str);
     return;
 }
 
@@ -298,6 +280,7 @@ DataType process_expression(BinaryTreeNode *returnNode)
     {
         return TYPE_EMPTY;
     }
+
     return TYPE_BOOL;
 }
 
@@ -313,6 +296,7 @@ BinaryTreeNode *ProcessTree(BinaryTreeNode *root)
     {
         if (node->type == NODE_GENERAL)
         {
+
             node = node->right;
             switch (node->tokenType)
             {
@@ -339,20 +323,17 @@ BinaryTreeNode *ProcessTree(BinaryTreeNode *root)
             default:
                 break;
             }
-            printf("Seg fault tu\n");
 
             node = node->parent;
             node = node->left;
         }
-        else if (node->type == NODE_GENERAL && node->left != NULL)
+
+        if (node->left == NULL && node->right == NULL)
         {
-            return root;
-        }
-        else
-        {
-            return root;
+            break;
         }
     }
+
     return root; // ?
 }
 
