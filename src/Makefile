@@ -14,7 +14,7 @@ TEST_SCRIPT=$(DEST_DIR)/is_it_ok.sh
 # UNIT-TESTS
 TEST_UNIT_CFLAGS = -I../tests/Unity/src/ -I./
 # Dependent files (if something can not recognice add there that c file)
-TEST_UNIT_SOURCES = ./ast.c ./stack.c ./newstring.c ./lexical_analyser.c ./syntactic_analysis.c ../tests/Unity/src/unity.c
+TEST_UNIT_SOURCES = ./stack.c ./ast.c ./newstring.c ./lexical_analyser.c ./semantic.c ./symtable.c ./syntactic_analysis.c ../tests/Unity/src/unity.c
 TEST_UNIT_SCRIPT=$(DEST_DIR)/uni_tests.c
 
 # ZIP

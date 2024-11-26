@@ -64,5 +64,5 @@ bool VAR_TYPE(Token t);
 bool VAL_TYPE(Token t);
 bool FN_TYPE(Token t);
 
-int find_OP(const int N, char table[N][N], Token token, Stack *precStack);
+void find_OP(const int N, char table[N][N], Token token, Stack *precStack, int *character, int *numOfLPar);
 #endif

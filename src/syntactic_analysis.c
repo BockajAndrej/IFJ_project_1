@@ -80,6 +80,7 @@ bool FIRST(FILE *file)
 bool STATEMENT(FILE *file, int *infestNumLok)
 {
     pmesg(" ------ STATEMENT ------\n");
+    bool canShift = true;
     Token token;
     GET_TOKEN_RAW(token, file);
     // Recursion ends if scope ends
@@ -118,10 +119,16 @@ bool STATEMENT(FILE *file, int *infestNumLok)
                 return false;
             break;
         case KEYWORD_ELSE:
-            insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
+            moveUp(1);
+            moveDownRight(1);
+            insertLeftMoveLeft(currentNode, NODE_VAR, token.type, token.value.valueString.str);
             infestNum++;
             if (!ELSE_DEF(file))
                 return false;
+            moveUp(infestNum + 1);
+            infestNum = 0;
+            canShift = false;
+            moveDownLeft(1);
             break;
         case KEYWORD_WHILE:
             insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
@@ -140,10 +147,16 @@ bool STATEMENT(FILE *file, int *infestNumLok)
             break;
         }
     }
-    moveUp(infestNum);
-    infestNum = 0;
-    insertLeftMoveLeft(currentNode, NODE_GENERAL, TOKEN_EMPTY, "");
-    *infestNumLok = *infestNumLok + 1;
+
+    // Need to be in condition because token else should have diferent aproach (inside if subtree)
+    if (canShift)
+    {
+        // Create new general_node for next command
+        moveUp(infestNum);
+        infestNum = 0;
+        insertLeftMoveLeft(currentNode, NODE_GENERAL, TOKEN_EMPTY, "");
+        *infestNumLok = *infestNumLok + 1;
+    }
     pmesg(" ------ END STATEMENT ------\n");
     // Recursive calling itself for processing next code out of scope
     if (!STATEMENT(file, infestNumLok))
@@ -289,19 +302,20 @@ bool IF_DEF(FILE *file)
 {
     pmesg(" ------ IF_DEF ------\n");
     Token token;
+    insertRightMoveRight(currentNode, NODE_IF, TOKEN_EMPTY, "AUX");
+    infestNum++;
     // t_(
     GET_TOKEN_RAW(token, file);
-    insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+    insertLeftMoveLeft(currentNode, NODE_IF, token.type, token.value.valueString.str);
     infestNum++;
     if (token.type != TOKEN_LPAREN)
         return false;
-
+    // printf("INF - %d , token - %s\n", infestNum, token.value.valueString.str);
+    // if(EXP)
     GET_TOKEN_RAW(token, file);
-    insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
-    infestNum++;
     if (!EXPRESSION(file, token))
         return false;
-
+    // if(EXP)|ID|
     if (!IF_EXT(file))
         return false;
     pmesg(" ------ END IF_DEF ------\n");
@@ -323,6 +337,8 @@ bool ELSE_DEF(FILE *file)
     Token token;
     // t_{
     GET_TOKEN_RAW(token, file);
+    insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
+    infestNum++;
     if (token.type == TOKEN_CURLYL_BRACKET)
     {
         // SCOPE
@@ -347,6 +363,8 @@ bool WHILE_DEF(FILE *file)
     // t_(
     Token token;
     GET_TOKEN_RAW(token, file);
+    insertLeftMoveLeft(currentNode, NODE_IF, token.type, token.value.valueString.str);
+    infestNum++;
     if (token.type != TOKEN_LPAREN)
         return false;
 
@@ -356,6 +374,10 @@ bool WHILE_DEF(FILE *file)
 
     // t_{
     GET_TOKEN_RAW(token, file);
+    moveDownRight(1);
+    infestNum++;
+    insertRightMoveRight(currentNode, NODE_IF, token.type, token.value.valueString.str);
+    infestNum++;
     if (token.type == TOKEN_CURLYL_BRACKET)
     {
         // SCOPE
@@ -421,15 +443,30 @@ bool IF_EXT(FILE *file)
     GET_TOKEN_RAW(token, file);
     if (token.type == TOKEN_PIPE)
     {
+        moveDownRight(1);
+        moveDownLeft(1);
+        infestNum++;
+        insertRightMoveRight(currentNode, NODE_IF, token.type, token.value.valueString.str);
         GET_TOKEN_RAW(token, file);
+        insertRightMoveRight(currentNode, NODE_IF, token.type, token.value.valueString.str);
         if (token.type != TOKEN_IDENTIFIER)
             return false;
         GET_TOKEN_RAW(token, file);
+        insertRightMoveRight(currentNode, NODE_IF, token.type, token.value.valueString.str);
         if (token.type != TOKEN_PIPE)
             return false;
+        moveUp(4);
         GET_TOKEN_RAW(token, file);
     }
+    else
+    {
+        moveDownRight(1);
+        infestNum++;
+    }
     // SCOPE
+    // TODO posuvanie nizsie lebo nieco pravdepodobne v expressions do dava velmi vysoko
+    insertRightMoveRight(currentNode, NODE_IF, token.type, token.value.valueString.str);
+    infestNum++;
     if (token.type == TOKEN_CURLYL_BRACKET)
     {
         if (!SCOPE(file))
@@ -458,6 +495,8 @@ bool CALL_EXT(FILE *file)
     // Function call
     if (token.type == TOKEN_LPAREN)
     {
+        insertRightMoveRight(currentNode, NODE_FUNC_CALL, token.type, token.value.valueString.str);
+        infestNum++;
         if (!ARG(file))
             return false;
         GET_TOKEN_RAW(token, file);
@@ -467,13 +506,11 @@ bool CALL_EXT(FILE *file)
     // Assignment to a variable
     else if (token.type == TOKEN_ASSIGNMENT)
     {
-        insertRightMoveRight(currentNode, NODE_FUNC_DEF, token.type, token.value.valueString.str);
+        insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
         infestNum++;
         GET_TOKEN_RAW(token, file);
         if (!EXPRESSION(file, token))
             return false;
-        insertRightMoveRight(currentNode, NODE_FUNC_DEF, token.type, token.value.valueString.str);
-        infestNum++;
     }
     // Object function
     else if (token.type == TOKEN_DOT)
@@ -714,12 +751,9 @@ bool ARG(FILE *file)
     pmesg(" ------ ARG ------\n");
     Token token;
     GET_TOKEN_RAW(token, file);
-    if (token.type == TOKEN_IDENTIFIER)
-    {
-        if (!ARGS(file))
-            return false;
-    }
-    else if (token.type == TOKEN_STRING_LITERAL)
+    insertRightMoveRight(currentNode, NODE_FUNC_CALL, token.type, token.value.valueString.str);
+    infestNum++;
+    if (token.type == TOKEN_IDENTIFIER || token.type == TOKEN_STRING_LITERAL || token.type == TOKEN_INT_LITERAL || token.type == TOKEN_FLOAT_LITERAL)
     {
         if (!ARGS(file))
             return false;
@@ -748,6 +782,8 @@ bool ARGS(FILE *file)
     pmesg(" ------ ARGS ------\n");
     Token token;
     GET_TOKEN_RAW(token, file);
+    insertRightMoveRight(currentNode, NODE_FUNC_CALL, token.type, token.value.valueString.str);
+    infestNum++;
     if (token.type == TOKEN_RPAREN)
         return true;
     if (token.type == TOKEN_COMMA)
@@ -807,6 +843,8 @@ bool EXPRESSION(FILE *file, Token token)
     initStack(&precStack, curPrecItem.type);
     initStack(&ruleStack, curRuleItem.type);
 
+    int numOfLPar = 0;
+    int tmp_char = 0;
     const int N = 10;
     char table[10][10] = {
         {'<', '<', '<', '<', '<', '<', '<', '>', '<', '>'},
@@ -820,7 +858,7 @@ bool EXPRESSION(FILE *file, Token token)
         {'>', '>', '>', '>', '>', 'X', 'X', '>', 'X', '>'},
         {'<', '<', '<', '<', '<', '<', '<', 'X', '<', ' '}};
 
-    int tmp_char = find_OP(N, table, token, &precStack);
+    find_OP(N, table, token, &precStack, &tmp_char, &numOfLPar);
 
     // Ends when it gen ' ' (means: $$)
     while (tmp_char != ' ')
@@ -906,7 +944,7 @@ bool EXPRESSION(FILE *file, Token token)
 
             if (!isExpressionCorrect)
             {
-                printf("STATE = %d", state);
+                // printf("STATE = %d", state);
                 return false;
             }
             // Vkladanie neterminalu
@@ -952,10 +990,10 @@ bool EXPRESSION(FILE *file, Token token)
         {
             GET_TOKEN_RAW(token, file);
         }
-        tmp_char = find_OP(N, table, token, &precStack);
+        find_OP(N, table, token, &precStack, &tmp_char, &numOfLPar);
     }
 
-    // printf("------ NUMOF inf: %d\n", infestNum);
+    // printf("------1 NUMOF inf: %d\n", infestNum);
     // Naplnenie stromu
     bool dirRight = true;
     for (int i = 0; !isEmpty(ruleStack.top); i++)
@@ -974,7 +1012,8 @@ bool EXPRESSION(FILE *file, Token token)
             else
             {
                 insertLeft(currentNode, NODE_VAR, curRuleItem.data.token_type, curRuleItem.data.token_val.valueString.str);
-                while (!moveUp(0)){
+                while (!moveUp(0))
+                {
                     // printf("_________HERE_______ : %s\n", curRuleItem.data.token_val.valueString.str);
                     moveUp(1);
                     infestNum--;
@@ -997,7 +1036,7 @@ bool EXPRESSION(FILE *file, Token token)
             infestNum++;
         }
     }
-    // printf("------ NUMOF inf: %d\n", infestNum);
+    // printf("------2 NUMOF inf: %d\n", infestNum);
     freeStack(&precStack);
     freeStack(&ruleStack);
     pmesg(" ------ END EXPRESSION ------\n");
@@ -1033,7 +1072,7 @@ bool FN_TYPE(Token t)
 }
 
 // Nájde index operátora v tabuľke
-int find_OP(const int N, char table[N][N], Token token, Stack *precStack)
+void find_OP(const int N, char table[N][N], Token token, Stack *precStack, int *character, int *numOfLPar)
 {
     int x = -1, y = -1;
 
@@ -1061,9 +1100,14 @@ int find_OP(const int N, char table[N][N], Token token, Stack *precStack)
         break;
     case TOKEN_LPAREN:
         x = 6;
+        *numOfLPar = *numOfLPar + 1;
         break;
     case TOKEN_RPAREN:
         x = 7;
+        if (*numOfLPar <= 0)
+            x = 9;
+        else
+            *numOfLPar = *numOfLPar - 1;
         break;
     case TOKEN_IDENTIFIER:
         x = 5;
@@ -1126,6 +1170,7 @@ int find_OP(const int N, char table[N][N], Token token, Stack *precStack)
 
     // printf("IN THAT: X = %d, Y = %d\n", x, y);
     if (x < 0 || y < 0)
-        return EOF;
-    return table[y][x];
+        *character = EOF;
+    else
+        *character = table[y][x];
 }
