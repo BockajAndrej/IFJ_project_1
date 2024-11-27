@@ -1,7 +1,6 @@
 #include "syntactic_analysis.h"
 
-// TODO : 1. Pocitanie tokenov (kazdy riadok resetuje)
-// TODO : 2. Nefunkcny scope len na jeden riadok (bez {}) vytvorit vo funkcii ktora funkciu scope vola
+// TODO : 1. Nefunkcny scope len na jeden riadok (bez {}) vytvorit vo funkcii ktora funkciu scope vola
 static int infestNum = 0;
 static int scopeNum = 0;
 typedef enum
@@ -336,11 +335,12 @@ bool IF_DEF(FILE *file)
     infestNum++;
     if (token.type != TOKEN_LPAREN)
         return false;
-    // printf("INF - %d , token - %s\n", infestNum, token.value.valueString.str);
+    printf("INF 1 - %d , token - %s\n", infestNum, token.value.valueString.str);
     // if(EXP)
     GET_TOKEN_RAW(token, file);
     if (!EXPRESSION(file, token))
         return false;
+    printf("INF 2 - %d , token - %s\n", infestNum, token.value.valueString.str);
     // if(EXP)|ID|
     if (!IF_EXT(file))
         return false;
@@ -538,7 +538,8 @@ bool CALL_EXT(FILE *file)
         if (!EXPRESSION(file, token))
             return false;
     }
-    else if (token.type == TOKEN_COLON){
+    else if (token.type == TOKEN_COLON)
+    {
         insertRightMoveRight(currentNode, NODE_FUNC_CALL, token.type, token.value.valueString.str);
         infestNum++;
         GET_TOKEN_RAW(token, file);
@@ -1036,10 +1037,11 @@ bool EXPRESSION(FILE *file, Token token)
         find_OP(N, table, token, &precStack, &tmp_char, &numOfLPar);
     }
 
-    // printf("------1 NUMOF inf: %d\n", infestNum);
+    printf("------1 NUMOF inf: %d\n", infestNum);
     // Naplnenie stromu
     bool dirRight = true;
-    for (int i = 0; !isEmpty(ruleStack.top); i++)
+    int i = 0;
+    for (i = 0; !isEmpty(ruleStack.top); i++)
     {
         RemoveTop(&ruleStack, &curRuleItem);
         if (curRuleItem.data.token_type == TOKEN_IDENTIFIER || curRuleItem.data.token_type == TOKEN_INT_LITERAL || curRuleItem.data.token_type == TOKEN_FLOAT_LITERAL)
@@ -1049,8 +1051,10 @@ bool EXPRESSION(FILE *file, Token token)
                 if (i == 0)
                     insertLeft(currentNode, NODE_VAR, curRuleItem.data.token_type, curRuleItem.data.token_val.valueString.str);
                 else
+                {
                     insertRight(currentNode, NODE_VAR, curRuleItem.data.token_type, curRuleItem.data.token_val.valueString.str);
-                dirRight = false;
+                    dirRight = false;
+                }
             }
             else
             {
@@ -1079,7 +1083,13 @@ bool EXPRESSION(FILE *file, Token token)
             infestNum++;
         }
     }
-    // printf("------2 NUMOF inf: %d\n", infestNum);
+    if (i == 1)
+    {
+        moveUp(2);
+        infestNum--;
+        infestNum--;
+    }
+    printf("------2 NUMOF inf: %d\n", infestNum);
     freeStack(&precStack);
     freeStack(&ruleStack);
     pmesg(" ------ END EXPRESSION ------\n");

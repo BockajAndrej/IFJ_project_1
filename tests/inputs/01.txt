@@ -5,7 +5,7 @@ const ifj = @import("ifj24.zig");
 pub fn main() void
 {
     // ifj.write("Zadejte cislo pro vypocet faktorialu: ");
-    const inp = ifj.readi32();
+    // const inp = ifj.readi32();
     if (inp) | INP |
         {
             if (INP < 0)
@@ -14,14 +14,14 @@ pub fn main() void
             }
             else
             {
-                const vysl = factorial(INP);
+                //const vysl = factorial(INP);
                 vysl = 25;
-                //ifj.write("Vysledek: ");
+                ifj.write("Vysledek: ");
                 //ifj.write(vysl);
             }
         }
     else
     {
-        //ifj.write("Chyba pri nacitani celeho cisla!\n");
+        ifj.write("Chyba pri nacitani celeho cisla!\n");
     }
 }

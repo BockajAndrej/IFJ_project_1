@@ -150,7 +150,7 @@ void moveDownRight()
     }
     else
     {
-        printf("Error: Cannot move right from the current node.\n");
+        printf("Error: Cannot move right from the current node. (%s)\n", currentNode->strValue);
         exit(EXIT_FAILURE);
     }
 }
