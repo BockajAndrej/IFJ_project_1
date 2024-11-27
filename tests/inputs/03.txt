@@ -1,13 +1,11 @@
 pub fn main() void
 {
-if (array != 0) {
-ifj.write("Array is not null");
-}
-}
-
-pub fn main() void
-{
-while (counter > 0) {
-counter = counter - 1;
-}
+    if (array != 0) {
+        ifj.write("Array is not null");
+    }
+    while(x) |INP|
+    {
+        ifj.write("Array is not null");
+    }
+    return 0;
 }
