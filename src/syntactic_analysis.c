@@ -338,12 +338,10 @@ bool IF_DEF(FILE *file)
     infestNum++;
     if (token.type != TOKEN_LPAREN)
         return false;
-    printf("INF 1 - %d , token - %s\n", infestNum, token.value.valueString.str);
     // if(EXP)
     GET_TOKEN_RAW(token, file);
     if (!EXPRESSION(file, token))
         return false;
-    printf("INF 2 - %d , token - %s\n", infestNum, token.value.valueString.str);
     // if(EXP)|ID|
     if (!IF_EXT(file))
         return false;
@@ -389,30 +387,20 @@ bool ELSE_DEF(FILE *file)
 bool WHILE_DEF(FILE *file)
 {
     pmesg(" ------ WHILE_DEF ------\n");
-    // t_(
     Token token;
+    // t_(
     GET_TOKEN_RAW(token, file);
     insertLeftMoveLeft(currentNode, NODE_IF, token.type, token.value.valueString.str);
     infestNum++;
     if (token.type != TOKEN_LPAREN)
         return false;
-
+    // while(EXP)
     GET_TOKEN_RAW(token, file);
     if (!EXPRESSION(file, token))
         return false;
-
-    // t_{
-    GET_TOKEN_RAW(token, file);
-    moveDownRight(1);
-    infestNum++;
-    insertRightMoveRight(currentNode, NODE_IF, token.type, token.value.valueString.str);
-    infestNum++;
-    if (token.type == TOKEN_CURLYL_BRACKET)
-    {
-        // SCOPE
-        if (!SCOPE(file))
-            return false;
-    }
+    // while(EXP)|ID|
+    if (!IF_EXT(file))
+        return false;
     pmesg(" ------ END WHILE_DEF ------\n");
     return true;
 }
@@ -493,7 +481,7 @@ bool IF_EXT(FILE *file)
         infestNum++;
     }
     // SCOPE
-    // TODO posuvanie nizsie lebo nieco pravdepodobne v expressions do dava velmi vysoko
+    // TODO posuvanie nizsie lebo nieco pravdepodobne v expressions to dava velmi vysoko
     insertRightMoveRight(currentNode, NODE_IF, token.type, token.value.valueString.str);
     infestNum++;
     if (token.type == TOKEN_CURLYL_BRACKET)
@@ -721,8 +709,8 @@ bool SCOPE(FILE *file)
     scopeNum++;
     if (!STATEMENT(file, &tmpLokinfest))
         return false;
-    printf("SCOPE inf = %d\n", infestNum);
-    printf("SCOPE num = %d\n", scopeNum);
+    // printf("SCOPE inf = %d\n", infestNum);
+    // printf("SCOPE num = %d\n", scopeNum);
     moveUp(tmpLokinfest);
     scopeNum--;
     infestNum = tmp;
