@@ -11,24 +11,26 @@
 #include "semantic.h"
 #include "symtable.h"
 
-
-void print_table(SymbolTable *table) {
+void print_table(SymbolTable *table)
+{
     Symbol *current = table->head;
 
     printf("Current symbol table:\n");
-    while (current) {
+    while (current)
+    {
         printf(" - Name: %s, ", current->name);
 
-        switch (current->type) {
-            case VALUE_INT:
-                printf("Value: %d (int)\n", current->value.intValue);
-                break;
-            case VALUE_FLOAT:
-                printf("Value: %.2f (float)\n", current->value.floatValue);
-                break;
-            case VALUE_STRING:
-                printf("Value: %s (string)\n", current->value.strValue);
-                break;
+        switch (current->type)
+        {
+        case VALUE_INT:
+            printf("Value: %d (int)\n", current->value.intValue);
+            break;
+        case VALUE_FLOAT:
+            printf("Value: %.2f (float)\n", current->value.floatValue);
+            break;
+        case VALUE_STRING:
+            printf("Value: %s (string)\n", current->value.strValue);
+            break;
         }
 
         current = current->next;
@@ -36,7 +38,8 @@ void print_table(SymbolTable *table) {
     printf("\n");
 }
 
-void test_hash_table() {
+void test_hash_table()
+{
     SymbolTable *table = create_table();
     printf("After creating the table:\n");
     print_table(table);
@@ -58,7 +61,8 @@ void test_hash_table() {
     print_table(table);
 
     Symbol *s = search_symbol(table, "pi");
-    if (s && s->type == VALUE_FLOAT) {
+    if (s && s->type == VALUE_FLOAT)
+    {
         printf("Found: %s -> %.2f\n", s->name, s->value.floatValue);
     }
 
@@ -69,16 +73,16 @@ void test_hash_table() {
     free_table(table);
 }
 
-
 int main(int argc, char **argv)
 {
     FILE *file;
     BinaryTreeNode *root = createBinaryNode(NODE_GENERAL, TOKEN_EMPTY, "");
     setStartNode(root);
 
-    if(argc == 1){
-        //test_hash_table();
-        //ast_test(); nepouzivaj
+    if (argc == 1)
+    {
+        // test_hash_table();
+        // ast_test(); nepouzivaj
         ast_valdef();
         ast_val_expression();
         ast_IfElse_1();
@@ -99,14 +103,26 @@ int main(int argc, char **argv)
     if (file == NULL)
         perror("Failed to open file");
 
-    // Syntactic analysis
-    if (!FIRST(file))
+    // // Syntactic analysis
+    // if (!FIRST(file))
+    // {
+    //     printf("%s", " --- WRONG END --- \n");
+    //     return 1;
+    // }
+    // printBinaryTree(root);
+    // printf("%s", " --- ENDED SUCESFULLY --- \n");
+
+    Token token;
+    printf("Token Type\tValue\t\tKeyword Value\n");
+    printf("----------------------------------------------------------\n");
+
+    do
     {
-        printf("%s", " --- WRONG END --- \n");
-        return 1;
-    }
-    printBinaryTree(root);
-    printf("%s", " --- ENDED SUCESFULLY --- \n");
+        token = get_token(file);
+        print_token(token);
+
+        dynamic_string_free(&token.value.valueString);
+    } while (token.type != TOKEN_EOF); // Continue until EOF
 
     fclose(file); // Nezabudni zavrieť súbor
     return EXIT_SUCCESS;

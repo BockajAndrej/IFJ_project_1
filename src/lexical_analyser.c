@@ -14,7 +14,7 @@
  *
  * Update this value if more keywords are added to the language.
  */
-#define KEYWORD_COUNT 13 // Update this if you add more keywords
+#define KEYWORD_COUNT 18 // Update this if you add more keywords
 
 /**
  * @var keywords
@@ -30,6 +30,11 @@ const char *keywords[KEYWORD_COUNT] = {
     "i32",    // KEYWORD_I32
     "f64",    // KEYWORD_F64
     "u8",     // KEYWORD_U8
+    "[]u8",   // KEYWORD_U8_ARRAY
+    "?i32",   // KEYWORD_I32_NULL
+    "?f64",   // KEYWORD_F64_NULL
+    "?u8",    // KEYWORD_U8_NULL
+    "?[]u8",  // KEYWORD_U8_ARRAY_NULL
     "null",   // KEYWORD_NULL
     "pub",    // KEYWORD_PUB
     "return", // KEYWORD_RETURN
@@ -267,6 +272,7 @@ Token get_token(FILE *file)
     }
 
     char c;
+    bool invalid = false;
 
     while (1)
     {
@@ -370,12 +376,12 @@ Token get_token(FILE *file)
             }
             else if (c == '[')
             {
-                // dynamic_string_add_char(&token.value.valueString, c);
-                // state = sIdentifierorKeyword;
-
                 dynamic_string_add_char(&token.value.valueString, c);
-                token.type = TOKEN_LEFT_BRACKET;
-                return token;
+                state = sIdentifierorKeyword;
+
+                // dynamic_string_add_char(&token.value.valueString, c);
+                // token.type = TOKEN_LEFT_BRACKET;
+                // return token;
             }
             else if (c == ']')
             {
@@ -412,9 +418,12 @@ Token get_token(FILE *file)
             }
             else if (c == '?') // Question mark
             {
+                state = sQuestionmark;
                 dynamic_string_add_char(&token.value.valueString, c);
-                token.type = TOKEN_QUESTION_MARK;
-                return token;
+
+                // dynamic_string_add_char(&token.value.valueString, c);
+                // token.type = TOKEN_QUESTION_MARK;
+                // return token;
             }
             else if (c == '+') // Addition operator
             {
@@ -474,24 +483,59 @@ Token get_token(FILE *file)
                 state = sExclamation;
             }
             break;
-
-        case sIdentifierorKeyword:
+        case sQuestionmark:
         {
-            if (isalnum(c) || c == '_')
+            invalid = true;
+            if (isalpha(c) || c == '[')
             {
-                dynamic_string_add_char(&token.value.valueString, c);
-                state = sIdentifierorKeyword;
+                dynamic_string_add_char(&token.value.valueString, c); // Add to token
+                state = sIdentifierorKeyword;                         // Transition to identifier state
             }
             else
             {
-                ungetc(c, file);
-                if (is_keyword(&token))
-                    token.type = TOKEN_KEYWORD;
-                else
-                    token.type = TOKEN_IDENTIFIER;
-
+                ungetc(c, file);              // Return the character back to input
+                token.type = TOKEN_UNDEFINED; // Invalid token
                 return token;
             }
+        }
+        break;
+        case sIdentifierorKeyword:
+        {
+            // Počkáme na další znak, dokud nezjistíme, že je identifikátor kompletní
+            while (!isspace(c))
+            {
+                // Přidáme znak do dynamického řetězce
+                dynamic_string_add_char(&token.value.valueString, c);
+                c = (char)getc(file); // Načti další znak
+
+                // Kontrola na neplatné znaky
+                if (!isalpha(c) && !isdigit(c) && c != '_')
+                {
+                    if (c != EOF && !isspace(c))
+                    {
+                        invalid = true;
+                    }
+                }
+            }
+
+            // Ukončujeme identifikátor
+            ungetc(c, file);
+
+            if (is_keyword(&token))
+            {
+                token.type = TOKEN_KEYWORD;
+            }
+            else if (invalid)
+            {
+                token.type = TOKEN_UNDEFINED;
+                invalid = false;
+            }
+            else
+            {
+                token.type = TOKEN_IDENTIFIER;
+            }
+
+            return token;
         }
         break;
         case sIntLiteral:
