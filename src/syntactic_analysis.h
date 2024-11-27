@@ -16,7 +16,7 @@
 #include "stack.h"
 #include "error.h"
 
-// #define NDEBUG
+#define NDEBUG
 
 #ifndef NDEBUG // if not defined NDEBUG (no debugging)
 #define pmesg(s) fprintf(stderr, "Line: %u - " s, __LINE__)
@@ -45,7 +45,7 @@ bool RET_DEF(FILE *file);
 bool CALL_DEF(FILE *file);
 
 bool IF_EXT(FILE *file);
-bool CALL_EXT(FILE *file);
+bool CALL_EXT(FILE *file, bool isAlreadyFn);
 bool CALL_OBJ(FILE *file);
 
 bool ASSIGN_VAR(FILE *file);
