@@ -104,25 +104,25 @@ int main(int argc, char **argv)
         perror("Failed to open file");
 
     // // Syntactic analysis
-    // if (!FIRST(file))
-    // {
-    //     printf("%s", " --- WRONG END --- \n");
-    //     return 1;
-    // }
-    // printBinaryTree(root);
-    // printf("%s", " --- ENDED SUCESFULLY --- \n");
-
-    Token token;
-    printf("Token Type\tValue\t\tKeyword Value\n");
-    printf("----------------------------------------------------------\n");
-
-    do
+    if (!FIRST(file))
     {
-        token = get_token(file);
-        print_token(token);
+        printf("%s", " --- WRONG END --- \n");
+        return 1;
+    }
+    printBinaryTree(root);
+    printf("%s", " --- ENDED SUCESFULLY --- \n");
 
-        dynamic_string_free(&token.value.valueString);
-    } while (token.type != TOKEN_EOF); // Continue until EOF
+    // Token token;
+    // printf("Token Type\tValue\t\tKeyword Value\n");
+    // printf("----------------------------------------------------------\n");
+
+    // do
+    // {
+    //     token = get_token(file);
+    //     print_token(token);
+
+    //     dynamic_string_free(&token.value.valueString);
+    // } while (token.type != TOKEN_EOF); // Continue until EOF
 
     fclose(file); // Nezabudni zavrieť súbor
     return EXIT_SUCCESS;
