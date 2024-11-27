@@ -1,6 +1,7 @@
 #include "syntactic_analysis.h"
 
 // TODO : 1. Nefunkcny scope len na jeden riadok (bez {}) vytvorit vo funkcii ktora funkciu scope vola
+// TODO : 2. Riesit duplikaciu pre while a if (je to skoro rovnake xd)
 static int infestNum = 0;
 static int scopeNum = 0;
 typedef enum
@@ -572,7 +573,16 @@ bool CALL_EXT(FILE *file, bool isAlreadyFn)
     pmesg(" ------ END CALL_EXT ------\n");
     return true;
 }
-// TODO: spracovanie aj s viacerymi parametrami
+/** @brief Extended function for CALL_EXT()
+ *  @details Processes build in functions with object type 
+ *  @param file A pointer to the file being analyzed.
+ *  @return If syntactic analysis pass return true otherwise false
+ *  Use case:
+ *  @code
+ *  @import(t_string);
+ *  EXPRESSIONS;
+ *  @endcode
+ */
 bool CALL_OBJ(FILE *file)
 {
     pmesg(" ------ CALL_OBJ ------\n");
@@ -589,8 +599,7 @@ bool CALL_OBJ(FILE *file)
     infestNum++;
     if (token.type != TOKEN_LPAREN)
         return false;
-    // t_string
-    // TODO: sem asi skor zadat neterminal arg len vymysliet aby bol string prvy
+    // Arguments
     if (!ARG(file))
         return false;
     // t_;
@@ -897,7 +906,7 @@ bool EXPRESSION(FILE *file, Token token)
         {'>', '>', '>', '<', '<', '<', '<', '>', '<', '>'},
         {'>', '>', '>', '<', '>', '<', '<', '>', '<', '>'},
         {'>', '>', '>', '>', '>', '<', '<', '>', '<', '>'},
-        {'>', '>', '>', '>', 'X', '<', '<', '>', '<', '>'},
+        {'>', '>', '>', '>', '>', '<', '<', '>', '<', '>'},
         {'>', '>', '>', '>', '>', 'X', 'X', '>', 'X', '>'},
         {'<', '<', '<', '<', '<', '<', '<', '=', '<', 'X'},
         {'>', '>', '>', '>', '>', 'X', 'X', '>', 'X', '>'},

@@ -1,6 +1,7 @@
 // Program 3: Prace s retezci a vestavenymi funkcemi 
 const ifj = @import("ifj24.zig"); 
-// Hlavni funkce pub fn main() void 
+// Hlavni funkce 
+pub fn main() void 
 { 
     const str1 = ifj.string("Toto je text v programu jazyka IFJ24"); 
     var str2 = ifj.string(", ktery jeste trochu obohatime"); 
@@ -21,7 +22,7 @@ const ifj = @import("ifj24.zig");
             ifj.write("Spravne zadano!\n"); 
             ifj.write(all); 
             // vypsat spojene nepodarene vstupy 
-            newInput = null; 
+            newInput = 0; 
             // misto break; 
         } 
         else 
