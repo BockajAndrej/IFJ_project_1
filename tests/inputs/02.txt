@@ -16,12 +16,10 @@ pub fn factorial(n : i32) i32
         result = 1;
         n = a * b + c * d/8 ;
         factorial(decremented_n, 1, b);
-        factorial(decremented_n);
     }
     else
     {
         result = n * temp_result;
-        factorial(decremented_n);
     }
-    return result;
+    return x+2;
 }

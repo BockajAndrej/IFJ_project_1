@@ -92,6 +92,8 @@ bool STATEMENT(FILE *file, int *infestNumLok)
         if (!CALL_DEF(file))
             return false;
     }
+    else if(token.type == TOKEN_SEMICOLON)
+        ;
     // For sure if it is not keyword to be return false
     else if (token.type != TOKEN_KEYWORD)
         return false;
@@ -154,6 +156,7 @@ bool STATEMENT(FILE *file, int *infestNumLok)
         moveUp(infestNum);
         infestNum = 0;
         insertLeftMoveLeft(currentNode, NODE_GENERAL, TOKEN_EMPTY, "");
+        // Number of all commands in SCOPE
         *infestNumLok = *infestNumLok + 1;
     }
     pmesg(" ------ END STATEMENT ------\n");
@@ -1033,10 +1036,6 @@ bool EXPRESSION(FILE *file, Token token)
         // TODO Prerobit aby az nakonci hadzalo false (memory leak)
         else
             return false;
-        // printf("RULES -----------\n");
-        // PrintAllStack(&ruleStack);
-        // printf("PREC ------------\n");
-        // PrintAllStack(&precStack);
 
         // Znaci ze prebelha redukcia a chceme spracovat rovnaky token
         if (!isExpressionCorrect)
@@ -1068,7 +1067,7 @@ bool EXPRESSION(FILE *file, Token token)
         find_OP(N, table, token, &precStack, &tmp_char, &numOfLPar);
     }
 
-    // printf("------1 NUMOF inf: %d\n", infestNum);
+    printf("------1 NUMOF inf: %d\n", infestNum);
     // Naplnenie stromu
     bool dirRight = true;
     int i = 0;
@@ -1116,11 +1115,14 @@ bool EXPRESSION(FILE *file, Token token)
     }
     if (i == 1)
     {
-        moveUp(2);
+        moveUp(1);
         infestNum--;
-        infestNum--;
+        if(infestNum != 0){
+            moveUp(1);
+            infestNum--;
+        }
     }
-    // printf("------2 NUMOF inf: %d\n", infestNum);
+    printf("------2 NUMOF inf: %d\n", infestNum);
     freeStack(&precStack);
     freeStack(&ruleStack);
     pmesg(" ------ END EXPRESSION ------\n");

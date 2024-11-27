@@ -24,4 +24,5 @@ pub fn main() void
     {
         ifj.write("Chyba pri nacitani celeho cisla!\n");
     }
+    return 0;
 }
