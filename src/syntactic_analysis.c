@@ -538,6 +538,23 @@ bool CALL_EXT(FILE *file)
         if (!EXPRESSION(file, token))
             return false;
     }
+    else if (token.type == TOKEN_COLON){
+        insertRightMoveRight(currentNode, NODE_FUNC_CALL, token.type, token.value.valueString.str);
+        infestNum++;
+        GET_TOKEN_RAW(token, file);
+        insertRightMoveRight(currentNode, NODE_FUNC_CALL, token.type, token.value.valueString.str);
+        infestNum++;
+        if (!VAL_TYPE(token))
+            return false;
+        GET_TOKEN_RAW(token, file);
+        insertRightMoveRight(currentNode, NODE_FUNC_CALL, token.type, token.value.valueString.str);
+        infestNum++;
+        if (token.type != TOKEN_ASSIGNMENT)
+            return false;
+        GET_TOKEN_RAW(token, file);
+        if (!EXPRESSION(file, token))
+            return false;
+    }
     // Object function
     else if (token.type == TOKEN_DOT)
     {

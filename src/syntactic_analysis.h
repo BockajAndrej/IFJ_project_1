@@ -16,7 +16,7 @@
 #include "stack.h"
 #include "error.h"
 
-#define NDEBUG
+// #define NDEBUG
 
 #ifndef NDEBUG // if not defined NDEBUG (no debugging)
 #define pmesg(s) fprintf(stderr, "Line: %u - " s, __LINE__)
