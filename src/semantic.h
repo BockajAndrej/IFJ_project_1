@@ -31,9 +31,11 @@ void process_func_def(BinaryTreeNode *funcDefNode);
 void parse_parameters(BinaryTreeNode *paramsListNode);
 DataType process_func_return(BinaryTreeNode *returnNode);
 
-//expressions
+// expressions
 DataType process_expression(BinaryTreeNode *returnNode);
 
+// if
+void process_if(BinaryTreeNode *ConditionNode);
 
 void process_var_declaration(BinaryTreeNode *node);
 void process_const_declaration(BinaryTreeNode *node);

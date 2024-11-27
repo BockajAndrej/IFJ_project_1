@@ -138,9 +138,7 @@ void process_var_declaration(BinaryTreeNode *node)
         if (varType == TYPE_UNKNOWN)
         {
             // TODO function append type to variable
-            
         }
-        
 
         if (!is_type_compatible(varType, initType))
         {
@@ -172,6 +170,49 @@ void process_var_declaration(BinaryTreeNode *node)
     }
 }
 
+void process_if(BinaryTreeNode *ConditionNode)
+{
+    if (!ConditionNode)
+        return;
+    printf("IF entering\n");
+    BinaryTreeNode *auxnode = move_right_until(ConditionNode, TOKEN_EMPTY);
+    // go left from aux    "(" is conditionAndNonNull
+    {
+        BinaryTreeNode *conditionAndNonNull = auxnode->left;
+
+        // conditionAndNonNull right is |nonnull|
+        char *nonNullVal_str = NULL;
+        if (conditionAndNonNull->right != NULL)
+        {
+            printf("IF Processing |nonNull|\n");
+            BinaryTreeNode *nonNullVal = move_right_until(conditionAndNonNull, TOKEN_IDENTIFIER);
+            nonNullVal_str = nonNullVal->strValue;
+
+            printf("IF Non null identifier is %s\n", nonNullVal_str);
+        }
+
+        // conditionAndNonNull left is condition
+        //  TODO process conditon
+    }
+
+    // * go right from aux
+    printf("conditionbody\n");
+    BinaryTreeNode *conditionbody = move_right_until(auxnode, TOKEN_CURLYL_BRACKET);
+    conditionbody = move_left_until(conditionbody, TOKEN_EMPTY);
+    printf("IF entering body\n");
+    ProcessTree(conditionbody);
+    printf("IF leaving body\n");
+
+    if (ConditionNode->left != NULL)
+    {
+        BinaryTreeNode *conditionelse = ConditionNode->left;
+        BinaryTreeNode *elsebody = move_right_until(conditionelse, TOKEN_CURLYL_BRACKET)->left;
+        printf("IF-else entering body\n");
+        ProcessTree(elsebody);
+        printf("IF-else leaving body\n");
+    }
+}
+
 void process_const_declaration(BinaryTreeNode *node)
 {
     if (node)
@@ -189,7 +230,7 @@ void process_func_def(BinaryTreeNode *funcDefNode)
 
     BinaryTreeNode *funcName_node = move_right_until(funcDefNode->right, TOKEN_IDENTIFIER);
     char *funcName_str = funcName_node->strValue;
-    printf("Function name: %s\n", funcName_str);
+    printf("FUNCTION name: %s\n", funcName_str);
 
     // procces parameters
     BinaryTreeNode *funcParams_start = move_left_until(funcName_node, TOKEN_LPAREN);
@@ -202,21 +243,23 @@ void process_func_def(BinaryTreeNode *funcDefNode)
     // NODE_GENERAL > TOKEN_EMPTY
     // process return
     BinaryTreeNode *funcBody = move_left_until(funcReturn_type->right, TOKEN_EMPTY);
+    printf("FUNCTION Entering body from %s-%s\n", funcBody->strValue, token_type_to_string(funcBody->tokenType));
     BinaryTreeNode *funcReturnExp_type = ProcessTree(funcBody);
+    printf("FUNCTION Leaving body\n");
 
     DataType returnExp_type = process_func_return(funcReturnExp_type);
-    printf("return Defined Type %s\n", value_type_to_string(returnDef_type));
-    printf("return Real Type %s\n", value_type_to_string(returnExp_type));
+    printf("FUNCTION return Defined Type %s\n", value_type_to_string(returnDef_type));
+    printf("FUNCTION return Real Type %s\n", value_type_to_string(returnExp_type));
 
     if (are_types_compatible(returnDef_type, returnExp_type))
     {
-        printf("Return def type and return expression type MATCH\n");
+        printf("FUNCTION Return def type and return expression type MATCH\n");
     }
     else
     {
-        printf("Return def type and return expression type do NOT MATCH\n");
+        printf("FUNCTION Return def type and return expression type do NOT MATCH\n");
     }
-    printf("Exiting function '%s' body.\n", funcName_str);
+    printf("FUNCTION Exiting function '%s' body.\n", funcName_str);
     return;
 }
 
@@ -298,6 +341,7 @@ BinaryTreeNode *ProcessTree(BinaryTreeNode *root)
         {
 
             node = node->right;
+            // printf("before switch for tokentype value:[\"%s\" %s] \n",node->strValue,token_type_to_string(node->tokenType));
             switch (node->tokenType)
             {
             case TOKEN_KEYWORD:
@@ -318,6 +362,10 @@ BinaryTreeNode *ProcessTree(BinaryTreeNode *root)
                     // ? return z funkcie
                     return node;
                     // process_func_return(node);
+                }
+                else if (strcmp(node->strValue, "if") == 0)
+                {
+                    process_if(node);
                 }
                 break;
             default:

@@ -1,8 +1,12 @@
 pub fn decrement(n:i32, m : i32) void
 {
-    while(1)
+    if (n < 2) |b|
     {
         var a : i32 = 5;
+    }
+    else
+    {
+        var b : i32 = 5;
     }
 return;
 }
