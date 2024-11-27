@@ -818,6 +818,8 @@ bool ARG(FILE *file)
         if (!ARGS(file))
             return false;
     }
+    else if (token.type == TOKEN_RPAREN)
+        ;
     else 
         return false;
     pmesg(" ------ END ARG ------\n");
@@ -1067,7 +1069,7 @@ bool EXPRESSION(FILE *file, Token token)
         find_OP(N, table, token, &precStack, &tmp_char, &numOfLPar);
     }
 
-    printf("------1 NUMOF inf: %d\n", infestNum);
+    // printf("------1 NUMOF inf: %d\n", infestNum);
     // Naplnenie stromu
     bool dirRight = true;
     int i = 0;
@@ -1122,7 +1124,7 @@ bool EXPRESSION(FILE *file, Token token)
             infestNum--;
         }
     }
-    printf("------2 NUMOF inf: %d\n", infestNum);
+    // printf("------2 NUMOF inf: %d\n", infestNum);
     freeStack(&precStack);
     freeStack(&ruleStack);
     pmesg(" ------ END EXPRESSION ------\n");

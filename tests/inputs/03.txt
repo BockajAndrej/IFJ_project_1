@@ -1,6 +1,13 @@
 pub fn main() void
 {
-    while(x){
-        return 0;
-    }
+if (array != 0) {
+ifj.write("Array is not null");
+}
+}
+
+pub fn main() void
+{
+while (counter > 0) {
+counter = counter - 1;
+}
 }
