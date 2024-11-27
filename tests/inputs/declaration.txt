@@ -1,0 +1,7 @@
+var a: u8 = 25 + 5;
+var b = 25 + 5;
+var c = 50.00;
+
+const a: u8 = 25 + 5;
+const b = 25 + 5;
+const c = 50.00;

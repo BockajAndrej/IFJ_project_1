@@ -196,6 +196,12 @@ bool VAR_DEF(FILE *file)
         if (!ASSIGN_VAR(file))
             return false;
         break;
+    // var id = EXP;
+    case TOKEN_ASSIGNMENT:
+        GET_TOKEN_RAW(token, file);
+        if (!EXPRESSION(file, token))
+            return false;
+        break;
     default:
         return false;
         break;
@@ -226,9 +232,29 @@ bool CONST_DEF(FILE *file)
     GET_TOKEN_RAW(token, file);
     insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
     infestNum++;
-    if (token.type != TOKEN_ASSIGNMENT)
-        return false;
-    if (!ASSIGN_CONST(file))
+    if (token.type == TOKEN_ASSIGNMENT)
+    {
+        if (!ASSIGN_CONST(file))
+            return false;
+    }
+    // const id : i32 = EXP
+    else if (token.type == TOKEN_COLON)
+    {
+        GET_TOKEN_RAW(token, file);
+        insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+        infestNum++;
+        if (!VAL_TYPE(token))
+            return false;
+        GET_TOKEN_RAW(token, file);
+        insertRightMoveRight(currentNode, NODE_CONST, token.type, token.value.valueString.str);
+        infestNum++;
+        if (token.type != TOKEN_ASSIGNMENT)
+            return false;
+        GET_TOKEN_RAW(token, file);
+        if (!EXPRESSION(file, token))
+            return false;
+    }
+    else
         return false;
     pmesg(" ------ END CONST_DEF ------\n");
     return true;
