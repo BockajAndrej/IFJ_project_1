@@ -196,7 +196,6 @@ void process_if(BinaryTreeNode *ConditionNode)
     }
 
     // * go right from aux
-    printf("conditionbody\n");
     BinaryTreeNode *conditionbody = move_right_until(auxnode, TOKEN_CURLYL_BRACKET);
     conditionbody = move_left_until(conditionbody, TOKEN_EMPTY);
     printf("IF entering body\n");
@@ -211,6 +210,31 @@ void process_if(BinaryTreeNode *ConditionNode)
         ProcessTree(elsebody);
         printf("IF-else leaving body\n");
     }
+}
+
+void process_while(BinaryTreeNode *whileNode)
+{
+    if (!whileNode)
+        return;
+    printf("WHILE entering\n");
+    BinaryTreeNode *conditionAndNonNullNode = move_left_until(whileNode, TOKEN_LPAREN);
+
+    // left condition
+    printf("WHILE processing condition NOT IMPLEMENTED YET\n");
+    //BinaryTreeNode *conditionNode = conditionAndNonNullNode->left;
+    // TODO process expression
+
+    // right nonnull value
+    printf("WHILE processing NonNull\n");
+    BinaryTreeNode *nonNullNode = move_right_until(conditionAndNonNullNode, TOKEN_IDENTIFIER);
+    char *nonNullNode_str = nonNullNode->strValue;
+    printf("WHILE NonNull variable is %s \n", nonNullNode_str);
+
+    BinaryTreeNode *body = move_right_until(whileNode, TOKEN_CURLYL_BRACKET);
+    body = body->left;
+    printf("WHILE processing body\n");
+    ProcessTree(body);
+    printf("WHILE exiting body\n");
 }
 
 void process_const_declaration(BinaryTreeNode *node)
@@ -366,6 +390,10 @@ BinaryTreeNode *ProcessTree(BinaryTreeNode *root)
                 else if (strcmp(node->strValue, "if") == 0)
                 {
                     process_if(node);
+                }
+                else if (strcmp(node->strValue, "while") == 0)
+                {
+                    process_while(node);
                 }
                 break;
             default:

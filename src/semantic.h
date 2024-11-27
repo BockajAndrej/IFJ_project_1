@@ -36,6 +36,8 @@ DataType process_expression(BinaryTreeNode *returnNode);
 
 // if
 void process_if(BinaryTreeNode *ConditionNode);
+//while
+void process_while(BinaryTreeNode *Whilenode);
 
 void process_var_declaration(BinaryTreeNode *node);
 void process_const_declaration(BinaryTreeNode *node);

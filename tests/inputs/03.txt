@@ -1,11 +1,19 @@
 pub fn main() void
 {
-    if (array != 0) {
-        ifj.write("Array is not null");
-    }
-    while(x) |INP|
+    while (n + 3 < 2 * 8) |abc|
     {
-        ifj.write("Array is not null");
+        var a : i32 = 5;
+        if (b > c) |acp|
+        {
+            var b : i32 = 5;
+        }
+        else
+        {
+            while (a > 3) |RRR|
+            {
+                var c : i32 = 5;
+            }
+        }
     }
     return 0;
 }
