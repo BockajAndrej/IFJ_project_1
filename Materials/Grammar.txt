@@ -13,7 +13,7 @@ STATEMENT ::= RETURN_DEF STATEMENT
 STATEMENT ::= t_}
 
 VAR_DEF ::= t_var t_id ASSIGN_VAR
-CONST_DEF ::= t_const t_id t_= ASSIGN_CONST
+CONST_DEF ::= t_const t_id CONST_EXT
 FN_DEF ::= t_pub t_fn t_id t_( PARAM t_) SCOPE 
 
 CALL_DEF ::= t_id CALL_EXT
@@ -22,17 +22,21 @@ ELSE_DEF ::= t_else SCOPE
 WHILE_DEF ::= t_while t_( EXPRESSION t_) SCOPE
 RETURN_DEF ::= t_ret EXPRESSION
 
+CONST_EXT ::= t_: VAL_TYPE t_= EXPRESSION
+CONST_EXT ::= t_= ASSIGN_CONST
 IF_EXT ::= SCOPE
 IF_EXT ::= t_| t_id t_| SCOPE
 CALL_EXT ::= t_( ARG t_) 
 CALL_EXT ::= t_= EXPRESSION
+CALL_EXT ::= t_: VAL_TYPE t_= EXPRESSION
 CALL_EXT ::= t_. CALL_OBJ
 CALL_OBJ ::= t_id t_( string t_) t_;
 
 SCOPE ::=  t_{ STATEMENT 
 
 ASSIGN_VAR ::= t_;
-ASSIGN_VAR ::= t_: VAL_TYPE EXPRESSION t_;
+ASSIGN_VAR ::= t_: VAL_TYPE t_= EXPRESSION t_;
+ASSIGN_VAR ::= t_= EXPRESSION t_;
 ASSIGN_CONST ::= EXPRESSION
 ASSIGN_CONST ::= t_import t_( string t_) t_;
 

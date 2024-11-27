@@ -122,7 +122,7 @@ bool moveUp(int levels)
         }
         else
         {
-            printf("Error: Cannot move up %d levels. Moved up %d level(s).\n", levels + movedLevels, movedLevels);
+            printf("Error: Cannot move up %d levels. Moved up %d level(s). Actual node: %s\n", levels + movedLevels, movedLevels, currentNode->strValue);
             exit(EXIT_FAILURE);
         }
     }
@@ -150,7 +150,7 @@ void moveDownRight()
     }
     else
     {
-        printf("Error: Cannot move right from the current node.\n");
+        printf("Error: Cannot move right from the current node. (%s)\n", currentNode->strValue);
         exit(EXIT_FAILURE);
     }
 }
