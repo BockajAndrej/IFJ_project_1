@@ -37,7 +37,7 @@ int main(int argc, char **argv)
     if (file == NULL)
         perror("Failed to open file");
 
-    // Syntactic analysis
+    // // Syntactic analysis
     if (!FIRST(file))
     {
         printf("%s", " --- WRONG END --- \n");

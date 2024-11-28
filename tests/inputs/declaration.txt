@@ -5,3 +5,5 @@ var c = 50.00;
 const a: u8 = 25 + 5;
 const b = 25 + 5;
 const c = 50.00;
+
+var all: []u8 = ifj.string(""); 
