@@ -505,17 +505,18 @@ Token get_token(FILE *file)
             while (!isspace(c))
             {
                 // Přidáme znak do dynamického řetězce
-                dynamic_string_add_char(&token.value.valueString, c);
-                c = (char)getc(file); // Načti další znak
 
                 // Kontrola na neplatné znaky
                 if (!isalpha(c) && !isdigit(c) && c != '_')
                 {
                     if (c != EOF && !isspace(c))
                     {
-                        invalid = true;
+                        // invalid = true;
+                        break;
                     }
                 }
+                dynamic_string_add_char(&token.value.valueString, c);
+                c = (char)getc(file); // Načti další znak
             }
 
             // Ukončujeme identifikátor
