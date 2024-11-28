@@ -524,7 +524,7 @@ bool CALL_EXT(FILE *file, bool isAlreadyFn)
         // Function call
         if (token.type == TOKEN_LPAREN)
         {
-            insertRightMoveRight(currentNode, NODE_FUNC_CALL, token.type, token.value.valueString.str);
+            insertLeftMoveLeft(currentNode, NODE_FUNC_CALL, token.type, token.value.valueString.str);
             infestNum++;
             if (!ARG(file))
                 return false;
@@ -1142,7 +1142,7 @@ bool VAR_TYPE(Token t)
  */
 bool VAL_TYPE(Token t)
 {
-    if (t.keyword_val == KEYWORD_I32 || t.keyword_val == KEYWORD_F64 || t.keyword_val == KEYWORD_U8)
+    if (t.keyword_val == KEYWORD_I32 || t.keyword_val == KEYWORD_F64 || t.keyword_val == KEYWORD_U8 || t.keyword_val == KEYWORD_U8_ARRAY || t.keyword_val == KEYWORD_I32_NULL || t.keyword_val == KEYWORD_F64_NULL || t.keyword_val == KEYWORD_U8_NULL || t.keyword_val == KEYWORD_U8_ARRAY_NULL)
         return true;
     return false;
 }
