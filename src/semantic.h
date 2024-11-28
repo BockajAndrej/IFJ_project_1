@@ -27,20 +27,22 @@ BinaryTreeNode *move_left_until(BinaryTreeNode *node, Token_type dest);
 BinaryTreeNode *move_right_until(BinaryTreeNode *node, Token_type dest);
 
 // function
-void process_func_def(BinaryTreeNode *funcDefNode);
+void process_func_def(BinaryTreeNode *funcDefNode, SymbolStack *stack);
 void parse_parameters(BinaryTreeNode *paramsListNode);
 DataType process_func_return(BinaryTreeNode *returnNode);
+BinaryTreeNode *process_assignFunc(BinaryTreeNode *funcnode);
 
 // expressions
 DataType process_expression(BinaryTreeNode *returnNode);
 
 // if
-void process_if(BinaryTreeNode *ConditionNode);
-//while
-void process_while(BinaryTreeNode *Whilenode);
+void process_if(BinaryTreeNode *ConditionNode, SymbolStack *stack);
+// while
+void process_while(BinaryTreeNode *Whilenode, SymbolStack *stack);
 
-void process_var_declaration(BinaryTreeNode *node);
+void process_var_declaration(BinaryTreeNode *node, SymbolStack *stack);
 void process_const_declaration(BinaryTreeNode *node);
-BinaryTreeNode *ProcessTree(BinaryTreeNode *root);
+void process_identifier_assign(BinaryTreeNode *node);
+BinaryTreeNode *ProcessTree(BinaryTreeNode *root, SymbolStack *stack);
 
 #endif

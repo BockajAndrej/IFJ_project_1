@@ -100,8 +100,9 @@ BinaryTreeNode *move_right_until(BinaryTreeNode *node, Token_type dest)
     return NULL;
 }
 
-void process_var_declaration(BinaryTreeNode *node)
+void process_var_declaration(BinaryTreeNode *node, SymbolStack *stack)
 {
+
     // * IDENTIFIER LOGIC
     BinaryTreeNode *varnode = move_right_until(node, TOKEN_IDENTIFIER);
     char *varIdenti = varnode->strValue;
@@ -130,7 +131,16 @@ void process_var_declaration(BinaryTreeNode *node)
 
     // * ASSIGN "=" LOGIC
     BinaryTreeNode *varInit = move_right_until(varnode, TOKEN_ASSIGNMENT);
-    BinaryTreeNode *varValue = varInit->left;
+    BinaryTreeNode *varValue;
+    if (varInit->left != NULL)
+    {
+        varValue = varInit->left;
+    }
+    else if (varInit->right != NULL)
+    {
+        varValue = varInit->right;
+    }
+
     if (varValue->type == NODE_VAR)
     {
         initType = varValue->tokenType;
@@ -150,17 +160,28 @@ void process_var_declaration(BinaryTreeNode *node)
         switch (varType)
         {
         case TYPE_INT:
-            printf("Declared variable '%s' of type '%s' with value %d.\n", varIdenti, value_type_to_string(varType), atoi(initValue));
-            break;
+        {
+            long val = strtol(initValue, NULL, 10);
+            insert_symbol_stack(stack, varIdenti, varType, &val);
+            printf("VAR Declared/Scope Insert '%s' type '%s' value %ld.\n", varIdenti, value_type_to_string(varType), val);
+        }
+        break;
         case TYPE_FLOAT:
-            printf("Declared variable '%s' of type '%s' with value %f.\n", varIdenti, value_type_to_string(varType), atof(initValue));
-            break;
+        {
+            int val = strtol(initValue, NULL, 10);
+            insert_symbol_stack(stack, varIdenti, varType, &val);
+            printf("VAR Declared/Scope Insert '%s' type '%s' value %d.\n", varIdenti, value_type_to_string(varType), val);
+        }
+        break;
         case TYPE_STRING:
-            printf("Declared variable '%s' of type '%s' with value '%s'.\n", varIdenti, value_type_to_string(varType), initValue);
-            break;
+        {
+            insert_symbol_stack(stack, varIdenti, varType, initValue);
+            printf("VAR Declared/Scope Insert '%s' type '%s' value %s.\n", varIdenti, value_type_to_string(varType), initValue);
+        }
+        break;
         // Handle other types as needed
         default:
-            printf("Declared variable '%s' of type '%s'.\n", varIdenti, value_type_to_string(varType));
+            printf("VAR Declared variable '%s' of type '%s'.\n", varIdenti, value_type_to_string(varType));
             break;
         }
     }
@@ -168,14 +189,59 @@ void process_var_declaration(BinaryTreeNode *node)
     {
         // DataType varExpressType = process_expression(varValue);
     }
+    else if (varValue->type == NODE_FUNC_CALL)
+    {
+        BinaryTreeNode *funcReturn = process_assignFunc(varValue);
+        printf("VAR Returned from func with value: %s, type:%s\n", funcReturn->strValue, token_type_to_string(funcReturn->tokenType));
+    }
 }
 
-void process_if(BinaryTreeNode *ConditionNode)
+BinaryTreeNode *process_assignFunc(BinaryTreeNode *funcnode)
+{
+    BinaryTreeNode *funcName = funcnode;
+    char *funcName_str = funcName->strValue;
+    printf("FUNC function name for assign is %s\n", funcName_str);
+    BinaryTreeNode *funcParamStart = move_left_until(funcName, TOKEN_LPAREN);
+    BinaryTreeNode *param_x = funcParamStart->right;
+
+    // TODO return from the called function calculated value and type
+    // * now as placeholder
+    BinaryTreeNode *ToReturn = funcnode;
+
+    if (param_x->tokenType == TOKEN_RPAREN) // NO PARAMETERS
+    {
+        // TODO check return type from hashtable
+        printf("FUNC function with no parameters.\n");
+    }
+    else
+    {
+        // TODO handle params, check type
+        while (param_x->tokenType != TOKEN_RPAREN)
+        {
+            if (param_x->tokenType == TOKEN_COMMA)
+            {
+                param_x = param_x->right;
+                continue;
+            }
+
+            printf("FUNC Handling param \"%s\"\n", param_x->strValue);
+            param_x = param_x->right;
+        }
+    }
+    return ToReturn;
+}
+
+void process_if(BinaryTreeNode *ConditionNode, SymbolStack *stack)
 {
     if (!ConditionNode)
         return;
     printf("IF entering\n");
     BinaryTreeNode *auxnode = move_right_until(ConditionNode, TOKEN_EMPTY);
+
+    // new scope for IF
+    push_scope(stack);
+    printf("IF New stack created \n");
+
     // go left from aux    "(" is conditionAndNonNull
     {
         BinaryTreeNode *conditionAndNonNull = auxnode->left;
@@ -187,8 +253,8 @@ void process_if(BinaryTreeNode *ConditionNode)
             printf("IF Processing |nonNull|\n");
             BinaryTreeNode *nonNullVal = move_right_until(conditionAndNonNull, TOKEN_IDENTIFIER);
             nonNullVal_str = nonNullVal->strValue;
-
-            printf("IF Non null identifier is %s\n", nonNullVal_str);
+            insert_symbol_stack(stack, nonNullVal_str, TYPE_NONNULL, "");
+            printf("IF Non null identifier is \"%s\" pushed to scope \n", nonNullVal_str);
         }
 
         // conditionAndNonNull left is condition
@@ -199,20 +265,23 @@ void process_if(BinaryTreeNode *ConditionNode)
     BinaryTreeNode *conditionbody = move_right_until(auxnode, TOKEN_CURLYL_BRACKET);
     conditionbody = move_left_until(conditionbody, TOKEN_EMPTY);
     printf("IF entering body\n");
-    ProcessTree(conditionbody);
+    ProcessTree(conditionbody, stack);
     printf("IF leaving body\n");
 
     if (ConditionNode->left != NULL)
     {
         BinaryTreeNode *conditionelse = ConditionNode->left;
         BinaryTreeNode *elsebody = move_right_until(conditionelse, TOKEN_CURLYL_BRACKET)->left;
-        printf("IF-else entering body\n");
-        ProcessTree(elsebody);
-        printf("IF-else leaving body\n");
+        printf("IF-else entering body, new stack\n");
+        push_scope(stack);
+        printf("IF-else New stack created\n");
+        ProcessTree(elsebody, stack);
+        printf("IF-else leaving body, stack pop\n");
+        pop_scope(stack);
     }
 }
 
-void process_while(BinaryTreeNode *whileNode)
+void process_while(BinaryTreeNode *whileNode, SymbolStack *stack)
 {
     if (!whileNode)
         return;
@@ -221,8 +290,8 @@ void process_while(BinaryTreeNode *whileNode)
 
     // left condition
     printf("WHILE processing condition NOT IMPLEMENTED YET\n");
-    //BinaryTreeNode *conditionNode = conditionAndNonNullNode->left;
-    // TODO process expression
+    // BinaryTreeNode *conditionNode = conditionAndNonNullNode->left;
+    //  TODO process expression
 
     // right nonnull value
     printf("WHILE processing NonNull\n");
@@ -233,8 +302,22 @@ void process_while(BinaryTreeNode *whileNode)
     BinaryTreeNode *body = move_right_until(whileNode, TOKEN_CURLYL_BRACKET);
     body = body->left;
     printf("WHILE processing body\n");
-    ProcessTree(body);
+    ProcessTree(body, stack);
     printf("WHILE exiting body\n");
+}
+
+void process_identifier_assign(BinaryTreeNode *node)
+{
+    if (node == NULL)
+        return;
+
+    BinaryTreeNode *nodeidentifier = node;
+    char *nodeidentifier_str = nodeidentifier->strValue;
+    printf("FUNC processing assign to identifier %s\n", nodeidentifier_str);
+
+    BinaryTreeNode *funcname = move_right_until(nodeidentifier->right, TOKEN_IDENTIFIER);
+    BinaryTreeNode *funcReturn = process_assignFunc(funcname);
+    printf("FUNC Returned from %s with value: %s, type:%s\n", funcname->strValue, funcReturn->strValue, token_type_to_string(funcReturn->tokenType));
 }
 
 void process_const_declaration(BinaryTreeNode *node)
@@ -247,7 +330,7 @@ void process_const_declaration(BinaryTreeNode *node)
     return;
 }
 
-void process_func_def(BinaryTreeNode *funcDefNode)
+void process_func_def(BinaryTreeNode *funcDefNode, SymbolStack *stack)
 {
     if (!funcDefNode)
         return;
@@ -268,7 +351,7 @@ void process_func_def(BinaryTreeNode *funcDefNode)
     // process return
     BinaryTreeNode *funcBody = move_left_until(funcReturn_type->right, TOKEN_EMPTY);
     printf("FUNCTION Entering body from %s-%s\n", funcBody->strValue, token_type_to_string(funcBody->tokenType));
-    BinaryTreeNode *funcReturnExp_type = ProcessTree(funcBody);
+    BinaryTreeNode *funcReturnExp_type = ProcessTree(funcBody, stack);
     printf("FUNCTION Leaving body\n");
 
     DataType returnExp_type = process_func_return(funcReturnExp_type);
@@ -351,7 +434,7 @@ DataType process_expression(BinaryTreeNode *returnNode)
     return TYPE_BOOL;
 }
 
-BinaryTreeNode *ProcessTree(BinaryTreeNode *root)
+BinaryTreeNode *ProcessTree(BinaryTreeNode *root, SymbolStack *stack)
 {
 
     if (root == NULL)
@@ -365,21 +448,21 @@ BinaryTreeNode *ProcessTree(BinaryTreeNode *root)
         {
 
             node = node->right;
-            // printf("before switch for tokentype value:[\"%s\" %s] \n",node->strValue,token_type_to_string(node->tokenType));
+
             switch (node->tokenType)
             {
             case TOKEN_KEYWORD:
                 if (strcmp(node->strValue, "var") == 0)
                 {
-                    process_var_declaration(node);
+                    process_var_declaration(node, stack);
                 }
                 else if (strcmp(node->strValue, "const") == 0)
                 {
-                    process_var_declaration(node);
+                    process_var_declaration(node, stack);
                 }
                 else if (strcmp(node->strValue, "pub") == 0)
                 {
-                    process_func_def(node);
+                    process_func_def(node, stack);
                 }
                 else if (strcmp(node->strValue, "return") == 0)
                 {
@@ -389,12 +472,24 @@ BinaryTreeNode *ProcessTree(BinaryTreeNode *root)
                 }
                 else if (strcmp(node->strValue, "if") == 0)
                 {
-                    process_if(node);
+                    process_if(node, stack);
                 }
                 else if (strcmp(node->strValue, "while") == 0)
                 {
-                    process_while(node);
+                    process_while(node, stack);
                 }
+
+                break;
+            case TOKEN_IDENTIFIER:
+                if (node->right->tokenType == TOKEN_ASSIGNMENT)
+                {
+                    process_identifier_assign(node);
+                }
+                else if (node->right->tokenType == TOKEN_LPAREN)
+                {
+                    process_assignFunc(node);
+                }
+
                 break;
             default:
                 break;

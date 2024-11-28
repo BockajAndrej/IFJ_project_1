@@ -1,19 +1,9 @@
 pub fn main() void
 {
-    while (n + 3 < 2 * 8) |abc|
+    var x : i32 = 5;
+    if (x > a) |val|
     {
-        var a : i32 = 5;
-        if (b > c) |acp|
-        {
-            var b : i32 = 5;
-        }
-        else
-        {
-            while (a > 3) |RRR|
-            {
-                var c : i32 = 5;
-            }
-        }
+        x = 1;
     }
     return 0;
 }

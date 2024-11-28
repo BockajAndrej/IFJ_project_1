@@ -11,73 +11,16 @@
 #include "semantic.h"
 #include "symtable.h"
 
-
-void print_table(SymbolTable *table) {
-    Symbol *current = table->head;
-
-    printf("Current symbol table:\n");
-    while (current) {
-        printf(" - Name: %s, ", current->name);
-
-        switch (current->type) {
-            case VALUE_INT:
-                printf("Value: %d (int)\n", current->value.intValue);
-                break;
-            case VALUE_FLOAT:
-                printf("Value: %.2f (float)\n", current->value.floatValue);
-                break;
-            case VALUE_STRING:
-                printf("Value: %s (string)\n", current->value.strValue);
-                break;
-        }
-
-        current = current->next;
-    }
-    printf("\n");
-}
-
-/*void test_hash_table() {
-    SymbolTable *table = create_table();
-    printf("After creating the table:\n");
-    print_table(table);
-
-    int intValue = 10;
-    float floatValue = 3.14;
-    char *strValue = "Hello";
-
-    insert_symbol(table, 0, "x", VALUE_INT, &intValue);
-    printf("After inserting 'x':\n");
-    print_table(table);
-
-    insert_symbol(table, 0, "pi", VALUE_FLOAT, &floatValue);
-    printf("After inserting 'pi':\n");
-    print_table(table);
-
-    insert_symbol(table, 0, "greeting", VALUE_STRING, strValue);
-    printf("After inserting 'greeting':\n");
-    print_table(table);
-
-    Symbol *s = search_symbol(table, "pi");
-    if (s && s->type == VALUE_FLOAT) {
-        printf("Found: %s -> %.2f\n", s->name, s->value.floatValue);
-    }
-
-    delete_symbol(table, "x");
-    printf("After deleting 'x':\n");
-    print_table(table);
-
-    free_table(table);
-}*/
-
 int main(int argc, char **argv)
 {
     FILE *file;
     BinaryTreeNode *root = createBinaryNode(NODE_GENERAL, TOKEN_EMPTY, "");
     setStartNode(root);
 
-    if(argc == 1){
-        //test_hash_table();
-        //return 0;
+    if (argc == 1)
+    {
+        // test_hash_table();
+        // return 0;
     }
 
     // Skontroluj, či bol zadaný súbor ako argument
@@ -101,9 +44,21 @@ int main(int argc, char **argv)
         return 1;
     }
     printBinaryTree(root);
-    ProcessTree(root);
-    printf("%s", " --- ENDED SUCESFULLY --- \n");
+    
+    SymbolStack *stack = initialize_symbol_stack();
+    ProcessTree(root, stack);
 
+    printf("%s", " --- ENDED SUCESFULLY --- \n");
+    Symbol *symbol;
+    symbol = search_symbol_stack(stack, "x");
+    if (symbol)
+    {
+        printf("Symbol '%s' found in scope level.\n", symbol->name);
+    }
+    else
+    {
+        printf("Symbol 'x' not declared in any active scope.\n");
+    }
     fclose(file); // Nezabudni zavrieť súbor
     return EXIT_SUCCESS;
 }
