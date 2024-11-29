@@ -21,6 +21,8 @@ DataType value_string_to_type(const char *typeStr)
         return TYPE_U8_ARRAY;
     if (strcmp(typeStr, "void") == 0)
         return TYPE_VOID;
+    if (strcmp(typeStr, "nonNull") == 0)
+        return TYPE_VOID;
     // Add more types as needed
     return TYPE_UNKNOWN;
 }
@@ -44,6 +46,8 @@ const char *value_type_to_string(DataType type)
         return "[]u8";
     case TYPE_EMPTY:
         return "empty";
+    case TYPE_NONNULL:
+        return "nonNull";
     default:
         return "unknown";
     }
@@ -163,25 +167,25 @@ void process_var_declaration(BinaryTreeNode *node, SymbolStack *stack)
         {
             long val = strtol(initValue, NULL, 10);
             insert_symbol_stack(stack, varIdenti, varType, &val);
-            printf("VAR Declared/Scope Insert '%s' type '%s' value %ld.\n", varIdenti, value_type_to_string(varType), val);
+            printf("VAR Insert '%s' type '%s' value %ld.\n", varIdenti, value_type_to_string(varType), val);
         }
         break;
         case TYPE_FLOAT:
         {
             int val = strtol(initValue, NULL, 10);
             insert_symbol_stack(stack, varIdenti, varType, &val);
-            printf("VAR Declared/Scope Insert '%s' type '%s' value %d.\n", varIdenti, value_type_to_string(varType), val);
+            printf("VAR Insert '%s' type '%s' value %d.\n", varIdenti, value_type_to_string(varType), val);
         }
         break;
         case TYPE_STRING:
         {
             insert_symbol_stack(stack, varIdenti, varType, initValue);
-            printf("VAR Declared/Scope Insert '%s' type '%s' value %s.\n", varIdenti, value_type_to_string(varType), initValue);
+            printf("VAR '%s' type '%s' value %s.\n", varIdenti, value_type_to_string(varType), initValue);
         }
         break;
         // Handle other types as needed
         default:
-            printf("VAR Declared variable '%s' of type '%s'.\n", varIdenti, value_type_to_string(varType));
+            printf("VAR '%s' of type '%s'.\n", varIdenti, value_type_to_string(varType));
             break;
         }
     }
@@ -191,56 +195,20 @@ void process_var_declaration(BinaryTreeNode *node, SymbolStack *stack)
     }
     else if (varValue->type == NODE_FUNC_CALL)
     {
-        BinaryTreeNode *funcReturn = process_assignFunc(varValue);
+        BinaryTreeNode *funcReturn = process_validate_func_call(varValue, stack);
         printf("VAR Returned from func with value: %s, type:%s\n", funcReturn->strValue, token_type_to_string(funcReturn->tokenType));
     }
-}
-
-BinaryTreeNode *process_assignFunc(BinaryTreeNode *funcnode)
-{
-    BinaryTreeNode *funcName = funcnode;
-    char *funcName_str = funcName->strValue;
-    printf("FUNC function name for assign is %s\n", funcName_str);
-    BinaryTreeNode *funcParamStart = move_left_until(funcName, TOKEN_LPAREN);
-    BinaryTreeNode *param_x = funcParamStart->right;
-
-    // TODO return from the called function calculated value and type
-    // * now as placeholder
-    BinaryTreeNode *ToReturn = funcnode;
-
-    if (param_x->tokenType == TOKEN_RPAREN) // NO PARAMETERS
-    {
-        // TODO check return type from hashtable
-        printf("FUNC function with no parameters.\n");
-    }
-    else
-    {
-        // TODO handle params, check type
-        while (param_x->tokenType != TOKEN_RPAREN)
-        {
-            if (param_x->tokenType == TOKEN_COMMA)
-            {
-                param_x = param_x->right;
-                continue;
-            }
-
-            printf("FUNC Handling param \"%s\"\n", param_x->strValue);
-            param_x = param_x->right;
-        }
-    }
-    return ToReturn;
 }
 
 void process_if(BinaryTreeNode *ConditionNode, SymbolStack *stack)
 {
     if (!ConditionNode)
         return;
-    printf("IF entering\n");
     BinaryTreeNode *auxnode = move_right_until(ConditionNode, TOKEN_EMPTY);
 
     // new scope for IF
     push_scope(stack);
-    printf("IF New stack created \n");
+    printf("IF pushscope >>>>>>> \n");
 
     // go left from aux    "(" is conditionAndNonNull
     {
@@ -250,11 +218,10 @@ void process_if(BinaryTreeNode *ConditionNode, SymbolStack *stack)
         char *nonNullVal_str = NULL;
         if (conditionAndNonNull->right != NULL)
         {
-            printf("IF Processing |nonNull|\n");
             BinaryTreeNode *nonNullVal = move_right_until(conditionAndNonNull, TOKEN_IDENTIFIER);
             nonNullVal_str = nonNullVal->strValue;
             insert_symbol_stack(stack, nonNullVal_str, TYPE_NONNULL, "");
-            printf("IF Non null identifier is \"%s\" pushed to scope \n", nonNullVal_str);
+            printf("IF NonNull \"%s\"\n", nonNullVal_str);
         }
 
         // conditionAndNonNull left is condition
@@ -266,7 +233,8 @@ void process_if(BinaryTreeNode *ConditionNode, SymbolStack *stack)
     conditionbody = move_left_until(conditionbody, TOKEN_EMPTY);
     printf("IF entering body\n");
     ProcessTree(conditionbody, stack);
-    printf("IF leaving body\n");
+    printf("IF leaving body \n");
+    pop_scope(stack);
 
     if (ConditionNode->left != NULL)
     {
@@ -274,50 +242,81 @@ void process_if(BinaryTreeNode *ConditionNode, SymbolStack *stack)
         BinaryTreeNode *elsebody = move_right_until(conditionelse, TOKEN_CURLYL_BRACKET)->left;
         printf("IF-else entering body, new stack\n");
         push_scope(stack);
-        printf("IF-else New stack created\n");
         ProcessTree(elsebody, stack);
         printf("IF-else leaving body, stack pop\n");
         pop_scope(stack);
     }
+    printf("IF <<<<<<<<<<");
 }
 
 void process_while(BinaryTreeNode *whileNode, SymbolStack *stack)
 {
     if (!whileNode)
         return;
-    printf("WHILE entering\n");
+    printf("WHILE >>>>>>>>\n");
     BinaryTreeNode *conditionAndNonNullNode = move_left_until(whileNode, TOKEN_LPAREN);
 
     // left condition
-    printf("WHILE processing condition NOT IMPLEMENTED YET\n");
+    printf("WHILE  condition \n");
     // BinaryTreeNode *conditionNode = conditionAndNonNullNode->left;
     //  TODO process expression
 
     // right nonnull value
-    printf("WHILE processing NonNull\n");
     BinaryTreeNode *nonNullNode = move_right_until(conditionAndNonNullNode, TOKEN_IDENTIFIER);
     char *nonNullNode_str = nonNullNode->strValue;
-    printf("WHILE NonNull variable is %s \n", nonNullNode_str);
+    insert_symbol_stack(stack, nonNullNode_str, TYPE_NONNULL, "");
+    printf("WHILE NonNull %s put in stack\n", nonNullNode_str);
 
     BinaryTreeNode *body = move_right_until(whileNode, TOKEN_CURLYL_BRACKET);
     body = body->left;
-    printf("WHILE processing body\n");
+    printf("WHILE processing body push stack\n");
+    push_scope(stack);
     ProcessTree(body, stack);
-    printf("WHILE exiting body\n");
+    pop_scope(stack);
+    printf("WHILE stack pop <<<<<<\n");
 }
 
-void process_identifier_assign(BinaryTreeNode *node)
+void process_identifier_assign(BinaryTreeNode *node, SymbolStack *stack)
 {
     if (node == NULL)
         return;
 
     BinaryTreeNode *nodeidentifier = node;
     char *nodeidentifier_str = nodeidentifier->strValue;
-    printf("FUNC processing assign to identifier %s\n", nodeidentifier_str);
+    printf("ASSIGN processing identifier %s\n", nodeidentifier_str);
+    Symbol *identifier = search_symbol_stack(stack, nodeidentifier_str);
+    if (identifier)
+    {
+        printf("SYMBOL '%s' Type '%s' FOUND.\n", identifier->name, value_type_to_string(identifier->type));
+    }
+    else
+    {
+        printf("SYMBOL '%s' NOT FOUND.\n", nodeidentifier_str);
+        // ? 3 - sémantická chyba v programu – nedefinovaná funkce či proměnná.
+    }
 
-    BinaryTreeNode *funcname = move_right_until(nodeidentifier->right, TOKEN_IDENTIFIER);
-    BinaryTreeNode *funcReturn = process_assignFunc(funcname);
-    printf("FUNC Returned from %s with value: %s, type:%s\n", funcname->strValue, funcReturn->strValue, token_type_to_string(funcReturn->tokenType));
+    BinaryTreeNode *expressionOrFunc = move_right_until(nodeidentifier->right, TOKEN_ASSIGNMENT);
+
+    if (expressionOrFunc->right->type == NODE_FUNC_CALL)
+    {
+        BinaryTreeNode *functoAssign = move_right_until(expressionOrFunc, TOKEN_IDENTIFIER);
+        printf("ASSIGN function %s\n", functoAssign->strValue);
+        functoAssign = process_validate_func_call(functoAssign, stack);
+    }
+    else if (expressionOrFunc->right->type == NODE_OP)
+    {
+        BinaryTreeNode *expresstoAssign = expressionOrFunc->left;
+        printf("ASSIGN expression %s\n", expresstoAssign->strValue);
+        // DataType expression = process_expression(expresstoAssign);
+        // TODO datatype do symtable
+    }
+    else
+    {
+        BinaryTreeNode *valuetoAssign = expressionOrFunc->left;
+        printf("ASSIGN value %s\n", valuetoAssign->strValue);
+        // DataType value = process_expression(valuetoAssign);
+        // TODO datatype do symtable
+    }
 }
 
 void process_const_declaration(BinaryTreeNode *node)
@@ -336,27 +335,44 @@ void process_func_def(BinaryTreeNode *funcDefNode, SymbolStack *stack)
         return;
 
     BinaryTreeNode *funcName_node = move_right_until(funcDefNode->right, TOKEN_IDENTIFIER);
-    char *funcName_str = funcName_node->strValue;
-    printf("FUNCTION name: %s\n", funcName_str);
+    printf("FUNCTION name: %s\n", funcName_node->strValue);
+
+    // * Temporarily switch to the global scope for the function definition
+    Scope *currentScope = stack->top; // Save the current scope
+    while (stack->top->next != NULL)
+    {
+        stack->top = stack->top->next; // Move to the global scope
+    }
 
     // procces parameters
     BinaryTreeNode *funcParams_start = move_left_until(funcName_node, TOKEN_LPAREN);
-    parse_parameters(funcParams_start);
+    Symbol *paramChain = parse_parameters(funcParams_start);
 
     // Return data type
     BinaryTreeNode *funcReturn_type = move_right_until(funcName_node, TOKEN_KEYWORD);
     DataType returnDef_type = value_string_to_type(funcReturn_type->strValue);
 
-    // NODE_GENERAL > TOKEN_EMPTY
+    // Insert function symbol with its parameters as a chain
+    Symbol *funcSymbol = malloc(sizeof(Symbol));
+    funcSymbol->name = copy_string(funcName_node->strValue);
+    funcSymbol->type = returnDef_type;
+    funcSymbol->next = paramChain; // Chain of parameters
+    insert_symbol_stack(stack, funcSymbol->name, funcSymbol->type, funcSymbol);
+    printf("FUNCTION '%s' stored in global scope with parameters.\n", funcName_node->strValue);
+
+    // Restore original scope
+    stack->top = currentScope;
+
+    // Push new scope for function body
+    push_scope(stack);
+
     // process return
     BinaryTreeNode *funcBody = move_left_until(funcReturn_type->right, TOKEN_EMPTY);
-    printf("FUNCTION Entering body from %s-%s\n", funcBody->strValue, token_type_to_string(funcBody->tokenType));
+    printf("FUNCTION Entering body \n");
     BinaryTreeNode *funcReturnExp_type = ProcessTree(funcBody, stack);
     printf("FUNCTION Leaving body\n");
 
     DataType returnExp_type = process_func_return(funcReturnExp_type);
-    printf("FUNCTION return Defined Type %s\n", value_type_to_string(returnDef_type));
-    printf("FUNCTION return Real Type %s\n", value_type_to_string(returnExp_type));
 
     if (are_types_compatible(returnDef_type, returnExp_type))
     {
@@ -366,20 +382,89 @@ void process_func_def(BinaryTreeNode *funcDefNode, SymbolStack *stack)
     {
         printf("FUNCTION Return def type and return expression type do NOT MATCH\n");
     }
-    printf("FUNCTION Exiting function '%s' body.\n", funcName_str);
-    return;
+    printf("FUNCTION Exiting function '%s' body.\n", funcName_node->strValue);
+    pop_scope(stack);
 }
 
-void parse_parameters(BinaryTreeNode *paramsListNode)
+BinaryTreeNode *process_validate_func_call(BinaryTreeNode *funcnode, SymbolStack *stack)
+{
+    BinaryTreeNode *funcName = funcnode;
+    char *funcName_str = funcName->strValue;
+
+    // Search for the function in the global scope
+    Scope *currentScope = stack->top;
+    while (stack->top->next != NULL)
+    {
+        stack->top = stack->top->next; // Move to global scope
+    }
+
+    Symbol *funcSymbol = search_symbol_stack(stack, funcName_str);
+    stack->top = currentScope; // Restore the original scope
+
+    if (!funcSymbol)
+    {
+        fprintf(stderr, "Error: Function '%s' not defined.\n", funcName_str);
+        return NULL;
+    }
+
+    printf("FUNC function name for call is '%s'.\n", funcName_str);
+
+    // Validate arguments against parameters
+    Symbol *paramSymbol = funcSymbol->next; // Start with the parameter chain
+    BinaryTreeNode *argNode = move_left_until(funcName, TOKEN_LPAREN)->right;
+
+    while (paramSymbol && argNode && argNode->tokenType != TOKEN_RPAREN)
+    {
+        if (argNode->tokenType == TOKEN_COMMA)
+        {
+            argNode = argNode->right; // Skip comma
+            continue;
+        }
+
+        // Get the argument's type
+        DataType argType = process_expression(argNode);
+
+        // Validate the type
+        if (!are_types_compatible(paramSymbol->type, argType))
+        {
+            fprintf(stderr, "Error: Type mismatch for parameter '%s' in function '%s'. Expected '%s', got '%s'.\n",
+                    paramSymbol->name, funcName_str,
+                    value_type_to_string(paramSymbol->type),
+                    value_type_to_string(argType));
+        }
+
+        // Move to the next parameter and argument
+        paramSymbol = paramSymbol->next;
+        argNode = argNode->right;
+    }
+
+    // Check for excess or missing arguments
+    if (paramSymbol)
+    {
+        fprintf(stderr, "Error: Missing arguments for function '%s'.\n", funcName_str);
+    }
+    if (argNode && argNode->tokenType != TOKEN_RPAREN)
+    {
+        fprintf(stderr, "Error: Too many arguments for function '%s'.\n", funcName_str);
+    }
+
+    // Return a placeholder for now
+    return funcnode;
+}
+
+Symbol *parse_parameters(BinaryTreeNode *paramsListNode)
 {
     if (!paramsListNode)
-        return;
+        return NULL;
+
+    Symbol *paramChain = NULL; // Head of the parameter chain
+    Symbol *lastParam = NULL;  // Pointer to the last parameter in the chain
 
     BinaryTreeNode *params_node = paramsListNode->right;
     if (params_node->right == NULL || params_node->right->tokenType == TOKEN_RPAREN)
     {
         // No parameters return
-        return;
+        return NULL;
     }
 
     while (params_node != NULL && params_node->tokenType != TOKEN_RPAREN)
@@ -388,30 +473,40 @@ void parse_parameters(BinaryTreeNode *paramsListNode)
         {
             // * Identifier after (
             BinaryTreeNode *param_ident = params_node;
-            char *param_ident_str = param_ident->strValue;
-
             BinaryTreeNode *param_type = move_right_until(param_ident, TOKEN_KEYWORD);
-            char *param_type_str = param_type->strValue;
-            DataType param_datatype = value_string_to_type(param_type_str);
+            DataType param_datatype = value_string_to_type(param_type->strValue);
 
-            // Declare the parameter as a variable in the current scope
-            printf("Declared parameter '%s' of type '%s'.\n", param_ident_str, value_type_to_string(param_datatype));
+            // Create a new symbol for the parameter
+            Symbol *paramSymbol = malloc(sizeof(Symbol));
+            paramSymbol->name = copy_string(param_ident->strValue);
+            paramSymbol->type = param_datatype;
+            paramSymbol->next = NULL;
 
-            // Here you can insert the parameter into the symbol table if implemented
-            // insert_symbol(current_scope, paramName, paramType);
+            // Add to the parameter chain
+            if (lastParam == NULL)
+            {
+                paramChain = paramSymbol; // Set the head
+            }
+            else
+            {
+                lastParam->next = paramSymbol; // Append to the chain
+            }
+            lastParam = paramSymbol;
 
-            // Move to the next token after the current parameter
+            printf("FUNC param '%s' of type '%s' added to parameter chain.\n", param_ident->strValue, value_type_to_string(param_datatype));
+
+            // Move to the next parameter
             if (param_type->right && param_type->right->tokenType == TOKEN_COMMA)
             {
                 params_node = move_right_until(param_type->right, TOKEN_IDENTIFIER);
             }
             else
             {
-                params_node = param_type->right; // Move to the next node
+                params_node = param_type->right;
             }
         }
     }
-    return;
+    return paramChain; // Return the head of the parameter chain}
 }
 
 DataType process_func_return(BinaryTreeNode *returnNode)
@@ -420,6 +515,10 @@ DataType process_func_return(BinaryTreeNode *returnNode)
     {
         return TYPE_VOID;
     }
+
+    // ! DELETE AFTER process_expression IS IMPLEMENTED
+    return TYPE_INT;
+    // ! DELETE AFTER process_expression IS IMPLEMENTED
 
     return process_expression(returnNode);
 }
@@ -466,9 +565,8 @@ BinaryTreeNode *ProcessTree(BinaryTreeNode *root, SymbolStack *stack)
                 }
                 else if (strcmp(node->strValue, "return") == 0)
                 {
-                    // ? return z funkcie
+                    // ? return do funkcie
                     return node;
-                    // process_func_return(node);
                 }
                 else if (strcmp(node->strValue, "if") == 0)
                 {
@@ -483,11 +581,11 @@ BinaryTreeNode *ProcessTree(BinaryTreeNode *root, SymbolStack *stack)
             case TOKEN_IDENTIFIER:
                 if (node->right->tokenType == TOKEN_ASSIGNMENT)
                 {
-                    process_identifier_assign(node);
+                    process_identifier_assign(node, stack);
                 }
                 else if (node->right->tokenType == TOKEN_LPAREN)
                 {
-                    process_assignFunc(node);
+                    process_validate_func_call(node, stack);
                 }
 
                 break;

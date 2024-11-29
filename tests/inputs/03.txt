@@ -1,9 +1,18 @@
-pub fn main() void
+pub fn decrement(n : i32, m : i32) i32
 {
-    var x : i32 = 5;
-    if (x > a) |val|
+    return n - m;
+}
+pub fn factorial(n : i32) i32
+{
+    var result : i32 = 1;
+    if (n < 2)
     {
-        x = 1;
+        result = decrement(5,result);
+        factorial(decremented_n, 1, b);
     }
-    return 0;
+    else
+    {
+        result = decrement(1,result);
+    }
+    return result;
 }

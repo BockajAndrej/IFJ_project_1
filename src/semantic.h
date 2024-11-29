@@ -28,9 +28,9 @@ BinaryTreeNode *move_right_until(BinaryTreeNode *node, Token_type dest);
 
 // function
 void process_func_def(BinaryTreeNode *funcDefNode, SymbolStack *stack);
-void parse_parameters(BinaryTreeNode *paramsListNode);
+Symbol *parse_parameters(BinaryTreeNode *paramsListNode);
 DataType process_func_return(BinaryTreeNode *returnNode);
-BinaryTreeNode *process_assignFunc(BinaryTreeNode *funcnode);
+BinaryTreeNode *process_validate_func_call(BinaryTreeNode *funcnode,SymbolStack *stack);
 
 // expressions
 DataType process_expression(BinaryTreeNode *returnNode);
@@ -42,7 +42,7 @@ void process_while(BinaryTreeNode *Whilenode, SymbolStack *stack);
 
 void process_var_declaration(BinaryTreeNode *node, SymbolStack *stack);
 void process_const_declaration(BinaryTreeNode *node);
-void process_identifier_assign(BinaryTreeNode *node);
+void process_identifier_assign(BinaryTreeNode *node, SymbolStack *stack);
 BinaryTreeNode *ProcessTree(BinaryTreeNode *root, SymbolStack *stack);
 
 #endif
