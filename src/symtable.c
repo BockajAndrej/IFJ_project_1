@@ -71,7 +71,7 @@ HashTable *create_hash_table()
     return table;
 }
 
-void insert_hash_table(HashTable *table, const char *name, DataType type, void *value)
+void insert_hash_table(HashTable *table, const char *name, DataType type, void *value, bool isConst)
 {
     unsigned long hash = djb2_hash(name) % HASH_TABLE_SIZE;
 
@@ -93,6 +93,7 @@ void insert_hash_table(HashTable *table, const char *name, DataType type, void *
 
     new_symbol->name = copy_string(name);
     new_symbol->type = type;
+    new_symbol->isConst = isConst;
 
     // Assign the value based on type
     switch (type)
@@ -109,7 +110,7 @@ void insert_hash_table(HashTable *table, const char *name, DataType type, void *
     case TYPE_FUNCTION:
         new_symbol->value.params = ((Symbol *)value)->value.params; // Assign parameter chain
         break;
-        default:
+    default:
         new_symbol->value.intValue = 0; // Default initialization
         break;
     }
@@ -230,14 +231,14 @@ void pop_scope(SymbolStack *stack)
     free(temp);
 }
 
-void insert_symbol_stack(SymbolStack *stack, const char *name, DataType type, void *value)
+void insert_symbol_stack(SymbolStack *stack, const char *name, DataType type, void *value, bool isConst)
 {
     if (stack->top == NULL)
     {
         fprintf(stderr, "Error: No active scope to insert symbol '%s'.\n", name);
         return;
     }
-    insert_hash_table(stack->top->table, name, type, value);
+    insert_hash_table(stack->top->table, name, type, value, isConst);
 }
 
 Symbol *search_symbol_stack(SymbolStack *stack, const char *name)

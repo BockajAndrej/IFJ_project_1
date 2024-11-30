@@ -9,6 +9,7 @@ typedef struct Symbol
 {
     char *name;    // Symbol name
     DataType type; // Data type
+    bool isConst;
     union
     {
         int intValue;          // Integer value
@@ -41,7 +42,7 @@ void free_string(char *str);
 
 // Hash table functions
 HashTable *create_hash_table();
-void insert_hash_table(HashTable *table, const char *name, DataType type, void *value);
+void insert_hash_table(HashTable *table, const char *name, DataType type, void *value, bool isConst);
 Symbol *search_hash_table(HashTable *table, const char *name);
 void delete_hash_table(HashTable *table, const char *name);
 void free_hash_table(HashTable *table);
@@ -51,7 +52,7 @@ SymbolStack *create_symbol_stack();
 SymbolStack *initialize_symbol_stack();
 void push_scope(SymbolStack *stack);
 void pop_scope(SymbolStack *stack);
-void insert_symbol_stack(SymbolStack *stack, const char *name, DataType type, void *value);
+void insert_symbol_stack(SymbolStack *stack, const char *name, DataType type, void *value, bool isConst);
 Symbol *search_symbol_stack(SymbolStack *stack, const char *name);
 void delete_symbol_stack(SymbolStack *stack, const char *name);
 void free_symbol_stack(SymbolStack *stack);

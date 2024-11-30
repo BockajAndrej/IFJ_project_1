@@ -110,11 +110,15 @@ BinaryTreeNode *move_right_until(BinaryTreeNode *node, Token_type dest)
 
 void process_var_declaration(BinaryTreeNode *node, SymbolStack *stack)
 {
+    bool isConst = false;
+    if (strcmp(node->strValue, "const") == 0)
+    {
+        isConst = true;
+    }
 
     // * IDENTIFIER LOGIC
     BinaryTreeNode *varnode = move_right_until(node, TOKEN_IDENTIFIER);
     char *varIdenti = varnode->strValue;
-    // ? DataType varType = TYPE_UNDEFINED; zo symtable urcit?
 
     DataType varType;
     Token_type initType = TOKEN_EMPTY;
@@ -130,12 +134,13 @@ void process_var_declaration(BinaryTreeNode *node, SymbolStack *stack)
     else
     {
         varType = value_string_to_type(varSpeci->strValue);
-        if (varType == TYPE_UNKNOWN)
-        {
-            printf("Error: Unknown type '%s' for variable '%s'.\n", varSpeci->strValue, varIdenti);
-            return;
-        }
     }
+
+    /*
+        Speciální hodnotu null mohou nabývat všechny
+        proměnné, parametry a návratové hodnoty typované s předponou ’?’, tzv. typ zahr-
+        nující null. Z hodnoty null nelze odvodit konkrétní typ.
+    */
 
     // * ASSIGN "=" LOGIC
     BinaryTreeNode *varInit = move_right_until(varnode, TOKEN_ASSIGNMENT);
@@ -155,7 +160,8 @@ void process_var_declaration(BinaryTreeNode *node, SymbolStack *stack)
         initValue = varValue->strValue;
         if (varType == TYPE_UNKNOWN)
         {
-            // TODO function append type to variable
+            // TODO check the implementation to guees the data type?
+            varType = process_expression(varValue, stack);
         }
 
         if (!is_type_compatible(varType, initType))
@@ -170,21 +176,21 @@ void process_var_declaration(BinaryTreeNode *node, SymbolStack *stack)
         case TYPE_INT:
         {
             long val = strtol(initValue, NULL, 10);
-            insert_symbol_stack(stack, varIdenti, varType, &val);
-            printf("VAR Insert '%s' type '%s' value %ld.\n", varIdenti, value_type_to_string(varType), val);
+            insert_symbol_stack(stack, varIdenti, varType, &val, isConst);
+            printf("VAR Insert '%s' type '%s' value %ld const %s.\n", varIdenti, value_type_to_string(varType), val, isConst ? "true" : "false");
         }
         break;
         case TYPE_FLOAT:
         {
             int val = strtol(initValue, NULL, 10);
-            insert_symbol_stack(stack, varIdenti, varType, &val);
-            printf("VAR Insert '%s' type '%s' value %d.\n", varIdenti, value_type_to_string(varType), val);
+            insert_symbol_stack(stack, varIdenti, varType, &val, isConst);
+            printf("VAR Insert '%s' type '%s' value %d const %s.\n", varIdenti, value_type_to_string(varType), val, isConst ? "true" : "false");
         }
         break;
         case TYPE_STRING:
         {
-            insert_symbol_stack(stack, varIdenti, varType, initValue);
-            printf("VAR '%s' type '%s' value %s.\n", varIdenti, value_type_to_string(varType), initValue);
+            insert_symbol_stack(stack, varIdenti, varType, initValue, isConst);
+            printf("VAR '%s' type '%s' value %s const %s.\n", varIdenti, value_type_to_string(varType), initValue, isConst ? "true" : "false");
         }
         break;
         // Handle other types as needed
@@ -226,7 +232,7 @@ void process_if(BinaryTreeNode *ConditionNode, SymbolStack *stack)
         {
             BinaryTreeNode *nonNullVal = move_right_until(conditionAndNonNull, TOKEN_IDENTIFIER);
             nonNullVal_str = nonNullVal->strValue;
-            insert_symbol_stack(stack, nonNullVal_str, TYPE_NONNULL, "");
+            insert_symbol_stack(stack, nonNullVal_str, TYPE_NONNULL, "", false);
             printf("IF NonNull \"%s\"\n", nonNullVal_str);
         }
 
@@ -270,7 +276,7 @@ void process_while(BinaryTreeNode *whileNode, SymbolStack *stack)
     // right nonnull value
     BinaryTreeNode *nonNullNode = move_right_until(conditionAndNonNullNode, TOKEN_IDENTIFIER);
     char *nonNullNode_str = nonNullNode->strValue;
-    insert_symbol_stack(stack, nonNullNode_str, TYPE_NONNULL, "");
+    insert_symbol_stack(stack, nonNullNode_str, TYPE_NONNULL, "", false);
     printf("WHILE NonNull %s put in stack\n", nonNullNode_str);
 
     BinaryTreeNode *body = move_right_until(whileNode, TOKEN_CURLYL_BRACKET);
@@ -321,6 +327,7 @@ void process_identifier_assign(BinaryTreeNode *node, SymbolStack *stack)
         printf("ASSIGN expression %s\n", expresstoAssign->strValue);
         // DataType expression = process_expression(expresstoAssign);
         // TODO datatype do symtable
+        exit(0);
     }
     else
     {
@@ -379,7 +386,7 @@ void process_func_def(BinaryTreeNode *funcDefNode, SymbolStack *stack)
     funcSymbol->type = TYPE_FUNCTION;
     funcSymbol->value.params = paramChain; // Chain of parameters
     funcSymbol->next = NULL;
-    insert_symbol_stack(stack, funcSymbol->name, funcSymbol->type, funcSymbol);
+    insert_symbol_stack(stack, funcSymbol->name, funcSymbol->type, funcSymbol, false);
     printf("FUNCTION '%s' stored in global scope with parameters.\n", funcName_node->strValue);
 
     // Restore original scope
