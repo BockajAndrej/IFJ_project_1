@@ -29,12 +29,13 @@ BinaryTreeNode *move_right_until(BinaryTreeNode *node, Token_type dest);
 // function
 void process_func_def(BinaryTreeNode *funcDefNode, SymbolStack *stack);
 Symbol *parse_parameters(BinaryTreeNode *paramsListNode);
-DataType process_func_return(BinaryTreeNode *returnNode);
-BinaryTreeNode *process_validate_func_call(BinaryTreeNode *funcnode,SymbolStack *stack);
+DataType process_func_return(BinaryTreeNode *returnNode, SymbolStack *stack);
+DataType process_validate_func_call(BinaryTreeNode *funcnode, SymbolStack *stack);
+void process_voidFunc(BinaryTreeNode *node, SymbolStack *stack);
 
 // expressions
-DataType process_expression(BinaryTreeNode *returnNode);
-
+DataType process_expression(BinaryTreeNode *returnNode, SymbolStack *stack);
+DataType find_return_datatype(char *name);
 // if
 void process_if(BinaryTreeNode *ConditionNode, SymbolStack *stack);
 // while

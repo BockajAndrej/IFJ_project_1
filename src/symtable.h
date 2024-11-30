@@ -7,13 +7,14 @@
 
 typedef struct Symbol
 {
-    char *name;     // Symbol name
+    char *name;    // Symbol name
     DataType type; // Data type
     union
     {
-        int intValue;     // Integer value
-        float floatValue; // Float value
-        char *strValue;   // String value
+        int intValue;          // Integer value
+        float floatValue;      // Float value
+        char *strValue;        // String value
+        struct Symbol *params; // Pointer to parameter chain for functions
     } value;
     struct Symbol *next; // Pointer for chaining in hash table
 } Symbol;
@@ -47,7 +48,7 @@ void free_hash_table(HashTable *table);
 
 // Symbol stack functions
 SymbolStack *create_symbol_stack();
-SymbolStack* initialize_symbol_stack();
+SymbolStack *initialize_symbol_stack();
 void push_scope(SymbolStack *stack);
 void pop_scope(SymbolStack *stack);
 void insert_symbol_stack(SymbolStack *stack, const char *name, DataType type, void *value);

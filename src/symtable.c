@@ -106,7 +106,10 @@ void insert_hash_table(HashTable *table, const char *name, DataType type, void *
     case TYPE_STRING:
         new_symbol->value.strValue = copy_string((char *)value);
         break;
-    default:
+    case TYPE_FUNCTION:
+        new_symbol->value.params = ((Symbol *)value)->value.params; // Assign parameter chain
+        break;
+        default:
         new_symbol->value.intValue = 0; // Default initialization
         break;
     }

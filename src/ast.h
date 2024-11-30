@@ -43,6 +43,7 @@ typedef enum
     TYPE_EMPTY,
     TYPE_NONNULL,
     TYPE_UNKNOWN,
+    TYPE_FUNCTION,
 
     TYPE_U8_ARRAY //testing
 } DataType;

@@ -44,21 +44,11 @@ int main(int argc, char **argv)
         return 1;
     }
     printBinaryTree(root);
-    
+
     SymbolStack *stack = initialize_symbol_stack();
     ProcessTree(root, stack);
 
     printf("%s", " --- ENDED SUCESFULLY --- \n");
-    Symbol *symbol;
-    symbol = search_symbol_stack(stack, "x");
-    if (symbol)
-    {
-        printf("Symbol '%s' found in scope level.\n", symbol->name);
-    }
-    else
-    {
-        printf("Symbol 'x' not declared in any active scope.\n");
-    }
     fclose(file); // Nezabudni zavrieť súbor
     return EXIT_SUCCESS;
 }
