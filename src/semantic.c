@@ -195,7 +195,8 @@ void process_var_declaration(BinaryTreeNode *node, SymbolStack *stack)
     }
     else if (varValue->type == NODE_OP)
     {
-        // DataType varExpressType = process_expression(varValue);
+        // volam ked "var result : i32 = 1 + 2 * 5;"
+        //  DataType varExpressType = process_expression(varValue);
     }
     else if (varValue->type == NODE_FUNC_CALL)
     {
@@ -314,6 +315,8 @@ void process_identifier_assign(BinaryTreeNode *node, SymbolStack *stack)
     }
     else if (expressionOrFunc->right->type == NODE_OP)
     {
+        // !volam ked napr "result = 5 * 3;"
+
         BinaryTreeNode *expresstoAssign = expressionOrFunc->left;
         printf("ASSIGN expression %s\n", expresstoAssign->strValue);
         // DataType expression = process_expression(expresstoAssign);
@@ -321,6 +324,8 @@ void process_identifier_assign(BinaryTreeNode *node, SymbolStack *stack)
     }
     else
     {
+        // ! volam ked napr "result = 3;"
+
         BinaryTreeNode *valuetoAssign = expressionOrFunc->left;
         printf("ASSIGN value %s\n", valuetoAssign->strValue);
         // DataType value = process_expression(valuetoAssign);
@@ -607,6 +612,7 @@ DataType find_return_datatype(char *value)
     return toReturn;
 }
 
+// ! volam ked je return z funkcie "return a * 9;"
 DataType process_func_return(BinaryTreeNode *returnNode, SymbolStack *stack)
 {
     if (returnNode->left == NULL && returnNode->right == NULL)
@@ -631,6 +637,19 @@ DataType process_expression(BinaryTreeNode *returnNode, SymbolStack *stack)
     {
         /* code */
     }
+
+    // ? BinaryTreeNode *node = returnNode;
+
+    // ?  SymbolStack *test;
+
+    // ak nie je vrati null,
+    // ?   test = search_symbol_stack(stack, "result");
+
+    // ak mas napr return 5 * c; tak symbol ti hodi null a vies ze v tabulky nie je
+    // mozem pouzit find_return_datatype() na zistenie datatype
+    // ?  test = search_symbol_stack(stack, "5");
+
+    // na check ci je type vhodny vies pouzit is_type_compatible(), pozri sa ako funguje func
 
     return TYPE_INT;
 }

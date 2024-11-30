@@ -1,15 +1,7 @@
-pub fn decrement(n : i32, m : i32) i32
-{
-    return n - m;
-}
 pub fn factorial(n : i32) i32
 {
-    var result : i32 = 1;
-    if (n < 2)
-    {
-        result = decrement(55,5);
-        result =factorial(decremented_n, 1, b);
-
-    }
-    return result;
+    var result : i32 = 1 + 2 * 5;
+    //result = 5 * 8;
+    //return 9 * result;
+    return;
 }
