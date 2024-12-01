@@ -71,7 +71,7 @@ HashTable *create_hash_table()
     return table;
 }
 
-void insert_hash_table(HashTable *table, const char *name, DataType type, void *value, bool isConst)
+void insert_hash_table(HashTable *table, const char *name, DataType type, void *value, bool isConst, bool isNull)
 {
     unsigned long hash = djb2_hash(name) % HASH_TABLE_SIZE;
 
@@ -94,27 +94,47 @@ void insert_hash_table(HashTable *table, const char *name, DataType type, void *
     new_symbol->name = copy_string(name);
     new_symbol->type = type;
     new_symbol->isConst = isConst;
+    new_symbol->isNull = isNull;
 
-    // Assign the value based on type
-    switch (type)
+    if (!isNull)
     {
-    case TYPE_INT:
-        new_symbol->value.intValue = *(int *)value;
-        break;
-    case TYPE_FLOAT:
-        new_symbol->value.floatValue = *(float *)value;
-        break;
-    case TYPE_STRING:
-        new_symbol->value.strValue = copy_string((char *)value);
-        break;
-    case TYPE_FUNCTION:
-        new_symbol->value.params = ((Symbol *)value)->value.params; // Assign parameter chain
-        break;
-    default:
-        new_symbol->value.intValue = 0; // Default initialization
-        break;
+        // Initialize the union based on DataType
+        switch (type)
+        {
+        case TYPE_INT:
+        case TYPE_INT_NULL:
+            new_symbol->value.intValue = *(int *)value;
+            break;
+        case TYPE_FLOAT:
+        case TYPE_FLOAT_NULL:
+            new_symbol->value.floatValue = *(float *)value;
+            break;
+        case TYPE_STRING:
+        case TYPE_STRING_NULL:
+            new_symbol->value.strValue = copy_string((char *)value);
+            if (!new_symbol->value.strValue && type == TYPE_STRING)
+            {
+                fprintf(stderr, "Error: Memory allocation failed for string value '%s'.\n", (char *)value);
+                free_string(new_symbol->name);
+                free(new_symbol);
+                return;
+            }
+            break;
+        case TYPE_FUNCTION:
+            new_symbol->value.params = (Symbol *)value;
+            break;
+        // Handle other types as needed
+        default:
+            // For unsupported types, zero out the union
+            memset(&(new_symbol->value), 0, sizeof(new_symbol->value));
+            break;
+        }
     }
-
+    else
+    {
+        // For null values, ensure the union is zeroed out
+        memset(&(new_symbol->value), 0, sizeof(new_symbol->value));
+    }
     // Insert the symbol at the beginning of the chain
     new_symbol->next = table->buckets[hash];
     table->buckets[hash] = new_symbol;
@@ -231,14 +251,14 @@ void pop_scope(SymbolStack *stack)
     free(temp);
 }
 
-void insert_symbol_stack(SymbolStack *stack, const char *name, DataType type, void *value, bool isConst)
+void insert_symbol_stack(SymbolStack *stack, const char *name, DataType type, void *value, bool isConst, bool isNull)
 {
     if (stack->top == NULL)
     {
         fprintf(stderr, "Error: No active scope to insert symbol '%s'.\n", name);
         return;
     }
-    insert_hash_table(stack->top->table, name, type, value, isConst);
+    insert_hash_table(stack->top->table, name, type, value, isConst, isNull);
 }
 
 Symbol *search_symbol_stack(SymbolStack *stack, const char *name)

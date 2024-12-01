@@ -353,8 +353,6 @@ const char *DataTypeToString(DataType type)
         return "TYPE_BOOL";
     case TYPE_STRING:
         return "TYPE_STRING";
-    case TYPE_NEW_LINE:
-        return "TYPE_NEW_LINE";
     case TYPE_EMPTY:
         return "TYPE_EMPTY";
     case TYPE_NONNULL:

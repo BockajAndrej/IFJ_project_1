@@ -13,6 +13,10 @@ DataType value_string_to_type(const char *typeStr)
         return TYPE_INT;
     if (strcmp(typeStr, "f64") == 0)
         return TYPE_FLOAT;
+    if (strcmp(typeStr, "?i32") == 0)
+        return TYPE_INT_NULL;
+    if (strcmp(typeStr, "?f64") == 0)
+        return TYPE_FLOAT_NULL;
     if (strcmp(typeStr, "bool") == 0)
         return TYPE_BOOL;
     if (strcmp(typeStr, "string") == 0)
@@ -38,6 +42,10 @@ const char *value_type_to_string(DataType type)
         return "i32";
     case TYPE_FLOAT:
         return "f64";
+    case TYPE_INT_NULL:
+        return "?i32";
+    case TYPE_FLOAT_NULL:
+        return "?f64";
     case TYPE_STRING:
         return "string";
     case TYPE_BOOL:
@@ -77,13 +85,31 @@ bool are_types_compatible(DataType actual, DataType expected)
 {
     if (actual == expected)
         return true;
-    // Example: Allow implicit conversion from int to float
-    if (actual == TYPE_INT && expected == TYPE_FLOAT)
+    if (expected == TYPE_INT && actual == TYPE_INT_NULL)
         return true;
-    if (actual == TYPE_FLOAT && expected == TYPE_INT)
-        return false;
+    if (expected == TYPE_INT_NULL && (actual == TYPE_INT))
+        return true;
+    if (expected == TYPE_FLOAT && actual == TYPE_INT)
+        return true;
+    if (expected == TYPE_FLOAT_NULL && (actual == TYPE_INT || actual == TYPE_FLOAT || actual == TYPE_INT_NULL))
+        return true;
 
     return false;
+}
+const char *token_to_type(Token_type value)
+{
+    switch (value)
+    {
+    case TOKEN_INT_LITERAL:
+        return "i32";
+    case TOKEN_FLOAT_LITERAL:
+        return "f64";
+    case TOKEN_STRING_LITERAL:
+        return "[]u8";
+    default:
+        break;
+    }
+    return "";
 }
 
 BinaryTreeNode *move_left_until(BinaryTreeNode *node, Token_type dest)
@@ -127,6 +153,7 @@ void process_var_declaration(BinaryTreeNode *node, SymbolStack *stack)
     BinaryTreeNode *varSpeci = move_right_until(varnode, TOKEN_KEYWORD);
 
     // * DATATYPE LOGIC
+    bool isNull = false;
     if (varSpeci == NULL) // * skrateny vyraz typu const a = 5; napr
     {
         varType = TYPE_UNKNOWN;
@@ -137,9 +164,9 @@ void process_var_declaration(BinaryTreeNode *node, SymbolStack *stack)
     }
 
     /*
-        Speciální hodnotu null mohou nabývat všechny
-        proměnné, parametry a návratové hodnoty typované s předponou ’?’, tzv. typ zahr-
-        nující null. Z hodnoty null nelze odvodit konkrétní typ.
+        TODO Speciální hodnotu null mohou nabývat všechny
+        TODO proměnné, parametry a návratové hodnoty typované s předponou ’?’, tzv. typ zahrnující null.
+        TODO  Z hodnoty null nelze odvodit konkrétní typ.
     */
 
     // * ASSIGN "=" LOGIC
@@ -164,9 +191,10 @@ void process_var_declaration(BinaryTreeNode *node, SymbolStack *stack)
             varType = process_expression(varValue, stack);
         }
 
-        if (!is_type_compatible(varType, initType))
+        if (!are_types_compatible(value_string_to_type(token_to_type(initType)), varType))
         {
             printf("Type Error: Cannot assign '%s' to variable '%s' of type '%s'.\n", token_type_to_string(initType), varIdenti, value_type_to_string(varType));
+            printf("type is %s-%s\n", token_to_type(initType), value_type_to_string(varType));
             return;
         }
         // * TESTING OUTPUT
@@ -174,22 +202,24 @@ void process_var_declaration(BinaryTreeNode *node, SymbolStack *stack)
         switch (varType)
         {
         case TYPE_INT:
+        case TYPE_INT_NULL:
         {
             long val = strtol(initValue, NULL, 10);
-            insert_symbol_stack(stack, varIdenti, varType, &val, isConst);
+            insert_symbol_stack(stack, varIdenti, varType, &val, isConst, isNull);
             printf("VAR Insert '%s' type '%s' value %ld const %s.\n", varIdenti, value_type_to_string(varType), val, isConst ? "true" : "false");
         }
         break;
         case TYPE_FLOAT:
+        case TYPE_FLOAT_NULL:
         {
-            int val = strtol(initValue, NULL, 10);
-            insert_symbol_stack(stack, varIdenti, varType, &val, isConst);
-            printf("VAR Insert '%s' type '%s' value %d const %s.\n", varIdenti, value_type_to_string(varType), val, isConst ? "true" : "false");
+            float val = strtof(initValue, NULL);
+            insert_symbol_stack(stack, varIdenti, varType, &val, isConst, isNull);
+            printf("VAR Insert '%s' type '%s' value %f const %s.\n", varIdenti, value_type_to_string(varType), val, isConst ? "true" : "false");
         }
         break;
         case TYPE_STRING:
         {
-            insert_symbol_stack(stack, varIdenti, varType, initValue, isConst);
+            insert_symbol_stack(stack, varIdenti, varType, initValue, isConst, isNull);
             printf("VAR '%s' type '%s' value %s const %s.\n", varIdenti, value_type_to_string(varType), initValue, isConst ? "true" : "false");
         }
         break;
@@ -232,7 +262,7 @@ void process_if(BinaryTreeNode *ConditionNode, SymbolStack *stack)
         {
             BinaryTreeNode *nonNullVal = move_right_until(conditionAndNonNull, TOKEN_IDENTIFIER);
             nonNullVal_str = nonNullVal->strValue;
-            insert_symbol_stack(stack, nonNullVal_str, TYPE_NONNULL, "", false);
+            insert_symbol_stack(stack, nonNullVal_str, TYPE_NONNULL, "", false, false);
             printf("IF NonNull \"%s\"\n", nonNullVal_str);
         }
 
@@ -276,7 +306,7 @@ void process_while(BinaryTreeNode *whileNode, SymbolStack *stack)
     // right nonnull value
     BinaryTreeNode *nonNullNode = move_right_until(conditionAndNonNullNode, TOKEN_IDENTIFIER);
     char *nonNullNode_str = nonNullNode->strValue;
-    insert_symbol_stack(stack, nonNullNode_str, TYPE_NONNULL, "", false);
+    insert_symbol_stack(stack, nonNullNode_str, TYPE_NONNULL, "", false, false);
     printf("WHILE NonNull %s put in stack\n", nonNullNode_str);
 
     BinaryTreeNode *body = move_right_until(whileNode, TOKEN_CURLYL_BRACKET);
@@ -386,7 +416,7 @@ void process_func_def(BinaryTreeNode *funcDefNode, SymbolStack *stack)
     funcSymbol->type = TYPE_FUNCTION;
     funcSymbol->value.params = paramChain; // Chain of parameters
     funcSymbol->next = NULL;
-    insert_symbol_stack(stack, funcSymbol->name, funcSymbol->type, funcSymbol, false);
+    insert_symbol_stack(stack, funcSymbol->name, funcSymbol->type, funcSymbol, false, false);
     printf("FUNCTION '%s' stored in global scope with parameters.\n", funcName_node->strValue);
 
     // Restore original scope

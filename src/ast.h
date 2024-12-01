@@ -7,7 +7,7 @@
 // Typy uzlov
 typedef enum
 {
-    NODE_GENERAL,    // Starting NODE
+    NODE_GENERAL, // Starting NODE
     NODE_PARAM,
     NODE_OP,         // Operácia ( +, -, !=)
     NODE_VAR,        // Premenná (a, b)
@@ -34,34 +34,27 @@ typedef enum
 // Typy dát
 typedef enum
 {
-    TYPE_NEW_LINE,
     TYPE_INT,
+    TYPE_INT_NULL,
     TYPE_FLOAT,
-    TYPE_BOOL,
+    TYPE_FLOAT_NULL,
     TYPE_STRING,
+    TYPE_STRING_NULL,
+    TYPE_BOOL,
     TYPE_VOID,
     TYPE_EMPTY,
     TYPE_NONNULL,
     TYPE_UNKNOWN,
     TYPE_FUNCTION,
 
-    TYPE_U8_ARRAY //testing
+    TYPE_U8_ARRAY // testing
 } DataType;
-
-typedef enum
-{
-    AST_VALUE_INT,
-    AST_VALUE_FLOAT,
-    AST_VALUE_STRING
-} ASTValueType;
 
 // Štruktúra uzla binárneho stromu
 typedef struct BinaryTreeNode
 {
     NodeType type;
-    // DataType dataType;
     Token_type tokenType;
-    // ASTValueType valueType; // Typ hodnoty
     char *strValue;
     bool isRight;
     struct BinaryTreeNode *left;   // Ľavý potomok
