@@ -6,5 +6,7 @@ pub fn main() void {
     var k: u8 = 25 + 5;
     var a: i32 = 0;
     const r = foo(param);
+
+    
 }
 

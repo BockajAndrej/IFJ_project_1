@@ -905,18 +905,19 @@ bool EXPRESSION(FILE *file, Token token)
 
     int numOfLPar = 0;
     int tmp_char = 0;
-    const int N = 10;
-    char table[10][10] = {
-        {'<', '<', '<', '<', '<', '<', '<', '>', '<', '>'},
-        {'>', '>', '>', '<', '<', '<', '<', '>', '<', '>'},
-        {'>', '>', '>', '<', '>', '<', '<', '>', '<', '>'},
-        {'>', '>', '>', '>', '>', '<', '<', '>', '<', '>'},
-        {'>', '>', '>', '>', '>', '<', '<', '>', '<', '>'},
-        {'>', '>', '>', '>', '>', 'X', 'X', '>', 'X', '>'},
-        {'<', '<', '<', '<', '<', '<', '<', '=', '<', 'X'},
-        {'>', '>', '>', '>', '>', 'X', 'X', '>', 'X', '>'},
-        {'>', '>', '>', '>', '>', 'X', 'X', '>', 'X', '>'},
-        {'<', '<', '<', '<', '<', '<', '<', 'X', '<', ' '}};
+    const int N = 11;
+    char table[11][11] = {
+        {'<', '<', '<', '<', '<', '<', '<', '>', '<', '<', '>'},
+        {'>', '>', '>', '<', '<', '<', '<', '>', '<', 'X', '>'},
+        {'>', '>', '>', '<', '>', '<', '<', '>', '<', 'X', '>'},
+        {'>', '>', '>', '>', '>', '<', '<', '>', '<', 'X', '>'},
+        {'>', '>', '>', '>', '>', '<', '<', '>', '<', 'X', '>'},
+        {'>', '>', '>', '>', '>', 'X', 'X', '>', 'X', 'X', '>'},
+        {'<', '<', '<', '<', '<', '<', '<', '=', '<', '<', 'X'},
+        {'>', '>', '>', '>', '>', 'X', 'X', '>', 'X', 'X', '>'},
+        {'>', '>', '>', '>', '>', 'X', 'X', '>', 'X', 'X', '>'},
+        {'>', 'X', 'X', 'X', 'X', 'X', 'X', '>', 'X', 'X', '>'},
+        {'<', '<', '<', '<', '<', '<', '<', 'X', '<', '<', ' '}};
 
     find_OP(N, table, token, &precStack, &tmp_char, &numOfLPar);
 
@@ -942,7 +943,7 @@ bool EXPRESSION(FILE *file, Token token)
                 switch (state)
                 {
                 case sStartExc:
-                    if (curPrecItem.data.token_type == TOKEN_IDENTIFIER || curPrecItem.data.token_type == TOKEN_INT_LITERAL || curPrecItem.data.token_type == TOKEN_FLOAT_LITERAL)
+                    if (curPrecItem.data.token_type == TOKEN_IDENTIFIER || curPrecItem.data.token_type == TOKEN_INT_LITERAL || curPrecItem.data.token_type == TOKEN_FLOAT_LITERAL || curPrecItem.data.token_type == TOKEN_NULL)
                     {
                         curRuleItem.type = rule;
                         curRuleItem.data.isPrec = false;
@@ -1198,7 +1199,7 @@ void find_OP(const int N, char table[N][N], Token token, Stack *precStack, int *
     case TOKEN_RPAREN:
         x = 7;
         if (*numOfLPar <= 0)
-            x = 9;
+            x = 10;
         else
             *numOfLPar = *numOfLPar - 1;
         break;
@@ -1211,8 +1212,11 @@ void find_OP(const int N, char table[N][N], Token token, Stack *precStack, int *
     case TOKEN_FLOAT_LITERAL:
         x = 8;
         break;
-    case TOKEN_SEMICOLON:
+    case TOKEN_NULL:
         x = 9;
+        break;
+    case TOKEN_SEMICOLON:
+        x = 10;
         break;
     default:
         break;
@@ -1253,9 +1257,12 @@ void find_OP(const int N, char table[N][N], Token token, Stack *precStack, int *
     case TOKEN_FLOAT_LITERAL:
         y = 8;
         break;
+    case TOKEN_NULL:
+        y = 9;
+        break;
     case TOKEN_EMPTY:
     case EOF:
-        y = 9;
+        y = 10;
         break;
     default:
         break;
