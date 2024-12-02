@@ -10,6 +10,7 @@
 #include "ast.h"
 #include "semantic.h"
 #include "symtable.h"
+#include "Code_generator.h"
 
 
 void print_table(SymbolTable *table) {
@@ -105,6 +106,11 @@ int main(int argc, char **argv)
         printf("%s", " --- WRONG END --- \n");
         return 1;
     }
+
+    //generator skusky
+    generateHeader();
+    processTokenType(root);
+
     printBinaryTree(root);
     printf("%s", " --- ENDED SUCESFULLY --- \n");
 

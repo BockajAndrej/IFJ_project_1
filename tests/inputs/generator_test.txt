@@ -1,0 +1,6 @@
+// Pomocna funkce pro dekrementaci celeho cisla o zadane cislo
+pub fn decrement(n : i32, m : i32) i32
+{
+    a = b + c*8;
+
+}
