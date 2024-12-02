@@ -26,6 +26,7 @@ void free_string(char *str)
 }
 
 // DJB2 Hash Function
+// @http://www.cse.yorku.ca/~oz/hash.html
 unsigned long djb2_hash(const char *str)
 {
     unsigned long hash = 5381;

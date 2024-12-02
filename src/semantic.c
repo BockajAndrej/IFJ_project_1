@@ -7,95 +7,6 @@
 
 #include "semantic.h"
 
-DataType value_string_to_type(const char *typeStr)
-{
-    if (strcmp(typeStr, "i32") == 0)
-        return TYPE_INT;
-    if (strcmp(typeStr, "f64") == 0)
-        return TYPE_FLOAT;
-    if (strcmp(typeStr, "?i32") == 0)
-        return TYPE_INT_NULL;
-    if (strcmp(typeStr, "?f64") == 0)
-        return TYPE_FLOAT_NULL;
-    if (strcmp(typeStr, "bool") == 0)
-        return TYPE_BOOL;
-    if (strcmp(typeStr, "string") == 0)
-        return TYPE_STRING;
-    if (strcmp(typeStr, "[]u8") == 0)
-        return TYPE_U8_ARRAY;
-    if (strcmp(typeStr, "void") == 0)
-        return TYPE_VOID;
-    if (strcmp(typeStr, "nonNull") == 0)
-        return TYPE_VOID;
-    if (strcmp(typeStr, "function") == 0)
-        return TYPE_FUNCTION;
-    // Add more types as needed
-    return TYPE_UNKNOWN;
-}
-
-// Convert DataType to string for error messages
-const char *value_type_to_string(DataType type)
-{
-    switch (type)
-    {
-    case TYPE_INT:
-        return "i32";
-    case TYPE_FLOAT:
-        return "f64";
-    case TYPE_INT_NULL:
-        return "?i32";
-    case TYPE_FLOAT_NULL:
-        return "?f64";
-    case TYPE_STRING:
-        return "string";
-    case TYPE_BOOL:
-        return "bool";
-    case TYPE_VOID:
-        return "void";
-    case TYPE_U8_ARRAY:
-        return "[]u8";
-    case TYPE_EMPTY:
-        return "empty";
-    case TYPE_NONNULL:
-        return "nonNull";
-    case TYPE_FUNCTION:
-        return "function";
-    default:
-        return "unknown";
-    }
-}
-
-bool is_type_compatible(DataType declaredType, Token_type valueType)
-{
-    switch (declaredType)
-    {
-    case TYPE_INT:
-        return valueType == TOKEN_INT_LITERAL;
-    case TYPE_FLOAT:
-        return valueType == TOKEN_FLOAT_LITERAL || valueType == TOKEN_INT_LITERAL; // Allow implicit int to float
-    case TYPE_STRING:
-        return valueType == TOKEN_STRING_LITERAL;
-    // Add more type compatibility rules as needed
-    default:
-        return false;
-    }
-}
-
-bool are_types_compatible(DataType actual, DataType expected)
-{
-    if (actual == expected)
-        return true;
-    if (expected == TYPE_INT && actual == TYPE_INT_NULL)
-        return true;
-    if (expected == TYPE_INT_NULL && (actual == TYPE_INT))
-        return true;
-    if (expected == TYPE_FLOAT && actual == TYPE_INT)
-        return true;
-    if (expected == TYPE_FLOAT_NULL && (actual == TYPE_INT || actual == TYPE_FLOAT || actual == TYPE_INT_NULL))
-        return true;
-
-    return false;
-}
 const char *token_to_type(Token_type value)
 {
     switch (value)
@@ -433,13 +344,14 @@ void process_func_def(BinaryTreeNode *funcDefNode, SymbolStack *stack)
 
     DataType returnExp_type = process_func_return(funcReturnExp_type, stack);
 
-    if (are_types_compatible(returnDef_type, returnExp_type))
+    // TODO void funckia nemusi mat return;
+    if (are_types_compatible(returnExp_type, returnDef_type))
     {
-        printf("FUNCTION Return def type and return expression type MATCH\n");
+        printf("FUNCTION Return type and return expression  type MATCH\n");
     }
     else
     {
-        printf("FUNCTION Return def type and return expression type do NOT MATCH\n");
+        printf("FUNCTION Return type and return expression type do NOT MATCH\n");
     }
     printf("FUNCTION Exiting function '%s' body.\n", funcName_node->strValue);
     pop_scope(stack);
@@ -658,7 +570,7 @@ DataType process_func_return(BinaryTreeNode *returnNode, SymbolStack *stack)
     }
 
     // ! DELETE AFTER process_expression IS IMPLEMENTED
-    return TYPE_INT;
+    return TYPE_FLOAT_NULL;
     // ! DELETE AFTER process_expression IS IMPLEMENTED
 
     return process_expression(returnNode, stack);

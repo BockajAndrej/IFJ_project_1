@@ -49,5 +49,4 @@ void process_identifier_assign(BinaryTreeNode *node, SymbolStack *stack);
 BinaryTreeNode *ProcessTree(BinaryTreeNode *root, SymbolStack *stack);
 
 
-
 #endif

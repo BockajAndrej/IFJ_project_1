@@ -62,16 +62,6 @@ typedef struct BinaryTreeNode
     struct BinaryTreeNode *parent; // Rodič uzla
 } BinaryTreeNode;
 
-typedef struct
-{
-    NodeType type;
-    Token_type tokenTypeL;
-    const char *value;
-    bool hasLeft;
-    bool hasRight;
-    const char *parentValue;
-} NodeInfo;
-
 extern BinaryTreeNode *currentNode;
 
 // FUNKCIE PRE SPRAVU STROMU
@@ -84,18 +74,18 @@ void insertRightMoveRight(BinaryTreeNode *parent, NodeType type, Token_type toke
 void insertRightMoveLeft(BinaryTreeNode *parent, NodeType type, Token_type tokenType, const char *value);
 
 // FUNKCIE PRE POHYB V STOME
-NodeInfo getCurrentNodeInfo();
 void setStartNode(BinaryTreeNode *root);
 bool moveUp(int levels);
 void moveDownLeft();
 void moveDownRight();
-NodeInfo getNodeInfo(BinaryTreeNode *node);
 
 // FREE A VYPIS
 void freeBinaryTree(BinaryTreeNode *root);
 void printBinaryTree(BinaryTreeNode *root);
 void printBinaryTreeHelper(BinaryTreeNode *node, char *prefix, int isLast);
 const char *NodeTypeToString(NodeType type);
-const char *DataTypeToString(DataType type);
 
+const char *value_type_to_string(DataType type);
+DataType value_string_to_type(const char *typeStr);
+bool are_types_compatible(DataType actual, DataType expected);
 #endif

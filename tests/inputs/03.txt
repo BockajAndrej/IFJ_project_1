@@ -1,14 +1,9 @@
-pub fn factorial(n : i32) i32
+pub fn factorial(n : i32) ?f64
 {
     var a : i32 = 1;
     var b : ?i32 = 3;
     var c : f64 = 5;
-    var d : f64 = 6.6;
-    var e : ?f64 = 7;
-    var f : ?f64 = 7.7;
 
-    var g : i32 = 2.2;
-    var h : ?i32 = 4.4;
 
-    return x;
+    return a;
 }
