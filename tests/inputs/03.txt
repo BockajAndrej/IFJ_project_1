@@ -1,13 +1,9 @@
-pub fn main() void
+pub fn factorial(n : i32) ?f64
 {
-if (array != 0) {
-ifj.write("Array is not null");
-}
-}
+    var a : i32 = 5;
+    var b : ?i32 = 7 * 7 * 6/8 + 6;
+    var c : f64 = 6+ 7 * 7 * 6/8 ;
 
-pub fn main() void
-{
-while (counter > 0) {
-counter = counter - 1;
-}
+
+    return a;
 }

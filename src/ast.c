@@ -29,8 +29,6 @@ BinaryTreeNode *createBinaryNode(NodeType type, Token_type tokenType, const char
     }
     node->type = type;
     node->tokenType = tokenType;
-    // node->dataType = dataType;
-    // node->valueType = AST_VALUE_STRING;     // Predvolený typ
     node->strValue = copy_str(value); // Uloženie hodnoty
     node->left = NULL;
     node->right = NULL;
@@ -103,10 +101,32 @@ void insertRightMoveLeft(BinaryTreeNode *parent, NodeType type, Token_type token
 // PREMENNA NA SLEDOVANIE UZLA
 BinaryTreeNode *currentNode = NULL;
 
+BinaryTreeNode *curInOrderNode = NULL;
+
 // POHYB
 void setStartNode(BinaryTreeNode *root)
 {
     currentNode = root;
+}
+
+void setStartNodeInOrder(BinaryTreeNode *root)
+{
+    curInOrderNode = root;
+}
+
+void InOrder(BinaryTreeNode *node, Stack *stack)
+{
+    if (node != NULL)
+    {
+        InOrder(node->left, stack);
+        Stack_item tmp_item;
+        tmp_item.type = rule;
+        tmp_item.data.isPrec = false;
+        tmp_item.data.token_val.valueString.str = node->strValue;
+        tmp_item.data.token_type = node->tokenType;
+        push(stack, tmp_item);
+        InOrder(node->right, stack);
+    }
 }
 
 bool moveUp(int levels)
@@ -155,59 +175,6 @@ void moveDownRight()
     }
 }
 
-NodeInfo getNodeInfo(BinaryTreeNode *node)
-{
-    NodeInfo info = {0};
-
-    if (!node)
-    {
-        info.value = "NULL"; // Ak je uzol NULL, vrátime informácie s hodnotou NULL
-        return info;
-    }
-
-    // info.type = node->type;
-    // info.dataType = node->dataType;
-
-    // // Nastavenie hodnoty uzla
-    // if (node->valueType == AST_VALUE_STRING && node->value.strValue)
-    // {
-    //     info.value = node->value.strValue;
-    // }
-    // else if (node->valueType == AST_VALUE_INT)
-    // {
-    //     static char buffer[20];
-    //     snprintf(buffer, sizeof(buffer), "%d", node->value.intValue);
-    //     info.value = buffer;
-    // }
-    // else if (node->valueType == AST_VALUE_FLOAT)
-    // {
-    //     static char buffer[20];
-    //     snprintf(buffer, sizeof(buffer), "%.2f", node->value.floatValue);
-    //     info.value = buffer;
-    // }
-    // else
-    // {
-    //     info.value = "NULL";
-    // }
-
-    // // Nastavenie informácií o deťoch
-    // info.hasLeft = (node->left != NULL);
-    // info.hasRight = (node->right != NULL);
-
-    // // Nastavenie hodnoty rodiča
-    // if (node->parent && node->parent->value.strValue)
-    // {
-    //     info.parentValue = node->parent->value.strValue;
-    // }
-    // else
-    // {
-    //     info.parentValue = "NULL";
-    // }
-
-    return info;
-}
-
-// FREE A VYPIS
 void freeBinaryTree(BinaryTreeNode *root)
 {
     if (!root)
@@ -234,6 +201,7 @@ void printBinaryTree(BinaryTreeNode *root)
     // Start the helper with an empty prefix and mark root as the last node
     printBinaryTreeHelper(root, "", 1);
 }
+
 void printBinaryTreeHelper(BinaryTreeNode *node, char *prefix, int isLast)
 {
     if (node == NULL)
@@ -309,6 +277,8 @@ const char *NodeTypeToString(NodeType type)
         return "NODE_IF";
     case NODE_WHILE:
         return "NODE_WHILE";
+    case NODE_WHILE_PREP:
+        return "NODE_WHILE_PREP";
     case NODE_FUNC_DEF:
         return "NODE_FUNC_DEF";
     case NODE_FUNC_CALL:
@@ -339,25 +309,77 @@ const char *NodeTypeToString(NodeType type)
         return "UNKNOWN_NODE_TYPE";
     }
 }
-const char *DataTypeToString(DataType type)
+
+const char *value_type_to_string(DataType type)
 {
     switch (type)
     {
     case TYPE_INT:
-        return "TYPE_INT";
+        return "i32";
     case TYPE_FLOAT:
-        return "TYPE_FLOAT";
-    case TYPE_BOOL:
-        return "TYPE_BOOL";
+        return "f64";
+    case TYPE_INT_NULL:
+        return "?i32";
+    case TYPE_FLOAT_NULL:
+        return "?f64";
     case TYPE_STRING:
-        return "TYPE_STRING";
-    case TYPE_NEW_LINE:
-        return "TYPE_NEW_LINE";
+        return "string";
+    case TYPE_BOOL:
+        return "bool";
+    case TYPE_VOID:
+        return "void";
+    case TYPE_U8_ARRAY:
+        return "[]u8";
     case TYPE_EMPTY:
-        return "TYPE_EMPTY";
+        return "empty";
     case TYPE_NONNULL:
-        return "TYPE_NONNULL";
+        return "nonNull";
+    case TYPE_FUNCTION:
+        return "function";
     default:
-        return "UNKNOWN_DATA_TYPE";
+        return "unknown";
     }
+}
+
+DataType value_string_to_type(const char *typeStr)
+{
+    if (strcmp(typeStr, "i32") == 0)
+        return TYPE_INT;
+    if (strcmp(typeStr, "f64") == 0)
+        return TYPE_FLOAT;
+    if (strcmp(typeStr, "?i32") == 0)
+        return TYPE_INT_NULL;
+    if (strcmp(typeStr, "?f64") == 0)
+        return TYPE_FLOAT_NULL;
+    if (strcmp(typeStr, "bool") == 0)
+        return TYPE_BOOL;
+    if (strcmp(typeStr, "string") == 0)
+        return TYPE_STRING;
+    if (strcmp(typeStr, "[]u8") == 0)
+        return TYPE_U8_ARRAY;
+    if (strcmp(typeStr, "void") == 0)
+        return TYPE_VOID;
+    if (strcmp(typeStr, "nonNull") == 0)
+        return TYPE_VOID;
+    if (strcmp(typeStr, "function") == 0)
+        return TYPE_FUNCTION;
+    // Add more types as needed
+    return TYPE_UNKNOWN;
+}
+
+bool are_types_compatible(DataType actual, DataType expected)
+{
+    // printf("actual = %s > expected = %s\n", value_type_to_string(actual), value_type_to_string(expected));
+    if (actual == expected)
+        return true;
+    if (expected == TYPE_INT && actual == TYPE_INT_NULL)
+        return true;
+    if (expected == TYPE_INT_NULL && (actual == TYPE_INT))
+        return true;
+    if (expected == TYPE_FLOAT && actual == TYPE_INT)
+        return true;
+    if (expected == TYPE_FLOAT_NULL && (actual == TYPE_INT || actual == TYPE_FLOAT || actual == TYPE_INT_NULL))
+        return true;
+
+    return false;
 }

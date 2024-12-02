@@ -234,7 +234,7 @@ typedef enum
      * Represents an error encountered during string initialization.
      */
     TOKEN_STRINGINIT_ERROR,
-
+    TOKEN_NULL,
     TOKEN_EMPTY
 
 } Token_type;
@@ -289,13 +289,11 @@ typedef enum
      * Specifies an 8-bit unsigned integer type.
      */
     KEYWORD_U8,
-
-    /**
-     * @brief Represents the `null` keyword.
-     * Denotes a null or uninitialized value.
-     */
-    KEYWORD_NULL,
-
+    KEYWORD_U8_ARRAY,
+    KEYWORD_I32_NULL,      // [?i32]  can handle NULL
+    KEYWORD_F64_NULL,      // [?f64]
+    KEYWORD_U8_NULL,       // [?u8]
+    KEYWORD_U8_ARRAY_NULL, // [?[]u8]
     /**
      * @brief Represents the `pub` keyword.
      * Indicates public visibility for functions, variables, or constants, allowing access from outside their scope.
@@ -378,6 +376,7 @@ typedef enum
     sLessThan,     ///< Represents the less than operator ('<').
     sGreaterEqual, ///< Represents the greater than or equal to operator ('>=').
     sGreaterThan,  ///< Represents the greater than operator ('>').
+    sQuestionmark,
 
     /**
      * @brief States for handling quotation marks and character literals.

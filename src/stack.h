@@ -1,12 +1,16 @@
+/**
+ * @file stack.h
+ * @author Bockaj Andrej
+ * @category Syntaktic analysis
+ * @brief This file contains functions for stack
+ */
+
 #ifndef STACK_H
 #define STACK_H
 
-#include <stdbool.h> // Pre prácu s dátovým typom bool
+#include <stdbool.h>
 #include "expression.h"
 #include "lexical_analyser.h"
-
-// Počiatočná kapacita zásobníka
-#define INITIAL_CAPACITY 0
 
 typedef enum typeOfData_t
 {

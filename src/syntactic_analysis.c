@@ -1,6 +1,11 @@
+/**
+ * @file syntactic_analysis.c
+ * @author Bockaj Andrej
+ * @category Syntactic analysis
+ * @brief This file contains functions for process input file and verifies syntax  
+ */
 #include "syntactic_analysis.h"
 
-// TODO : 1. Nefunkcny scope len na jeden riadok (bez {}) vytvorit vo funkcii ktora funkciu scope vola
 static int infestNum = 0;
 static int scopeNum = 0;
 typedef enum
@@ -200,6 +205,8 @@ bool VAR_DEF(FILE *file)
         break;
     // var id = EXP;
     case TOKEN_ASSIGNMENT:
+        insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
+        infestNum++;
         GET_TOKEN_RAW(token, file);
         if (!EXPRESSION(file, token))
             return false;
@@ -338,12 +345,10 @@ bool IF_DEF(FILE *file)
     infestNum++;
     if (token.type != TOKEN_LPAREN)
         return false;
-    printf("INF 1 - %d , token - %s\n", infestNum, token.value.valueString.str);
     // if(EXP)
     GET_TOKEN_RAW(token, file);
     if (!EXPRESSION(file, token))
         return false;
-    printf("INF 2 - %d , token - %s\n", infestNum, token.value.valueString.str);
     // if(EXP)|ID|
     if (!IF_EXT(file))
         return false;
@@ -389,30 +394,20 @@ bool ELSE_DEF(FILE *file)
 bool WHILE_DEF(FILE *file)
 {
     pmesg(" ------ WHILE_DEF ------\n");
-    // t_(
     Token token;
+    // t_(
     GET_TOKEN_RAW(token, file);
     insertLeftMoveLeft(currentNode, NODE_IF, token.type, token.value.valueString.str);
     infestNum++;
     if (token.type != TOKEN_LPAREN)
         return false;
-
+    // while(EXP)
     GET_TOKEN_RAW(token, file);
     if (!EXPRESSION(file, token))
         return false;
-
-    // t_{
-    GET_TOKEN_RAW(token, file);
-    moveDownRight(1);
-    infestNum++;
-    insertRightMoveRight(currentNode, NODE_IF, token.type, token.value.valueString.str);
-    infestNum++;
-    if (token.type == TOKEN_CURLYL_BRACKET)
-    {
-        // SCOPE
-        if (!SCOPE(file))
-            return false;
-    }
+    // while(EXP)|ID|
+    if (!IF_EXT(file))
+        return false;
     pmesg(" ------ END WHILE_DEF ------\n");
     return true;
 }
@@ -493,7 +488,7 @@ bool IF_EXT(FILE *file)
         infestNum++;
     }
     // SCOPE
-    // TODO posuvanie nizsie lebo nieco pravdepodobne v expressions do dava velmi vysoko
+    // TODO posuvanie nizsie lebo nieco pravdepodobne v expressions to dava velmi vysoko
     insertRightMoveRight(currentNode, NODE_IF, token.type, token.value.valueString.str);
     infestNum++;
     if (token.type == TOKEN_CURLYL_BRACKET)
@@ -535,7 +530,7 @@ bool CALL_EXT(FILE *file, bool isAlreadyFn)
         // Function call
         if (token.type == TOKEN_LPAREN)
         {
-            insertRightMoveRight(currentNode, NODE_FUNC_CALL, token.type, token.value.valueString.str);
+            insertLeftMoveLeft(currentNode, NODE_FUNC_CALL, token.type, token.value.valueString.str);
             infestNum++;
             if (!ARG(file))
                 return false;
@@ -584,7 +579,16 @@ bool CALL_EXT(FILE *file, bool isAlreadyFn)
     pmesg(" ------ END CALL_EXT ------\n");
     return true;
 }
-// TODO: spracovanie aj s viacerymi parametrami
+/** @brief Extended function for CALL_EXT()
+ *  @details Processes build in functions with object type 
+ *  @param file A pointer to the file being analyzed.
+ *  @return If syntactic analysis pass return true otherwise false
+ *  Use case:
+ *  @code
+ *  @import(t_string);
+ *  EXPRESSIONS;
+ *  @endcode
+ */
 bool CALL_OBJ(FILE *file)
 {
     pmesg(" ------ CALL_OBJ ------\n");
@@ -601,8 +605,7 @@ bool CALL_OBJ(FILE *file)
     infestNum++;
     if (token.type != TOKEN_LPAREN)
         return false;
-    // t_string
-    // TODO: sem asi skor zadat neterminal arg len vymysliet aby bol string prvy
+    // Arguments
     if (!ARG(file))
         return false;
     // t_;
@@ -660,7 +663,7 @@ bool ASSIGN_CONST(FILE *file)
 {
     pmesg(" ------ ASSIGN_CONST ------\n");
     Token token;
-    // Aj pre expression
+    // Also for expression
     GET_TOKEN_RAW(token, file);
     switch (token.type)
     {
@@ -707,7 +710,7 @@ bool ASSIGN_CONST(FILE *file)
  *  @import(t_string);
  *  EXPRESSIONS;
  *  @endcode
- *  @todo Nefunkcny scope len na jeden riadok (bez {}) vytvorit vo funkcii ktora funkciu scope vola
+ *  @todo Nefunkcny scope len na jeden riadok (bez {})
  */
 bool SCOPE(FILE *file)
 {
@@ -721,8 +724,8 @@ bool SCOPE(FILE *file)
     scopeNum++;
     if (!STATEMENT(file, &tmpLokinfest))
         return false;
-    printf("SCOPE inf = %d\n", infestNum);
-    printf("SCOPE num = %d\n", scopeNum);
+    // printf("SCOPE inf = %d\n", infestNum);
+    // printf("SCOPE num = %d\n", scopeNum);
     moveUp(tmpLokinfest);
     scopeNum--;
     infestNum = tmp;
@@ -872,14 +875,13 @@ bool ARGS(FILE *file)
  */
 bool EXPRESSION(FILE *file, Token token)
 {
-    // LOGIKA : Ak v expresne bude znak "(" prva zatvorka bude este expression ale ta dalsia uz to bude koncit.
     pmesg(" ------ EXPRESSION ------\n");
-    Stack precStack; // Stack pre precedencnu analyzu
-    Stack ruleStack; // Ukladanie pravidiel
+    Stack precStack; 
+    Stack ruleStack; 
     Stack_item curPrecItem;
     Stack_item curRuleItem;
 
-    // Pre vkladanie charakteru ktory nie je v tokene
+    // For inserting character that is not token 
     Dynamic_string varLexThan;
     if (!dynamic_string_init(&varLexThan))
     {
@@ -903,18 +905,19 @@ bool EXPRESSION(FILE *file, Token token)
 
     int numOfLPar = 0;
     int tmp_char = 0;
-    const int N = 10;
-    char table[10][10] = {
-        {'<', '<', '<', '<', '<', '<', '<', '>', '<', '>'},
-        {'>', '>', '>', '<', '<', '<', '<', '>', '<', '>'},
-        {'>', '>', '>', '<', '>', '<', '<', '>', '<', '>'},
-        {'>', '>', '>', '>', '>', '<', '<', '>', '<', '>'},
-        {'>', '>', '>', '>', 'X', '<', '<', '>', '<', '>'},
-        {'>', '>', '>', '>', '>', 'X', 'X', '>', 'X', '>'},
-        {'<', '<', '<', '<', '<', '<', '<', '=', '<', 'X'},
-        {'>', '>', '>', '>', '>', 'X', 'X', '>', 'X', '>'},
-        {'>', '>', '>', '>', '>', 'X', 'X', '>', 'X', '>'},
-        {'<', '<', '<', '<', '<', '<', '<', 'X', '<', ' '}};
+    const int N = 11;
+    char table[11][11] = {
+        {'<', '<', '<', '<', '<', '<', '<', '>', '<', '<', '>'},
+        {'>', '>', '>', '<', '<', '<', '<', '>', '<', 'X', '>'},
+        {'>', '>', '>', '<', '>', '<', '<', '>', '<', 'X', '>'},
+        {'>', '>', '>', '>', '>', '<', '<', '>', '<', 'X', '>'},
+        {'>', '>', '>', '>', '>', '<', '<', '>', '<', 'X', '>'},
+        {'>', '>', '>', '>', '>', 'X', 'X', '>', 'X', 'X', '>'},
+        {'<', '<', '<', '<', '<', '<', '<', '=', '<', '<', 'X'},
+        {'>', '>', '>', '>', '>', 'X', 'X', '>', 'X', 'X', '>'},
+        {'>', '>', '>', '>', '>', 'X', 'X', '>', 'X', 'X', '>'},
+        {'>', 'X', 'X', 'X', 'X', 'X', 'X', '>', 'X', 'X', '>'},
+        {'<', '<', '<', '<', '<', '<', '<', 'X', '<', '<', ' '}};
 
     find_OP(N, table, token, &precStack, &tmp_char, &numOfLPar);
 
@@ -928,7 +931,7 @@ bool EXPRESSION(FILE *file, Token token)
             pmesg("ERROR FIND OP\n");
             return false;
         }
-        // Redukovanie podla pravidla
+        // Reduction by the rule
         else if (tmp_char == '>')
         {
             // printf("- Reduction\n");
@@ -940,7 +943,7 @@ bool EXPRESSION(FILE *file, Token token)
                 switch (state)
                 {
                 case sStartExc:
-                    if (curPrecItem.data.token_type == TOKEN_IDENTIFIER || curPrecItem.data.token_type == TOKEN_INT_LITERAL || curPrecItem.data.token_type == TOKEN_FLOAT_LITERAL)
+                    if (curPrecItem.data.token_type == TOKEN_IDENTIFIER || curPrecItem.data.token_type == TOKEN_INT_LITERAL || curPrecItem.data.token_type == TOKEN_FLOAT_LITERAL || curPrecItem.data.token_type == TOKEN_NULL)
                     {
                         curRuleItem.type = rule;
                         curRuleItem.data.isPrec = false;
@@ -1005,23 +1008,23 @@ bool EXPRESSION(FILE *file, Token token)
                 // printf("STATE = %d", state);
                 return false;
             }
-            // Vkladanie neterminalu
+            // pushing N-terminal
             curPrecItem.type = precedence;
             curPrecItem.data.isPrec = true;
             curPrecItem.data.token_type = TOKEN_NTERMINAL;
             curPrecItem.data.token_val.valueString = varNotTerminal;
             push(&precStack, curPrecItem);
         }
-        // Vkladanie do precStacku
+        // push terminal into stack
         else if (tmp_char == '<')
         {
             // printf("- Shift\n");
-            // Vlozenie shift sign
+            // Insert shift sign
             curPrecItem.data.isPrec = false;
             curPrecItem.data.token_type = TOKEN_EMPTY;
             curPrecItem.data.token_val.valueString = varLexThan;
             pushAfterTerminal(&precStack, curPrecItem);
-            // Vlozenie tokenu
+            // Insert token
             curPrecItem.data.isPrec = true;
             curPrecItem.data.token_type = token.type;
             curPrecItem.data.token_val.valueString = token.value.valueString;
@@ -1035,11 +1038,14 @@ bool EXPRESSION(FILE *file, Token token)
             curPrecItem.data.token_val.valueString = token.value.valueString;
             push(&precStack, curPrecItem);
         }
-        // TODO Prerobit aby az nakonci hadzalo false (memory leak)
-        else
+        else{
+            // Deallocation memory
+            freeStack(&precStack);
+            freeStack(&ruleStack);
             return false;
+        }
 
-        // Znaci ze prebelha redukcia a chceme spracovat rovnaky token
+        // It means that reduction was made and we want to  process same token
         if (!isExpressionCorrect)
         {
             GET_TOKEN_RAW(token, file);
@@ -1069,8 +1075,7 @@ bool EXPRESSION(FILE *file, Token token)
         find_OP(N, table, token, &precStack, &tmp_char, &numOfLPar);
     }
 
-    // printf("------1 NUMOF inf: %d\n", infestNum);
-    // Naplnenie stromu
+    // Inserting into tree
     bool dirRight = true;
     int i = 0;
     for (i = 0; !isEmpty(ruleStack.top); i++)
@@ -1124,7 +1129,8 @@ bool EXPRESSION(FILE *file, Token token)
             infestNum--;
         }
     }
-    // printf("------2 NUMOF inf: %d\n", infestNum);
+    
+    // Deallocation memory
     freeStack(&precStack);
     freeStack(&ruleStack);
     pmesg(" ------ END EXPRESSION ------\n");
@@ -1145,7 +1151,7 @@ bool VAR_TYPE(Token t)
  */
 bool VAL_TYPE(Token t)
 {
-    if (t.keyword_val == KEYWORD_I32 || t.keyword_val == KEYWORD_F64 || t.keyword_val == KEYWORD_U8)
+    if (t.keyword_val == KEYWORD_I32 || t.keyword_val == KEYWORD_F64 || t.keyword_val == KEYWORD_U8 || t.keyword_val == KEYWORD_U8_ARRAY || t.keyword_val == KEYWORD_I32_NULL || t.keyword_val == KEYWORD_F64_NULL || t.keyword_val == KEYWORD_U8_NULL || t.keyword_val == KEYWORD_U8_ARRAY_NULL)
         return true;
     return false;
 }
@@ -1159,7 +1165,7 @@ bool FN_TYPE(Token t)
     return false;
 }
 
-// Nájde index operátora v tabuľke
+// Searching for operator index in precedence table
 void find_OP(const int N, char table[N][N], Token token, Stack *precStack, int *character, int *numOfLPar)
 {
     int x = -1, y = -1;
@@ -1193,7 +1199,7 @@ void find_OP(const int N, char table[N][N], Token token, Stack *precStack, int *
     case TOKEN_RPAREN:
         x = 7;
         if (*numOfLPar <= 0)
-            x = 9;
+            x = 10;
         else
             *numOfLPar = *numOfLPar - 1;
         break;
@@ -1206,8 +1212,11 @@ void find_OP(const int N, char table[N][N], Token token, Stack *precStack, int *
     case TOKEN_FLOAT_LITERAL:
         x = 8;
         break;
-    case TOKEN_SEMICOLON:
+    case TOKEN_NULL:
         x = 9;
+        break;
+    case TOKEN_SEMICOLON:
+        x = 10;
         break;
     default:
         break;
@@ -1248,9 +1257,12 @@ void find_OP(const int N, char table[N][N], Token token, Stack *precStack, int *
     case TOKEN_FLOAT_LITERAL:
         y = 8;
         break;
+    case TOKEN_NULL:
+        y = 9;
+        break;
     case TOKEN_EMPTY:
     case EOF:
-        y = 9;
+        y = 10;
         break;
     default:
         break;

@@ -21,7 +21,7 @@
 #ifndef NDEBUG // if not defined NDEBUG (no debugging)
 #define pmesg(s) fprintf(stderr, "Line: %u - " s, __LINE__)
 #else
-#define pmesg(...) // v pripade NDEBUG nebude vypisovat hlasenia
+#define pmesg(...) // in case NDEBUG will not print notifications
 #endif
 
 // Get token without comments

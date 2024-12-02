@@ -1,5 +1,9 @@
-// newstring.h
-
+/**
+ * @file newstring.h
+ * @author Jakub Filo
+ * @category String
+ * @brief This file contains functions for working with string literal
+ */
 #ifndef NEWSTRING_H
 #define NEWSTRING_H
 
