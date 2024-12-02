@@ -101,10 +101,25 @@ void insertRightMoveLeft(BinaryTreeNode *parent, NodeType type, Token_type token
 // PREMENNA NA SLEDOVANIE UZLA
 BinaryTreeNode *currentNode = NULL;
 
+BinaryTreeNode *curInOrderNode = NULL;
+
 // POHYB
 void setStartNode(BinaryTreeNode *root)
 {
     currentNode = root;
+}
+
+void setStartNodeInOrder(BinaryTreeNode *root)
+{
+    curInOrderNode = root;
+}
+
+void InOrder(BinaryTreeNode *node){
+    if(node != NULL){
+        InOrder(node->left);
+        printf("Node : %s", node->strValue);
+        InOrder(node->right);
+    }
 }
 
 bool moveUp(int levels)

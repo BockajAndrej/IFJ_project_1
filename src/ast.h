@@ -63,6 +63,7 @@ typedef struct BinaryTreeNode
 } BinaryTreeNode;
 
 extern BinaryTreeNode *currentNode;
+extern BinaryTreeNode *curInOrderNode;
 
 // FUNKCIE PRE SPRAVU STROMU
 BinaryTreeNode *createBinaryNode(NodeType type, Token_type tokenType, const char *value);
@@ -75,6 +76,8 @@ void insertRightMoveLeft(BinaryTreeNode *parent, NodeType type, Token_type token
 
 // FUNKCIE PRE POHYB V STOME
 void setStartNode(BinaryTreeNode *root);
+void setStartNodeInOrder(BinaryTreeNode *root);
+void InOrder(BinaryTreeNode *node);
 bool moveUp(int levels);
 void moveDownLeft();
 void moveDownRight();

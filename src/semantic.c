@@ -578,13 +578,17 @@ DataType process_func_return(BinaryTreeNode *returnNode, SymbolStack *stack)
 
 DataType process_expression(BinaryTreeNode *returnNode, SymbolStack *stack)
 {
+    printf("HERE\n");
+    setStartNodeInOrder(returnNode);
+    InOrder(curInOrderNode);
+
     if (returnNode == NULL)
     {
         return TYPE_EMPTY;
     }
     if (stack)
     {
-        /* code */
+        
     }
 
     // ? BinaryTreeNode *node = returnNode;

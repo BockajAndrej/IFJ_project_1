@@ -201,6 +201,8 @@ bool VAR_DEF(FILE *file)
         break;
     // var id = EXP;
     case TOKEN_ASSIGNMENT:
+        insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
+        infestNum++;
         GET_TOKEN_RAW(token, file);
         if (!EXPRESSION(file, token))
             return false;
