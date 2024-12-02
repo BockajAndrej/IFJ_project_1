@@ -14,7 +14,7 @@
  *
  * Update this value if more keywords are added to the language.
  */
-#define KEYWORD_COUNT 18 // Update this if you add more keywords
+#define KEYWORD_COUNT 17 // Update this if you add more keywords
 
 /**
  * @var keywords
@@ -35,7 +35,6 @@ const char *keywords[KEYWORD_COUNT] = {
     "?f64",   // KEYWORD_F64_NULL
     "?u8",    // KEYWORD_U8_NULL
     "?[]u8",  // KEYWORD_U8_ARRAY_NULL
-    "null",   // KEYWORD_NULL
     "pub",    // KEYWORD_PUB
     "return", // KEYWORD_RETURN
     "var",    // KEYWORD_VAR
@@ -91,6 +90,8 @@ const char *token_type_to_string(Token_type type)
         return "TOKEN_NEWLINE";
     case TOKEN_TAB:
         return "TOKEN_TAB";
+    case TOKEN_NULL:
+        return "TOKEN_NULL";
     case TOKEN_INT_LITERAL:
         return "TOKEN_INT_L";
     case TOKEN_FLOAT_LITERAL:
@@ -189,7 +190,7 @@ void print_token(Token token)
     case TOKEN_TAB:
         printf("TAB\n");
         break;
-
+    case TOKEN_NULL:
     case TOKEN_INT_LITERAL:
     case TOKEN_FLOAT_LITERAL:
     case TOKEN_STRING_LITERAL:
@@ -377,7 +378,20 @@ Token get_token(FILE *file)
             else if (c == '[')
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                state = sIdentifierorKeyword;
+                // invalid = true;
+
+                c = (char)getc(file); // Načti další znak
+                if (c == ']')
+                {
+                    state = sIdentifierorKeyword;
+                    ungetc(c, file);
+                }
+                else
+                {
+                    token.type = TOKEN_LEFT_BRACKET;
+                    ungetc(c, file);
+                    return token;
+                }
 
                 // dynamic_string_add_char(&token.value.valueString, c);
                 // token.type = TOKEN_LEFT_BRACKET;
@@ -501,19 +515,15 @@ Token get_token(FILE *file)
         break;
         case sIdentifierorKeyword:
         {
-            // Počkáme na další znak, dokud nezjistíme, že je identifikátor kompletní
-            while (!isspace(c))
+            while (!isspace(c) && c != EOF)
             {
                 // Přidáme znak do dynamického řetězce
+                // printf("Processing character: %c\n", c); // Debug statement
 
                 // Kontrola na neplatné znaky
-                if (!isalpha(c) && !isdigit(c) && c != '_')
+                if (!isalpha(c) && !isdigit(c) && c != '_' && c != '[' && c != ']')
                 {
-                    if (c != EOF && !isspace(c))
-                    {
-                        // invalid = true;
-                        break;
-                    }
+                    break;
                 }
                 dynamic_string_add_char(&token.value.valueString, c);
                 c = (char)getc(file); // Načti další znak
@@ -525,6 +535,14 @@ Token get_token(FILE *file)
             if (is_keyword(&token))
             {
                 token.type = TOKEN_KEYWORD;
+            }
+            else if (strcmp(token.value.valueString.str, "null") == 0)
+            {
+                token.type = TOKEN_NULL;
+            }
+            else if (strcmp(token.value.valueString.str, "[") == 0)
+            {
+                token.type = TOKEN_LEFT_BRACKET;
             }
             else if (invalid)
             {

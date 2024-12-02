@@ -234,7 +234,7 @@ typedef enum
      * Represents an error encountered during string initialization.
      */
     TOKEN_STRINGINIT_ERROR,
-
+    TOKEN_NULL,
     TOKEN_EMPTY
 
 } Token_type;
@@ -294,13 +294,6 @@ typedef enum
     KEYWORD_F64_NULL,      // [?f64]
     KEYWORD_U8_NULL,       // [?u8]
     KEYWORD_U8_ARRAY_NULL, // [?[]u8]
-
-    /**
-     * @brief Represents the `null` keyword.
-     * Denotes a null or uninitialized value.
-     */
-    KEYWORD_NULL,
-
     /**
      * @brief Represents the `pub` keyword.
      * Indicates public visibility for functions, variables, or constants, allowing access from outside their scope.
