@@ -1,11 +1,11 @@
-#ifndef SEMANTIC_H
-#define SEMANTIC_H
 /**
  * @file semantic.h
  * @author Jakub Filo
  * @category Semantic analysis
  * @brief This file contains functions for semantic analysis, processing binary tree, checking everything.
  */
+#ifndef SEMANTIC_H
+#define SEMANTIC_H
 
 #include "ast.h"
 #include "symtable.h"

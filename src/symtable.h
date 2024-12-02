@@ -1,3 +1,9 @@
+/**
+ * @file symtable.h
+ * @author Filo Jakub
+ * @category Semantic alalysis
+ * @brief This file contains functions for hash table 
+ */
 #ifndef SYMTABLE_H
 #define SYMTABLE_H
 

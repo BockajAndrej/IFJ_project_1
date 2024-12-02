@@ -1,5 +1,9 @@
-// newstring.c
-
+/**
+ * @file newstring.c
+ * @author Jakub Filo
+ * @category String
+ * @brief This file contains functions for working with string literal
+ */
 #include "newstring.h"
 #include <stdlib.h>
 #include <string.h>

@@ -1,3 +1,9 @@
+/**
+ * @file symtable.c
+ * @author Filo Jakub
+ * @category Semantic alalysis
+ * @brief This file contains functions for hash table 
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

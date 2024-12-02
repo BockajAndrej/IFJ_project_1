@@ -23,7 +23,7 @@ int main(int argc, char **argv)
         // return 0;
     }
 
-    // Skontroluj, či bol zadaný súbor ako argument
+    // Check if file was entered as an argument
     if (argc < 2)
         file = stdin;
     if (argc == 2)
@@ -48,7 +48,8 @@ int main(int argc, char **argv)
     SymbolStack *stack = initialize_symbol_stack();
     ProcessTree(root, stack);
 
+    //! ZMAZAR PRINTY 
     printf("%s", " --- ENDED SUCESFULLY --- \n");
-    fclose(file); // Nezabudni zavrieť súbor
+    fclose(file);
     return EXIT_SUCCESS;
 }

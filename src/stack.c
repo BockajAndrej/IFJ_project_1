@@ -1,10 +1,20 @@
+/**
+ * @file stack.c
+ * @author Bockaj Andrej
+ * @category Syntaktic analysis
+ * @brief This file contains functions for stack
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "stack.h"
 
-// Funkcia na inicializáciu zásobníka
+// Init stack
+
+/// @brief Init stack
+/// @param s pointer to stack
+/// @param type which type of stack (rules or termianls)
 void initStack(Stack *s, TypeOfData type)
 {
     s->top = (Stack_item *)malloc(sizeof(Stack_item));
@@ -13,11 +23,11 @@ void initStack(Stack *s, TypeOfData type)
         fprintf(stderr, "Chyba: malloc initStack.\n");
         exit(EXIT_FAILURE);
     }
-    // Ukazovatele
+    // Pointers
     s->bottom = s->top;
     s->top->next = NULL;
     s->top->prev = NULL;
-    // Plnenie hodnot
+    // Inserting values
     s->top->type = type;
     s->top->data.isPrec = true;
     s->top->data.token_type = TOKEN_EMPTY;
@@ -30,13 +40,17 @@ void initStack(Stack *s, TypeOfData type)
     s->capacity = 1;
 }
 
-// Funkcia na kontrolu, či je zásobník prázdny
+/// @brief Check if stack is empty
+/// @param s pointer to stack
+/// @return if is stack empty
 bool isEmpty(Stack_item *s)
 {
     return ((strcmp(s->data.token_val.valueString.str, "$") == 0) && (s->data.token_type == TOKEN_EMPTY));
 }
 
-// Funkcia na pridanie prvku na vrchol zásobníka
+/// @brief Insert into stack
+/// @param s pointer to stack
+/// @param item inserting item
 void push(Stack *s, const Stack_item item)
 {
     Stack_item *newItem = (Stack_item *)malloc(sizeof(Stack_item));
@@ -45,12 +59,12 @@ void push(Stack *s, const Stack_item item)
         fprintf(stderr, "Chyba: Pokus o push zásobníka.\n");
         exit(EXIT_FAILURE);
     }
-    // Nastavenie ukazovatelov
+    // Pointers
     newItem->next = NULL;
     newItem->prev = s->top;
     s->top->next = newItem;
     s->top = newItem;
-    // Plnenie hodnot
+    // Inserting values
     s->top->type = item.type;
     s->top->data.isPrec = item.data.isPrec;
     s->top->data.token_type = item.data.token_type;
@@ -58,6 +72,9 @@ void push(Stack *s, const Stack_item item)
     s->capacity++;
 }
 
+/// @brief Insert into stack but immediately next to the last terminal 
+/// @param s pointer to stack
+/// @param item inserting item
 void pushAfterTerminal(Stack *s, const Stack_item item)
 {
     if (isEmpty(s->top))
@@ -71,36 +88,35 @@ void pushAfterTerminal(Stack *s, const Stack_item item)
             fprintf(stderr, "Chyba: Pokus o push zásobníka.\n");
             exit(EXIT_FAILURE);
         }
-        // Posunutie ukazovatela na terminal
+        // Shift pointer to the terminal
         if (isTerminal(tmp))
             push(s, item);
         else
         {
             while (!isTerminal(tmp->prev))
                 tmp = tmp->prev;
-            // Presmerovanie ukazovatelov
+            // Pointers
             newItem->next = tmp;
             newItem->prev = tmp->prev;
             tmp->prev->next = newItem;
             tmp->prev = newItem;
-            // Plnenie hodnot
+            // Inserting values
             newItem->type = item.type;
             newItem->data.isPrec = item.data.isPrec;
             newItem->data.token_type = item.data.token_type;
             newItem->data.token_val = item.data.token_val;
-            // Zvysenie aktualnej kapacity
+            // Increase actual capacity
             s->capacity++;
         }
     }
 }
 
 /// @brief Remove top element from stack
-/// @param s stack
-/// @param retSymbol returning symbol
-/// @return Type of symbol
+/// @param s pointer to stack
+/// @param retItem returning item
 void RemoveTop(Stack *s, Stack_item *retItem)
 {
-    // Naplnenie navratovej hodnoty
+    // Full fill return value
     getElement(s, retItem);
 
     Stack_item *tmp = s->top;
@@ -110,10 +126,9 @@ void RemoveTop(Stack *s, Stack_item *retItem)
     free(tmp);
 }
 
-/// @brief Funkcia na získanie vrcholového prvku bez jeho odstránenia
-/// @param s
-/// @param retItem
-/// @param dir Urcuje smer ci bottom(false) alebo top(true)
+/// @brief Function return top element without removing 
+/// @param s pointer to stack
+/// @param retItem returning item
 void getElement(Stack *s, Stack_item *retItem)
 {
     if (isEmpty(s->top))
@@ -127,10 +142,13 @@ void getElement(Stack *s, Stack_item *retItem)
     retItem->data.token_val = s->top->data.token_val;
 }
 
+/// @brief Return last entered terminal
+/// @param s pointer to stack
+/// @return Return last terminal
 int topTerminal(Stack *s)
 {
     Stack_item *tmp = s->top;
-    // Posunutie ukazovatela na terminal
+    // Shift pointer to the terminal
     while (!isEmpty(tmp))
     {
         if (isTerminal(tmp))
@@ -140,10 +158,11 @@ int topTerminal(Stack *s)
     return EOF;
 }
 
-// Funkcia na uvoľnenie pamäte alokovanej pre zásobník
+/// @brief Function for deallocation memory
+/// @param s pointer to stack
 void freeStack(Stack *s)
 {
-    // Uvoľni pamäť pred návratom
+    // Dealloc string memory
     dynamic_string_free(&s->top->data.token_val.valueString);
 
     while (s->top != NULL)
@@ -156,6 +175,9 @@ void freeStack(Stack *s)
     s->capacity = 0;
 }
 
+/// @brief Check if item is terminal
+/// @param Item checking item
+/// @return if is it terminal return true
 bool isTerminal(Stack_item *Item)
 {
     if (Item->type == precedence)
@@ -163,6 +185,8 @@ bool isTerminal(Stack_item *Item)
     return false;
 }
 
+/// @brief Print all elements in stack
+/// @param s pointer to stack
 void PrintAllStack(Stack *s)
 {
     Stack_item *tmp = s->top;
