@@ -1,7 +1,11 @@
+/**
+ * @file syntactic_analysis.c
+ * @author Bockaj Andrej
+ * @category Syntactic analysis
+ * @brief This file contains functions for process input file and verifies syntax  
+ */
 #include "syntactic_analysis.h"
 
-// TODO : 1. Nefunkcny scope len na jeden riadok (bez {}) vytvorit vo funkcii ktora funkciu scope vola
-// TODO : 2. Riesit duplikaciu pre while a if (je to skoro rovnake xd)
 static int infestNum = 0;
 static int scopeNum = 0;
 typedef enum
@@ -201,6 +205,8 @@ bool VAR_DEF(FILE *file)
         break;
     // var id = EXP;
     case TOKEN_ASSIGNMENT:
+        insertRightMoveRight(currentNode, NODE_VAR, token.type, token.value.valueString.str);
+        infestNum++;
         GET_TOKEN_RAW(token, file);
         if (!EXPRESSION(file, token))
             return false;
@@ -657,7 +663,7 @@ bool ASSIGN_CONST(FILE *file)
 {
     pmesg(" ------ ASSIGN_CONST ------\n");
     Token token;
-    // Aj pre expression
+    // Also for expression
     GET_TOKEN_RAW(token, file);
     switch (token.type)
     {
@@ -704,7 +710,7 @@ bool ASSIGN_CONST(FILE *file)
  *  @import(t_string);
  *  EXPRESSIONS;
  *  @endcode
- *  @todo Nefunkcny scope len na jeden riadok (bez {}) vytvorit vo funkcii ktora funkciu scope vola
+ *  @todo Nefunkcny scope len na jeden riadok (bez {})
  */
 bool SCOPE(FILE *file)
 {
@@ -869,14 +875,13 @@ bool ARGS(FILE *file)
  */
 bool EXPRESSION(FILE *file, Token token)
 {
-    // LOGIKA : Ak v expresne bude znak "(" prva zatvorka bude este expression ale ta dalsia uz to bude koncit.
     pmesg(" ------ EXPRESSION ------\n");
-    Stack precStack; // Stack pre precedencnu analyzu
-    Stack ruleStack; // Ukladanie pravidiel
+    Stack precStack; 
+    Stack ruleStack; 
     Stack_item curPrecItem;
     Stack_item curRuleItem;
 
-    // Pre vkladanie charakteru ktory nie je v tokene
+    // For inserting character that is not token 
     Dynamic_string varLexThan;
     if (!dynamic_string_init(&varLexThan))
     {
@@ -925,7 +930,7 @@ bool EXPRESSION(FILE *file, Token token)
             pmesg("ERROR FIND OP\n");
             return false;
         }
-        // Redukovanie podla pravidla
+        // Reduction by the rule
         else if (tmp_char == '>')
         {
             // printf("- Reduction\n");
@@ -1002,23 +1007,23 @@ bool EXPRESSION(FILE *file, Token token)
                 // printf("STATE = %d", state);
                 return false;
             }
-            // Vkladanie neterminalu
+            // pushing N-terminal
             curPrecItem.type = precedence;
             curPrecItem.data.isPrec = true;
             curPrecItem.data.token_type = TOKEN_NTERMINAL;
             curPrecItem.data.token_val.valueString = varNotTerminal;
             push(&precStack, curPrecItem);
         }
-        // Vkladanie do precStacku
+        // push terminal into stack
         else if (tmp_char == '<')
         {
             // printf("- Shift\n");
-            // Vlozenie shift sign
+            // Insert shift sign
             curPrecItem.data.isPrec = false;
             curPrecItem.data.token_type = TOKEN_EMPTY;
             curPrecItem.data.token_val.valueString = varLexThan;
             pushAfterTerminal(&precStack, curPrecItem);
-            // Vlozenie tokenu
+            // Insert token
             curPrecItem.data.isPrec = true;
             curPrecItem.data.token_type = token.type;
             curPrecItem.data.token_val.valueString = token.value.valueString;
@@ -1032,11 +1037,14 @@ bool EXPRESSION(FILE *file, Token token)
             curPrecItem.data.token_val.valueString = token.value.valueString;
             push(&precStack, curPrecItem);
         }
-        // TODO Prerobit aby az nakonci hadzalo false (memory leak)
-        else
+        else{
+            // Deallocation memory
+            freeStack(&precStack);
+            freeStack(&ruleStack);
             return false;
+        }
 
-        // Znaci ze prebelha redukcia a chceme spracovat rovnaky token
+        // It means that reduction was made and we want to  process same token
         if (!isExpressionCorrect)
         {
             GET_TOKEN_RAW(token, file);
@@ -1066,8 +1074,7 @@ bool EXPRESSION(FILE *file, Token token)
         find_OP(N, table, token, &precStack, &tmp_char, &numOfLPar);
     }
 
-    // printf("------1 NUMOF inf: %d\n", infestNum);
-    // Naplnenie stromu
+    // Inserting into tree
     bool dirRight = true;
     int i = 0;
     for (i = 0; !isEmpty(ruleStack.top); i++)
@@ -1121,7 +1128,8 @@ bool EXPRESSION(FILE *file, Token token)
             infestNum--;
         }
     }
-    // printf("------2 NUMOF inf: %d\n", infestNum);
+    
+    // Deallocation memory
     freeStack(&precStack);
     freeStack(&ruleStack);
     pmesg(" ------ END EXPRESSION ------\n");
@@ -1156,7 +1164,7 @@ bool FN_TYPE(Token t)
     return false;
 }
 
-// Nájde index operátora v tabuľke
+// Searching for operator index in precedence table
 void find_OP(const int N, char table[N][N], Token token, Stack *precStack, int *character, int *numOfLPar)
 {
     int x = -1, y = -1;
