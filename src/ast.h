@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include "lexical_analyser.h"
+#include "stack.h"
 
 // Typy uzlov
 typedef enum
@@ -77,7 +78,7 @@ void insertRightMoveLeft(BinaryTreeNode *parent, NodeType type, Token_type token
 // FUNKCIE PRE POHYB V STOME
 void setStartNode(BinaryTreeNode *root);
 void setStartNodeInOrder(BinaryTreeNode *root);
-void InOrder(BinaryTreeNode *node);
+void InOrder(BinaryTreeNode *node, Stack *stack);
 bool moveUp(int levels);
 void moveDownLeft();
 void moveDownRight();

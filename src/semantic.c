@@ -143,7 +143,7 @@ void process_var_declaration(BinaryTreeNode *node, SymbolStack *stack)
     else if (varValue->type == NODE_OP)
     {
         // volam ked "var result : i32 = 1 + 2 * 5;"
-        //  DataType varExpressType = process_expression(varValue);
+        process_expression(varValue, stack);
     }
     else if (varValue->type == NODE_FUNC_CALL)
     {
@@ -578,9 +578,12 @@ DataType process_func_return(BinaryTreeNode *returnNode, SymbolStack *stack)
 
 DataType process_expression(BinaryTreeNode *returnNode, SymbolStack *stack)
 {
-    printf("HERE\n");
+    Stack s;
+    initStack(&s, rule);
     setStartNodeInOrder(returnNode);
-    InOrder(curInOrderNode);
+    InOrder(curInOrderNode, &s);
+
+    PrintAllStack(&s);
 
     if (returnNode == NULL)
     {

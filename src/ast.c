@@ -114,11 +114,18 @@ void setStartNodeInOrder(BinaryTreeNode *root)
     curInOrderNode = root;
 }
 
-void InOrder(BinaryTreeNode *node){
-    if(node != NULL){
-        InOrder(node->left);
-        printf("Node : %s", node->strValue);
-        InOrder(node->right);
+void InOrder(BinaryTreeNode *node, Stack *stack)
+{
+    if (node != NULL)
+    {
+        InOrder(node->left, stack);
+        Stack_item tmp_item;
+        tmp_item.type = rule;
+        tmp_item.data.isPrec = false;
+        tmp_item.data.token_val.valueString.str = node->strValue;
+        tmp_item.data.token_type = node->tokenType;
+        push(stack, tmp_item);
+        InOrder(node->right, stack);
     }
 }
 
