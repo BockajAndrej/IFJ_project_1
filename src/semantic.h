@@ -38,7 +38,6 @@ void process_if(BinaryTreeNode *ConditionNode, SymbolStack *stack);
 void process_while(BinaryTreeNode *Whilenode, SymbolStack *stack);
 
 void process_var_declaration(BinaryTreeNode *node, SymbolStack *stack);
-void process_const_declaration(BinaryTreeNode *node);
 void process_identifier_assign(BinaryTreeNode *node, SymbolStack *stack);
 BinaryTreeNode *ProcessTree(BinaryTreeNode *root, SymbolStack *stack);
 

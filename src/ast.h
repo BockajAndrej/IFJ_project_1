@@ -85,6 +85,7 @@ void moveDownRight();
 
 // Free
 void freeBinaryTree(BinaryTreeNode *root);
+void freeTreeFromAnyNode(BinaryTreeNode *node);
 // Print
 void printBinaryTree(BinaryTreeNode *root);
 void printBinaryTreeHelper(BinaryTreeNode *node, char *prefix, int isLast);

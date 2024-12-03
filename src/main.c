@@ -41,6 +41,7 @@ int main(int argc, char **argv)
     if (!FIRST(file))
     {
         printf("%s", " --- WRONG END --- \n");
+        //chyba od syntactic
         return 1;
     }
     printBinaryTree(root);

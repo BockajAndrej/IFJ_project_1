@@ -78,7 +78,7 @@ HashTable *create_hash_table()
     return table;
 }
 
-void insert_hash_table(HashTable *table, const char *name, DataType type, void *value, bool isConst, bool isNull, bool isGlobal)
+void insert_hash_table(HashTable *table, const char *name, DataType type, void *value, bool isConst, bool isNull, bool isGlobal, DataType freturn_type)
 {
     unsigned long hash = djb2_hash(name) % HASH_TABLE_SIZE;
 
@@ -103,6 +103,7 @@ void insert_hash_table(HashTable *table, const char *name, DataType type, void *
     new_symbol->isConst = isConst;
     new_symbol->isNull = isNull;
     new_symbol->isGlobal = isGlobal;
+    new_symbol->freturn_type = freturn_type;
 
     if (!isNull)
     {
@@ -259,14 +260,14 @@ void pop_scope(SymbolStack *stack)
     free(temp);
 }
 
-void insert_symbol_stack(SymbolStack *stack, const char *name, DataType type, void *value, bool isConst, bool isNull, bool isGlobal)
+void insert_symbol_stack(SymbolStack *stack, const char *name, DataType type, void *value, bool isConst, bool isNull, bool isGlobal, DataType freturn_type)
 {
     if (stack->top == NULL)
     {
         fprintf(stderr, "Error: No active scope to insert symbol '%s'.\n", name);
         return;
     }
-    insert_hash_table(stack->top->table, name, type, value, isConst, isNull, isGlobal);
+    insert_hash_table(stack->top->table, name, type, value, isConst, isNull, isGlobal, freturn_type);
 }
 
 Symbol *search_symbol_stack(SymbolStack *stack, const char *name)

@@ -190,6 +190,15 @@ void freeBinaryTree(BinaryTreeNode *root)
     free(root);
 }
 
+void freeTreeFromAnyNode(BinaryTreeNode *node)
+{
+    while (node->parent != NULL)
+    {
+        node = node->parent;
+    }
+    freeBinaryTree(node);
+}
+
 void printBinaryTree(BinaryTreeNode *root)
 {
     if (!root)
@@ -360,7 +369,7 @@ DataType value_string_to_type(const char *typeStr)
     if (strcmp(typeStr, "void") == 0)
         return TYPE_VOID;
     if (strcmp(typeStr, "nonNull") == 0)
-        return TYPE_VOID;
+        return TYPE_NONNULL;
     if (strcmp(typeStr, "function") == 0)
         return TYPE_FUNCTION;
     // Add more types as needed
