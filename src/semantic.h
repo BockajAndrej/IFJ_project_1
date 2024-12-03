@@ -11,13 +11,7 @@
 #include "symtable.h"
 #include "stdio.h"
 #include "lexical_analyser.h"
-
-void ast_test();
-void ast_IfElse_1();
-void ast_valdef();
-void ast_val_expression();
-void check_logic();
-void ast_while_1();
+#include "error.h"
 
 DataType value_string_to_type(const char *typeStr);
 // const char *token_type_to_string(Token_type tokenType);

@@ -2,7 +2,7 @@
  * @file symtable.c
  * @author Filo Jakub
  * @category Semantic alalysis
- * @brief This file contains functions for hash table 
+ * @brief This file contains functions for hash table
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -78,7 +78,7 @@ HashTable *create_hash_table()
     return table;
 }
 
-void insert_hash_table(HashTable *table, const char *name, DataType type, void *value, bool isConst, bool isNull)
+void insert_hash_table(HashTable *table, const char *name, DataType type, void *value, bool isConst, bool isNull, bool isGlobal)
 {
     unsigned long hash = djb2_hash(name) % HASH_TABLE_SIZE;
 
@@ -102,6 +102,7 @@ void insert_hash_table(HashTable *table, const char *name, DataType type, void *
     new_symbol->type = type;
     new_symbol->isConst = isConst;
     new_symbol->isNull = isNull;
+    new_symbol->isGlobal = isGlobal;
 
     if (!isNull)
     {
@@ -258,14 +259,14 @@ void pop_scope(SymbolStack *stack)
     free(temp);
 }
 
-void insert_symbol_stack(SymbolStack *stack, const char *name, DataType type, void *value, bool isConst, bool isNull)
+void insert_symbol_stack(SymbolStack *stack, const char *name, DataType type, void *value, bool isConst, bool isNull, bool isGlobal)
 {
     if (stack->top == NULL)
     {
         fprintf(stderr, "Error: No active scope to insert symbol '%s'.\n", name);
         return;
     }
-    insert_hash_table(stack->top->table, name, type, value, isConst, isNull);
+    insert_hash_table(stack->top->table, name, type, value, isConst, isNull, isGlobal);
 }
 
 Symbol *search_symbol_stack(SymbolStack *stack, const char *name)

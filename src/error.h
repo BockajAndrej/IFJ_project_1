@@ -6,27 +6,32 @@
  * @author >Jakub Fiľo <xfiloja00@stud.fit.vutbr.cz>
  */
 
-#ifndef _ERROR_H
-#define _ERROR_H
+#ifndef _LOC_ERROR_H
+#define _LOC_ERROR_H
 
-// Error codes.
-#define LEX_ERR 1                // Lexical error: Invalid structure of the current lexeme
-#define SYNTAX_ERR 2             // Syntax error: Invalid program syntax
-#define UNDEFINED_ID_ERR 3       // Undefined identifier error: Undefined function or variable
-#define FUNC_PARAM_ERR 4         // Function parameter error: Incorrect number/type of function parameters
-#define REDEF_ERR 5              // Redefinition error: Redefinition of variable or function
-#define RETURN_EXPR_ERR 6        // Return expression error: Missing or extra expression in return statement
-#define TYPE_COMPAT_ERR 7        // Type compatibility error: Incompatible type in expressions
-#define TYPE_INFER_ERR 8         // Type inference error: Type cannot be inferred
-#define UNUSED_VAR_ERR 9         // Unused variable error: Variable declared but not used
-#define SEMANTIC_ERR 10          // Generic semantic error: Other semantic errors
-#define COMPILER_INTERNAL_ERR 99 // Compiler internal error: Internal error unrelated to input program
+#include <stdio.h>
+#include <stdlib.h>
 
-#define MEM_ERR 11      // Memory-related errors
-#define IO_ERR 12       // Input/Output errors 
-#define NULL_ERR 13     // Null pointer errors
-#define FILE_ERR 14     // File errors  
+typedef enum
+{
+    ERR_SUCCESSFULL = 0,       // When program ends with designed purpose
+    ERR_LEX = 1,               // Lexical error: Invalid structure of the current lexeme
+    ERR_SYNTAX = 2,            // Syntax error: Invalid program syntax
+    ERR_UNDEFINED_ID = 3,      // Undefined identifier error: Undefined function or variable
+    ERR_FUNC_PARAM = 4,        // Function parameter error: Incorrect number/type of function parameters
+    ERR_REDEF = 5,             // Redefinition error: Redefinition of variable or function
+    ERR_RETURN_EXPR = 6,       // Return expression error: Missing or extra expression in return statement
+    ERR_TYPE_COMPAT = 7,       // Type compatibility error: Incompatible type in expressions
+    ERR_TYPE_INFER = 8,        // Type inference error: Type cannot be inferred
+    ERR_UNUSED_VAR = 9,        // Unused variable error: Variable declared but not used
+    ERR_SEMANTIC = 10,         // Generic semantic error: Other semantic errors
+    ERR_MEM = 11,              // Memory-related errors
+    ERR_IO = 12,               // Input/Output errors
+    ERR_NULL = 13,             // Null pointer errors
+    ERR_FILE = 14,             // File errors
+    ERR_COMPILER_INTERNAL = 99 // Compiler internal error: Internal error unrelated to input program
+} ErrorCode;
 
-#define SUCCESSFULL_ERR 0  // When program ends with designed purpose
+void handle_error(ErrorCode error_code);
 
-#endif //_ERROR_H
+#endif //_LOC_ERROR_H

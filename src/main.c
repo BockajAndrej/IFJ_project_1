@@ -47,6 +47,7 @@ int main(int argc, char **argv)
 
     SymbolStack *stack = initialize_symbol_stack();
     ProcessTree(root, stack);
+    free_symbol_stack(stack);
 
     //! ZMAZAR PRINTY 
     printf("%s", " --- ENDED SUCESFULLY --- \n");

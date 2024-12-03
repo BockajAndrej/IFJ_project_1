@@ -4,7 +4,7 @@ CC=gcc
 # Main
 EXECUTABLE=main
 CFLAGS=-std=c11 -Wall -Wextra -Werror -pedantic -g
-OBJ_FILES=main.o stack.o expression.o lexical_analyser.o newstring.o syntactic_analysis.o ast.o semantic.o symtable.o
+OBJ_FILES=main.o stack.o expression.o lexical_analyser.o newstring.o syntactic_analysis.o ast.o semantic.o symtable.o error.o
 
 # TESTS (General)
 DEST_DIR=../tests
@@ -14,7 +14,7 @@ TEST_SCRIPT=$(DEST_DIR)/is_it_ok.sh
 # UNIT-TESTS
 TEST_UNIT_CFLAGS = -I../tests/Unity/src/ -I./
 # Dependent files (if something can not recognice add there that c file)
-TEST_UNIT_SOURCES = ./stack.c ./ast.c ./newstring.c ./lexical_analyser.c ./semantic.c ./symtable.c ./syntactic_analysis.c ../tests/Unity/src/unity.c
+TEST_UNIT_SOURCES = ./stack.c ./ast.c ./newstring.c ./lexical_analyser.c ./semantic.c ./symtable.c ./syntactic_analysis.c ../tests/Unity/src/unity.c ./error.c
 TEST_UNIT_SCRIPT=$(DEST_DIR)/uni_tests.c
 
 # ZIP

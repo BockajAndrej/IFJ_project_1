@@ -2,7 +2,7 @@
  * @file symtable.h
  * @author Filo Jakub
  * @category Semantic alalysis
- * @brief This file contains functions for hash table 
+ * @brief This file contains functions for hash table
  */
 #ifndef SYMTABLE_H
 #define SYMTABLE_H
@@ -17,6 +17,7 @@ typedef struct Symbol
     DataType type; // Data type
     bool isConst;  // Indicates if the symbol is a constant
     bool isNull;   // Indicates if the symbol currently holds a null value
+    bool isGlobal; // Indicates global variable
     union
     {
         int intValue;          // Integer value
@@ -49,7 +50,7 @@ void free_string(char *str);
 
 // Hash table functions
 HashTable *create_hash_table();
-void insert_hash_table(HashTable *table, const char *name, DataType type, void *value, bool isConst, bool isNull);
+void insert_hash_table(HashTable *table, const char *name, DataType type, void *value, bool isConst, bool isNull, bool isGlobal);
 Symbol *search_hash_table(HashTable *table, const char *name);
 void delete_hash_table(HashTable *table, const char *name);
 void free_hash_table(HashTable *table);
@@ -59,7 +60,7 @@ SymbolStack *create_symbol_stack();
 SymbolStack *initialize_symbol_stack();
 void push_scope(SymbolStack *stack);
 void pop_scope(SymbolStack *stack);
-void insert_symbol_stack(SymbolStack *stack, const char *name, DataType type, void *value, bool isConst, bool isNull);
+void insert_symbol_stack(SymbolStack *stack, const char *name, DataType type, void *value, bool isConst, bool isNull, bool isGlobal);
 Symbol *search_symbol_stack(SymbolStack *stack, const char *name);
 void delete_symbol_stack(SymbolStack *stack, const char *name);
 void free_symbol_stack(SymbolStack *stack);
