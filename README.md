@@ -43,5 +43,8 @@ CHANGES:
 ### Pouzitie
 ./ic24int ../src/main < ./prog/00.zig > ./output/OUTPUT.out 
 
+## Spustenie testov
+./IFJ24-tests/test.sh ./IFJ24-tests/ ../src/main ic24int
+
 overenie:
 echo $?
