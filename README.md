@@ -2,8 +2,10 @@
 
 ## Clone
 ### Všetko
+Potrebne byt v priecinku ktory obsahuje dany submodul
 ```
 git clone --recurse-submodules https://github.com/BockajAndrej/IFJ-project01
+git clone --recurse-submodules https://github.com/jansko03/IFJ24-tests
 ```
 ### Len submodule
 ```
