@@ -51,8 +51,8 @@ int main(int argc, char **argv)
 
     printBinaryTree(root);
 
-    SymbolStack *stack = initialize_symbol_stack();
-    ProcessTree(root, stack);
+    //SymbolStack *stack = initialize_symbol_stack();
+    //ProcessTree(root, stack);
 
     //! ZMAZAR PRINTY 
     printf("%s", " --- ENDED SUCESFULLY --- \n");

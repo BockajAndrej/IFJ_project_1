@@ -1,13 +1,4 @@
 #include "Code_generator.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <stdbool.h>
-
-#include <limits.h>
-
-#define INTMAX INT_MAX
-#define INTMIN INT_MIN
 
 void generateHeader(){
     printf(".IFJcode24\n");
@@ -16,7 +7,7 @@ void generateHeader(){
 
 //-------------------VAR DEC----------------------
 void generateGlobalVarDecl(BinaryTreeNode *node) {
-    printf("------------VAR DECLARATION------------\n");
+    //printf("------------VAR DECLARATION------------\n");
     if (!node || node->type != NODE_VAR_DECL) {
         printf("Error: Invalid global variable declaration.\n");
         return;
@@ -25,11 +16,19 @@ void generateGlobalVarDecl(BinaryTreeNode *node) {
     // Extract variable name
     BinaryTreeNode *varNode = node->right; // Should be NODE_VAR ("d")
 
+    if(varNode->tokenType == TOKEN_ASSIGNMENT){
+        if(varNode->right && varNode->right->type == NODE_FUNC_CALL){
+            generateFunctionCall(node);
+            return;
+        }
+        generateAssignment(node);
+        return;
+    }
+
     const char *varName = varNode->strValue;
     printf("DEFVAR GF@%s\n", varName); // Declare global variable
 
     // Navigate to the colon (:) and then the type
-
     BinaryTreeNode *colonNode = varNode->right; // Should be NODE_VAR (":")
     BinaryTreeNode *typeNode = colonNode->right; // Should be NODE_VAR ("f64")
     // Navigate to the assignment (=) and then the value
@@ -58,50 +57,27 @@ void generateGlobalVarDecl(BinaryTreeNode *node) {
 }
 
 void generateLocalVarDecl(BinaryTreeNode *node) {
-    if (!node || node->type != NODE_VAR) {
-        printf("Error: Invalid local variable declaration.\n");
-        return;
-    }
 
     // Extract variable name
     BinaryTreeNode *varNode = node->right; // Should be NODE_VAR ("d")
+
     if(varNode->tokenType == TOKEN_ASSIGNMENT){
+        if(varNode->right && varNode->right->type == NODE_FUNC_CALL){
+            generateFunctionCall(node);
+            return;
+        }
         generateAssignment(node);
-    }
-    if (!varNode || varNode->tokenType != TOKEN_IDENTIFIER) {
-        printf("Error: Invalid variable name.\n");
         return;
     }
 
     const char *varName = varNode->strValue;
     printf("DEFVAR LF@%s\n", varName); // Declare local variable
-
     // Navigate to the colon (:) and then the type
     BinaryTreeNode *colonNode = varNode->right; // Should be NODE_VAR (":")
-    if (!colonNode || colonNode->tokenType != TOKEN_COLON) {
-        printf("Error: Missing colon after variable name.\n");
-        return;
-    }
-
     BinaryTreeNode *typeNode = colonNode->right; // Should be NODE_VAR ("f64")
-    if (!typeNode || typeNode->tokenType != TOKEN_KEYWORD) {
-        printf("Error: Missing or invalid type declaration.\n");
-        return;
-    }
-
     // Navigate to the assignment (=) and then the value
     BinaryTreeNode *assignNode = typeNode->right; // Should be NODE_VAR ("=")
-    if (!assignNode || assignNode->tokenType != TOKEN_ASSIGNMENT) {
-        printf("Error: Missing assignment '=' after type.\n");
-        return;
-    }
-
     BinaryTreeNode *valueNode = assignNode->left; // Should be NODE_VAR ("0.123")
-    if (!valueNode) {
-        printf("Error: Missing value for assignment.\n");
-        return;
-    }
-
     // Handle the assigned value based on its type
     switch (valueNode->tokenType) {
         case TOKEN_INT_LITERAL:
@@ -122,40 +98,27 @@ void generateLocalVarDecl(BinaryTreeNode *node) {
     }
 }
 
-
+//TODO: pozriet sa na const nieco nefunguje
 //-------------------CONST DEC----------------------
 void generateGlobalConstDecl(BinaryTreeNode *node) {
-    printf("------------CONST DECLARATION------------\n");
+    //printf("------------CONST DECLARATION------------\n");
 
-    // Overenie, či ide o uzol konštanty
-    if (!node || node->type != NODE_CONST) {
-        printf("Chyba: Neplatná deklarácia konštanty.\n");
-        return;
-    }
+
 
     // Extrakcia názvu konštanty
     BinaryTreeNode *nameNode = node->right; // Malo by byť meno konštanty
-    if (!nameNode || nameNode->tokenType != TOKEN_IDENTIFIER) {
-        printf("Chyba: Neplatné meno konštanty.\n");
-        return;
-    }
+
 
     const char *constName = nameNode->strValue;
     printf("CONST GF@%s\n", constName); // Deklarujeme konštantu v lokálnom rámci
 
     // Skontrolujeme, či za názvom konštanty nasleduje "="
     BinaryTreeNode *assignNode = nameNode->right; // Malo by byť "="
-    if (!assignNode || assignNode->tokenType != TOKEN_ASSIGNMENT) {
-        printf("Chyba: Očakáva sa '=' po mene konštanty.\n");
-        return;
-    }
+
 
     // Extrakcia hodnoty priradenej konštante
     BinaryTreeNode *valueNode = assignNode->left; // Malo by byť hodnota
-    if (!valueNode) {
-        printf("Chyba: Chýba hodnota pre konštantu.\n");
-        return;
-    }
+
 
     // Generovanie priradenia na základe typu hodnoty
     switch (valueNode->tokenType) {
@@ -171,10 +134,6 @@ void generateGlobalConstDecl(BinaryTreeNode *node) {
             printf("MOVE GF@%s string@%s\n", constName, valueNode->strValue);
             break;
 
-        case TOKEN_IDENTIFIER: // Ak hodnota je výsledok funkcie alebo premennej
-            printf("MOVE GF@%s GF@%s\n", constName, valueNode->strValue);
-            break;
-
         default:
             printf("Chyba: Nepodporovaný typ hodnoty pre konštantu.\n");
             break;
@@ -182,7 +141,7 @@ void generateGlobalConstDecl(BinaryTreeNode *node) {
 }
 
 void generateLocalConstDecl(BinaryTreeNode *node) {
-    printf("------------CONST DECLARATION------------\n");
+    //printf("------------CONST DECLARATION------------\n");
 
     // Overenie, či ide o uzol konštanty
     if (!node || node->type != NODE_CONST) {
@@ -237,48 +196,60 @@ void generateLocalConstDecl(BinaryTreeNode *node) {
             break;
     }
 }
-
+//todo: dorobit podporovane ifj.funkcie
 //-------------------BUILD IN FUNCTIONS----------------------
 void generateBuildInFuncions(BinaryTreeNode *node){
-    if (!node || node->type != NODE_VAR || node->tokenType != TOKEN_IDENTIFIER) {
-        printf( "Error: Invalid node for build in function.\n");
-        return;
-    }
-    BinaryTreeNode *dotNode=node->right;
-    if (!dotNode || dotNode->type != NODE_FUNC_CALL || dotNode->tokenType != TOKEN_DOT) {
-        printf( "Error: Invalid node for build in function.\n");
-        return;
-    }
+    BinaryTreeNode *writeNode=node->right->right;
+    if (strcmp(writeNode->strValue, "write") == 0) {
+        // Prejdeme argumenty funkcie "write"
+        BinaryTreeNode *argNode = writeNode->left->right; // Prvý argument je vľavo
 
-    BinaryTreeNode *fnName=dotNode->right;
-    if (strcmp(fnName->strValue, "write") == 0) {
-        printf("WRITE %s\n",fnName->left->right->strValue);    //TODO: doplnit typ
+        switch (argNode->tokenType)
+        {       //TODO: problem pre vypis ifj.write kvoli tomu ze premenne to berie ako fuc call a nie ako int/float premennu
+            case TOKEN_INT_LITERAL:
+                printf("WRITE int@%s\n", argNode->strValue);
+                break;
+            case TOKEN_FLOAT_LITERAL:
+                printf("WRITE float@%s\n", argNode->strValue);
+                break;
+            default:
+                printf("WRITE string@%s\n", argNode->strValue);
+                break;
+        }
     }
+    //BinaryTreeNode *readNode = node->right->right;
+    //printf("%s\n",readNode->strValue);
+    //if(strcmp(readNode->strValue, "readInt") == 0){
+    //    printf("READ int@%s\n", readNode->left->strValue);
+    //}else if(strcmp(readNode->strValue, "readString") == 0){
+    //    printf("READ string@%s\n", readNode->left->strValue);
+    //}else if(strcmp(readNode->strValue, "readFloat") == 0){
+    //    printf("READ float@%s\n", readNode->left->strValue);
+    // }
 }
 
 //-------------------IF DEC----------------------
 void generateIfStatement(BinaryTreeNode *node) {
-    if (!node || node->type != NODE_IF) {
-        printf( "Error: Invalid node for if statement.\n");
-        return;
-    }
+    //printf("------------IF DEF------------\n");
 
     // Generovanie podmienky - využite `generateExpression`
-    const char *conditionVar = generateExpression(node->left);
-    if (!conditionVar) {
-        printf( "Error: Failed to generate condition for if statement.\n");
-        return;
-    }
+    const char *conditionVar = generateExpression(node->right->left->left);
+
 
     // Generovanie kódu pre podmienku
     static int labelCounter = 0;
     int labelNumber = labelCounter++;
 
     printf("LABEL $if_start_%d\n", labelNumber);
-    printf("JUMPIFNOT $if_else_%d LF@%s\n", labelNumber, conditionVar);
-
+    printf("JUMPIFEQ$if_%d LF@%s\n", labelNumber, conditionVar);
+    //printf("------------ELSE  BODY------------\n");
+    generateBody(node->left->right->left);
+    printf("JUMP $if_end_%d\n", labelNumber);
     // Generovanie tela podmienky
-    generateBody(node->right);
+    //printf("------------IF BODY------------\n");
+
+    //printf("%s\n",node->right->right->left->strValue);
+    generateBody(node->right->right->left);
 
     // Generovanie štítku pre else a koniec if
     //printf("LABEL $if_else_%d\n", labelNumber);
@@ -288,7 +259,7 @@ void generateIfStatement(BinaryTreeNode *node) {
 
 //-------------------WHILE DEC----------------------
 void generateWhileStatement(BinaryTreeNode *node) {
-    printf("------------WHILE DEF------------\n");
+    //printf("------------WHILE DEF------------\n");
     //printf("%s\n",node->strValue);
     if (!node || node->type != NODE_VAR || node->tokenType != TOKEN_KEYWORD) {
         printf( "Error: Invalid node for while statement.\n");
@@ -301,7 +272,7 @@ void generateWhileStatement(BinaryTreeNode *node) {
     printf("LABEL $while_start_%d\n", labelNumber);
 
 
-    printf("------------WHILE STATEMENT------------\n");
+    //printf("------------WHILE STATEMENT------------\n");
     // Generovanie podmienky - spracovanie uzla obsahujúceho podmienku
     BinaryTreeNode *conditionNode = node->left->left; // Predpokladáme, že ľavý poduzol obsahuje podmienku
     const char *conditionVar = generateExpression(conditionNode);
@@ -311,18 +282,18 @@ void generateWhileStatement(BinaryTreeNode *node) {
     }
     printf("JUMPIFNOT  $while_end_%d LF@%s\n", labelNumber, conditionVar);
 
-    printf("------------WHILE BODY------------\n");
+    //printf("------------WHILE BODY------------\n");
     generateBody(node->right->left);
 
     printf("JUMP  $while_end_%d LF@%s\n", labelNumber, conditionVar);
-    printf("------------WHILE END------------\n");
+    //printf("------------WHILE END------------\n");
     printf("LABEL $while_end_%d\n", labelNumber);
 }
 
 
 //-------------------FUNC DEC----------------------
 void generateFunctionParams(BinaryTreeNode *node) {
-    printf("------------FUNCTION DEF------------\n");
+    //printf("------------FUNCTION DEF------------\n");
 
     if (!node || node->type != NODE_FUNC_DEF || node->tokenType != TOKEN_KEYWORD) {
         printf( "Error: Invalid function definition node.\n");
@@ -342,7 +313,7 @@ void generateFunctionParams(BinaryTreeNode *node) {
     printf("CREATEFRAME\n");
     printf("PUSHFRAME\n");
 
-    printf("------------FUNCTION PARAMS------------\n");
+    //printf("------------FUNCTION PARAMS------------\n");
     // Extrahovanie parametrov
     BinaryTreeNode *paramNode = fnNameNode->left; // Doľava na parametre
     if (!paramNode || paramNode->tokenType != TOKEN_LPAREN) {
@@ -371,118 +342,38 @@ void generateFunctionParams(BinaryTreeNode *node) {
     // return;
     //}
     //printf("token %s\n",fnNameNode->strValue);
-    printf("------------FUNCTION BODY------------\n");
+    //printf("------------FUNCTION BODY------------\n");
     generateBody(fnNameNode);
-    printf("------------FUNCTION END------------\n");
-    generateFunctionEnd(); //pozriet Return
+    if(strcmp(node->right->right->right->strValue, "void")==0){
+        printf("POPFRAME\n");
+        printf("RETURN\n");
+    }
+    //TODO: ked je void funkcia treba spravit popframe
 
 }
 
-void generateFunctionEnd() {
-    printf("POPFRAME\n");
-    printf("RETURN\n");
-}
+void generateFunctionEnd(BinaryTreeNode *node) {
+        //printf("------------RETURN------------\n");
+        BinaryTreeNode *returnNode = node->left;
+        //printf("%s\n",returnNode->strValue);
 
-//-------------------RETURN DEC----------------------
-void generateReturn(BinaryTreeNode *node){
-    if (!node || node->type != NODE_VAR || node->tokenType != TOKEN_KEYWORD) {
-        printf( "Error: Invalid node for return statement.\n");
-        return;
+        const char *returnValue = generateExpression(returnNode);
+        if (!returnValue) {
+            printf("RETURN\n");
+            printf("POPFRAME\n");
+            return;
+        }
+
+        printf("RETURN LF@%s\n", returnValue);
+        printf("POPFRAME\n");
     }
-
-    BinaryTreeNode *returnNode = node->right;
-    if (!returnNode) {
-        printf( "Error: Missing return value.\n");
-        return;
-    }
-
-    const char *returnValue = generateExpression(returnNode);
-    if (!returnValue) {
-        printf( "Error: Failed to generate return value.\n");
-        return;
-    }
-
-    printf("RETURN LF@%s\n", returnValue);
-}
-
-//-------------------BODY DEC----------------------
-void generateBody(BinaryTreeNode *node) {
-    if (!node) {
-        return; // Ak je uzol NULL, nič nerob
-    }
-
-    //printf("------------BODY GEN------------\n");
-    //printf("Spracovávam uzol s tokenom: %s, typ uzla: %s\n",
-    //    token_type_to_string(node->tokenType),
-    //    NodeTypeToString(node->type));
-
-    // Spracovanie na základe typu tokenu
-    switch (node->type) {
-        case NODE_VAR:
-            if (strcmp(node->strValue, "return") == 0) {
-                printf("return\n");
-                generateReturn(node);
-            } else if (strcmp(node->strValue, "while") == 0) {
-                generateWhileStatement(node);
-            }else if (strcmp(node->strValue, "ifj") == 0) {
-                generateBuildInFuncions(node);
-            } else {
-                generateLocalVarDecl(node);
-            }
-            break;
-        case NODE_CONST:
-            if(node->tokenType==TOKEN_IDENTIFIER){
-                generateLocalConstDecl(node);
-            }
-            break;
-
-        case NODE_ASSIGN:
-            generateAssignment(node);
-            break;
-
-        case NODE_OP:
-            generateExpression(node);
-            break;
-
-        case NODE_GENERAL:
-            if (node->tokenType == TOKEN_EMPTY) {
-                if (!node->right) {
-                    printf("konecRbody\n");
-                    return;
-                }
-                generateBody(node->right);
-            }
-            break;
-
-        case NODE_FUNC_DEF:
-            generateFunctionParams(node);
-            break;
-
-        case NODE_IF:
-
-            break;
-
-        default:
-            printf( "Unhandled node type: %s\n", NodeTypeToString(node->type));
-            break;
-    }
-
-    // Rekurzívne spracovanie podstromov
-
-    if (node->left  && !strcmp(node->strValue, "while")==0) {
-
-        generateBody(node->left);
-    }
-}
-
 
 //-------------------EXPRESIONS/ASSIGMENTS/FUNC CALL----------------------
 const char* generateExpression(BinaryTreeNode *node) {
 
     //printf("%s\n",node->strValue);
     if (!node) {
-        printf( "Error: Null node in expression.\n");
-        return NULL;
+           return NULL;
     }
 
     // Ak je uzol typu VAR alebo LITERAL, priamo vrátime jeho hodnotu
@@ -552,87 +443,120 @@ const char* generateExpression(BinaryTreeNode *node) {
     return NULL;
 }
 
+//TODO: ARITMETICKA LOGIKA
 void generateAssignment(BinaryTreeNode *node) {
-    printf("%s start of assigment\n", node->strValue);
 
-    // Cieľová premenná (ľavý poduzol)
-    BinaryTreeNode *targetNode = node->left;
-    if (!targetNode || targetNode->type != NODE_VAR || targetNode->tokenType != TOKEN_IDENTIFIER) {
-    printf( "Error: Invalid target for assignment. Expected a variable.\n");
-        return;
-    }
+    //printf("%s start of assigment\n", node->strValue);
+    //printf("%s start of assigment\n", node->right->strValue);
+    //BinaryTreeNode *varNode = node->right->left;
 
-    const char *targetVar = targetNode->strValue;
-    if (!targetVar) {
-        printf( "Error: Missing target variable for assignment.\n");
-        return;
-    }
+    Stack stack;
+    Stack_item  curretItem;
+    initStack(&stack, rule);
 
-    // Generovanie výrazu alebo funkčného volania pre pravú stranu
-    BinaryTreeNode *rightNode = node->right;
-    const char *exprVar = NULL;
 
-    if (rightNode->type == NODE_FUNC_CALL) {
-        // Spracovanie funkčného volania na pravej strane
-        exprVar = generateFunctionCall(rightNode);
-    } else {
-        // Spracovanie výrazu na pravej strane
-        exprVar = generateExpression(rightNode);
-    }
+    setStartNodeInOrder(node->right->left);
+    InOrder(curInOrderNode, &stack);
 
-    // Generovanie priradenia
-    if (exprVar) {
-        printf("MOVE LF@%s LF@%s\n", targetVar, exprVar);
-    } else {
-        printf( "Error: Failed to generate right-hand side for assignment.\n");
-    }
+    //printf("printing stack\n");
+    //PrintAllStack(&stack);
+
+    RemoveTop(&stack,  &curretItem);
+    //curretItem.data.token_val.valueString.str;
+    //curretItem.data.token_type;
+
 }
 
-const char* generateFunctionCall(BinaryTreeNode *node) {
-    if (!node || node->type != NODE_FUNC_CALL) {
-        printf( "Error: Invalid node for function call.\n");
-        return NULL;
-    }
+void generateFunctionCall(BinaryTreeNode *node) {
+
 
     // Názov funkcie, ktorú voláme
-    BinaryTreeNode *functionNameNode = node->left;
-    if (!functionNameNode || functionNameNode->tokenType != TOKEN_IDENTIFIER) {
-        printf( "Error: Invalid function name for function call.\n");
-        return NULL;
-    }
+    BinaryTreeNode *functionNameNode = node->right->right;
+
     const char *functionName = functionNameNode->strValue;
 
-    // Pripravíme dočasnú premennú na uloženie návratovej hodnoty
-    static int tempVarCounter = 0;
-    char *resultVar = malloc(20);
-    sprintf(resultVar, "temp_var_%d", tempVarCounter++);
-
-    printf("DEFVAR LF@%s\n", resultVar);
-
-    // Generovanie parametrov funkcie
-    BinaryTreeNode *paramNode = node->right;
-    int paramCounter = 1;
-    while (paramNode) {
-        const char *paramVar = generateExpression(paramNode);
-        if (paramVar) {
-            printf("PUSHS LF@%s\n", paramVar);
-        } else {
-            printf( "Error: Failed to generate function parameter.\n");
+    BinaryTreeNode *functionParams = functionNameNode->left->right;
+    while(functionParams->tokenType == TOKEN_IDENTIFIER){
+        printf("PUSH LF@%s\n",functionParams->strValue);
+        functionParams=functionParams->right;
+        if(functionParams->tokenType == TOKEN_COMMA){
+            functionParams=functionParams->right;
         }
-        paramNode = paramNode->right; // Predpokladáme, že parametre sú v zozname
-        paramCounter++;
     }
 
-    // Generovanie samotného volania funkcie
-    printf("CALL %s\n", functionName);
+    printf("CALL  $%s\n",functionName);
+    printf("POPS  LF@%s\n",node->strValue);
 
-    // Uloženie návratovej hodnoty z funkcie do dočasnej premennej
-    printf("POPS LF@%s\n", resultVar);
 
-    return resultVar;
 }
 
+//-------------------BODY DEC----------------------
+void generateBody(BinaryTreeNode *node) {
+    if (!node) {
+        return; // Ak je uzol NULL, nič nerob
+    }
 
+    //printf("------------BODY GEN------------\n");
+    //printf("Spracovávam uzol s tokenom: %s, typ uzla: %s\n",
+    //    token_type_to_string(node->tokenType),
+    //    NodeTypeToString(node->type));
+
+    // Spracovanie na základe typu tokenu
+    switch (node->type) {
+        case NODE_VAR:
+            if (strcmp(node->strValue, "return") == 0) {
+                generateFunctionEnd(node);
+            } else if (strcmp(node->strValue, "while") == 0) {
+                generateWhileStatement(node);
+            }else if (strcmp(node->strValue, "ifj") == 0) {
+                generateBuildInFuncions(node);
+            } else  if (strcmp(node->strValue, "if") == 0){
+                generateIfStatement(node);
+            }else{
+                generateLocalVarDecl(node);
+            }
+            break;
+        case NODE_CONST:
+            if(node->tokenType==TOKEN_IDENTIFIER){
+                generateLocalConstDecl(node);
+            }
+
+            break;
+
+        case NODE_ASSIGN:
+            generateAssignment(node);
+            break;
+
+        case NODE_OP:
+            generateExpression(node);
+            break;
+
+        case NODE_GENERAL:
+            if (node->tokenType == TOKEN_EMPTY) {
+                if (!node->right) {
+                    return;
+                }
+                generateBody(node->right);
+            }
+            break;
+
+        case NODE_FUNC_DEF:
+            generateFunctionParams(node);
+            break;
+
+        default:
+            printf( "Unhandled node type: %s\n", NodeTypeToString(node->type));
+            break;
+    }
+
+    // Rekurzívne spracovanie podstromov
+
+    if (node->left  && !strcmp(node->strValue, "while")==0 && !strcmp(node->strValue, "return")==0 && !strcmp(node->strValue, "if")==0) {
+
+        generateBody(node->left);
+    }
+
+}
 
 
 //-------------------PROCES DEC----------------------
@@ -690,11 +614,10 @@ void processTokenType(BinaryTreeNode *node) {
             break;
     }
     if(!node->left){
-        printf("koncnaL\n");
         return;
     }
     processTokenType(node->left);
 
 
 }
-//TODO: vyriesit pomuzivanie zadeklarovanych premennych  napr pouzitie z parametrov funkcie...atd
+//TODO: spravit scope premennych cez symtable :D

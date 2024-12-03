@@ -1,6 +1,37 @@
-// Pomocna funkce pro dekrementaci celeho cisla o zadane cislo
-pub fn decrement(n : i32, m : i32) i32
-{
-    a = b + c*8;
+//const inp = ifj.readi32();
 
+    var d: f64 = 0.123;
+    const a  = 5;
+pub fn vyrazy(o:i32) i32 {
+     o=b*c+a;
+     o= ifLogic(a,b,c);
+    return o - o ;
+
+
+}
+pub fn ifLogic() void {
+    var n : i32 = 5;
+     if (n > 2){
+            ifj.readi32();
+            ifj.write("Prvocislo");
+            ifj.write("Prvocislo");
+            ifj.write("Prvocislo");
+            ifj.write("Prvocislo");
+            ifj.write("Prvocislo");
+            ifj.write("Prvocislo");
+
+    }else{
+        ifj.write("Neni prvocislo");
+    }
+}
+
+const x = debil; //toto este neprechadza
+
+pub fn main(o:i32) void {
+     d= 5+5;
+     ifj.write("Vysledek: ");
+    while(x<10){
+      var q: i32 =56;
+    }
+ 
 }

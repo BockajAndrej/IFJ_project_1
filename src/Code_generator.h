@@ -3,8 +3,12 @@
 
 
 #include "ast.h"
+#include "stack.h"
 #include "lexical_analyser.h"
 
+
+#include <stdio.h>
+#include <stdlib.h>
 
 //-------------------HEADER----------------------
 void generateHeader();
@@ -26,7 +30,7 @@ void generateBody(BinaryTreeNode *node);
 
 //-------------------ASSIMENT/FUNCALL/EXPRESIONS----------------------
 void generateAssignment(BinaryTreeNode *node);
-const char* generateFunctionCall(BinaryTreeNode *node);
+void generateFunctionCall(BinaryTreeNode *node);
 const char* generateExpression(BinaryTreeNode *node);
 
 //-------------------IF DEC----------------------
@@ -38,7 +42,7 @@ void generateWhileBody(BinaryTreeNode *node);
 
 //-------------------FUNC DEC----------------------
 void generateFunctionParams(BinaryTreeNode *node);
-void generateFunctionEnd();
+void generateFunctionEnd(BinaryTreeNode *node);
 
 
 //-------------------PROCES----------------------
