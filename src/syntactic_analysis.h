@@ -30,6 +30,7 @@
     {                             \
         token = get_token(file);  \
     } while (token.type == TOKEN_COMMENT || token.type == TOKEN_EOL); 
+    // print_token(token)
 
 bool FIRST(FILE *file);
 bool STATEMENT(FILE *file, int *infestNumLok);
