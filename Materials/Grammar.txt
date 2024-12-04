@@ -30,7 +30,7 @@ CALL_EXT ::= t_( ARG t_)
 CALL_EXT ::= t_= EXPRESSION
 CALL_EXT ::= t_: VAL_TYPE t_= EXPRESSION
 CALL_EXT ::= t_. CALL_OBJ
-CALL_OBJ ::= t_id t_( string t_) t_;
+CALL_OBJ ::= t_id t_( ARG t_) t_;
 
 SCOPE ::=  t_{ STATEMENT 
 
@@ -40,23 +40,24 @@ ASSIGN_VAR ::= t_= EXPRESSION t_;
 ASSIGN_CONST ::= EXPRESSION
 ASSIGN_CONST ::= t_import t_( string t_) t_;
 
-EXPRESSION ::= ;
+EXPRESSION ::= t_;
 EXPRESSION ::= t_)
 
 ARG ::= t_id ARGS
 ARG ::= string ARGS
 ARG ::= EXPRESSION ARGS
 ARGS ::= t_)
-ARGS ::= , ARG
+ARGS ::= t_, ARG
 
 PARAM ::= t_)
 PARAM ::= t_id t_: VAL_TYPE PARAM
 PARAM ::= t_, t_id t_: VAL_TYPE PARAM
 
-VAR_TYPE ::= var
-VAR_TYPE ::= const
-VAL_TYPE ::= i32
-VAL_TYPE ::= f64
-VAL_TYPE ::= u8
+VAR_TYPE ::= t_var
+VAR_TYPE ::= t_const
+VAL_TYPE ::= t_i32
+VAL_TYPE ::= t_f64
+VAL_TYPE ::= []u8
+VAL_TYPE ::= ?u8
 FN_TYPE ::= VAL_TYPE 
-FN_TYPE ::= void
+FN_TYPE ::= t_void

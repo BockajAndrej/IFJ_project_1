@@ -7,6 +7,9 @@ const b = 25 + 5;
 const c = 50.00;
 
 var all: []u8 = ifj.string(""); 
+var all: ?u8 = ifj.string(""); 
+var all: ?[]u8 = ifj.string(""); 
+
 
 var a : i32 = 12;
 var b : f64 = 20.5;

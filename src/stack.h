@@ -9,7 +9,6 @@
 #define STACK_H
 
 #include <stdbool.h>
-#include "expression.h"
 #include "lexical_analyser.h"
 
 typedef enum typeOfData_t
