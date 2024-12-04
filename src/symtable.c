@@ -32,7 +32,7 @@ void free_string(char *str)
 }
 
 // DJB2 Hash Function
-// @http://www.cse.yorku.ca/~oz/hash.html
+// @https://theartincode.stanis.me/008-djb2/
 unsigned long djb2_hash(const char *str)
 {
     unsigned long hash = 5381;
@@ -103,7 +103,7 @@ void insert_hash_table(HashTable *table, const char *name, DataType type, void *
     new_symbol->isNull = isNull;
     new_symbol->isGlobal = isGlobal;
     new_symbol->freturn_type = freturn_type;
-
+    
     if (!isNull)
     {
         // Initialize the union based on DataType
