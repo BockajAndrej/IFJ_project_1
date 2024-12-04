@@ -38,9 +38,9 @@ int main(int argc, char **argv)
         handle_error(ERR_SYNTAX);
     }
 
-    //generator skusky
-    // generateHeader();
-    // processTokenType(root);
+    // generator skusky
+    //  generateHeader();
+    //  processTokenType(root);
 
     // printBinaryTree(root);
 

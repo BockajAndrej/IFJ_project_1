@@ -421,5 +421,6 @@ void print_token(Token token);
  * @return The next token.
  */
 Token get_token(FILE *file);
+const char *token_to_type(Token_type value);
 
 #endif // LEXICAL_ANALYSER_H

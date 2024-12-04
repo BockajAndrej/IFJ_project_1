@@ -17,7 +17,6 @@ DataType value_string_to_type(const char *typeStr);
 // const char *token_type_to_string(Token_type tokenType);
 const char *value_type_to_string(DataType type);
 bool are_types_compatible(DataType actual, DataType expected);
-const char *token_to_type(Token_type value);
 
 BinaryTreeNode *move_left_until(BinaryTreeNode *node, Token_type dest);
 BinaryTreeNode *move_right_until(BinaryTreeNode *node, Token_type dest);
@@ -31,7 +30,6 @@ void process_voidFunc(BinaryTreeNode *node, SymbolStack *stack);
 
 // expressions
 DataType process_expression(BinaryTreeNode *returnNode, SymbolStack *stack);
-DataType find_return_datatype(char *name);
 // if
 void process_if(BinaryTreeNode *ConditionNode, SymbolStack *stack);
 // while

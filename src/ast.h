@@ -28,7 +28,7 @@ typedef enum
     NODE_ASSIGN,    // Assign (a = b)
     NODE_RETURN,    // Return value
     NODE_PROG,      // Root
-    NODE_VAR_DECL,  // Variable declaration 
+    NODE_VAR_DECL,  // Variable declaration
     NODE_LINE       // NewLine
 } NodeType;
 
@@ -52,7 +52,7 @@ typedef enum
     TYPE_U8_ARRAY // testing
 } DataType;
 
-/// @brief Structure of node of binary tree 
+/// @brief Structure of node of binary tree
 typedef struct BinaryTreeNode
 {
     NodeType type;
@@ -82,6 +82,8 @@ void setStartNodeInOrder(BinaryTreeNode *root);
 void InOrder(BinaryTreeNode *node, Stack *stack);
 bool moveUp(int levels);
 void moveDownLeft();
+BinaryTreeNode *move_left_until(BinaryTreeNode *node, Token_type dest);
+BinaryTreeNode *move_right_until(BinaryTreeNode *node, Token_type dest);
 void moveDownRight();
 
 // Free
@@ -95,4 +97,5 @@ const char *NodeTypeToString(NodeType type);
 const char *value_type_to_string(DataType type);
 DataType value_string_to_type(const char *typeStr);
 bool are_types_compatible(DataType actual, DataType expected);
+DataType find_return_datatype(char *name);
 #endif

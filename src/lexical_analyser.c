@@ -2,7 +2,7 @@
  * @file lexical_analyser.c
  * @author Jakub Filo
  * @category Lexical Analysis
- * @brief This file contains the implementation of the lexical analyser, including token processing and utility functions.
+ * @brief Implementation of the lexical analyser, including token processing and utility functions.
  */
 
 #include "lexical_analyser.h"
@@ -168,29 +168,40 @@ const char *token_type_to_string(Token_type type)
  */
 void print_token(Token token)
 {
-
     switch (token.type)
     {
     case TOKEN_EOF:
         printf("EOF\n");
         break;
-
     case TOKEN_EOL:
         printf("EOL\n");
         break;
-
     case TOKEN_NEWLINE:
         printf("NEWLINE\n");
         break;
-
     case TOKEN_UNDEFINED:
         printf("UNDEFINED\t%s\t\t-\n", token.value.valueString.str);
         break;
-
     default:
         printf("%s\t\t%s\t\t%d\n", token_type_to_string(token.type), token.value.valueString.str, token.keyword_val);
         break;
     }
+}
+
+const char *token_to_type(Token_type value)
+{
+    switch (value)
+    {
+    case TOKEN_INT_LITERAL:
+        return "i32";
+    case TOKEN_FLOAT_LITERAL:
+        return "f64";
+    case TOKEN_STRING_LITERAL:
+        return "[]u8";
+    default:
+        break;
+    }
+    return "";
 }
 
 /**
@@ -209,45 +220,45 @@ void print_token(Token token)
 Token get_token(FILE *file)
 {
 
-    Token token;
-    State state;
+    Token token; // Initialize token
+    State state; // Initialize state
 
-    if (file == NULL)
+    if (file == NULL) // Check if file is NULL
     {
-        token.type = TOKEN_EOF;
-        return token;
+        token.type = TOKEN_EOF; // Set token type to EOF
+        return token;           // Return EOF token
     }
     state = sStart;
 
-    if (!dynamic_string_init(&token.value.valueString))
+    if (!dynamic_string_init(&token.value.valueString)) // Initialize dynamic string
     {
-        handle_error(ERR_COMPILER_INTERNAL);
+        handle_error(ERR_COMPILER_INTERNAL); // Handle initialization error
     }
 
-    char c;
-    bool invalid = false;
+    char c;               // Character variable for reading input
+    bool invalid = false; // Flag for invalid tokens
 
     while (1)
     {
-        token.keyword_val = 0;
+        token.keyword_val = 0; // Reset keyword value
         c = (char)getc(file);
 
-        switch (state)
+        switch (state) // State machine
         {
-        case sStart:
-            if (c == ' ' || c == '\t')
+        case sStart:                   // Initial state
+            if (c == ' ' || c == '\t') // Ignore whitespace
             {
-                state = sStart;
+                state = sStart; // Stay in start state
             }
             else if (c == EOF)
             {
-                token.type = TOKEN_EOF;
+                token.type = TOKEN_EOF; // Set token type to EOF
                 return token;
             }
-            else if (c == '@')
+            else if (c == '@') // Start of import statement
             {
-                state = sImport;
-                dynamic_string_add_char(&token.value.valueString, c);
+                state = sImport;                                      // Transition to import state
+                dynamic_string_add_char(&token.value.valueString, c); // Add character to token
             }
             else if (c == '\n') /* EOL, end of line  should add \t \r support? */
             {
@@ -537,9 +548,6 @@ Token get_token(FILE *file)
             {
                 dynamic_string_free(&token.value.valueString);
                 handle_error(ERR_LEX);
-                // token.type = TOKEN_UNDEFINED;
-                // ungetc(c, file);
-                // return token;
             }
         }
         break;
@@ -579,8 +587,6 @@ Token get_token(FILE *file)
             {
                 dynamic_string_free(&token.value.valueString);
                 handle_error(ERR_LEX);
-                // token.type = TOKEN_UNDEFINED;
-                // return token;
             }
         }
         break;
@@ -607,16 +613,33 @@ Token get_token(FILE *file)
             }
             else
             {
+                // Attempt to parse the number, checking for integer or float
                 double calculatedNum = strtod(token.value.valueString.str, NULL);
                 dynamic_string_clear(&token.value.valueString);
-                if (!add_double_to_dynamic_string(&token.value.valueString, calculatedNum))
+
+                // Check if it's a valid integer (i.e., no fractional part)
+                if (calculatedNum == (long long)calculatedNum)
                 {
-                    dynamic_string_free(&token.value.valueString);
-                    handle_error(ERR_LEX);
-                    // token.type = TOKEN_UNDEFINED;
-                    // return token;
+                    // If the number is an integer (even with an exponent), treat it as an integer
+                    long long intVal = (long long)calculatedNum;
+                    if (!add_double_to_dynamic_string(&token.value.valueString, intVal))
+                    {
+                        dynamic_string_free(&token.value.valueString);
+                        handle_error(ERR_LEX);
+                    }
+                    token.type = TOKEN_INT_LITERAL;
                 }
-                token.type = TOKEN_FLOAT_LITERAL;
+                else
+                {
+                    // Otherwise, it's a float
+                    if (!add_double_to_dynamic_string(&token.value.valueString, calculatedNum))
+                    {
+                        dynamic_string_free(&token.value.valueString);
+                        handle_error(ERR_LEX);
+                    }
+                    token.type = TOKEN_FLOAT_LITERAL;
+                }
+
                 ungetc(c, file);
                 return token;
             }
@@ -802,7 +825,7 @@ Token get_token(FILE *file)
                 {
                     dynamic_string_free(&token.value.valueString);
                     handle_error(ERR_LEX);
-                    //token.type = TOKEN_UNDEFINED;
+                    // token.type = TOKEN_UNDEFINED;
                 }
 
                 state = sStart;

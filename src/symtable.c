@@ -47,7 +47,6 @@ SymbolStack *initialize_symbol_stack()
 {
     SymbolStack *stack = create_symbol_stack();
     push_scope(stack); // Push the global scope
-    printf("Entered global scope.\n");
     return stack;
 }
 

@@ -58,10 +58,24 @@ bool dynamic_string_add_char(Dynamic_string *s, char c)
 // Function to convert double to Dynamic_string
 bool add_double_to_dynamic_string(Dynamic_string *s, double value)
 {
-    char buffer[32];                                 // Buffer to hold the string representation of the double
-    snprintf(buffer, sizeof(buffer), "%f", value); // Convert double to string with 6 decimal places
+    char buffer[32]; // Buffer to hold the string representation of the double
 
-    // Add each character of the string to the Dynamic_string
+    // Convert the double to string using %.15g for maximum precision and shortest representation
+    snprintf(buffer, sizeof(buffer), "%.15g", value);
+
+    // Check if the value has a fractional part
+    if (value == (int)value)
+    {
+        // If it's an integer, remove the decimal point
+        snprintf(buffer, sizeof(buffer), "%.0f", value);
+    }
+    else
+    {
+        // Otherwise, use the standard formatting
+        snprintf(buffer, sizeof(buffer), "%.6f", value); // Or %.15g for shorter representation
+    }
+
+    // Add each character of the string to the dynamic string
     for (size_t i = 0; buffer[i] != '\0'; i++)
     {
         if (!dynamic_string_add_char(s, buffer[i]))
@@ -69,6 +83,7 @@ bool add_double_to_dynamic_string(Dynamic_string *s, double value)
             return false; // Failed to add character
         }
     }
+
     return true; // Successfully added the double value
 }
 

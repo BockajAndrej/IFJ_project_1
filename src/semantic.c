@@ -7,44 +7,6 @@
 
 #include "semantic.h"
 
-const char *token_to_type(Token_type value)
-{
-    switch (value)
-    {
-    case TOKEN_INT_LITERAL:
-        return "i32";
-    case TOKEN_FLOAT_LITERAL:
-        return "f64";
-    case TOKEN_STRING_LITERAL:
-        return "[]u8";
-    default:
-        break;
-    }
-    return "";
-}
-
-BinaryTreeNode *move_left_until(BinaryTreeNode *node, Token_type dest)
-{
-    while (node != NULL)
-    {
-        if (node->tokenType == dest)
-            return node;
-        node = node->left;
-    }
-    return NULL;
-}
-
-BinaryTreeNode *move_right_until(BinaryTreeNode *node, Token_type dest)
-{
-    while (node != NULL)
-    {
-        if (node->tokenType == dest)
-            return node;
-        node = node->right;
-    }
-    return NULL;
-}
-
 void process_var_declaration(BinaryTreeNode *node, SymbolStack *stack)
 {
     bool isGlobal = false;
@@ -74,12 +36,6 @@ void process_var_declaration(BinaryTreeNode *node, SymbolStack *stack)
     {
         varType = value_string_to_type(varSpeci->strValue);
     }
-
-    /*
-        TODO Speciální hodnotu null mohou nabývat všechny
-        TODO proměnné, parametry a návratové hodnoty typované s předponou ’?’, tzv. typ zahrnující null.
-        TODO  Z hodnoty null nelze odvodit konkrétní typ.
-    */
 
     // * ASSIGN "=" LOGIC
     BinaryTreeNode *varInit = move_right_until(varnode, TOKEN_ASSIGNMENT);
@@ -132,11 +88,10 @@ void process_var_declaration(BinaryTreeNode *node, SymbolStack *stack)
         case TYPE_INT:
         case TYPE_INT_NULL:
         {
-            long val = strtol(initValue, NULL, 10);
-
+            // long val = strtol(initValue, NULL, 10);
+            int val = atoi(initValue); // Convert to integer using atoi
             insert_symbol_stack(stack, varIdenti, varType, &val, isConst, isNull, isGlobal, TYPE_EMPTY);
-            printf("VAR Insert '%s' type '%s' value %ld const %s global %s.\n", varIdenti,
-                   value_type_to_string(varType), val, isConst ? "true" : "false", isGlobal ? "true" : "false");
+            // printf("VAR Insert '%s' type '%s' value %d const %s global %s.\n", varIdenti,value_type_to_string(varType), val, isConst ? "true" : "false", isGlobal ? "true" : "false");
         }
         break;
         case TYPE_FLOAT:
@@ -144,20 +99,18 @@ void process_var_declaration(BinaryTreeNode *node, SymbolStack *stack)
         {
             float val = strtof(initValue, NULL);
             insert_symbol_stack(stack, varIdenti, varType, &val, isConst, isNull, isGlobal, TYPE_EMPTY);
-            printf("VAR Insert '%s' type '%s' value %f const %s global %s.\n", varIdenti,
-                   value_type_to_string(varType), val, isConst ? "true" : "false", isGlobal ? "true" : "false");
+            // printf("VAR Insert '%s' type '%s' value %f const %s global %s.\n", varIdenti, value_type_to_string(varType), val, isConst ? "true" : "false", isGlobal ? "true" : "false");
         }
         break;
         case TYPE_STRING:
         {
             insert_symbol_stack(stack, varIdenti, varType, initValue, isConst, isNull, isGlobal, TYPE_EMPTY);
-            printf("VAR '%s' type '%s' value %s const %s global %s.\n", varIdenti,
-                   value_type_to_string(varType), initValue, isConst ? "true" : "false", isGlobal ? "true" : "false");
+            // printf("VAR '%s' type '%s' value %s const %s global %s.\n", varIdenti, value_type_to_string(varType), initValue, isConst ? "true" : "false", isGlobal ? "true" : "false");
         }
         break;
         // Handle other types as needed
         default:
-            printf("VAR '%s' of type '%s'.\n", varIdenti, value_type_to_string(varType));
+            // printf("VAR '%s' of type '%s'.\n", varIdenti, value_type_to_string(varType));
             break;
         }
     }
@@ -169,8 +122,13 @@ void process_var_declaration(BinaryTreeNode *node, SymbolStack *stack)
     else if (varValue->type == NODE_FUNC_CALL)
     {
         DataType funcReturnType = process_validate_func_call(varValue, stack);
-        printf("VAR Returned from func with type:%s\n", value_type_to_string(funcReturnType));
-        // TODO check return type againt the var
+        if (funcReturnType)
+        {
+            /* code */
+        }
+        
+        // printf("VAR Returned from func with type:%s\n", value_type_to_string(funcReturnType));
+        //  TODO check return type againt the var
     }
 }
 
@@ -182,7 +140,7 @@ void process_if(BinaryTreeNode *ConditionNode, SymbolStack *stack)
 
     // new scope for IF
     push_scope(stack);
-    printf("IF\n");
+    // printf("IF\n");
 
     // go left from aux    "(" is conditionAndNonNull
     {
@@ -195,7 +153,7 @@ void process_if(BinaryTreeNode *ConditionNode, SymbolStack *stack)
             BinaryTreeNode *nonNullVal = move_right_until(conditionAndNonNull, TOKEN_IDENTIFIER);
             nonNullVal_str = nonNullVal->strValue;
             insert_symbol_stack(stack, nonNullVal_str, TYPE_NONNULL, "", false, false, false, TYPE_EMPTY);
-            printf("IF NonNull \"%s\"\n", nonNullVal_str);
+            // printf("IF NonNull \"%s\"\n", nonNullVal_str);
         }
 
         // conditionAndNonNull left is condition
@@ -205,49 +163,52 @@ void process_if(BinaryTreeNode *ConditionNode, SymbolStack *stack)
     // * go right from aux
     BinaryTreeNode *conditionbody = move_right_until(auxnode, TOKEN_CURLYL_BRACKET);
     conditionbody = move_left_until(conditionbody, TOKEN_EMPTY);
-    printf("IF entering body\n");
+    // printf("IF entering body\n");
     ProcessTree(conditionbody, stack);
-    printf("IF leaving body \n");
+    // printf("IF leaving body \n");
     pop_scope(stack);
 
     if (ConditionNode->left != NULL)
     {
         BinaryTreeNode *conditionelse = ConditionNode->left;
         BinaryTreeNode *elsebody = move_right_until(conditionelse, TOKEN_CURLYL_BRACKET)->left;
-        printf("IF-else entering body, new stack\n");
+        // printf("IF-else entering body, new stack\n");
         push_scope(stack);
         ProcessTree(elsebody, stack);
-        printf("IF-else leaving body, stack pop\n");
+        // printf("IF-else leaving body, stack pop\n");
         pop_scope(stack);
     }
-    printf("IF <<<<<<<<<<");
 }
 
 void process_while(BinaryTreeNode *whileNode, SymbolStack *stack)
 {
     if (!whileNode)
         return;
-    printf("WHILE >>>>>>>>\n");
     BinaryTreeNode *conditionAndNonNullNode = move_left_until(whileNode, TOKEN_LPAREN);
 
     // left condition
-    printf("WHILE  condition \n");
-    // BinaryTreeNode *conditionNode = conditionAndNonNullNode->left;
-    //  TODO process expression
+    // printf("WHILE  condition \n");
+    BinaryTreeNode *conditionNode = conditionAndNonNullNode->left;
+    DataType expression_while = process_expression(conditionNode, stack);
+    if (expression_while == TYPE_INT)
+    {
+        /* code */
+    }
 
     // right nonnull value
-    BinaryTreeNode *nonNullNode = move_right_until(conditionAndNonNullNode, TOKEN_IDENTIFIER);
-    char *nonNullNode_str = nonNullNode->strValue;
-    insert_symbol_stack(stack, nonNullNode_str, TYPE_NONNULL, "", false, false, false, TYPE_EMPTY);
-    printf("WHILE NonNull %s put in stack\n", nonNullNode_str);
+    if (conditionAndNonNullNode->right != NULL)
+    {
+        BinaryTreeNode *nonNullNode = move_right_until(conditionAndNonNullNode, TOKEN_IDENTIFIER);
+        char *nonNullNode_str = nonNullNode->strValue;
+        insert_symbol_stack(stack, nonNullNode_str, TYPE_NONNULL, "", false, false, false, TYPE_EMPTY);
+        // printf("WHILE NonNull %s put in stack\n", nonNullNode_str);
+    }
 
     BinaryTreeNode *body = move_right_until(whileNode, TOKEN_CURLYL_BRACKET);
     body = body->left;
-    printf("WHILE processing body push stack\n");
     push_scope(stack);
     ProcessTree(body, stack);
     pop_scope(stack);
-    printf("WHILE stack pop <<<<<<\n");
 }
 
 void process_identifier_assign(BinaryTreeNode *node, SymbolStack *stack)
@@ -257,15 +218,15 @@ void process_identifier_assign(BinaryTreeNode *node, SymbolStack *stack)
 
     BinaryTreeNode *nodeidentifier = node;
     char *nodeidentifier_str = nodeidentifier->strValue;
-    printf("ASSIGN processing identifier %s\n", nodeidentifier_str);
+    //printf("ASSIGN processing identifier %s\n", nodeidentifier_str);
     Symbol *identifier = search_symbol_stack(stack, nodeidentifier_str);
     if (identifier)
     {
-        printf("SYMBOL '%s' Type '%s' FOUND.\n", identifier->name, value_type_to_string(identifier->type));
+        // printf("SYMBOL '%s' Type '%s' FOUND.\n", identifier->name, value_type_to_string(identifier->type));
     }
     else
     {
-        printf("SYMBOL '%s' NOT FOUND.\n", nodeidentifier_str);
+        // printf("SYMBOL '%s' NOT FOUND.\n", nodeidentifier_str);
         freeTreeFromAnyNode(node);
         free_symbol_stack(stack);
         handle_error(ERR_UNDEFINED_ID);
@@ -284,7 +245,7 @@ void process_identifier_assign(BinaryTreeNode *node, SymbolStack *stack)
     if (expressionOrFunc->type == NODE_FUNC_CALL)
     {
         BinaryTreeNode *functoAssign = move_right_until(expressionOrFunc, TOKEN_IDENTIFIER);
-        printf("ASSIGN function %s\n", functoAssign->strValue);
+        // printf("ASSIGN function %s\n", functoAssign->strValue);
         DataType funcTypeReturn = process_validate_func_call(functoAssign, stack);
         if (funcTypeReturn == TYPE_UNKNOWN)
         {
@@ -292,7 +253,7 @@ void process_identifier_assign(BinaryTreeNode *node, SymbolStack *stack)
         }
         else if (are_types_compatible(funcTypeReturn, identifier->freturn_type))
         {
-            printf("premmena %s sa nezhoduje s func %s\n", value_type_to_string(identifier->type), value_type_to_string(funcTypeReturn));
+            // printf("premmena %s sa nezhoduje s func %s\n", value_type_to_string(identifier->type), value_type_to_string(funcTypeReturn));
             freeTreeFromAnyNode(node);
             free_symbol_stack(stack);
             handle_error(ERR_TYPE_COMPAT);
@@ -302,10 +263,10 @@ void process_identifier_assign(BinaryTreeNode *node, SymbolStack *stack)
     {
         // !volam ked napr "result = 5 * 3;"
 
-        BinaryTreeNode *expresstoAssign = expressionOrFunc;
-        printf("ASSIGN expression %s\n", expresstoAssign->strValue);
-        // DataType expression = process_expression(expresstoAssign);
-        // TODO datatype do symtable
+        // BinaryTreeNode *expresstoAssign = expressionOrFunc;
+        //  printf("ASSIGN expression %s\n", expresstoAssign->strValue);
+        //   DataType expression = process_expression(expresstoAssign);
+        //   TODO datatype do symtable
     }
     else
     {
@@ -313,22 +274,21 @@ void process_identifier_assign(BinaryTreeNode *node, SymbolStack *stack)
 
         BinaryTreeNode *valuetoAssign = expressionOrFunc;
         DataType valuetoAssign_type;
-        printf("ASSIGN value %s\n", valuetoAssign->strValue);
+        // printf("ASSIGN value %s\n", valuetoAssign->strValue);
         valuetoAssign_type = find_return_datatype(valuetoAssign->strValue);
 
         Symbol *variable = search_symbol_stack(stack, nodeidentifier_str);
         DataType variable_type = variable->type;
         if (variable == NULL)
         {
-            printf("var null\n");
+            // printf("var null\n");
             freeTreeFromAnyNode(node);
             free_symbol_stack(stack);
             handle_error(ERR_UNDEFINED_ID);
         }
         else if (!are_types_compatible(valuetoAssign_type, variable_type))
         {
-            printf("types dont match %s and %s\n",
-                   value_type_to_string(valuetoAssign_type), value_type_to_string(variable_type));
+            // printf("types dont match %s and %s\n",value_type_to_string(valuetoAssign_type), value_type_to_string(variable_type));
 
             freeTreeFromAnyNode(node);
             free_symbol_stack(stack);
@@ -336,15 +296,15 @@ void process_identifier_assign(BinaryTreeNode *node, SymbolStack *stack)
         }
         else if (variable->isConst)
         {
-            printf("var is const\n");
+            // printf("var is const\n");
             freeTreeFromAnyNode(node);
             free_symbol_stack(stack);
             handle_error(ERR_TYPE_COMPAT);
         }
         int value_to_assign = atoi(valuetoAssign->strValue); // or use strtol for more control
         upd_var_symbol_stack(stack, variable, (void *)&value_to_assign, valuetoAssign_type);
-        Symbol *updated = search_symbol_stack(stack, nodeidentifier_str);
-        printf("Updated value of %s is %d\n", nodeidentifier_str, updated->value.intValue);
+        // Symbol *updated = search_symbol_stack(stack, nodeidentifier_str);
+        //  printf("Updated value of %s is %d\n", nodeidentifier_str, updated->value.intValue);
     }
 }
 
@@ -354,7 +314,7 @@ void process_func_def(BinaryTreeNode *funcDefNode, SymbolStack *stack)
         return;
 
     BinaryTreeNode *funcName_node = move_right_until(funcDefNode->right, TOKEN_IDENTIFIER);
-    printf("FUNCTION name: %s\n", funcName_node->strValue);
+    // printf("FUNCTION name: %s\n", funcName_node->strValue);
 
     // * Temporarily switch to the global scope for the function definition
     Scope *currentScope = stack->top; // Save the current scope
@@ -366,23 +326,33 @@ void process_func_def(BinaryTreeNode *funcDefNode, SymbolStack *stack)
     // procces parameters
     BinaryTreeNode *funcParams_start = move_left_until(funcName_node, TOKEN_LPAREN);
     Symbol *paramChain = parse_parameters(funcParams_start);
-    if (!paramChain)
-    {
-        fprintf(stderr, "Error: Failed to parse function parameters.\n");
-        return;
-    }
-
-    // Debugging Output
-    Symbol *currentParam = paramChain;
-    while (currentParam != NULL)
-    {
-        printf("Parameter: %s, Type: %s\n", currentParam->name, value_type_to_string(currentParam->type));
-        currentParam = currentParam->next;
-    }
 
     // Return data type
     BinaryTreeNode *funcReturn_type = move_right_until(funcName_node, TOKEN_KEYWORD);
     DataType returnDef_type = value_string_to_type(funcReturn_type->strValue);
+
+    // Check for the `main` function's specific constraints:
+    if (strcmp(funcName_node->strValue, "main") == 0)
+    {
+        // Check that the 'main' function has no parameters and a 'void' return type
+        if (paramChain != NULL)
+        {
+            // Error 4: Main function should not have parameters
+            // printf("ERROR: Function 'main' should not have parameters.\n");
+            freeTreeFromAnyNode(funcDefNode);
+            free_symbol_stack(stack);
+            handle_error(ERR_FUNC_PARAM);
+        }
+
+        if (returnDef_type != TYPE_VOID)
+        {
+            // Error 4: Main function should have 'void' return type
+            // printf("ERROR: Function 'main' must have 'void' return type.\n");
+            freeTreeFromAnyNode(funcDefNode);
+            free_symbol_stack(stack);
+            handle_error(ERR_FUNC_PARAM);
+        }
+    }
 
     // Insert function symbol with its parameters as a chain
     Symbol *funcSymbol = malloc(sizeof(Symbol));
@@ -397,7 +367,7 @@ void process_func_def(BinaryTreeNode *funcDefNode, SymbolStack *stack)
         handle_error(ERR_REDEF);
     }
     insert_symbol_stack(stack, funcSymbol->name, funcSymbol->type, funcSymbol->value.params, false, false, true, returnDef_type);
-    printf("FUNCTION '%s' stored in global scope with parameters.\n", funcName_node->strValue);
+    // printf("FUNCTION '%s' stored in global scope with parameters.\n", funcName_node->strValue);
 
     // Restore original scope
     stack->top = currentScope;
@@ -412,7 +382,6 @@ void process_func_def(BinaryTreeNode *funcDefNode, SymbolStack *stack)
     // printf("FUNCTION Leaving body\n");
 
     DataType returnExp_type = process_func_return(funcReturnExp_type, stack);
-    printf("datatype from return is %s\n", value_type_to_string(returnExp_type));
     bool hasReturn = (strcmp(funcReturnExp_type->strValue, "return") == 0);
 
     // If the function is void, the return expression can either be present or not
@@ -421,17 +390,13 @@ void process_func_def(BinaryTreeNode *funcDefNode, SymbolStack *stack)
         // TODO expression ak
         if (hasReturn)
         {
-            printf("Void function has return, return expression type: %s\n", value_type_to_string(returnExp_type));
+            // printf("Void function has return, return expression type: %s\n", value_type_to_string(returnExp_type));
             if (funcReturnExp_type->left != NULL || funcReturnExp_type->right != NULL)
             {
                 freeTreeFromAnyNode(funcDefNode);
                 free_symbol_stack(stack);
                 handle_error(ERR_FUNC_PARAM);
             }
-        }
-        else
-        {
-            printf("Void function does not have a return statement, this is fine.\n");
         }
     }
     else
@@ -440,24 +405,24 @@ void process_func_def(BinaryTreeNode *funcDefNode, SymbolStack *stack)
         // Non-void function must have a return and the return type must match
         if (!hasReturn)
         {
-            printf("ERROR: Function '%s' of type '%s' must have a return statement.\n", funcName_node->strValue, value_type_to_string(returnDef_type));
+            // printf("ERROR: Function '%s' of type '%s' must have a return statement.\n", funcName_node->strValue, value_type_to_string(returnDef_type));
             freeTreeFromAnyNode(funcDefNode);
             free_symbol_stack(stack);
             handle_error(ERR_RETURN_EXPR);
         }
         else if (!are_types_compatible(returnExp_type, returnDef_type))
         {
-            printf("ERROR: Return type '%s' does not match function return type '%s'.\n", value_type_to_string(returnExp_type), value_type_to_string(returnDef_type));
+            // printf("ERROR: Return type '%s' does not match function return type '%s'.\n", value_type_to_string(returnExp_type), value_type_to_string(returnDef_type));
             freeTreeFromAnyNode(funcDefNode);
             free_symbol_stack(stack);
             handle_error(ERR_TYPE_COMPAT);
         }
         else
         {
-            printf("Return type and return expression type MATCH\n");
+            // printf("Return type and return expression type MATCH\n");
         }
     }
-    printf("FUNCTION Exiting function '%s' body.\n", funcName_node->strValue);
+    // printf("FUNCTION Exiting function '%s' body.\n", funcName_node->strValue);
     pop_scope(stack);
 }
 
@@ -473,7 +438,6 @@ Symbol *parse_parameters(BinaryTreeNode *paramsListNode)
     if (params_node->right == NULL || params_node->right->tokenType == TOKEN_RPAREN)
     {
         // No parameters return
-        printf("NO PARAMETERS\n");
         return NULL;
     }
 
@@ -494,26 +458,18 @@ Symbol *parse_parameters(BinaryTreeNode *paramsListNode)
 
             // Add to the parameter chain
             if (lastParam == NULL)
-            {
                 paramChain = paramSymbol; // Set the head
-            }
             else
-            {
                 lastParam->next = paramSymbol; // Append to the chain
-            }
             lastParam = paramSymbol;
 
-            printf("FUNC param '%s' of type '%s' added to parameter chain.\n", param_ident->strValue, value_type_to_string(param_datatype));
+            // printf("FUNC param '%s' of type '%s' added to parameter chain.\n", param_ident->strValue, value_type_to_string(param_datatype));
 
             // Move to the next parameter
             if (param_type->right && param_type->right->tokenType == TOKEN_COMMA)
-            {
                 params_node = move_right_until(param_type->right, TOKEN_IDENTIFIER);
-            }
             else
-            {
                 params_node = param_type->right;
-            }
         }
     }
 
@@ -529,7 +485,7 @@ DataType process_validate_func_call(BinaryTreeNode *funcnode, SymbolStack *stack
     }
 
     char *funcName_str = funcnode->strValue;
-    printf("Validating function call for '%s'.\n", funcName_str);
+    // printf("Validating function call for '%s'.\n", funcName_str);
 
     Scope *currentScope = stack->top;
     while (stack->top->next != NULL)
@@ -622,54 +578,11 @@ DataType process_validate_func_call(BinaryTreeNode *funcnode, SymbolStack *stack
         paramCount++;
     }
 
-    printf("Function call validation completed for '%s'.\nExpected parameters: %d, Provided arguments: %d.\n",
-           funcName_str, paramCount, argCount);
+    // printf("Function call validation completed for '%s'.\nExpected parameters: %d, Provided arguments: %d.\n",funcName_str, paramCount, argCount);
 
     return funcSymbol->freturn_type;
 }
 
-DataType find_return_datatype(char *value)
-{
-    DataType toReturn;
-
-    int is_float = 0;
-    int is_string = 0;
-    if (strcmp(value,"null") == 0)
-    {
-        return TYPE_NULL;
-    }
-    
-
-    // Check each character in the string
-    for (int i = 0; value[i] != '\0'; i++)
-    {
-        if (value[i] == '.')
-        {
-            if (is_float || is_string)
-            {
-                is_string = 1; // Multiple dots or invalid format mean it's a string
-                break;
-            }
-            is_float = 1; // Mark as a potential float
-        }
-        else if (!isdigit(value[i]))
-        {
-            is_string = 1; // Non-numeric characters mean it's a string
-            break;
-        }
-    }
-
-    if (is_string)
-        toReturn = TYPE_STRING; // Assume STRING_TYPE is defined for strings
-    else if (is_float)
-        toReturn = TYPE_FLOAT; // Assume FLOAT_TYPE is defined for floats
-    else
-        toReturn = TYPE_INT; // If all characters are digits, it's an integer
-
-    return toReturn;
-}
-
-// ! volam ked je return z funkcie "return a * 9;"
 DataType process_func_return(BinaryTreeNode *returnNode, SymbolStack *stack)
 {
     if (returnNode->left == NULL && returnNode->right == NULL)
@@ -691,7 +604,7 @@ DataType process_expression(BinaryTreeNode *returnNode, SymbolStack *stack)
     setStartNodeInOrder(returnNode);
     InOrder(curInOrderNode, &s);
 
-    PrintAllStack(&s);
+    //PrintAllStack(&s);
 
     if (returnNode == NULL)
     {
@@ -713,7 +626,6 @@ DataType process_expression(BinaryTreeNode *returnNode, SymbolStack *stack)
     // ?  test = search_symbol_stack(stack, "5");
 
     // na check ci je type vhodny vies pouzit is_type_compatible(), pozri sa ako funguje func
-
     return TYPE_INT;
 }
 
@@ -724,11 +636,11 @@ void process_voidFunc(BinaryTreeNode *node, SymbolStack *stack)
     DataType funcreturntype = process_validate_func_call(paramsstart, stack);
     if (funcreturntype == TYPE_VOID)
     {
-        printf("Return value for function %s is valid\n", node->strValue);
+        //printf("Return value for function %s is valid\n", node->strValue);
     }
     else
     {
-        printf("Return value for function %s is NOT valid, expected TYPE_VOID\n", node->strValue);
+        //printf("Return value for function %s is NOT valid, expected TYPE_VOID\n", node->strValue);
     }
 }
 
@@ -764,7 +676,6 @@ BinaryTreeNode *ProcessTree(BinaryTreeNode *root, SymbolStack *stack)
                 }
                 else if (strcmp(node->strValue, "return") == 0)
                 {
-                    // ? return do funkcie
                     return node;
                 }
                 else if (strcmp(node->strValue, "if") == 0)

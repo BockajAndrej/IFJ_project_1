@@ -175,6 +175,28 @@ void moveDownRight()
     }
 }
 
+BinaryTreeNode *move_left_until(BinaryTreeNode *node, Token_type dest)
+{
+    while (node != NULL)
+    {
+        if (node->tokenType == dest)
+            return node;
+        node = node->left;
+    }
+    return NULL;
+}
+
+BinaryTreeNode *move_right_until(BinaryTreeNode *node, Token_type dest)
+{
+    while (node != NULL)
+    {
+        if (node->tokenType == dest)
+            return node;
+        node = node->right;
+    }
+    return NULL;
+}
+
 void freeBinaryTree(BinaryTreeNode *root)
 {
     if (!root)
@@ -376,6 +398,46 @@ DataType value_string_to_type(const char *typeStr)
         return TYPE_FUNCTION;
     // Add more types as needed
     return TYPE_UNKNOWN;
+}
+
+DataType find_return_datatype(char *value)
+{
+    DataType toReturn;
+
+    int is_float = 0;
+    int is_string = 0;
+    if (strcmp(value, "null") == 0)
+    {
+        return TYPE_NULL;
+    }
+
+    // Check each character in the string
+    for (int i = 0; value[i] != '\0'; i++)
+    {
+        if (value[i] == '.')
+        {
+            if (is_float || is_string)
+            {
+                is_string = 1; // Multiple dots or invalid format mean it's a string
+                break;
+            }
+            is_float = 1; // Mark as a potential float
+        }
+        else if (!isdigit(value[i]))
+        {
+            is_string = 1; // Non-numeric characters mean it's a string
+            break;
+        }
+    }
+
+    if (is_string)
+        toReturn = TYPE_STRING; // Assume STRING_TYPE is defined for strings
+    else if (is_float)
+        toReturn = TYPE_FLOAT; // Assume FLOAT_TYPE is defined for floats
+    else
+        toReturn = TYPE_INT; // If all characters are digits, it's an integer
+
+    return toReturn;
 }
 
 bool are_types_compatible(DataType actual, DataType expected)
