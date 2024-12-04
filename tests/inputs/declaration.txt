@@ -1,0 +1,10 @@
+var b = 25;
+var c = 50;
+
+const b = 25;
+const c = 50.00;
+
+var a : i32 = 12;
+var b : f64 = 20.5;
+var c : i32 = 34;
+var d : f64 = 50;

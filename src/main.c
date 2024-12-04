@@ -29,7 +29,7 @@ int main(int argc, char **argv)
         return 99;
     }
 
-    // Syntactic analysis
+    // // Syntactic analysis
     if (!FIRST(file))
     {
         fprintf(stderr, "%s", " --- WRONG END --- \n");
@@ -38,8 +38,7 @@ int main(int argc, char **argv)
         handle_error(ERR_SYNTAX);
     }
 
-    // printBinaryTree(root);
-
+    //printBinaryTree(root);
 
     SymbolStack *stack = initialize_symbol_stack();
     ProcessTree(root, stack);

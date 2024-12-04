@@ -1,9 +1,8 @@
 /**
- * Project: Implementace překladače imperativního jazyka IFJ24.
- *
- * @brief Error definitions.
- *
- * @author >Jakub Fiľo <xfiloja00@stud.fit.vutbr.cz>
+ * @file error.h
+ * @author Jakub Filo
+ * @category Error codes
+ * @brief This file contains enum that has error numbers for specific errors.
  */
 
 #ifndef _LOC_ERROR_H

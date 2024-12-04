@@ -220,92 +220,141 @@ typedef enum
      * Represents an error encountered during string initialization.
      */
     TOKEN_STRINGINIT_ERROR,
+    /**
+     * @brief Represents a null token.
+     */
     TOKEN_NULL,
+
+    /**
+     * @brief Represents an empty token.
+     */
     TOKEN_EMPTY
 
 } Token_type;
 
 /**
- * @enum Keyword
- * @brief Enumeration of language keywords.
+ * @brief Enum representing various keywords in the language.
  *
- * This enumeration defines the reserved keywords in the language and their corresponding roles in syntax.
- * Keywords are case-sensitive and cannot be used as identifiers.
+ * This enumeration lists the reserved keywords used in the language's syntax.
  */
 typedef enum
 {
     /**
      * @brief Represents the `if` keyword.
+     *
      * Used for conditional branching to execute code based on a boolean condition.
      */
     KEYWORD_IF,
 
     /**
      * @brief Represents the `else` keyword.
+     *
      * Specifies the block of code to execute if the condition in the corresponding `if` statement is false.
      */
     KEYWORD_ELSE,
 
     /**
      * @brief Represents the `fn` keyword.
+     *
      * Used to define a function in the language.
      */
     KEYWORD_FN,
 
     /**
      * @brief Represents the `const` keyword.
+     *
      * Declares a constant value that cannot be modified after initialization.
      */
     KEYWORD_CONST,
 
     /**
      * @brief Represents the `i32` keyword.
+     *
      * Specifies a 32-bit signed integer type.
      */
     KEYWORD_I32,
 
     /**
      * @brief Represents the `f64` keyword.
+     *
      * Specifies a 64-bit floating-point type.
      */
     KEYWORD_F64,
 
     /**
      * @brief Represents the `u8` keyword.
+     *
      * Specifies an 8-bit unsigned integer type.
      */
     KEYWORD_U8,
+
+    /**
+     * @brief Represents the `u8[]` keyword.
+     *
+     * Specifies an array of 8-bit unsigned integers.
+     */
     KEYWORD_U8_ARRAY,
-    KEYWORD_I32_NULL,      // [?i32]  can handle NULL
-    KEYWORD_F64_NULL,      // [?f64]
-    KEYWORD_U8_NULL,       // [?u8]
-    KEYWORD_U8_ARRAY_NULL, // [?[]u8]
+
+    /**
+     * @brief Represents the `?i32` keyword.
+     *
+     * Specifies an optional 32-bit signed integer type that can be NULL.
+     */
+    KEYWORD_I32_NULL,
+
+    /**
+     * @brief Represents the `?f64` keyword.
+     *
+     * Specifies an optional 64-bit floating-point type that can be NULL.
+     */
+    KEYWORD_F64_NULL,
+
+    /**
+     * @brief Represents the `?u8` keyword.
+     *
+     * Specifies an optional 8-bit unsigned integer type that can be NULL.
+     */
+    KEYWORD_U8_NULL,
+
+    /**
+     * @brief Represents the `?[]u8` keyword.
+     *
+     * Specifies an optional array of 8-bit unsigned integers that can be NULL.
+     */
+    KEYWORD_U8_ARRAY_NULL,
+
     /**
      * @brief Represents the `pub` keyword.
-     * Indicates public visibility for functions, variables, or constants, allowing access from outside their scope.
+     *
+     * Indicates public visibility for functions,
+     * allowing access from outside their scope.
      */
     KEYWORD_PUB,
 
     /**
      * @brief Represents the `return` keyword.
+     *
      * Used to exit a function and optionally provide a return value.
      */
     KEYWORD_RETURN,
 
     /**
      * @brief Represents the `var` keyword.
+     *
      * Declares a variable that can be reassigned during its lifetime.
      */
     KEYWORD_VAR,
 
     /**
      * @brief Represents the `void` keyword.
+     *
      * Specifies that a function does not return a value.
      */
     KEYWORD_VOID,
 
     /**
      * @brief Represents the `while` keyword.
+     *
      * Creates a loop that repeatedly executes code as long as a boolean condition evaluates to true.
      */
     KEYWORD_WHILE
@@ -421,6 +470,20 @@ void print_token(Token token);
  * @return The next token.
  */
 Token get_token(FILE *file);
+
+/**
+ * @brief Converts a token type to its corresponding string representation.
+ *
+ * @param value The token type to be converted.
+ * @return A constant character pointer to the string representation of the token type.
+ */
 const char *token_to_type(Token_type value);
+
+/**
+ * @brief Validates whether a given string is a valid identifier.
+ *
+ * @param str The string to be validated.
+ */
+void validate_identifier(const char *str);
 
 #endif // LEXICAL_ANALYSER_H
