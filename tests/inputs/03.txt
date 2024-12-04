@@ -1,7 +1,10 @@
 pub fn factorial(n : i32, m : f64) f64
 {
-    var a : i32 = 5;
-    a = factorial(5,10);
+    var x : ?f64 = 10;
+    x = null;
+
+    var c = 50.00;
+    const c = 50.00;
 
     return 6;
 }

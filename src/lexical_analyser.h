@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "newstring.h"
+#include "error.h"
 
 /**
  * @enum Token_type
@@ -55,11 +56,6 @@ typedef enum
      */
     TOKEN_NEWLINE,
     /**
-     * @brief Tab character token.
-     * Represents a tab character (`\t`) in the input.
-     */
-    TOKEN_TAB,
-    /**
      * @brief Integer literal token.
      * Represents whole numbers (e.g., 42, -7).
      */
@@ -74,16 +70,6 @@ typedef enum
      * Represents a sequence of characters enclosed in double quotes.
      */
     TOKEN_STRING_LITERAL,
-    /**
-     * @brief Boolean literal token.
-     * Represents a boolean value (`true` or `false`).
-     */
-    TOKEN_BOOLEAN,
-    /**
-     * @brief Character literal token.
-     * Represents a single character enclosed in single quotes (e.g., `'a'`).
-     */
-    TOKEN_CHAR_LITERAL,
     /**
      * @brief Equality comparison operator.
      * Represents the equality operator (`==`).
@@ -377,13 +363,7 @@ typedef enum
     sGreaterEqual, ///< Represents the greater than or equal to operator ('>=').
     sGreaterThan,  ///< Represents the greater than operator ('>').
     sQuestionmark,
-
-    /**
-     * @brief States for handling quotation marks and character literals.
-     */
-    sSingleQuote,     ///< Represents a single quote character (') used in character literals.
-    sLeftSingleQuote, ///< Represents a left single quotation mark (‘), often used in specialized typography.
-    sExclamation,     ///< Represents the exclamation mark ('!'), used in logical negation or other operators.
+    sExclamation, ///< Represents the exclamation mark ('!'), used in logical negation or other operators.
 
     /**
      * @brief State for handling comments.

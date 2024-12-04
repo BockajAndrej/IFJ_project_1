@@ -88,8 +88,6 @@ const char *token_type_to_string(Token_type type)
         return "TOKEN_EMPTY";
     case TOKEN_NEWLINE:
         return "TOKEN_NEWLINE";
-    case TOKEN_TAB:
-        return "TOKEN_TAB";
     case TOKEN_NULL:
         return "TOKEN_NULL";
     case TOKEN_INT_LITERAL:
@@ -98,8 +96,6 @@ const char *token_type_to_string(Token_type type)
         return "TOKEN_FLOAT_L";
     case TOKEN_STRING_LITERAL:
         return "TOKEN_STRING_L";
-    case TOKEN_CHAR_LITERAL:
-        return "TOKEN_CHAR_L";
     case TOKEN_EQUAL:
         return "TOKEN_EQUAL";
     case TOKEN_NOT_EQUAL:
@@ -187,53 +183,12 @@ void print_token(Token token)
         printf("NEWLINE\n");
         break;
 
-    case TOKEN_TAB:
-        printf("TAB\n");
-        break;
-    case TOKEN_NULL:
-    case TOKEN_INT_LITERAL:
-    case TOKEN_FLOAT_LITERAL:
-    case TOKEN_STRING_LITERAL:
-    case TOKEN_CHAR_LITERAL:
-    case TOKEN_IDENTIFIER:
-    case TOKEN_KEYWORD:
-    case TOKEN_EQUAL:
-    case TOKEN_NOT_EQUAL:
-    case TOKEN_LESS_EQUAL:
-    case TOKEN_LESS_THAN:
-    case TOKEN_GREATER_EQUAL:
-    case TOKEN_GREATER_THAN:
-    case TOKEN_ASSIGNMENT:
-    case TOKEN_ADDITION:
-    case TOKEN_SUBTRACTION:
-    case TOKEN_MULTIPLY:
-    case TOKEN_DIVISION:
-    case TOKEN_BACKSLASH:
-    case TOKEN_PIPE:
-    case TOKEN_EXCLAMATION:
-    case TOKEN_LPAREN:
-    case TOKEN_RPAREN:
-    case TOKEN_LEFT_BRACKET:
-    case TOKEN_RIGHT_BRACKET:
-    case TOKEN_CURLYL_BRACKET:
-    case TOKEN_CURLYR_BRACKET:
-    case TOKEN_COMMA:
-    case TOKEN_SEMICOLON:
-    case TOKEN_COMMENT:
-    case TOKEN_IMPORT:
-    case TOKEN_DISCARD:
-    case TOKEN_DOT:
-    case TOKEN_COLON:
-    case TOKEN_QUESTION_MARK:
-        printf("%s\t\t%s\t\t%d\n", token_type_to_string(token.type), token.value.valueString.str, token.keyword_val);
-        break;
-
     case TOKEN_UNDEFINED:
         printf("UNDEFINED\t%s\t\t-\n", token.value.valueString.str);
         break;
 
     default:
-        printf("Unknown Type\t-\t\t-\t\n");
+        printf("%s\t\t%s\t\t%d\n", token_type_to_string(token.type), token.value.valueString.str, token.keyword_val);
         break;
     }
 }
@@ -259,17 +214,14 @@ Token get_token(FILE *file)
 
     if (file == NULL)
     {
-        printf("file null"); // ! dorobit kde a čo?
         token.type = TOKEN_EOF;
         return token;
     }
     state = sStart;
 
-    // Inicializuj dynamic_string pre hodnotu tokenu
     if (!dynamic_string_init(&token.value.valueString))
     {
-        token.type = TOKEN_STRINGINIT_ERROR;
-        return token; // Vráť chybový token
+        handle_error(ERR_COMPILER_INTERNAL);
     }
 
     char c;
@@ -331,9 +283,12 @@ Token get_token(FILE *file)
                     }
                     else
                     {
-                        token.type = TOKEN_UNDEFINED; // Invalid token
-                        ungetc(next_c, file);         // Return the character back to the input
-                        return token;
+                        dynamic_string_free(&token.value.valueString);
+                        handle_error(ERR_LEX);
+
+                        // token.type = TOKEN_UNDEFINED; // Invalid token
+                        // ungetc(next_c, file);         // Return the character back to the input
+                        // return token;
                     }
                 }
             }
@@ -392,10 +347,6 @@ Token get_token(FILE *file)
                     ungetc(c, file);
                     return token;
                 }
-
-                // dynamic_string_add_char(&token.value.valueString, c);
-                // token.type = TOKEN_LEFT_BRACKET;
-                // return token;
             }
             else if (c == ']')
             {
@@ -434,10 +385,6 @@ Token get_token(FILE *file)
             {
                 state = sQuestionmark;
                 dynamic_string_add_char(&token.value.valueString, c);
-
-                // dynamic_string_add_char(&token.value.valueString, c);
-                // token.type = TOKEN_QUESTION_MARK;
-                // return token;
             }
             else if (c == '+') // Addition operator
             {
@@ -478,15 +425,8 @@ Token get_token(FILE *file)
                 state = sGreaterThan; // Move to greater than state
                 dynamic_string_add_char(&token.value.valueString, c);
             }
-            /*else if (c == '\'') // Single quote for character literal
-            {
-                state = sSingleQuote;            // Move to state for single quote
-                token.type = TOKEN_CHAR_LITERAL; // Set token type for character literal
-            }*/
             else if (c == '\\') // Backslash for escape sequences
             {
-                // state = sBackSlash;           // Move to escape sequence handling state
-                // token.type = TOKEN_BACKSLASH; // Set token type for backslash
                 dynamic_string_add_char(&token.value.valueString, c);
                 token.type = TOKEN_BACKSLASH;
                 return token;
@@ -502,14 +442,18 @@ Token get_token(FILE *file)
             invalid = true;
             if (isalpha(c) || c == '[')
             {
+
                 dynamic_string_add_char(&token.value.valueString, c); // Add to token
                 state = sIdentifierorKeyword;                         // Transition to identifier state
             }
             else
             {
-                ungetc(c, file);              // Return the character back to input
-                token.type = TOKEN_UNDEFINED; // Invalid token
-                return token;
+                dynamic_string_free(&token.value.valueString);
+                handle_error(ERR_LEX);
+
+                // ungetc(c, file);              // Return the character back to input
+                // token.type = TOKEN_UNDEFINED; // Invalid token
+                // return token;
             }
         }
         break;
@@ -517,9 +461,6 @@ Token get_token(FILE *file)
         {
             while (!isspace(c) && c != EOF)
             {
-                // Přidáme znak do dynamického řetězce
-                // printf("Processing character: %c\n", c); // Debug statement
-
                 // Kontrola na neplatné znaky
                 if (!isalpha(c) && !isdigit(c) && c != '_' && c != '[' && c != ']')
                 {
@@ -529,7 +470,6 @@ Token get_token(FILE *file)
                 c = (char)getc(file); // Načti další znak
             }
 
-            // Ukončujeme identifikátor
             ungetc(c, file);
 
             if (is_keyword(&token))
@@ -546,11 +486,14 @@ Token get_token(FILE *file)
             }
             else if (invalid)
             {
-                token.type = TOKEN_UNDEFINED;
-                invalid = false;
+                dynamic_string_free(&token.value.valueString);
+                handle_error(ERR_LEX);
+                // token.type = TOKEN_UNDEFINED;
+                // invalid = false;
             }
             else
             {
+                // ! funkcia na povolene znaky
                 token.type = TOKEN_IDENTIFIER;
             }
 
@@ -592,9 +535,11 @@ Token get_token(FILE *file)
             }
             else
             {
-                token.type = TOKEN_UNDEFINED;
-                ungetc(c, file);
-                return token;
+                dynamic_string_free(&token.value.valueString);
+                handle_error(ERR_LEX);
+                // token.type = TOKEN_UNDEFINED;
+                // ungetc(c, file);
+                // return token;
             }
         }
         break;
@@ -632,8 +577,10 @@ Token get_token(FILE *file)
             }
             else
             {
-                token.type = TOKEN_UNDEFINED;
-                return token;
+                dynamic_string_free(&token.value.valueString);
+                handle_error(ERR_LEX);
+                // token.type = TOKEN_UNDEFINED;
+                // return token;
             }
         }
         break;
@@ -664,8 +611,10 @@ Token get_token(FILE *file)
                 dynamic_string_clear(&token.value.valueString);
                 if (!add_double_to_dynamic_string(&token.value.valueString, calculatedNum))
                 {
-                    token.type = TOKEN_UNDEFINED;
-                    return token;
+                    dynamic_string_free(&token.value.valueString);
+                    handle_error(ERR_LEX);
+                    // token.type = TOKEN_UNDEFINED;
+                    // return token;
                 }
                 token.type = TOKEN_FLOAT_LITERAL;
                 ungetc(c, file);
@@ -686,9 +635,10 @@ Token get_token(FILE *file)
             }
             else if (c < 32)
             {
-                // Unexpected end of file without closing quote
-                token.type = TOKEN_UNDEFINED; // Set error token
-                return token;
+                dynamic_string_free(&token.value.valueString);
+                handle_error(ERR_LEX);
+                // token.type = TOKEN_UNDEFINED; // Set error token
+                // return token;
             }
             else
             {
@@ -729,8 +679,10 @@ Token get_token(FILE *file)
                 }
                 else
                 {
-                    token.type = TOKEN_UNDEFINED; // Invalid hex escape
-                    return token;
+                    dynamic_string_free(&token.value.valueString);
+                    handle_error(ERR_LEX);
+                    // token.type = TOKEN_UNDEFINED; // Invalid hex escape
+                    // return token;
                 }
                 break;
             }
@@ -742,25 +694,6 @@ Token get_token(FILE *file)
             state = sStringLiteral;
         }
         break;
-        /*case sBackSlash:
-        {
-            c = (char)getc(file); // Read the next character
-            if (c == 'n')
-                token.type = TOKEN_NEWLINE; // Example for newline escape
-            else if (c == 't')
-                token.type = TOKEN_TAB; // Example for tab escape
-            else if (c == '\\')
-                token.type = TOKEN_BACKSLASH; // Token for backslash itself
-            else
-            {
-                ungetc(c, file);              // Put back the character if it's not a recognized escape
-                token.type = TOKEN_BACKSLASH; // Handle as just a backslash if needed
-            }
-            state = sStart; // Return to the starting state
-            return token;
-        }
-        break;
-        */
         case sDivision:
         {
             if (c == '/')
@@ -789,6 +722,7 @@ Token get_token(FILE *file)
         }
         break;
         case sAssign:
+
         {
             if (c == '=')
             {
@@ -865,7 +799,11 @@ Token get_token(FILE *file)
                 if (strcmp(token.value.valueString.str, "@import") == 0)
                     token.type = TOKEN_IMPORT;
                 else
-                    token.type = TOKEN_UNDEFINED;
+                {
+                    dynamic_string_free(&token.value.valueString);
+                    handle_error(ERR_LEX);
+                    //token.type = TOKEN_UNDEFINED;
+                }
 
                 state = sStart;
                 return token;

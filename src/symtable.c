@@ -285,6 +285,54 @@ Symbol *search_symbol_stack(SymbolStack *stack, const char *name)
     return NULL; // Symbol not found in any scope
 }
 
+int upd_var_symbol_stack(SymbolStack *stack, Symbol *symbol, void *new_value, DataType type)
+{
+    if (!stack || !symbol || !new_value)
+    {
+        return -1; // Invalid parameters
+    }
+
+    // Update the value based on the variable's type
+    switch (type)
+    {
+    case TYPE_INT:
+    case TYPE_INT_NULL:
+        symbol->value.intValue = *(int *)new_value;
+        break;
+
+    case TYPE_FLOAT:
+    case TYPE_FLOAT_NULL:
+        symbol->value.floatValue = *(float *)new_value;
+        break;
+
+    case TYPE_STRING:
+    case TYPE_STRING_NULL:
+        // Free existing string and allocate a new one
+        free(symbol->value.strValue);
+        symbol->value.strValue = copy_string((char *)new_value);
+        if (!symbol->value.strValue)
+        {
+            fprintf(stderr, "Error: Memory allocation failed for string value '%s'.\n", (char *)new_value);
+            return -1;
+        }
+        break;
+
+    case TYPE_FUNCTION:
+        // Function type values should generally not be updated like this
+        fprintf(stderr, "Error: Cannot update function type variable '%s'.\n", symbol->name);
+        return -1;
+    case TYPE_NULL:
+
+    break;
+
+    default:
+        fprintf(stderr, "Error: Unsupported type for variable '%s'.\n", symbol->name);
+        return -1; // Unsupported type
+    }
+
+    return 0; // Update successful
+}
+
 void delete_symbol_stack(SymbolStack *stack, const char *name)
 {
     if (stack->top == NULL)

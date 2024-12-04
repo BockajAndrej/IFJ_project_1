@@ -63,6 +63,7 @@ void push_scope(SymbolStack *stack);
 void pop_scope(SymbolStack *stack);
 void insert_symbol_stack(SymbolStack *stack, const char *name, DataType type, void *value, bool isConst, bool isNull, bool isGlobal, DataType freturn_type);
 Symbol *search_symbol_stack(SymbolStack *stack, const char *name);
+int upd_var_symbol_stack(SymbolStack *stack, Symbol *symbol, void *new_value, DataType type);
 void delete_symbol_stack(SymbolStack *stack, const char *name);
 void free_symbol_stack(SymbolStack *stack);
 

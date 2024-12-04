@@ -341,6 +341,8 @@ const char *value_type_to_string(DataType type)
         return "[]u8";
     case TYPE_EMPTY:
         return "empty";
+    case TYPE_NULL:
+        return "null";
     case TYPE_NONNULL:
         return "nonNull";
     case TYPE_FUNCTION:
@@ -360,8 +362,8 @@ DataType value_string_to_type(const char *typeStr)
         return TYPE_INT_NULL;
     if (strcmp(typeStr, "?f64") == 0)
         return TYPE_FLOAT_NULL;
-    if (strcmp(typeStr, "bool") == 0)
-        return TYPE_BOOL;
+    if (strcmp(typeStr, "null") == 0)
+        return TYPE_NULL;
     if (strcmp(typeStr, "string") == 0)
         return TYPE_STRING;
     if (strcmp(typeStr, "[]u8") == 0)
@@ -383,11 +385,11 @@ bool are_types_compatible(DataType actual, DataType expected)
         return true;
     if (expected == TYPE_INT && actual == TYPE_INT_NULL)
         return true;
-    if (expected == TYPE_INT_NULL && (actual == TYPE_INT))
+    if (expected == TYPE_INT_NULL && (actual == TYPE_INT || actual == TYPE_NULL))
         return true;
     if (expected == TYPE_FLOAT && actual == TYPE_INT)
         return true;
-    if (expected == TYPE_FLOAT_NULL && (actual == TYPE_INT || actual == TYPE_FLOAT || actual == TYPE_INT_NULL))
+    if (expected == TYPE_FLOAT_NULL && (actual == TYPE_INT || actual == TYPE_FLOAT || actual == TYPE_INT_NULL || actual == TYPE_NULL))
         return true;
 
     return false;

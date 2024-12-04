@@ -17,12 +17,6 @@ int main(int argc, char **argv)
     BinaryTreeNode *root = createBinaryNode(NODE_GENERAL, TOKEN_EMPTY, "");
     setStartNode(root);
 
-    if (argc == 1)
-    {
-        // test_hash_table();
-        // return 0;
-    }
-
     // Check if file was entered as an argument
     if (argc < 2)
         file = stdin;
@@ -41,7 +35,7 @@ int main(int argc, char **argv)
     if (!FIRST(file))
     {
         printf("%s", " --- WRONG END --- \n");
-        //chyba od syntactic
+        // chyba od syntactic
         return 1;
     }
     printBinaryTree(root);
@@ -49,8 +43,9 @@ int main(int argc, char **argv)
     SymbolStack *stack = initialize_symbol_stack();
     ProcessTree(root, stack);
     free_symbol_stack(stack);
+    // ! TRIM nuly na koncy
 
-    //! ZMAZAR PRINTY 
+    //! ZMAZAR PRINTY
     printf("%s", " --- ENDED SUCESFULLY --- \n");
     fclose(file);
     return EXIT_SUCCESS;

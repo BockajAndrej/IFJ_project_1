@@ -45,6 +45,7 @@ typedef enum
     TYPE_VOID,
     TYPE_EMPTY,
     TYPE_NONNULL,
+    TYPE_NULL,
     TYPE_UNKNOWN,
     TYPE_FUNCTION,
 

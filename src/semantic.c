@@ -298,7 +298,7 @@ void process_identifier_assign(BinaryTreeNode *node, SymbolStack *stack)
             handle_error(ERR_TYPE_COMPAT);
         }
     }
-    else if (expressionOrFunc->type == NODE_OP)
+    else if (expressionOrFunc->type == NODE_OP && (strcmp(expressionOrFunc->strValue, "null") != 0))
     {
         // !volam ked napr "result = 5 * 3;"
 
@@ -310,14 +310,41 @@ void process_identifier_assign(BinaryTreeNode *node, SymbolStack *stack)
     else
     {
         // ! volam ked napr "result = 3;"
-        printf("1\n");
 
         BinaryTreeNode *valuetoAssign = expressionOrFunc;
-        printf("2\n");
-
+        DataType valuetoAssign_type;
         printf("ASSIGN value %s\n", valuetoAssign->strValue);
-        // DataType value = process_expression(valuetoAssign);
-        // TODO datatype do symtable
+        valuetoAssign_type = find_return_datatype(valuetoAssign->strValue);
+
+        Symbol *variable = search_symbol_stack(stack, nodeidentifier_str);
+        DataType variable_type = variable->type;
+        if (variable == NULL)
+        {
+            printf("var null\n");
+            freeTreeFromAnyNode(node);
+            free_symbol_stack(stack);
+            handle_error(ERR_UNDEFINED_ID);
+        }
+        else if (!are_types_compatible(valuetoAssign_type, variable_type))
+        {
+            printf("types dont match %s and %s\n",
+                   value_type_to_string(valuetoAssign_type), value_type_to_string(variable_type));
+
+            freeTreeFromAnyNode(node);
+            free_symbol_stack(stack);
+            handle_error(ERR_TYPE_COMPAT);
+        }
+        else if (variable->isConst)
+        {
+            printf("var is const\n");
+            freeTreeFromAnyNode(node);
+            free_symbol_stack(stack);
+            handle_error(ERR_TYPE_COMPAT);
+        }
+        int value_to_assign = atoi(valuetoAssign->strValue); // or use strtol for more control
+        upd_var_symbol_stack(stack, variable, (void *)&value_to_assign, valuetoAssign_type);
+        Symbol *updated = search_symbol_stack(stack, nodeidentifier_str);
+        printf("Updated value of %s is %d\n", nodeidentifier_str, updated->value.intValue);
     }
 }
 
@@ -607,6 +634,11 @@ DataType find_return_datatype(char *value)
 
     int is_float = 0;
     int is_string = 0;
+    if (strcmp(value,"null") == 0)
+    {
+        return TYPE_NULL;
+    }
+    
 
     // Check each character in the string
     for (int i = 0; value[i] != '\0'; i++)
