@@ -10,6 +10,7 @@
 #include "ast.h"
 #include "semantic.h"
 #include "symtable.h"
+#include "Code_generator.h"
 
 int main(int argc, char **argv)
 {
@@ -36,6 +37,11 @@ int main(int argc, char **argv)
         fclose(file);
         handle_error(ERR_SYNTAX);
     }
+
+    //generator skusky
+    // generateHeader();
+    // processTokenType(root);
+
     // printBinaryTree(root);
 
     SymbolStack *stack = initialize_symbol_stack();
