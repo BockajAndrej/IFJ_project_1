@@ -1,6 +1,6 @@
 /**
  * @file ast.c
- * @author Pavel Givac, Filo Jakub
+ * @author Pavel Givac
  * @category Abstract syntax tree
  * @brief This file contains functions for Abstract syntax tree
  */
