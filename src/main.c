@@ -28,25 +28,20 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    if (file == NULL)
-        perror("Failed to open file");
-
     // Syntactic analysis
     if (!FIRST(file))
     {
-        printf("%s", " --- WRONG END --- \n");
-        // chyba od syntactic
-        return 1;
+        fprintf(stderr, "%s", " --- WRONG END --- \n");
+        // WRONG
+        fclose(file);
+        handle_error(ERR_SYNTAX);
     }
-    printBinaryTree(root);
+    // printBinaryTree(root);
 
     SymbolStack *stack = initialize_symbol_stack();
     ProcessTree(root, stack);
     free_symbol_stack(stack);
-    // ! TRIM nuly na koncy
 
-    //! ZMAZAR PRINTY
-    printf("%s", " --- ENDED SUCESFULLY --- \n");
     fclose(file);
     return EXIT_SUCCESS;
 }

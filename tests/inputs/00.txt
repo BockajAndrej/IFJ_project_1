@@ -2,11 +2,7 @@
 const ifj = @import("ifj24.zig");
 var d: f64 = ifj.i2f(val);
 pub fn main() void {
-    var d: f64 = ifj.i2f(val);
-    var k: u8 = 25 + 5;
-    var a: i32 = 0;
-    const r = foo(param);
-
-    
+    var d: f64 = a*b+c*d+e*f+g;
+    var f: f64 = x+d*y-h*8;
 }
 

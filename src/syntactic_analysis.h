@@ -29,8 +29,7 @@
     do                            \
     {                             \
         token = get_token(file);  \
-    } while (token.type == TOKEN_COMMENT || token.type == TOKEN_EOL); \
-    print_token(token);
+    } while (token.type == TOKEN_COMMENT || token.type == TOKEN_EOL); 
 
 bool FIRST(FILE *file);
 bool STATEMENT(FILE *file, int *infestNumLok);
