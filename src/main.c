@@ -26,7 +26,7 @@ int main(int argc, char **argv)
     else
     {
         fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
-        return 1;
+        return 99;
     }
 
     // Syntactic analysis
@@ -38,15 +38,15 @@ int main(int argc, char **argv)
         handle_error(ERR_SYNTAX);
     }
 
-    // generator skusky
-    //  generateHeader();
-    //  processTokenType(root);
-
     // printBinaryTree(root);
+
 
     SymbolStack *stack = initialize_symbol_stack();
     ProcessTree(root, stack);
     free_symbol_stack(stack);
+
+    // generator skusky
+    processTokenType(root);
 
     fclose(file);
     return EXIT_SUCCESS;

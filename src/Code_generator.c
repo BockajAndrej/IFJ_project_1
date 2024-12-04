@@ -18,7 +18,6 @@
  */
 void generateHeader(){
     printf(".IFJcode24\n");
-    printf("DEFVAR GF@result\n");
 }
 
 /**

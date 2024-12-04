@@ -907,7 +907,7 @@ bool EXPRESSION(FILE *file, Token token)
     int tmp_char = 0;
     const int N = 11;
     char table[11][11] = {
-        {'<', '<', '<', '<', '<', '<', '<', '>', '<', '<', '>'},
+        {'X', '<', '<', '<', '<', '<', '<', '>', '<', '<', '>'},
         {'>', '>', '>', '<', '<', '<', '<', '>', '<', 'X', '>'},
         {'>', '>', '>', '<', '>', '<', '<', '>', '<', 'X', '>'},
         {'>', '>', '>', '>', '>', '<', '<', '>', '<', 'X', '>'},
@@ -1028,6 +1028,8 @@ bool EXPRESSION(FILE *file, Token token)
             curPrecItem.data.isPrec = true;
             curPrecItem.data.token_type = token.type;
             curPrecItem.data.token_val.valueString = token.value.valueString;
+            if(token.type == TOKEN_RPAREN)
+                numOfLPar = numOfLPar - 1;
             // printf("SHIFT = %s - type: %d\n", token.value.valueString.str, token.type);
             push(&precStack, curPrecItem);
         }
@@ -1072,6 +1074,7 @@ bool EXPRESSION(FILE *file, Token token)
                 break;
             }
         }
+        // PrintAllStack(&precStack);
         find_OP(N, table, token, &precStack, &tmp_char, &numOfLPar);
     }
 
@@ -1199,9 +1202,7 @@ void find_OP(const int N, char table[N][N], Token token, Stack *precStack, int *
     case TOKEN_RPAREN:
         x = 7;
         if (*numOfLPar <= 0)
-            x = 10;
-        else
-            *numOfLPar = *numOfLPar - 1;
+            x = 10;            
         break;
     case TOKEN_IDENTIFIER:
         x = 5;
