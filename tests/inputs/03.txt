@@ -106,14 +106,3 @@ pub fn main() void {
     ifj.write("Program completed successfully.\n");
 }
 
-// Function that takes nullable parameters and returns their sum
-pub fn nullable_sum(a: ?i32, b: ?i32) i32 {
-    var sum: i32 = 0;
-    if (a) |value| {
-        sum = sum + value;
-    }else{}
-    if (b) |value| {
-        sum = sum + value;
-    }else{}
-    return sum;
-}

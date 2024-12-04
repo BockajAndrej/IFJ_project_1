@@ -1,13 +1,20 @@
+/**
+ * @file ast.c
+ * @author Pavel Givac, Filo Jakub
+ * @category Abstract syntax tree
+ * @brief This file contains functions for Abstract syntax tree
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "ast.h"
 
-// Pomocná funkcia na kopírovanie reťazca
+// Copies a string to a newly allocated memory.
 char *copy_str(const char *str)
 {
     if (!str)
         return NULL;
+
     char *copy = malloc(strlen(str) + 1);
     if (!copy)
     {
@@ -18,7 +25,7 @@ char *copy_str(const char *str)
     return copy;
 }
 
-// VYTVORENIE UZLA
+// Creates a new binary tree node with specified type, token, and value.
 BinaryTreeNode *createBinaryNode(NodeType type, Token_type tokenType, const char *value)
 {
     BinaryTreeNode *node = malloc(sizeof(BinaryTreeNode));
@@ -29,14 +36,14 @@ BinaryTreeNode *createBinaryNode(NodeType type, Token_type tokenType, const char
     }
     node->type = type;
     node->tokenType = tokenType;
-    node->strValue = copy_str(value); // Uloženie hodnoty
+    node->strValue = copy_str(value); // Store string value
     node->left = NULL;
     node->right = NULL;
     node->parent = NULL;
     return node;
 }
 
-// VLOZENIE V LAVO
+// Inserts a left child node for the given parent if no left child exists.
 void insertLeft(BinaryTreeNode *parent, NodeType type, Token_type tokenType, const char *value)
 {
     if (!parent)
@@ -46,7 +53,7 @@ void insertLeft(BinaryTreeNode *parent, NodeType type, Token_type tokenType, con
     }
     if (parent->left)
     {
-        fprintf(stderr, "Error: Left child already exists for node %s.\n", parent->strValue);
+        fprintf(stderr, "Error: Left child already exists.\n");
         return;
     }
     BinaryTreeNode *child = createBinaryNode(type, tokenType, value);
@@ -55,19 +62,21 @@ void insertLeft(BinaryTreeNode *parent, NodeType type, Token_type tokenType, con
     parent->left = child;
 }
 
+// Inserts a left child and moves current node left.
 void insertLeftMoveLeft(BinaryTreeNode *parent, NodeType type, Token_type tokenType, const char *value)
 {
     insertLeft(parent, type, tokenType, value);
     moveDownLeft();
 }
 
+// Inserts a left child and moves current node right.
 void insertLeftMoveRight(BinaryTreeNode *parent, NodeType type, Token_type tokenType, const char *value)
 {
     insertLeft(parent, type, tokenType, value);
     moveDownRight();
 }
 
-// VLOZENIA V PRAVO
+// Inserts a right child node for the given parent if no right child exists.
 void insertRight(BinaryTreeNode *parent, NodeType type, Token_type tokenType, const char *value)
 {
     if (!parent)
@@ -77,7 +86,7 @@ void insertRight(BinaryTreeNode *parent, NodeType type, Token_type tokenType, co
     }
     if (parent->right)
     {
-        fprintf(stderr, "Error: Right child already exists for node %s.\n", parent->strValue);
+        fprintf(stderr, "Error: Right child already exists.\n");
         return;
     }
     BinaryTreeNode *child = createBinaryNode(type, tokenType, value);
@@ -86,49 +95,53 @@ void insertRight(BinaryTreeNode *parent, NodeType type, Token_type tokenType, co
     parent->right = child;
 }
 
+// Inserts a right child and moves current node right.
 void insertRightMoveRight(BinaryTreeNode *parent, NodeType type, Token_type tokenType, const char *value)
 {
     insertRight(parent, type, tokenType, value);
     moveDownRight();
 }
 
+// Inserts a right child and moves current node left.
 void insertRightMoveLeft(BinaryTreeNode *parent, NodeType type, Token_type tokenType, const char *value)
 {
     insertRight(parent, type, tokenType, value);
     moveDownLeft();
 }
 
-// PREMENNA NA SLEDOVANIE UZLA
+// Global variables for tracking current and in-order traversal nodes.
 BinaryTreeNode *currentNode = NULL;
-
 BinaryTreeNode *curInOrderNode = NULL;
 
-// POHYB
+// Set the current node to the root.
 void setStartNode(BinaryTreeNode *root)
 {
     currentNode = root;
 }
 
+// Set the in-order node to the root.
 void setStartNodeInOrder(BinaryTreeNode *root)
 {
     curInOrderNode = root;
 }
 
+// Perform in-order traversal and push nodes to the stack.
 void InOrder(BinaryTreeNode *node, Stack *stack)
 {
     if (node != NULL)
     {
-        InOrder(node->left, stack);
+        InOrder(node->left, stack); // Traverse left subtree
         Stack_item tmp_item;
         tmp_item.type = rule;
         tmp_item.data.isPrec = false;
         tmp_item.data.token_val.valueString.str = node->strValue;
         tmp_item.data.token_type = node->tokenType;
-        push(stack, tmp_item);
-        InOrder(node->right, stack);
+        push(stack, tmp_item);       // Push current node to stack
+        InOrder(node->right, stack); // Traverse right subtree
     }
 }
 
+// Move up the tree by the specified number of levels.
 bool moveUp(int levels)
 {
     int movedLevels = 0;
@@ -143,12 +156,14 @@ bool moveUp(int levels)
         else
         {
             printf("Error: Cannot move up %d levels. Moved up %d level(s). Actual node: %s\n", levels + movedLevels, movedLevels, currentNode->strValue);
-            exit(EXIT_FAILURE);
+            handle_error(ERR_COMPILER_INTERNAL);
         }
     }
+    // Return whether the current node is a right child
     return currentNode->isRight;
 }
 
+// Move to the left child of the current node.
 void moveDownLeft()
 {
     if (currentNode && currentNode->left)
@@ -158,10 +173,11 @@ void moveDownLeft()
     else
     {
         printf("Error: Cannot move left from the current node.\n");
-        exit(EXIT_FAILURE);
+        handle_error(ERR_COMPILER_INTERNAL);
     }
 }
 
+// Move to the right child of the current node.
 void moveDownRight()
 {
     if (currentNode && currentNode->right)
@@ -171,10 +187,11 @@ void moveDownRight()
     else
     {
         printf("Error: Cannot move right from the current node. (%s)\n", currentNode->strValue);
-        exit(EXIT_FAILURE);
+        handle_error(ERR_COMPILER_INTERNAL);
     }
 }
 
+// Move left through the tree until a node with the specified token type is found.
 BinaryTreeNode *move_left_until(BinaryTreeNode *node, Token_type dest)
 {
     while (node != NULL)
@@ -186,6 +203,7 @@ BinaryTreeNode *move_left_until(BinaryTreeNode *node, Token_type dest)
     return NULL;
 }
 
+// Move right through the tree until a node with the specified token type is found.
 BinaryTreeNode *move_right_until(BinaryTreeNode *node, Token_type dest)
 {
     while (node != NULL)
@@ -197,30 +215,33 @@ BinaryTreeNode *move_right_until(BinaryTreeNode *node, Token_type dest)
     return NULL;
 }
 
+// Recursively free all nodes in the binary tree.
 void freeBinaryTree(BinaryTreeNode *root)
 {
     if (!root)
         return;
 
-    freeBinaryTree(root->left);
-    freeBinaryTree(root->right);
+    freeBinaryTree(root->left);  // Free left subtree
+    freeBinaryTree(root->right); // Free right subtree
 
     if (root->strValue != NULL)
     {
-        free(root->strValue);
+        free(root->strValue); // Free string value
     }
-    free(root);
+    free(root); // Free the node itself
 }
 
+// Free the entire tree starting from the root node, traversing up to find the root.
 void freeTreeFromAnyNode(BinaryTreeNode *node)
 {
     while (node->parent != NULL)
     {
-        node = node->parent;
+        node = node->parent; // Traverse up to the root
     }
-    freeBinaryTree(node);
+    freeBinaryTree(node); // Free the tree starting from the root
 }
 
+// Print the binary tree starting from the root.
 void printBinaryTree(BinaryTreeNode *root)
 {
     if (!root)
@@ -229,20 +250,22 @@ void printBinaryTree(BinaryTreeNode *root)
         return;
     }
 
-    // Start the helper with an empty prefix and mark root as the last node
-    printBinaryTreeHelper(root, "", 1);
+    printBinaryTreeHelper(root, "", 1); // Helper function to print tree
 }
 
+// Recursively prints the binary tree with a visual structure, color-coding nodes.
 void printBinaryTreeHelper(BinaryTreeNode *node, char *prefix, int isLast)
 {
     if (node == NULL)
         return;
 
-    const char *COLOR_RESET = "\033[0m";  // Reset to default
+    // Define colors for different types of nodes
+    const char *COLOR_RESET = "\033[0m";  // Reset color
     const char *COLOR_RED = "\033[31m";   // Red for left child
     const char *COLOR_GREEN = "\033[32m"; // Green for right child
     const char *COLOR_BLUE = "\033[34m";  // Blue for root
 
+    // Set color based on node's position in the tree
     const char *color = COLOR_BLUE; // Default color for root
     if (node->parent)
     {
@@ -252,16 +275,17 @@ void printBinaryTreeHelper(BinaryTreeNode *node, char *prefix, int isLast)
             color = COLOR_GREEN; // Green for right child
     }
 
+    // Print the current node with the appropriate prefix and color
     printf("%s", prefix);
     if (isLast)
         printf("└── ");
     else
         printf("├── ");
-
     printf("%s%s (\"%s\") %s %s\n", color, NodeTypeToString(node->type),
            node->strValue ? node->strValue : "NULL", token_type_to_string(node->tokenType),
            COLOR_RESET);
 
+    // Prepare the prefix for child nodes
     char newPrefix[1024];
     strcpy(newPrefix, prefix);
     if (isLast)
@@ -269,6 +293,7 @@ void printBinaryTreeHelper(BinaryTreeNode *node, char *prefix, int isLast)
     else
         strcat(newPrefix, "│   ");
 
+    // Determine if the node has children and recursively print them
     int children = 0;
     if (node->left)
         children++;
@@ -284,12 +309,13 @@ void printBinaryTreeHelper(BinaryTreeNode *node, char *prefix, int isLast)
         printBinaryTreeHelper(node->left, newPrefix, 1);  // Last child
     }
     else if (node->right)
-        printBinaryTreeHelper(node->right, newPrefix, 1);
+        printBinaryTreeHelper(node->right, newPrefix, 1); // Only right child
 
     else if (node->left)
-        printBinaryTreeHelper(node->left, newPrefix, 1);
+        printBinaryTreeHelper(node->left, newPrefix, 1); // Only left child
 }
 
+// Convert NodeType enum to a human-readable string.
 const char *NodeTypeToString(NodeType type)
 {
     switch (type)
@@ -341,6 +367,7 @@ const char *NodeTypeToString(NodeType type)
     }
 }
 
+// Convert DataType enum to a string representation.
 const char *value_type_to_string(DataType type)
 {
     switch (type)
@@ -374,6 +401,7 @@ const char *value_type_to_string(DataType type)
     }
 }
 
+// Convert string to corresponding DataType.
 DataType value_string_to_type(const char *typeStr)
 {
     if (strcmp(typeStr, "i32") == 0)
@@ -396,53 +424,52 @@ DataType value_string_to_type(const char *typeStr)
         return TYPE_NONNULL;
     if (strcmp(typeStr, "function") == 0)
         return TYPE_FUNCTION;
-    // Add more types as needed
-    return TYPE_UNKNOWN;
+    return TYPE_UNKNOWN; // Default
 }
 
+// Determine the DataType of a string based on its value.
 DataType find_return_datatype(char *value)
 {
-    DataType toReturn;
+    int is_float = 0, is_string = 0;
 
-    int is_float = 0;
-    int is_string = 0;
+    // Check if the value is "null"
     if (strcmp(value, "null") == 0)
-    {
         return TYPE_NULL;
-    }
 
-    // Check each character in the string
+    // Iterate through each character in the value string
     for (int i = 0; value[i] != '\0'; i++)
     {
+        // Check if the character is a decimal point
         if (value[i] == '.')
         {
+            // If already identified as float or string, mark as string and break
             if (is_float || is_string)
             {
-                is_string = 1; // Multiple dots or invalid format mean it's a string
+                is_string = 1;
                 break;
             }
-            is_float = 1; // Mark as a potential float
+            // Mark as float
+            is_float = 1;
         }
+        // If the character is not a digit, mark as string and break
         else if (!isdigit(value[i]))
         {
-            is_string = 1; // Non-numeric characters mean it's a string
+            is_string = 1;
             break;
         }
     }
 
+    // Return the appropriate data type based on the flags
     if (is_string)
-        toReturn = TYPE_STRING; // Assume STRING_TYPE is defined for strings
-    else if (is_float)
-        toReturn = TYPE_FLOAT; // Assume FLOAT_TYPE is defined for floats
-    else
-        toReturn = TYPE_INT; // If all characters are digits, it's an integer
-
-    return toReturn;
+        return TYPE_STRING;
+    if (is_float)
+        return TYPE_FLOAT;
+    return TYPE_INT; // Default to integer
 }
 
+// Check if two data types are compatible.
 bool are_types_compatible(DataType actual, DataType expected)
 {
-    // printf("actual = %s > expected = %s\n", value_type_to_string(actual), value_type_to_string(expected));
     if (actual == expected)
         return true;
     if (expected == TYPE_INT && actual == TYPE_INT_NULL)
@@ -453,6 +480,5 @@ bool are_types_compatible(DataType actual, DataType expected)
         return true;
     if (expected == TYPE_FLOAT_NULL && (actual == TYPE_INT || actual == TYPE_FLOAT || actual == TYPE_INT_NULL || actual == TYPE_NULL))
         return true;
-
     return false;
 }

@@ -1,9 +1,8 @@
 /**
- * Project: Implementace překladače imperativního jazyka IFJ24.
- *
- * @brief Error codes.
- *
- * @author >Jakub Fiľo <xfiloja00@stud.fit.vutbr.cz>
+ * @file error.h
+ * @author Jakub Filo
+ * @category Error codes
+ * @brief This file contains function to handle error messages and exit program with the desired number.
  */
 
 #include "error.h"

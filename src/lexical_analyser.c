@@ -205,6 +205,25 @@ const char *token_to_type(Token_type value)
 }
 
 /**
+ * @brief Checks if a string contains only valid characters (a-z, A-Z, 0-9, and '_').
+ * @details Iterates through each character in the string and verifies if it is an alphanumeric character or an underscore.
+ * If an invalid character is found, it calls the `handle_error` function with a lexical error code.
+ *
+ * @param str The string to be checked.
+ */
+void validate_identifier(const char *str)
+{
+    while (*str)
+    {
+        if (!isalnum(*str) && *str != '_')
+        {
+            handle_error(ERR_LEX); // Handle lexical error
+        }
+        str++;
+    }
+}
+
+/**
  * @brief Retrieves the next token from the input file.
  * @details This function implements a finite state machine (FSM) to parse the input file character by character,
  * constructing tokens based on the defined states. It handles various token types, including identifiers,
@@ -257,13 +276,13 @@ Token get_token(FILE *file)
             }
             else if (c == '@') // Start of import statement
             {
-                state = sImport;                                      // Transition to import state
+                state = sImport;
                 dynamic_string_add_char(&token.value.valueString, c); // Add character to token
             }
             else if (c == '\n') /* EOL, end of line  should add \t \r support? */
             {
-                token.type = TOKEN_EOL; // Předpokládáme, že TOKEN_EOL je definován
-                return token;           // Vrať token EOL
+                token.type = TOKEN_EOL;
+                return token;
             }
             else if (isalpha(c)) // Check for identifiers/keywords
             {
@@ -274,15 +293,13 @@ Token get_token(FILE *file)
             {
                 dynamic_string_add_char(&token.value.valueString, c);
 
-                // Read the next character without shadowing the original 'c'
                 char next_c = (char)getc(file);
 
                 // If the next character is a letter or a digit, treat it as part of an identifier
                 if (isalnum(next_c))
                 {
-                    // Add underscore to the identifier
-                    dynamic_string_add_char(&token.value.valueString, next_c); // Add the letter/digit to the identifier
-                    state = sIdentifierorKeyword;                              // Transition to identifier state
+                    dynamic_string_add_char(&token.value.valueString, next_c);
+                    state = sIdentifierorKeyword;
                 }
                 else
                 {
@@ -296,10 +313,6 @@ Token get_token(FILE *file)
                     {
                         dynamic_string_free(&token.value.valueString);
                         handle_error(ERR_LEX);
-
-                        // token.type = TOKEN_UNDEFINED; // Invalid token
-                        // ungetc(next_c, file);         // Return the character back to the input
-                        // return token;
                     }
                 }
             }
@@ -344,9 +357,8 @@ Token get_token(FILE *file)
             else if (c == '[')
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                // invalid = true;
 
-                c = (char)getc(file); // Načti další znak
+                c = (char)getc(file); // Read next char
                 if (c == ']')
                 {
                     state = sIdentifierorKeyword;
@@ -374,22 +386,22 @@ Token get_token(FILE *file)
             else if (c == ';') // Semicolon
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                token.type = TOKEN_SEMICOLON; // Set the token type for semicolon
-                state = sStart;               // Return to the starting state
+                token.type = TOKEN_SEMICOLON;
+                state = sStart;
                 return token;
             }
             else if (c == ':') // Colon
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                token.type = TOKEN_COLON; // Set the token type for semicolon
-                state = sStart;           // Return to the starting state
+                token.type = TOKEN_COLON;
+                state = sStart;
                 return token;
             }
             else if (c == '.') // Dot
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                token.type = TOKEN_DOT; // Set the token type for semicolon
-                state = sStart;         // Return to the starting state
+                token.type = TOKEN_DOT;
+                state = sStart;
                 return token;
             }
             else if (c == '?') // Question mark
@@ -415,7 +427,7 @@ Token get_token(FILE *file)
                 token.type = TOKEN_MULTIPLY;
                 return token;
             }
-            else if (c == '|') // Check for bitwise OR / logical OR
+            else if (c == '|') // Check for |
             {
                 dynamic_string_add_char(&token.value.valueString, c);
                 token.type = TOKEN_PIPE;
@@ -423,17 +435,17 @@ Token get_token(FILE *file)
             }
             else if (c == '=') // Start of equality or assignment
             {
-                state = sAssign; // Move to assignment state
+                state = sAssign;
                 dynamic_string_add_char(&token.value.valueString, c);
             }
             else if (c == '<') // Start of less than or equal
             {
-                state = sLessThan; // Move to less than state
+                state = sLessThan;
                 dynamic_string_add_char(&token.value.valueString, c);
             }
             else if (c == '>') // Start of greater than or equal
             {
-                state = sGreaterThan; // Move to greater than state
+                state = sGreaterThan;
                 dynamic_string_add_char(&token.value.valueString, c);
             }
             else if (c == '\\') // Backslash for escape sequences
@@ -448,7 +460,7 @@ Token get_token(FILE *file)
                 state = sExclamation;
             }
             break;
-        case sQuestionmark:
+        case sQuestionmark: // state for "?"
         {
             invalid = true;
             if (isalpha(c) || c == '[')
@@ -461,24 +473,20 @@ Token get_token(FILE *file)
             {
                 dynamic_string_free(&token.value.valueString);
                 handle_error(ERR_LEX);
-
-                // ungetc(c, file);              // Return the character back to input
-                // token.type = TOKEN_UNDEFINED; // Invalid token
-                // return token;
             }
         }
         break;
-        case sIdentifierorKeyword:
+        case sIdentifierorKeyword: // keyword or identifier or left bracket
         {
             while (!isspace(c) && c != EOF)
             {
-                // Kontrola na neplatné znaky
+                // check for wrong symbols
                 if (!isalpha(c) && !isdigit(c) && c != '_' && c != '[' && c != ']')
                 {
                     break;
                 }
                 dynamic_string_add_char(&token.value.valueString, c);
-                c = (char)getc(file); // Načti další znak
+                c = (char)getc(file);
             }
 
             ungetc(c, file);
@@ -499,18 +507,31 @@ Token get_token(FILE *file)
             {
                 dynamic_string_free(&token.value.valueString);
                 handle_error(ERR_LEX);
-                // token.type = TOKEN_UNDEFINED;
-                // invalid = false;
             }
             else
             {
                 // ! funkcia na povolene znaky
+                validate_identifier(token.value.valueString.str);
                 token.type = TOKEN_IDENTIFIER;
             }
 
             return token;
         }
         break;
+        /**
+         * Handles the state transitions for integer and floating-point literals in the lexical analyzer.
+         *
+         * States:
+         * - sIntLiteral: Handles integer literals. Transitions to sDot for floating-point or sExponentStart for scientific notation.
+         * - sDot: Handles the dot in floating-point literals. Transitions to sFloatLiteral if followed by a digit.
+         * - sFloatLiteral: Handles the digits in floating-point literals. Transitions to sExponentStart for scientific notation.
+         * - sExponentStart: Handles the start of the exponent part in scientific notation. Transitions to sExponentSign or sExponent.
+         * - sExponentSign: Handles the sign of the exponent in scientific notation. Transitions to sExponent.
+         * - sExponent: Handles transforming the notation to number
+         *
+         * Each state processes the current character and either adds it to the token's value, transitions to another state, or finalizes the token.
+         * If an invalid character is encountered, an error is handled appropriately.
+         */
         case sIntLiteral:
         {
             if (isdigit(c))
@@ -521,12 +542,12 @@ Token get_token(FILE *file)
             else if (c == '.')
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                state = sDot; // Transition to sDot instead of sFloatLiteral directly
+                state = sDot; // Transition to sDot, state before float
             }
             else if (c == 'e' || c == 'E')
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                state = sExponentStart; // Transition to sExponentStart instead of sExponent directly
+                state = sExponentStart; // Transition to sExponentStart to handle + - sign
             }
             else
             {
@@ -649,23 +670,21 @@ Token get_token(FILE *file)
         {
             if (c == '\\') // Check for escape sequences
             {
-                state = sEscapeSequence; // Transition to escape sequence handling
+                state = sEscapeSequence;
             }
             else if (c == '"') // End of string literal
             {
-                token.type = TOKEN_STRING_LITERAL; // Set token type to string literal
-                return token;                      // Return string token
+                token.type = TOKEN_STRING_LITERAL;
+                return token;
             }
-            else if (c < 32)
+            else if (c < 32) // Check for invalid characters in string
             {
                 dynamic_string_free(&token.value.valueString);
-                handle_error(ERR_LEX);
-                // token.type = TOKEN_UNDEFINED; // Set error token
-                // return token;
+                handle_error(ERR_LEX); // Handle lexical error
             }
-            else
+            else // Add character to string literal
             {
-                dynamic_string_add_char(&token.value.valueString, c);
+                dynamic_string_add_char(&token.value.valueString, c); // Add character to token
             }
         }
         break;
@@ -690,6 +709,7 @@ Token get_token(FILE *file)
                 break;
             case 'x': // Hexadecimal escape
             {
+                // Converting \xdd from hex to real numer
                 char hex[3];
                 hex[0] = (char)getc(file);
                 hex[1] = (char)getc(file);
@@ -704,13 +724,12 @@ Token get_token(FILE *file)
                 {
                     dynamic_string_free(&token.value.valueString);
                     handle_error(ERR_LEX);
-                    // token.type = TOKEN_UNDEFINED; // Invalid hex escape
-                    // return token;
                 }
                 break;
             }
-            default: // Unrecognized escape, add the character as-is
-                dynamic_string_add_char(&token.value.valueString, c);
+            default: // Unrecognized escape, handle as error
+                dynamic_string_free(&token.value.valueString);
+                handle_error(ERR_LEX);
                 break;
             }
 
@@ -721,7 +740,7 @@ Token get_token(FILE *file)
         {
             if (c == '/')
             {
-                state = sComment;
+                state = sComment; // Transition to comment state if another '/' is found
                 dynamic_string_add_char(&token.value.valueString, c);
             }
             else
@@ -825,7 +844,6 @@ Token get_token(FILE *file)
                 {
                     dynamic_string_free(&token.value.valueString);
                     handle_error(ERR_LEX);
-                    // token.type = TOKEN_UNDEFINED;
                 }
 
                 state = sStart;
@@ -834,7 +852,6 @@ Token get_token(FILE *file)
         }
         break;
         default:
-            state = sError; // ! Invalid state fallback
             break;
         }
     }

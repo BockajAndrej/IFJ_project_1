@@ -40,19 +40,19 @@ bool dynamic_string_add_char(Dynamic_string *s, char c)
     // Check if we need more space
     if (s->length + 1 >= s->alloc_size)
     {
-        size_t new_size = s->alloc_size + DYNAMIC_STRING_LEN_INC;
-        char *new_str = (char *)realloc(s->str, new_size);
+        size_t new_size = s->alloc_size + DYNAMIC_STRING_LEN_INC; // Calculate new size
+        char *new_str = (char *)realloc(s->str, new_size);        // Reallocate memory
         if (new_str == NULL)
         {
             return false; // Memory reallocation failed
         }
-        s->str = new_str;
-        s->alloc_size = new_size;
+        s->str = new_str;         // Update string pointer
+        s->alloc_size = new_size; // Update allocated size
     }
-    s->str[s->length] = c;
-    s->length++;
+    s->str[s->length] = c;    // Add the character
+    s->length++;              // Increment length
     s->str[s->length] = '\0'; // Null-terminate the string
-    return true;
+    return true;              // Successfully added the character
 }
 
 // Function to convert double to Dynamic_string
