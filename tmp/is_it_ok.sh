@@ -148,7 +148,7 @@ fi
 cd $2
 touch $LOG
 ARCHIVE=`basename $1`
-NAME=`echo $ARCHIVE | cut -d . -f 1 | egrep "^x[a-z]{5}[0-9][0-9a-z]$"`
+NAME=`echo $ARCHIVE | cut -d . -f 1 | egrep "^x[a-z]{6}[0-9][0-9a-z]$"`
 echo -n "Archive name ($ARCHIVE): "
 if [[ -n $NAME ]]; then
   echo_color green "OK"
@@ -213,7 +213,7 @@ fi
 
 #    6) Najdi prelozeny binarni soubor
 echo -n "Searching for created binary file: "
-EXE=`ls -F | grep "*" | tr -d "*" | grep "" -m 1`   # A najít binárku...
+EXE=`ls -F | grep "*" | tr -d "*" | grep "" -m 1`   # A najï¿½t binï¿½rku...
 if [[ -f $EXE ]]; then
   echo_color green "OK ($EXE)"
 else
@@ -257,7 +257,7 @@ if [[ -f rozdeleni ]]; then
         if [[ "$NAME" = "${RADEK[0]}" ]]; then
           ARCHNAME=$NAME
         fi
-        LOGINCHECK=`echo ${RADEK[0]} | egrep "x[a-z]{5}[0-9][0-9a-z]$"`
+        LOGINCHECK=`echo ${RADEK[0]} | egrep "x[a-z]{6}[0-9][0-9a-z]$"`
         if [[ -z $LOGINCHECK ]]; then
           echo_color red "ERROR (bad login format of ${RADEK[0]})"
           let ERROR=ERROR+1
