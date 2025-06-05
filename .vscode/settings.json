@@ -5,6 +5,16 @@
         "ctype.h": "c",
         "error.h": "c",
         "lexical_analyser.h": "c",
-        "newstring.h": "c"
+        "newstring.h": "c",
+        "stdlib.h": "c",
+        "vector": "c",
+        "array": "c",
+        "functional": "c",
+        "tuple": "c",
+        "type_traits": "c",
+        "utility": "c",
+        "istream": "c",
+        "ostream": "c",
+        "code_generator.h": "c"
     }
 }

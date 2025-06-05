@@ -1,0 +1,15 @@
+<map id="ARG" name="ARG">
+<area shape="rect" id="node1" title="Function for processing argument of called function." alt="" coords="897,81,948,108"/>
+<area shape="rect" id="node2" href="$syntactic__analysis_8c.html#a271ef1f0dc6a029b233bcb024b19b116" title="Function for processing another argument which is in queue." alt="" coords="777,81,835,108"/>
+<area shape="rect" id="node3" href="$syntactic__analysis_8c.html#ade39708cf9c0a95b1e75a94b3982f1aa" title="Extended function for CALL_DEF()" alt="" coords="763,132,849,159"/>
+<area shape="rect" id="node4" href="$syntactic__analysis_8c.html#a2999c303cc3fb4692b7e96d9a22e9c03" title="Processes calling functions, variables." alt="" coords="628,132,715,159"/>
+<area shape="rect" id="node5" href="$syntactic__analysis_8c.html#a7eac9e4351cf87fecd3e9a66cf5f28d8" title="Processes the commands, coditions, ..." alt="" coords="481,132,580,159"/>
+<area shape="rect" id="node6" href="$syntactic__analysis_8c.html#a7d21e9db61747d6734d9a7f27d33b4f4" title="Function for determining the depth of infestation." alt="" coords="368,107,433,133"/>
+<area shape="rect" id="node7" href="$syntactic__analysis_8c.html#a047deda12297b3a39f2d50261fd7de70" title="Processes else condition." alt="" coords="228,5,315,32"/>
+<area shape="rect" id="node8" href="$syntactic__analysis_8c.html#afb9892407a0399d61e51261ff730599a" title="Processes function declaration." alt="" coords="235,56,308,83"/>
+<area shape="rect" id="node11" href="$syntactic__analysis_8c.html#af131918ae0d8a1cc29cb2c8d6dc13aff" title="Extended function for CALL_DEF()" alt="" coords="238,107,305,133"/>
+<area shape="rect" id="node13" href="$syntactic__analysis_8c.html#a13efec100d0c39c874c413765ded4d10" title="Processes while loop." alt="" coords="223,157,320,184"/>
+<area shape="rect" id="node9" href="$syntactic__analysis_8c.html#a607ec0964227a0c6c98fd79770e51c11" title="Processes the FIRST rule in the syntactic analysis." alt="" coords="112,56,171,83"/>
+<area shape="rect" id="node10" href="$main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,56,60,83"/>
+<area shape="rect" id="node12" href="$syntactic__analysis_8c.html#ac9b33c13aa831335429748838739aef7" title="Processes if condition." alt="" coords="108,157,175,184"/>
+</map>

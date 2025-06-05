@@ -1,10 +1,24 @@
-\hypertarget{syntactic__analysis_8h}{}\doxysection{syntactic\+\_\+analysis.\+h File Reference}
-\label{syntactic__analysis_8h}\index{syntactic\_analysis.h@{syntactic\_analysis.h}}
+\hypertarget{syntactic__analysis_8h}{}\doxysection{/home/kubo/\+IFJ\+\_\+\+Compiler/\+IFJ-\/project01/src/syntactic\+\_\+analysis.h File Reference}
+\label{syntactic__analysis_8h}\index{/home/kubo/IFJ\_Compiler/IFJ-\/project01/src/syntactic\_analysis.h@{/home/kubo/IFJ\_Compiler/IFJ-\/project01/src/syntactic\_analysis.h}}
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
 {\ttfamily \#include $<$string.\+h$>$}\newline
 {\ttfamily \#include $<$stdbool.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}lexical\+\_\+analyser.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}error.\+h\char`\"{}}\newline
+Include dependency graph for syntactic\+\_\+analysis.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h__dep__incl}
+\end{center}
+\end{figure}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
@@ -76,6 +90,10 @@ Bockaj Andrej
 \doxysubsubsection{\texorpdfstring{\_SYNTACTIC\_ANALYSIS\_H}{\_SYNTACTIC\_ANALYSIS\_H}}
 {\footnotesize\ttfamily \#define \+\_\+\+SYNTACTIC\+\_\+\+ANALYSIS\+\_\+H}
 
+
+
+Definition at line 8 of file syntactic\+\_\+analysis.\+h.
+
 \mbox{\Hypertarget{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}\label{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}} 
 \index{syntactic\_analysis.h@{syntactic\_analysis.h}!GET\_TOKEN\_RAW@{GET\_TOKEN\_RAW}}
 \index{GET\_TOKEN\_RAW@{GET\_TOKEN\_RAW}!syntactic\_analysis.h@{syntactic\_analysis.h}}
@@ -91,11 +109,19 @@ Bockaj Andrej
 \DoxyCodeLine{    print\_token(token);}
 
 \end{DoxyCode}
+
+
+Definition at line 26 of file syntactic\+\_\+analysis.\+h.
+
 \mbox{\Hypertarget{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}\label{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}} 
 \index{syntactic\_analysis.h@{syntactic\_analysis.h}!pmesg@{pmesg}}
 \index{pmesg@{pmesg}!syntactic\_analysis.h@{syntactic\_analysis.h}}
 \doxysubsubsection{\texorpdfstring{pmesg}{pmesg}}
 {\footnotesize\ttfamily \#define pmesg(\begin{DoxyParamCaption}\item[{}]{s }\end{DoxyParamCaption})~fprintf(stderr, \char`\"{}Line\+: \%u -\/ \char`\"{} s, \+\_\+\+\_\+\+LINE\+\_\+\+\_\+)}
+
+
+
+Definition at line 20 of file syntactic\+\_\+analysis.\+h.
 
 
 
@@ -125,6 +151,51 @@ If syntactic analysis pass return true otherwise false Use case\+:
 \end{DoxyCode}
  
 \end{DoxyReturn}
+
+
+Definition at line 567 of file syntactic\+\_\+analysis.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{568 \{}
+\DoxyCodeLine{569     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ ARG -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{570     \mbox{\hyperlink{structToken}{Token}} token;}
+\DoxyCodeLine{571     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{572     \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} == \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353}{TOKEN\_IDENTIFIER}})}
+\DoxyCodeLine{573     \{}
+\DoxyCodeLine{574         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a271ef1f0dc6a029b233bcb024b19b116}{ARGS}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{575             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{576     \}}
+\DoxyCodeLine{577     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} == \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a7ed3e98b10f5d0b461a887fdd5b3dc01}{TOKEN\_STRING\_LITERAL}})}
+\DoxyCodeLine{578     \{}
+\DoxyCodeLine{579         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a271ef1f0dc6a029b233bcb024b19b116}{ARGS}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{580             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{581     \}}
+\DoxyCodeLine{582     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{583     \{}
+\DoxyCodeLine{584         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a38b7a13b9a5926c2c4b6af62cec86f85}{EXPRESSION}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}, token))}
+\DoxyCodeLine{585             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{586     \}}
+\DoxyCodeLine{587 }
+\DoxyCodeLine{588     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ END ARG -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{589     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{590 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_a83f44b9d12d581ea924af4ba707819c3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_a83f44b9d12d581ea924af4ba707819c3_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{syntactic__analysis_8h_a271ef1f0dc6a029b233bcb024b19b116}\label{syntactic__analysis_8h_a271ef1f0dc6a029b233bcb024b19b116}} 
 \index{syntactic\_analysis.h@{syntactic\_analysis.h}!ARGS@{ARGS}}
 \index{ARGS@{ARGS}!syntactic\_analysis.h@{syntactic\_analysis.h}}
@@ -149,6 +220,45 @@ If syntactic analysis pass return true otherwise false Use case\+:
 \end{DoxyCode}
  
 \end{DoxyReturn}
+
+
+Definition at line 601 of file syntactic\+\_\+analysis.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{602 \{}
+\DoxyCodeLine{603     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ ARGS -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{604     \mbox{\hyperlink{structToken}{Token}} token;}
+\DoxyCodeLine{605     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{606     \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} == \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ace232c359d5697cc5c459c22a7be226b}{TOKEN\_RPAREN}})}
+\DoxyCodeLine{607         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{608     \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} == \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8d265e17914bc733c8b9a880dd097a9e}{TOKEN\_COMMA}})}
+\DoxyCodeLine{609     \{}
+\DoxyCodeLine{610         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a83f44b9d12d581ea924af4ba707819c3}{ARG}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{611             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{612     \}}
+\DoxyCodeLine{613     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{614         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{615 }
+\DoxyCodeLine{616     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ END ARGS -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{617     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{618 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{syntactic__analysis_8h_a271ef1f0dc6a029b233bcb024b19b116_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_a271ef1f0dc6a029b233bcb024b19b116_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{syntactic__analysis_8h_aa1d8bc4c3095f3ba13e1fcc83038d948}\label{syntactic__analysis_8h_aa1d8bc4c3095f3ba13e1fcc83038d948}} 
 \index{syntactic\_analysis.h@{syntactic\_analysis.h}!ASSIGN\_CONST@{ASSIGN\_CONST}}
 \index{ASSIGN\_CONST@{ASSIGN\_CONST}!syntactic\_analysis.h@{syntactic\_analysis.h}}
@@ -174,6 +284,58 @@ If syntactic analysis pass return true otherwise false Use case\+:
 \end{DoxyCode}
  
 \end{DoxyReturn}
+
+
+Definition at line 451 of file syntactic\+\_\+analysis.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{452 \{}
+\DoxyCodeLine{453     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ ASSIGN\_CONST -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{454     \mbox{\hyperlink{structToken}{Token}} token;}
+\DoxyCodeLine{455     \textcolor{comment}{// Aj pre expression}}
+\DoxyCodeLine{456     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{457     \textcolor{keywordflow}{switch} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}})}
+\DoxyCodeLine{458     \{}
+\DoxyCodeLine{459     \textcolor{comment}{// @import("{}ifj24.zig"{});}}
+\DoxyCodeLine{460     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a00a4852749fa7e7e4675f7843ae16642}{TOKEN\_IMPORT}}:}
+\DoxyCodeLine{461         \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{462         \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} != \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af4143395fefba1c6a30e58240dd0c827}{TOKEN\_LPAREN}})}
+\DoxyCodeLine{463             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{464         \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{465         \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} != \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a7ed3e98b10f5d0b461a887fdd5b3dc01}{TOKEN\_STRING\_LITERAL}})}
+\DoxyCodeLine{466             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{467         \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{468         \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} != \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ace232c359d5697cc5c459c22a7be226b}{TOKEN\_RPAREN}})}
+\DoxyCodeLine{469             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{470         \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{471         \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} != \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ac8c74b281e178c87923363a90f6ff371}{TOKEN\_SEMICOLON}})}
+\DoxyCodeLine{472             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{473         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{474     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{475         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a38b7a13b9a5926c2c4b6af62cec86f85}{EXPRESSION}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}, token))}
+\DoxyCodeLine{476             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{477         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{478     \}}
+\DoxyCodeLine{479     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ END ASSIGN\_CONST -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{480     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{481 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{syntactic__analysis_8h_aa1d8bc4c3095f3ba13e1fcc83038d948_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_aa1d8bc4c3095f3ba13e1fcc83038d948_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{syntactic__analysis_8h_a76e0ba812902123b4ec0d43c59c13c04}\label{syntactic__analysis_8h_a76e0ba812902123b4ec0d43c59c13c04}} 
 \index{syntactic\_analysis.h@{syntactic\_analysis.h}!ASSIGN\_VAR@{ASSIGN\_VAR}}
 \index{ASSIGN\_VAR@{ASSIGN\_VAR}!syntactic\_analysis.h@{syntactic\_analysis.h}}
@@ -198,6 +360,41 @@ If syntactic analysis pass return true otherwise false Use case\+:
 \end{DoxyCode}
  
 \end{DoxyReturn}
+
+
+Definition at line 427 of file syntactic\+\_\+analysis.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{428 \{}
+\DoxyCodeLine{429     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ ASSIGN\_VAR -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{430     \mbox{\hyperlink{structToken}{Token}} token;}
+\DoxyCodeLine{431     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{432     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_aaef2bee27144c07c175bb36e4c28af9d}{VAL\_TYPE}}(token))}
+\DoxyCodeLine{433         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{434     \textcolor{comment}{// Konci s t\_;}}
+\DoxyCodeLine{435     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{436     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a38b7a13b9a5926c2c4b6af62cec86f85}{EXPRESSION}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}, token))}
+\DoxyCodeLine{437         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{438     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ END ASSIGN\_VAR -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{439     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{440 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=272pt]{syntactic__analysis_8h_a76e0ba812902123b4ec0d43c59c13c04_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_a76e0ba812902123b4ec0d43c59c13c04_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{syntactic__analysis_8h_a2999c303cc3fb4692b7e96d9a22e9c03}\label{syntactic__analysis_8h_a2999c303cc3fb4692b7e96d9a22e9c03}} 
 \index{syntactic\_analysis.h@{syntactic\_analysis.h}!CALL\_DEF@{CALL\_DEF}}
 \index{CALL\_DEF@{CALL\_DEF}!syntactic\_analysis.h@{syntactic\_analysis.h}}
@@ -225,6 +422,35 @@ If syntactic analysis pass return true otherwise false Use case\+:
 \end{DoxyCode}
  
 \end{DoxyReturn}
+
+
+Definition at line 334 of file syntactic\+\_\+analysis.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{335 \{}
+\DoxyCodeLine{336     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ CALL\_DEF -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{337     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_ade39708cf9c0a95b1e75a94b3982f1aa}{CALL\_EXT}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{338         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{339     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ END CALL\_DEF -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{340     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{341 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_a2999c303cc3fb4692b7e96d9a22e9c03_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_a2999c303cc3fb4692b7e96d9a22e9c03_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{syntactic__analysis_8h_ade39708cf9c0a95b1e75a94b3982f1aa}\label{syntactic__analysis_8h_ade39708cf9c0a95b1e75a94b3982f1aa}} 
 \index{syntactic\_analysis.h@{syntactic\_analysis.h}!CALL\_EXT@{CALL\_EXT}}
 \index{CALL\_EXT@{CALL\_EXT}!syntactic\_analysis.h@{syntactic\_analysis.h}}
@@ -249,6 +475,53 @@ If syntactic analysis pass return true otherwise false Use case\+:
 \end{DoxyCode}
  
 \end{DoxyReturn}
+
+
+Definition at line 390 of file syntactic\+\_\+analysis.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{391 \{}
+\DoxyCodeLine{392     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ CALL\_EXT -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{393     \mbox{\hyperlink{structToken}{Token}} token;}
+\DoxyCodeLine{394     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{395     \textcolor{comment}{// Function call}}
+\DoxyCodeLine{396     \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} == \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af4143395fefba1c6a30e58240dd0c827}{TOKEN\_LPAREN}})}
+\DoxyCodeLine{397     \{}
+\DoxyCodeLine{398         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a83f44b9d12d581ea924af4ba707819c3}{ARG}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{399             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{400         \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{401         \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} != \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ac8c74b281e178c87923363a90f6ff371}{TOKEN\_SEMICOLON}})}
+\DoxyCodeLine{402             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{403     \}}
+\DoxyCodeLine{404     \textcolor{comment}{// Assignment to a variable}}
+\DoxyCodeLine{405     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} == \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1f3658cf646576820d94a9a1c0504303}{TOKEN\_ASSIGNMENT}})}
+\DoxyCodeLine{406     \{}
+\DoxyCodeLine{407         \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{408         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a38b7a13b9a5926c2c4b6af62cec86f85}{EXPRESSION}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}, token))}
+\DoxyCodeLine{409             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{410     \}}
+\DoxyCodeLine{411     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{412         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{413     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ END CALL\_EXT -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{414     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{415 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=333pt]{syntactic__analysis_8h_ade39708cf9c0a95b1e75a94b3982f1aa_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_ade39708cf9c0a95b1e75a94b3982f1aa_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{syntactic__analysis_8h_ab1c09d376532dc76198f8d2d6c729fef}\label{syntactic__analysis_8h_ab1c09d376532dc76198f8d2d6c729fef}} 
 \index{syntactic\_analysis.h@{syntactic\_analysis.h}!CONST\_DEF@{CONST\_DEF}}
 \index{CONST\_DEF@{CONST\_DEF}!syntactic\_analysis.h@{syntactic\_analysis.h}}
@@ -273,6 +546,44 @@ If syntactic analysis pass return true otherwise false Use case\+:
 \end{DoxyCode}
  
 \end{DoxyReturn}
+
+
+Definition at line 160 of file syntactic\+\_\+analysis.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{161 \{}
+\DoxyCodeLine{162     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ CONST\_DEF -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{163     \mbox{\hyperlink{structToken}{Token}} token;}
+\DoxyCodeLine{164     \textcolor{comment}{// const id}}
+\DoxyCodeLine{165     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{166     \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} != \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353}{TOKEN\_IDENTIFIER}})}
+\DoxyCodeLine{167         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{168     \textcolor{comment}{// const id =}}
+\DoxyCodeLine{169     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{170     \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} != \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a1f3658cf646576820d94a9a1c0504303}{TOKEN\_ASSIGNMENT}})}
+\DoxyCodeLine{171         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{172     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_aa1d8bc4c3095f3ba13e1fcc83038d948}{ASSIGN\_CONST}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{173         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{174     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ END CONST\_DEF -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{175     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{176 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_ab1c09d376532dc76198f8d2d6c729fef_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_ab1c09d376532dc76198f8d2d6c729fef_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{syntactic__analysis_8h_a047deda12297b3a39f2d50261fd7de70}\label{syntactic__analysis_8h_a047deda12297b3a39f2d50261fd7de70}} 
 \index{syntactic\_analysis.h@{syntactic\_analysis.h}!ELSE\_DEF@{ELSE\_DEF}}
 \index{ELSE\_DEF@{ELSE\_DEF}!syntactic\_analysis.h@{syntactic\_analysis.h}}
@@ -300,6 +611,42 @@ If syntactic analysis pass return true otherwise false Use case\+:
 \end{DoxyCode}
  
 \end{DoxyReturn}
+
+
+Definition at line 257 of file syntactic\+\_\+analysis.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{258 \{}
+\DoxyCodeLine{259     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ ELSE\_DEF -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{260     \mbox{\hyperlink{structToken}{Token}} token;}
+\DoxyCodeLine{261     \textcolor{comment}{// t\_\{}}
+\DoxyCodeLine{262     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{263     \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} == \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aea93445565e90032b651b3bfeab696ad}{TOKEN\_CURLYL\_BRACKET}})}
+\DoxyCodeLine{264     \{}
+\DoxyCodeLine{265         \textcolor{comment}{// SCOPE}}
+\DoxyCodeLine{266         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a7d21e9db61747d6734d9a7f27d33b4f4}{SCOPE}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{267             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{268     \}}
+\DoxyCodeLine{269     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ END ELSE\_DEF -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{270     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{271 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_a047deda12297b3a39f2d50261fd7de70_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_a047deda12297b3a39f2d50261fd7de70_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{syntactic__analysis_8h_a38b7a13b9a5926c2c4b6af62cec86f85}\label{syntactic__analysis_8h_a38b7a13b9a5926c2c4b6af62cec86f85}} 
 \index{syntactic\_analysis.h@{syntactic\_analysis.h}!EXPRESSION@{EXPRESSION}}
 \index{EXPRESSION@{EXPRESSION}!syntactic\_analysis.h@{syntactic\_analysis.h}}
@@ -335,6 +682,42 @@ If syntactic analysis pass return true otherwise false Use case\+:
 Problem pri const a = fn(a) + fn(b); (program ocakava za fn() znak \textquotesingle{};\textquotesingle{}) 
 
 Fix first token \end{DoxyRefDesc}
+
+
+Definition at line 634 of file syntactic\+\_\+analysis.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{635 \{}
+\DoxyCodeLine{636     \textcolor{comment}{// LOGIKA : Ak v expresne bude znak "{}("{} prva zatvorka bude este expression ale ta dalsia uz to bude koncit.}}
+\DoxyCodeLine{637     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ EXPRESSION -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{638     \textcolor{keywordtype}{int} endWhenCount = 0;}
+\DoxyCodeLine{639     \textcolor{keywordtype}{int} countOfLeftParent = 0;}
+\DoxyCodeLine{640     \textcolor{comment}{// TODO : Odstranit potom (len zebezpecenie kvoli cykleniu)}}
+\DoxyCodeLine{641     \textcolor{keywordflow}{while} (!(token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} == \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ac8c74b281e178c87923363a90f6ff371}{TOKEN\_SEMICOLON}} || (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} == \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ace232c359d5697cc5c459c22a7be226b}{TOKEN\_RPAREN}} \&\& countOfLeftParent <= 0)))}
+\DoxyCodeLine{642     \{}
+\DoxyCodeLine{643         \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} == \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af4143395fefba1c6a30e58240dd0c827}{TOKEN\_LPAREN}})}
+\DoxyCodeLine{644             countOfLeftParent++;}
+\DoxyCodeLine{645         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} == \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ace232c359d5697cc5c459c22a7be226b}{TOKEN\_RPAREN}})}
+\DoxyCodeLine{646             countOfLeftParent-\/-\/;}
+\DoxyCodeLine{647         \textcolor{comment}{// TODO : Odstranit}}
+\DoxyCodeLine{648         \textcolor{keywordflow}{if} (endWhenCount++ > 50)}
+\DoxyCodeLine{649             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{650         \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{651     \}}
+\DoxyCodeLine{652 }
+\DoxyCodeLine{653     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ END EXPRESSION -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{654     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{655 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_a38b7a13b9a5926c2c4b6af62cec86f85_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{syntactic__analysis_8h_a607ec0964227a0c6c98fd79770e51c11}\label{syntactic__analysis_8h_a607ec0964227a0c6c98fd79770e51c11}} 
 \index{syntactic\_analysis.h@{syntactic\_analysis.h}!FIRST@{FIRST}}
 \index{FIRST@{FIRST}!syntactic\_analysis.h@{syntactic\_analysis.h}}
@@ -359,6 +742,60 @@ If syntactic analysis pass return true otherwise false Use case\+:
 \end{DoxyCode}
  
 \end{DoxyReturn}
+
+
+Definition at line 16 of file syntactic\+\_\+analysis.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ FIRST -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{19     \mbox{\hyperlink{structToken}{Token}} token;}
+\DoxyCodeLine{20     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{21     \textcolor{comment}{// Ends at the end of file (not at end of line)}}
+\DoxyCodeLine{22     \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} == \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa130df27256cd45f5781fc74deeb50dc}{TOKEN\_EOF}} \&\& token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} != \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a6b0ab7cf8c0d1203475022b3d5600f85}{TOKEN\_EOL}})}
+\DoxyCodeLine{23         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{24     \textcolor{comment}{// Processes functions variables and constants }}
+\DoxyCodeLine{25     \textcolor{keywordflow}{switch} (token.\mbox{\hyperlink{structToken_af5a5b44dc780e07fc9daccdfd019f000}{keyword\_val}})}
+\DoxyCodeLine{26     \{}
+\DoxyCodeLine{27     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a871b2340ce1ed01216617b721f0c5ebe}{KEYWORD\_PUB}}:}
+\DoxyCodeLine{28         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_afb9892407a0399d61e51261ff730599a}{FN\_DEF}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{29             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{30         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{31     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a01486e1109a838a9a62cae7bc3c8b67d}{KEYWORD\_VAR}}:}
+\DoxyCodeLine{32         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a49c6186e8aee36246b52305756b7a017}{VAR\_DEF}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{33             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{34         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{35     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448ae16f6b556452b7e953dc64d00b131cb5}{KEYWORD\_CONST}}:}
+\DoxyCodeLine{36         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_ab1c09d376532dc76198f8d2d6c729fef}{CONST\_DEF}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{37             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{38         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{39     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{40         \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{}UNDEFINED\(\backslash\)n"{}});}
+\DoxyCodeLine{41         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{42         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{43     \}}
+\DoxyCodeLine{44     \textcolor{comment}{// Recursive calling itself for processing next code out of scope}}
+\DoxyCodeLine{45     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a607ec0964227a0c6c98fd79770e51c11}{FIRST}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{46         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{47     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{48 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_a607ec0964227a0c6c98fd79770e51c11_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=201pt]{syntactic__analysis_8h_a607ec0964227a0c6c98fd79770e51c11_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{syntactic__analysis_8h_afb9892407a0399d61e51261ff730599a}\label{syntactic__analysis_8h_afb9892407a0399d61e51261ff730599a}} 
 \index{syntactic\_analysis.h@{syntactic\_analysis.h}!FN\_DEF@{FN\_DEF}}
 \index{FN\_DEF@{FN\_DEF}!syntactic\_analysis.h@{syntactic\_analysis.h}}
@@ -383,6 +820,61 @@ If syntactic analysis pass return true otherwise false Use case\+:
 \end{DoxyCode}
  
 \end{DoxyReturn}
+
+
+Definition at line 186 of file syntactic\+\_\+analysis.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{187 \{}
+\DoxyCodeLine{188     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ FN\_DEF -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{189     \mbox{\hyperlink{structToken}{Token}} token;}
+\DoxyCodeLine{190     \textcolor{comment}{// t\_fn}}
+\DoxyCodeLine{191     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{192     \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_af5a5b44dc780e07fc9daccdfd019f000}{keyword\_val}} != \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a43dc6e1642447b459ba51eb4315255b1}{KEYWORD\_FN}})}
+\DoxyCodeLine{193         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{194     \textcolor{comment}{// t\_ID}}
+\DoxyCodeLine{195     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{196     \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} != \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353}{TOKEN\_IDENTIFIER}})}
+\DoxyCodeLine{197         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{198     \textcolor{comment}{// t\_(}}
+\DoxyCodeLine{199     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{200     \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} != \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af4143395fefba1c6a30e58240dd0c827}{TOKEN\_LPAREN}})}
+\DoxyCodeLine{201         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{202     \textcolor{comment}{// Parametre}}
+\DoxyCodeLine{203     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_acb21f12318c9d312a452616eb6c7262d}{PARAM}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{204         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{205     \textcolor{comment}{// Return type}}
+\DoxyCodeLine{206     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{207     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_aef5821c4ef2e8e26c864efa3564244f6}{FN\_TYPE}}(token))}
+\DoxyCodeLine{208         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{209     \textcolor{comment}{// t\_\{}}
+\DoxyCodeLine{210     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{211     \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} == \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aea93445565e90032b651b3bfeab696ad}{TOKEN\_CURLYL\_BRACKET}})}
+\DoxyCodeLine{212     \{}
+\DoxyCodeLine{213         \textcolor{comment}{// SCOPE}}
+\DoxyCodeLine{214         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a7d21e9db61747d6734d9a7f27d33b4f4}{SCOPE}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{215             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{216     \}}
+\DoxyCodeLine{217 }
+\DoxyCodeLine{218     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{219 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_afb9892407a0399d61e51261ff730599a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=292pt]{syntactic__analysis_8h_afb9892407a0399d61e51261ff730599a_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{syntactic__analysis_8h_aef5821c4ef2e8e26c864efa3564244f6}\label{syntactic__analysis_8h_aef5821c4ef2e8e26c864efa3564244f6}} 
 \index{syntactic\_analysis.h@{syntactic\_analysis.h}!FN\_TYPE@{FN\_TYPE}}
 \index{FN\_TYPE@{FN\_TYPE}!syntactic\_analysis.h@{syntactic\_analysis.h}}
@@ -396,6 +888,33 @@ Function for verifaction enabled data types (FUNCTIONS)
 \begin{DoxyReturn}{Returns}
 If token is enabled data type return true otherwise false 
 \end{DoxyReturn}
+
+
+Definition at line 678 of file syntactic\+\_\+analysis.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{679 \{}
+\DoxyCodeLine{680     \textcolor{keywordflow}{if} (\mbox{\hyperlink{syntactic__analysis_8c_aaef2bee27144c07c175bb36e4c28af9d}{VAL\_TYPE}}(t) || t.\mbox{\hyperlink{structToken_af5a5b44dc780e07fc9daccdfd019f000}{keyword\_val}} == \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0cf1d9cf4f3dcc4f4eecd4c5e492630a}{KEYWORD\_VOID}})}
+\DoxyCodeLine{681         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{682     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{683 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=239pt]{syntactic__analysis_8h_aef5821c4ef2e8e26c864efa3564244f6_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_aef5821c4ef2e8e26c864efa3564244f6_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{syntactic__analysis_8h_ac9b33c13aa831335429748838739aef7}\label{syntactic__analysis_8h_ac9b33c13aa831335429748838739aef7}} 
 \index{syntactic\_analysis.h@{syntactic\_analysis.h}!IF\_DEF@{IF\_DEF}}
 \index{IF\_DEF@{IF\_DEF}!syntactic\_analysis.h@{syntactic\_analysis.h}}
@@ -420,6 +939,45 @@ If syntactic analysis pass return true otherwise false Use case\+:
 \end{DoxyCode}
  
 \end{DoxyReturn}
+
+
+Definition at line 229 of file syntactic\+\_\+analysis.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{230 \{}
+\DoxyCodeLine{231     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ IF\_DEF -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{232     \mbox{\hyperlink{structToken}{Token}} token;}
+\DoxyCodeLine{233     \textcolor{comment}{// t\_(}}
+\DoxyCodeLine{234     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{235     \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} != \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af4143395fefba1c6a30e58240dd0c827}{TOKEN\_LPAREN}})}
+\DoxyCodeLine{236         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{237 }
+\DoxyCodeLine{238     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{239     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a38b7a13b9a5926c2c4b6af62cec86f85}{EXPRESSION}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}, token))}
+\DoxyCodeLine{240         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{241 }
+\DoxyCodeLine{242     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_af131918ae0d8a1cc29cb2c8d6dc13aff}{IF\_EXT}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{243         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{244     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ END IF\_DEF -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{245     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{246 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_ac9b33c13aa831335429748838739aef7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_ac9b33c13aa831335429748838739aef7_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{syntactic__analysis_8h_af131918ae0d8a1cc29cb2c8d6dc13aff}\label{syntactic__analysis_8h_af131918ae0d8a1cc29cb2c8d6dc13aff}} 
 \index{syntactic\_analysis.h@{syntactic\_analysis.h}!IF\_EXT@{IF\_EXT}}
 \index{IF\_EXT@{IF\_EXT}!syntactic\_analysis.h@{syntactic\_analysis.h}}
@@ -444,6 +1002,54 @@ If syntactic analysis pass return true otherwise false Use case\+:
 \end{DoxyCode}
  
 \end{DoxyReturn}
+
+
+Definition at line 353 of file syntactic\+\_\+analysis.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{354 \{}
+\DoxyCodeLine{355     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ IF\_EXT -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{356     \mbox{\hyperlink{structToken}{Token}} token;}
+\DoxyCodeLine{357     \textcolor{comment}{// t\_| t\_id t\_|}}
+\DoxyCodeLine{358     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{359     \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} == \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a93000ce4e0f00f6f294a98192f705910}{TOKEN\_PIPE}})}
+\DoxyCodeLine{360     \{}
+\DoxyCodeLine{361         \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{362         \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} != \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353}{TOKEN\_IDENTIFIER}})}
+\DoxyCodeLine{363             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{364         \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{365         \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} != \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a93000ce4e0f00f6f294a98192f705910}{TOKEN\_PIPE}})}
+\DoxyCodeLine{366             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{367         \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{368     \}}
+\DoxyCodeLine{369     \textcolor{comment}{// SCOPE}}
+\DoxyCodeLine{370     \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} == \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aea93445565e90032b651b3bfeab696ad}{TOKEN\_CURLYL\_BRACKET}})}
+\DoxyCodeLine{371     \{}
+\DoxyCodeLine{372         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a7d21e9db61747d6734d9a7f27d33b4f4}{SCOPE}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{373             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{374     \}}
+\DoxyCodeLine{375     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{376         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{377     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ END IF\_EXT -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{378     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{379 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_af131918ae0d8a1cc29cb2c8d6dc13aff_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_af131918ae0d8a1cc29cb2c8d6dc13aff_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{syntactic__analysis_8h_acb21f12318c9d312a452616eb6c7262d}\label{syntactic__analysis_8h_acb21f12318c9d312a452616eb6c7262d}} 
 \index{syntactic\_analysis.h@{syntactic\_analysis.h}!PARAM@{PARAM}}
 \index{PARAM@{PARAM}!syntactic\_analysis.h@{syntactic\_analysis.h}}
@@ -471,6 +1077,70 @@ If syntactic analysis pass return true otherwise false Use case\+:
 \end{DoxyReturn}
 \begin{DoxyRefDesc}{Todo}
 \item[\mbox{\hyperlink{todo__todo000002}{Todo}}]x \+: \mbox{[}\mbox{]}u8, y \+: \mbox{[}\mbox{]}u8 \end{DoxyRefDesc}
+
+
+Definition at line 513 of file syntactic\+\_\+analysis.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{514 \{}
+\DoxyCodeLine{515     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ PARAM -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{516     \mbox{\hyperlink{structToken}{Token}} token;}
+\DoxyCodeLine{517     \textcolor{comment}{// t\_) (end of recursion)}}
+\DoxyCodeLine{518     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{519     \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} == \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ace232c359d5697cc5c459c22a7be226b}{TOKEN\_RPAREN}})}
+\DoxyCodeLine{520         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{521 }
+\DoxyCodeLine{522     \textcolor{comment}{// x : []u8, y : []u8}}
+\DoxyCodeLine{523     \textcolor{keywordflow}{switch} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}})}
+\DoxyCodeLine{524     \{}
+\DoxyCodeLine{525     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353}{TOKEN\_IDENTIFIER}}:}
+\DoxyCodeLine{526         \textcolor{comment}{// : u8}}
+\DoxyCodeLine{527         \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{528         \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} != \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a92a35ac6329421e77882bf3739a75e47}{TOKEN\_COLON}})}
+\DoxyCodeLine{529             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{530         \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{531         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_aaef2bee27144c07c175bb36e4c28af9d}{VAL\_TYPE}}(token))}
+\DoxyCodeLine{532             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{533         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{534     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a8d265e17914bc733c8b9a880dd097a9e}{TOKEN\_COMMA}}:}
+\DoxyCodeLine{535         \textcolor{comment}{// , y : u8}}
+\DoxyCodeLine{536         \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{537         \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} != \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353}{TOKEN\_IDENTIFIER}})}
+\DoxyCodeLine{538             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{539         \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{540         \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} != \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a92a35ac6329421e77882bf3739a75e47}{TOKEN\_COLON}})}
+\DoxyCodeLine{541             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{542         \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{543         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_aaef2bee27144c07c175bb36e4c28af9d}{VAL\_TYPE}}(token))}
+\DoxyCodeLine{544             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{545         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{546     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{547         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{548         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{549     \}}
+\DoxyCodeLine{550     \textcolor{comment}{// Next parameter}}
+\DoxyCodeLine{551     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_acb21f12318c9d312a452616eb6c7262d}{PARAM}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{552         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{553     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ END PARAM -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{554     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{555 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{syntactic__analysis_8h_acb21f12318c9d312a452616eb6c7262d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_acb21f12318c9d312a452616eb6c7262d_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{syntactic__analysis_8h_a1012bbb9f570627aabec5e3eda7c4993}\label{syntactic__analysis_8h_a1012bbb9f570627aabec5e3eda7c4993}} 
 \index{syntactic\_analysis.h@{syntactic\_analysis.h}!RET\_DEF@{RET\_DEF}}
 \index{RET\_DEF@{RET\_DEF}!syntactic\_analysis.h@{syntactic\_analysis.h}}
@@ -495,6 +1165,37 @@ If syntactic analysis pass return true otherwise false Use case\+:
 \end{DoxyCode}
  
 \end{DoxyReturn}
+
+
+Definition at line 314 of file syntactic\+\_\+analysis.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{315 \{}
+\DoxyCodeLine{316     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ RET\_DEF -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{317     \mbox{\hyperlink{structToken}{Token}} token;}
+\DoxyCodeLine{318     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{319     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a38b7a13b9a5926c2c4b6af62cec86f85}{EXPRESSION}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}, token))}
+\DoxyCodeLine{320         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{321     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ END RET\_DEF -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{322     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{323 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{syntactic__analysis_8h_a1012bbb9f570627aabec5e3eda7c4993_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_a1012bbb9f570627aabec5e3eda7c4993_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{syntactic__analysis_8h_a7d21e9db61747d6734d9a7f27d33b4f4}\label{syntactic__analysis_8h_a7d21e9db61747d6734d9a7f27d33b4f4}} 
 \index{syntactic\_analysis.h@{syntactic\_analysis.h}!SCOPE@{SCOPE}}
 \index{SCOPE@{SCOPE}!syntactic\_analysis.h@{syntactic\_analysis.h}}
@@ -521,6 +1222,35 @@ If syntactic analysis pass return true otherwise false Use case\+:
 \end{DoxyReturn}
 \begin{DoxyRefDesc}{Todo}
 \item[\mbox{\hyperlink{todo__todo000001}{Todo}}]Nefunkcny scope len na jeden riadok (bez \{\}) vytvorit vo funkcii ktora funkciu scope vola \end{DoxyRefDesc}
+
+
+Definition at line 494 of file syntactic\+\_\+analysis.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{495 \{}
+\DoxyCodeLine{496     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ SCOPE -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{497     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a7eac9e4351cf87fecd3e9a66cf5f28d8}{STATEMENT}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{498         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{499     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ END SCOPE -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{500     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{501 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_a7d21e9db61747d6734d9a7f27d33b4f4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_a7d21e9db61747d6734d9a7f27d33b4f4_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{syntactic__analysis_8h_a7eac9e4351cf87fecd3e9a66cf5f28d8}\label{syntactic__analysis_8h_a7eac9e4351cf87fecd3e9a66cf5f28d8}} 
 \index{syntactic\_analysis.h@{syntactic\_analysis.h}!STATEMENT@{STATEMENT}}
 \index{STATEMENT@{STATEMENT}!syntactic\_analysis.h@{syntactic\_analysis.h}}
@@ -545,6 +1275,82 @@ If syntactic analysis pass return true otherwise false Use case\+:
 \end{DoxyCode}
  
 \end{DoxyReturn}
+
+
+Definition at line 59 of file syntactic\+\_\+analysis.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{60 \{}
+\DoxyCodeLine{61     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ STATEMENT -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{62     \mbox{\hyperlink{structToken}{Token}} token;}
+\DoxyCodeLine{63     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{64     \textcolor{comment}{// Recursion ends if scope ends}}
+\DoxyCodeLine{65     \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} == \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a177c279eee0ad7b261d2a217545ddc86}{TOKEN\_CURLYR\_BRACKET}})}
+\DoxyCodeLine{66         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{67     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} == \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353}{TOKEN\_IDENTIFIER}})}
+\DoxyCodeLine{68     \{}
+\DoxyCodeLine{69         \textcolor{keywordflow}{if}(!\mbox{\hyperlink{syntactic__analysis_8c_a2999c303cc3fb4692b7e96d9a22e9c03}{CALL\_DEF}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{70             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{71     \}}
+\DoxyCodeLine{72     \textcolor{comment}{// For sure if it is not keyword to be return false }}
+\DoxyCodeLine{73     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} != \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a11fe7a3403d4ff8c62af31ddf679877c}{TOKEN\_KEYWORD}})}
+\DoxyCodeLine{74         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{75     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{76     \{}
+\DoxyCodeLine{77         \textcolor{keywordflow}{switch} (token.\mbox{\hyperlink{structToken_af5a5b44dc780e07fc9daccdfd019f000}{keyword\_val}})}
+\DoxyCodeLine{78         \{}
+\DoxyCodeLine{79         \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448ae16f6b556452b7e953dc64d00b131cb5}{KEYWORD\_CONST}}:}
+\DoxyCodeLine{80             \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_ab1c09d376532dc76198f8d2d6c729fef}{CONST\_DEF}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{81                 \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{82             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{83         \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a01486e1109a838a9a62cae7bc3c8b67d}{KEYWORD\_VAR}}:}
+\DoxyCodeLine{84             \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a49c6186e8aee36246b52305756b7a017}{VAR\_DEF}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{85                 \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{86             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{87         \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a20aedd56114ad17b1a5c45feebbbaff9}{KEYWORD\_IF}}:}
+\DoxyCodeLine{88             \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_ac9b33c13aa831335429748838739aef7}{IF\_DEF}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{89                 \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{90             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{91         \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0b629d28c9ba070532b366e42a9ccb03}{KEYWORD\_ELSE}}:}
+\DoxyCodeLine{92             \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a047deda12297b3a39f2d50261fd7de70}{ELSE\_DEF}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{93                 \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{94             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{95         \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448af606de6206b287c3f42e8c47d9fb319d}{KEYWORD\_WHILE}}:}
+\DoxyCodeLine{96             \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a13efec100d0c39c874c413765ded4d10}{WHILE\_DEF}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{97                 \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{98             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{99         \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a7ecaa69aa02833284594c30461fe01d2}{KEYWORD\_RETURN}}:}
+\DoxyCodeLine{100             \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a1012bbb9f570627aabec5e3eda7c4993}{RET\_DEF}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{101                 \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{102             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{103         \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{104             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{105             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{106         \}}
+\DoxyCodeLine{107     \}}
+\DoxyCodeLine{108     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ END STATEMENT -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{109     \textcolor{comment}{// Recursive calling itself for processing next code out of scope}}
+\DoxyCodeLine{110     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a7eac9e4351cf87fecd3e9a66cf5f28d8}{STATEMENT}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{111         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{112     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{113 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_a7eac9e4351cf87fecd3e9a66cf5f28d8_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_a7eac9e4351cf87fecd3e9a66cf5f28d8_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{syntactic__analysis_8h_aaef2bee27144c07c175bb36e4c28af9d}\label{syntactic__analysis_8h_aaef2bee27144c07c175bb36e4c28af9d}} 
 \index{syntactic\_analysis.h@{syntactic\_analysis.h}!VAL\_TYPE@{VAL\_TYPE}}
 \index{VAL\_TYPE@{VAL\_TYPE}!syntactic\_analysis.h@{syntactic\_analysis.h}}
@@ -558,6 +1364,26 @@ Function for verifaction enabled data types (DATA TYPES)
 \begin{DoxyReturn}{Returns}
 If token is enabled data type return true otherwise false 
 \end{DoxyReturn}
+
+
+Definition at line 669 of file syntactic\+\_\+analysis.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{670 \{}
+\DoxyCodeLine{671     \textcolor{keywordflow}{if} (t.\mbox{\hyperlink{structToken_af5a5b44dc780e07fc9daccdfd019f000}{keyword\_val}} == \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a0f316c447317035d1c08b78e2c90fb5e}{KEYWORD\_I32}} || t.\mbox{\hyperlink{structToken_af5a5b44dc780e07fc9daccdfd019f000}{keyword\_val}} == \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a1b1fedd5d8dadfe794ceb035d2126cef}{KEYWORD\_F64}} || t.\mbox{\hyperlink{structToken_af5a5b44dc780e07fc9daccdfd019f000}{keyword\_val}} == \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a2738663f65f4b121fcc01021173603e4}{KEYWORD\_U8}})}
+\DoxyCodeLine{672         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{673     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{674 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_aaef2bee27144c07c175bb36e4c28af9d_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{syntactic__analysis_8h_a49c6186e8aee36246b52305756b7a017}\label{syntactic__analysis_8h_a49c6186e8aee36246b52305756b7a017}} 
 \index{syntactic\_analysis.h@{syntactic\_analysis.h}!VAR\_DEF@{VAR\_DEF}}
 \index{VAR\_DEF@{VAR\_DEF}!syntactic\_analysis.h@{syntactic\_analysis.h}}
@@ -582,6 +1408,54 @@ If syntactic analysis pass return true otherwise false Use case\+:
 \end{DoxyCode}
  
 \end{DoxyReturn}
+
+
+Definition at line 124 of file syntactic\+\_\+analysis.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{125 \{}
+\DoxyCodeLine{126     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ VARDEF -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{127     \mbox{\hyperlink{structToken}{Token}} token;}
+\DoxyCodeLine{128     \textcolor{comment}{// var id}}
+\DoxyCodeLine{129     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{130     \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} != \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a77b8cd6178f08686df07925a2cbac353}{TOKEN\_IDENTIFIER}})}
+\DoxyCodeLine{131         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{132 }
+\DoxyCodeLine{133     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{134     \textcolor{keywordflow}{switch} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}})}
+\DoxyCodeLine{135     \{}
+\DoxyCodeLine{136     \textcolor{comment}{// var id;}}
+\DoxyCodeLine{137     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44ac8c74b281e178c87923363a90f6ff371}{TOKEN\_SEMICOLON}}:}
+\DoxyCodeLine{138         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{139     \textcolor{comment}{// var id : ASSIGN\_VAR}}
+\DoxyCodeLine{140     \textcolor{keywordflow}{case} \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44a92a35ac6329421e77882bf3739a75e47}{TOKEN\_COLON}}:}
+\DoxyCodeLine{141         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a76e0ba812902123b4ec0d43c59c13c04}{ASSIGN\_VAR}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{142             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{143         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{144     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{145         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{146         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{147     \}}
+\DoxyCodeLine{148     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ END VARDEF -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{149     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{150 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_a49c6186e8aee36246b52305756b7a017_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_a49c6186e8aee36246b52305756b7a017_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{syntactic__analysis_8h_a6a90cf37b546f64566f9de66bfee4864}\label{syntactic__analysis_8h_a6a90cf37b546f64566f9de66bfee4864}} 
 \index{syntactic\_analysis.h@{syntactic\_analysis.h}!VAR\_TYPE@{VAR\_TYPE}}
 \index{VAR\_TYPE@{VAR\_TYPE}!syntactic\_analysis.h@{syntactic\_analysis.h}}
@@ -595,6 +1469,19 @@ Function for verifaction enabled data types (VARIABLE/\+CONST)
 \begin{DoxyReturn}{Returns}
 If token is enabled data type return true otherwise false 
 \end{DoxyReturn}
+
+
+Definition at line 660 of file syntactic\+\_\+analysis.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{661 \{}
+\DoxyCodeLine{662     \textcolor{keywordflow}{if} (t.\mbox{\hyperlink{structToken_af5a5b44dc780e07fc9daccdfd019f000}{keyword\_val}} == \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448a01486e1109a838a9a62cae7bc3c8b67d}{KEYWORD\_VAR}} || t.\mbox{\hyperlink{structToken_af5a5b44dc780e07fc9daccdfd019f000}{keyword\_val}} == \mbox{\hyperlink{lexical__analyser_8h_ab7ba7e5475f5b6695b463ca219e2d448ae16f6b556452b7e953dc64d00b131cb5}{KEYWORD\_CONST}})}
+\DoxyCodeLine{663         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{664     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{665 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{syntactic__analysis_8h_a13efec100d0c39c874c413765ded4d10}\label{syntactic__analysis_8h_a13efec100d0c39c874c413765ded4d10}} 
 \index{syntactic\_analysis.h@{syntactic\_analysis.h}!WHILE\_DEF@{WHILE\_DEF}}
 \index{WHILE\_DEF@{WHILE\_DEF}!syntactic\_analysis.h@{syntactic\_analysis.h}}
@@ -619,3 +1506,48 @@ If syntactic analysis pass return true otherwise false Use case\+:
 \end{DoxyCode}
  
 \end{DoxyReturn}
+
+
+Definition at line 281 of file syntactic\+\_\+analysis.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{282 \{}
+\DoxyCodeLine{283     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ WHILE\_DEF -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{284     \textcolor{comment}{// t\_(}}
+\DoxyCodeLine{285     \mbox{\hyperlink{structToken}{Token}} token;}
+\DoxyCodeLine{286     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{287     \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} != \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44af4143395fefba1c6a30e58240dd0c827}{TOKEN\_LPAREN}})}
+\DoxyCodeLine{288         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{289 }
+\DoxyCodeLine{290     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{291     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a38b7a13b9a5926c2c4b6af62cec86f85}{EXPRESSION}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}, token))}
+\DoxyCodeLine{292         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{293 }
+\DoxyCodeLine{294     \textcolor{comment}{// t\_\{}}
+\DoxyCodeLine{295     \mbox{\hyperlink{syntactic__analysis_8h_af73d4e4f25369e301f7133377f391acb}{GET\_TOKEN\_RAW}}(token, \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{296     \textcolor{keywordflow}{if} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} == \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aea93445565e90032b651b3bfeab696ad}{TOKEN\_CURLYL\_BRACKET}})}
+\DoxyCodeLine{297     \{}
+\DoxyCodeLine{298         \textcolor{comment}{// SCOPE}}
+\DoxyCodeLine{299         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a7d21e9db61747d6734d9a7f27d33b4f4}{SCOPE}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{300             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{301     \}}
+\DoxyCodeLine{302     \mbox{\hyperlink{syntactic__analysis_8h_a26631c62c776d2ed0eb3f7b777520eab}{pmesg}}(\textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/-\/ END WHILE\_DEF -\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{303     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{304 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_a13efec100d0c39c874c413765ded4d10_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syntactic__analysis_8h_a13efec100d0c39c874c413765ded4d10_icgraph}
+\end{center}
+\end{figure}

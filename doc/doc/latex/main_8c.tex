@@ -1,5 +1,5 @@
-\hypertarget{main_8c}{}\doxysection{main.\+c File Reference}
-\label{main_8c}\index{main.c@{main.c}}
+\hypertarget{main_8c}{}\doxysection{/home/kubo/\+IFJ\+\_\+\+Compiler/\+IFJ-\/project01/src/main.c File Reference}
+\label{main_8c}\index{/home/kubo/IFJ\_Compiler/IFJ-\/project01/src/main.c@{/home/kubo/IFJ\_Compiler/IFJ-\/project01/src/main.c}}
 {\ttfamily \#include $<$ctype.\+h$>$}\newline
 {\ttfamily \#include $<$stdbool.\+h$>$}\newline
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
@@ -9,10 +9,17 @@
 {\ttfamily \#include \char`\"{}syntactic\+\_\+analysis.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$error.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}ADT.\+h\char`\"{}}\newline
+Include dependency graph for main.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8c__incl}
+\end{center}
+\end{figure}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{main_8c_ac717868c4349a743d88c3b73ef7a533b}{print\+\_\+symbol}} (const \mbox{\hyperlink{structSymbol}{Symbol}} $\ast$symbol)
+void \mbox{\hyperlink{main_8c_a1127b7ccef7affaa427479522fd4024a}{print\+\_\+table}} (\mbox{\hyperlink{structSymbolTable}{Symbol\+Table}} $\ast$table)
 \item 
 void \mbox{\hyperlink{main_8c_a61b668b23f9d1ce9068bff1a47a788de}{test\+\_\+hash\+\_\+table}} ()
 \item 
@@ -32,12 +39,111 @@ FILE $\ast$ \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
 {\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{main_8c_ac717868c4349a743d88c3b73ef7a533b}\label{main_8c_ac717868c4349a743d88c3b73ef7a533b}} 
-\index{main.c@{main.c}!print\_symbol@{print\_symbol}}
-\index{print\_symbol@{print\_symbol}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{print\_symbol()}{print\_symbol()}}
-{\footnotesize\ttfamily void print\+\_\+symbol (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structSymbol}{Symbol}} $\ast$}]{symbol }\end{DoxyParamCaption})}
 
+
+Definition at line 75 of file main.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{76 \{}
+\DoxyCodeLine{77     \textcolor{keywordflow}{if}(argc == 1)\{}
+\DoxyCodeLine{78         \mbox{\hyperlink{main_8c_a61b668b23f9d1ce9068bff1a47a788de}{test\_hash\_table}}();}
+\DoxyCodeLine{79         \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{80     \}}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82     }
+\DoxyCodeLine{83     \textcolor{comment}{// Skontroluj, či bol zadaný súbor ako argument}}
+\DoxyCodeLine{84     \textcolor{keywordflow}{if} (argc < 2)}
+\DoxyCodeLine{85         \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}} = stdin;}
+\DoxyCodeLine{86     \textcolor{keywordflow}{if} (argc == 2)}
+\DoxyCodeLine{87         \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}} = fopen(argv[1], \textcolor{stringliteral}{"{}r"{}});}
+\DoxyCodeLine{88     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{89     \{}
+\DoxyCodeLine{90         fprintf(stderr, \textcolor{stringliteral}{"{}Usage: \%s <filename>\(\backslash\)n"{}}, argv[0]);}
+\DoxyCodeLine{91         \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{92     \}}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94     \textcolor{keywordflow}{if} (\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}} == NULL)}
+\DoxyCodeLine{95         perror(\textcolor{stringliteral}{"{}Failed to open file"{}});}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97     \textcolor{comment}{//Syntactic analysis}}
+\DoxyCodeLine{98     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{syntactic__analysis_8c_a607ec0964227a0c6c98fd79770e51c11}{FIRST}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}))}
+\DoxyCodeLine{99     \{}
+\DoxyCodeLine{100         printf(\textcolor{stringliteral}{"{}\%s"{}}, \textcolor{stringliteral}{"{} -\/-\/-\/ WRONG END -\/-\/-\/ \(\backslash\)n"{}});}
+\DoxyCodeLine{101         \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{102     \}}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104     printf(\textcolor{stringliteral}{"{}\%s"{}}, \textcolor{stringliteral}{"{} -\/-\/-\/ ENDED SUCESFULLY -\/-\/-\/ \(\backslash\)n"{}});}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106     \mbox{\hyperlink{structToken}{Token}} token;}
+\DoxyCodeLine{107     \textcolor{comment}{// Print header for clarity}}
+\DoxyCodeLine{108     printf(\textcolor{stringliteral}{"{}Token Type\(\backslash\)tValue\(\backslash\)t\(\backslash\)tKeyword Value\(\backslash\)n"{}});}
+\DoxyCodeLine{109     printf(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{111     \textcolor{keywordflow}{do}}
+\DoxyCodeLine{112     \{}
+\DoxyCodeLine{113         token = \mbox{\hyperlink{lexical__analyser_8c_a1b68532a422d65e0eab79e3011af906e}{get\_token}}(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}});}
+\DoxyCodeLine{114         \mbox{\hyperlink{lexical__analyser_8c_acbb4fd03fd6564af6fe03306ec48364c}{print\_token}}(token);}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{116         \mbox{\hyperlink{newstring_8c_a03217aede38d7cef89609b66fd21f2f7}{dynamic\_string\_free}}(\&token.\mbox{\hyperlink{structToken_aa01b4f78fb7aa223cab174e81d1a5609}{value}}.\mbox{\hyperlink{unionToken__Value_a26bf9b55354211e4ff17c9f92dddeaa7}{valueString}});}
+\DoxyCodeLine{117     \} \textcolor{keywordflow}{while} (token.\mbox{\hyperlink{structToken_a51eefad74053acd3364c5e01d1a78fe5}{type}} != \mbox{\hyperlink{lexical__analyser_8h_a58fe1555b8da7f766b19a2c049bfbe44aa130df27256cd45f5781fc74deeb50dc}{TOKEN\_EOF}}); \textcolor{comment}{// Continue until EOF}}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{119     fclose(\mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}); \textcolor{comment}{// Nezabudni zavrieť súbor}}
+\DoxyCodeLine{120     \textcolor{keywordflow}{return} EXIT\_SUCCESS;}
+\DoxyCodeLine{121 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8c_a3c04138a5bfe5d72780bb7e82a18e627_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{main_8c_a1127b7ccef7affaa427479522fd4024a}\label{main_8c_a1127b7ccef7affaa427479522fd4024a}} 
+\index{main.c@{main.c}!print\_table@{print\_table}}
+\index{print\_table@{print\_table}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{print\_table()}{print\_table()}}
+{\footnotesize\ttfamily void print\+\_\+table (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structSymbolTable}{Symbol\+Table}} $\ast$}]{table }\end{DoxyParamCaption})}
+
+
+
+Definition at line 15 of file main.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15                                      \{}
+\DoxyCodeLine{16     \mbox{\hyperlink{structSymbol}{Symbol}} *current = table-\/>\mbox{\hyperlink{structSymbolTable_aa6bbab3430167d972310989f002f5f0d}{head}};}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18     printf(\textcolor{stringliteral}{"{}Current symbol table:\(\backslash\)n"{}});}
+\DoxyCodeLine{19     \textcolor{keywordflow}{while} (current) \{}
+\DoxyCodeLine{20         printf(\textcolor{stringliteral}{"{} -\/ Name: \%s, "{}}, current-\/>\mbox{\hyperlink{structSymbol_aa9ba617cd9de17ed73148893a6c14606}{name}});}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22         \textcolor{keywordflow}{switch} (current-\/>\mbox{\hyperlink{structSymbol_a428d9b6c7359a9ee924169d926d634fa}{type}}) \{}
+\DoxyCodeLine{23             \textcolor{keywordflow}{case} \mbox{\hyperlink{ADT_8h_ad9971b6ef33e02ba2c75d19c1d2518a1aba052e3feaa532e0d8beeb68a3aa6c83}{VALUE\_INT}}:}
+\DoxyCodeLine{24                 printf(\textcolor{stringliteral}{"{}Value: \%d (int)\(\backslash\)n"{}}, current-\/>\mbox{\hyperlink{structSymbol_aed8aae8e4238ee0ef4332cf859ce11b7}{value}}.\mbox{\hyperlink{structSymbol_a936e9fb2f8a62f8c44224e2183aea00a}{intValue}});}
+\DoxyCodeLine{25                 \textcolor{keywordflow}{break};}
+\DoxyCodeLine{26             \textcolor{keywordflow}{case} \mbox{\hyperlink{ADT_8h_ad9971b6ef33e02ba2c75d19c1d2518a1a636cea292b122aac7b4c4e193c4cb92f}{VALUE\_FLOAT}}:}
+\DoxyCodeLine{27                 printf(\textcolor{stringliteral}{"{}Value: \%.2f (float)\(\backslash\)n"{}}, current-\/>\mbox{\hyperlink{structSymbol_aed8aae8e4238ee0ef4332cf859ce11b7}{value}}.\mbox{\hyperlink{structSymbol_aadd4a19cc2a4c63594c12d1335144809}{floatValue}});}
+\DoxyCodeLine{28                 \textcolor{keywordflow}{break};}
+\DoxyCodeLine{29             \textcolor{keywordflow}{case} \mbox{\hyperlink{ADT_8h_ad9971b6ef33e02ba2c75d19c1d2518a1a35da8b8ef95fd9827e1294f400d01c65}{VALUE\_STRING}}:}
+\DoxyCodeLine{30                 printf(\textcolor{stringliteral}{"{}Value: \%s (string)\(\backslash\)n"{}}, current-\/>\mbox{\hyperlink{structSymbol_aed8aae8e4238ee0ef4332cf859ce11b7}{value}}.\mbox{\hyperlink{structSymbol_a258d262ddd1a28d136d6f623f010c941}{strValue}});}
+\DoxyCodeLine{31                 \textcolor{keywordflow}{break};}
+\DoxyCodeLine{32         \}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34         current = current-\/>\mbox{\hyperlink{structSymbol_af5a223ab45f0e4f002dbe8108c6085a9}{next}};}
+\DoxyCodeLine{35     \}}
+\DoxyCodeLine{36     printf(\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{37 \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8c_a1127b7ccef7affaa427479522fd4024a_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{main_8c_a61b668b23f9d1ce9068bff1a47a788de}\label{main_8c_a61b668b23f9d1ce9068bff1a47a788de}} 
 \index{main.c@{main.c}!test\_hash\_table@{test\_hash\_table}}
 \index{test\_hash\_table@{test\_hash\_table}!main.c@{main.c}}
@@ -46,10 +152,68 @@ FILE $\ast$ \mbox{\hyperlink{main_8c_a702945180aa732857b380a007a7e2a21}{file}}
 
 
 
+Definition at line 40 of file main.\+c.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{40                        \{}
+\DoxyCodeLine{41     \mbox{\hyperlink{structSymbolTable}{SymbolTable}} *table = \mbox{\hyperlink{ADT_8c_a99781ee05b9a784e40d6e179c04f42c9}{create\_table}}();}
+\DoxyCodeLine{42     printf(\textcolor{stringliteral}{"{}After creating the table:\(\backslash\)n"{}});}
+\DoxyCodeLine{43     \mbox{\hyperlink{main_8c_a1127b7ccef7affaa427479522fd4024a}{print\_table}}(table);}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45     \textcolor{keywordtype}{int} intValue = 10;}
+\DoxyCodeLine{46     \textcolor{keywordtype}{float} floatValue = 3.14;}
+\DoxyCodeLine{47     \textcolor{keywordtype}{char} *strValue = \textcolor{stringliteral}{"{}Hello"{}};}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49     \mbox{\hyperlink{ADT_8c_a498be84c0146adc44a4d75f3ddadfce8}{insert\_symbol}}(table, \textcolor{stringliteral}{"{}x"{}}, \mbox{\hyperlink{ADT_8h_ad9971b6ef33e02ba2c75d19c1d2518a1aba052e3feaa532e0d8beeb68a3aa6c83}{VALUE\_INT}}, \&intValue);}
+\DoxyCodeLine{50     printf(\textcolor{stringliteral}{"{}After inserting 'x':\(\backslash\)n"{}});}
+\DoxyCodeLine{51     \mbox{\hyperlink{main_8c_a1127b7ccef7affaa427479522fd4024a}{print\_table}}(table);}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53     \mbox{\hyperlink{ADT_8c_a498be84c0146adc44a4d75f3ddadfce8}{insert\_symbol}}(table, \textcolor{stringliteral}{"{}pi"{}}, \mbox{\hyperlink{ADT_8h_ad9971b6ef33e02ba2c75d19c1d2518a1a636cea292b122aac7b4c4e193c4cb92f}{VALUE\_FLOAT}}, \&floatValue);}
+\DoxyCodeLine{54     printf(\textcolor{stringliteral}{"{}After inserting 'pi':\(\backslash\)n"{}});}
+\DoxyCodeLine{55     \mbox{\hyperlink{main_8c_a1127b7ccef7affaa427479522fd4024a}{print\_table}}(table);}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57     \mbox{\hyperlink{ADT_8c_a498be84c0146adc44a4d75f3ddadfce8}{insert\_symbol}}(table, \textcolor{stringliteral}{"{}greeting"{}}, \mbox{\hyperlink{ADT_8h_ad9971b6ef33e02ba2c75d19c1d2518a1a35da8b8ef95fd9827e1294f400d01c65}{VALUE\_STRING}}, strValue);}
+\DoxyCodeLine{58     printf(\textcolor{stringliteral}{"{}After inserting 'greeting':\(\backslash\)n"{}});}
+\DoxyCodeLine{59     \mbox{\hyperlink{main_8c_a1127b7ccef7affaa427479522fd4024a}{print\_table}}(table);}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61     \mbox{\hyperlink{structSymbol}{Symbol}} *s = \mbox{\hyperlink{ADT_8c_a87d79a5adc075526a4778d53c2948412}{search\_symbol}}(table, \textcolor{stringliteral}{"{}pi"{}});}
+\DoxyCodeLine{62     \textcolor{keywordflow}{if} (s \&\& s-\/>\mbox{\hyperlink{structSymbol_a428d9b6c7359a9ee924169d926d634fa}{type}} == \mbox{\hyperlink{ADT_8h_ad9971b6ef33e02ba2c75d19c1d2518a1a636cea292b122aac7b4c4e193c4cb92f}{VALUE\_FLOAT}}) \{}
+\DoxyCodeLine{63         printf(\textcolor{stringliteral}{"{}Found: \%s -\/> \%.2f\(\backslash\)n"{}}, s-\/>\mbox{\hyperlink{structSymbol_aa9ba617cd9de17ed73148893a6c14606}{name}}, s-\/>\mbox{\hyperlink{structSymbol_aed8aae8e4238ee0ef4332cf859ce11b7}{value}}.\mbox{\hyperlink{structSymbol_aadd4a19cc2a4c63594c12d1335144809}{floatValue}});}
+\DoxyCodeLine{64     \}}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66     \mbox{\hyperlink{ADT_8c_a86337fb4e746828ec8da93815780b8e5}{delete\_symbol}}(table, \textcolor{stringliteral}{"{}x"{}});}
+\DoxyCodeLine{67     printf(\textcolor{stringliteral}{"{}After deleting 'x':\(\backslash\)n"{}});}
+\DoxyCodeLine{68     \mbox{\hyperlink{main_8c_a1127b7ccef7affaa427479522fd4024a}{print\_table}}(table);}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70     \mbox{\hyperlink{ADT_8c_a586c12683a18644602e7029a8fb528c4}{free\_table}}(table);}
+\DoxyCodeLine{71 \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8c_a61b668b23f9d1ce9068bff1a47a788de_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=251pt]{main_8c_a61b668b23f9d1ce9068bff1a47a788de_icgraph}
+\end{center}
+\end{figure}
+
+
 \doxysubsection{Variable Documentation}
 \mbox{\Hypertarget{main_8c_a702945180aa732857b380a007a7e2a21}\label{main_8c_a702945180aa732857b380a007a7e2a21}} 
 \index{main.c@{main.c}!file@{file}}
 \index{file@{file}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{file}{file}}
 {\footnotesize\ttfamily FILE$\ast$ file}
+
+
+
+Definition at line 12 of file main.\+c.
 

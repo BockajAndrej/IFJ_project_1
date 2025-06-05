@@ -1,17 +1,27 @@
-#include "lexical_analyser.h"
-#include <error.h>
-#include <ctype.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <stdio.h>
+/**
+ * @file lexical_analyser.c
+ * @author Jakub Filo
+ * @category Lexical Analysis
+ * @brief Implementation of the lexical analyser, including token processing and utility functions.
+ */
 
-#include <string.h>
+#include "lexical_analyser.h"
 #include "newstring.h"
 
-#define KEYWORD_COUNT 13 // Update this if you add more keywords
+/**
+ * @def KEYWORD_COUNT
+ * @brief Defines the number of keywords in the language.
+ *
+ * Update this value if more keywords are added to the language.
+ */
+#define KEYWORD_COUNT 17 // Update this if you add more keywords
 
+/**
+ * @var keywords
+ * @brief Array of keyword strings used for identifying language keywords.
+ *
+ * Each element in the array corresponds to a specific keyword enumeration.
+ */
 const char *keywords[KEYWORD_COUNT] = {
     "if",     // KEYWORD_IF
     "else",   // KEYWORD_ELSE
@@ -20,7 +30,11 @@ const char *keywords[KEYWORD_COUNT] = {
     "i32",    // KEYWORD_I32
     "f64",    // KEYWORD_F64
     "u8",     // KEYWORD_U8
-    "null",   // KEYWORD_NULL
+    "[]u8",   // KEYWORD_U8_ARRAY
+    "?i32",   // KEYWORD_I32_NULL
+    "?f64",   // KEYWORD_F64_NULL
+    "?u8",    // KEYWORD_U8_NULL
+    "?[]u8",  // KEYWORD_U8_ARRAY_NULL
     "pub",    // KEYWORD_PUB
     "return", // KEYWORD_RETURN
     "var",    // KEYWORD_VAR
@@ -28,7 +42,16 @@ const char *keywords[KEYWORD_COUNT] = {
     "while"   // KEYWORD_WHILE
 };
 
-// Function to check if an identifier is a keyword
+/**
+ * @brief Checks if a given token is a keyword.
+ * @details Iterates through the list of predefined keywords to determine if the token matches any keyword.
+ * If a match is found, it sets the `keyword_val` field of the token accordingly.
+ *
+ * @param token A pointer to the token to be checked.
+ * @return `true` if the token is a keyword, `false` otherwise.
+ *
+ * @see Keyword
+ */
 bool is_keyword(Token *token)
 {
     for (int i = 0; i < KEYWORD_COUNT; i++)
@@ -42,6 +65,13 @@ bool is_keyword(Token *token)
     return false; // It is not a keyword
 }
 
+/**
+ * @brief Converts a token type to its string representation.
+ * @details This function maps each `Token_type` enumeration to a corresponding string for easy readability.
+ *
+ * @param type The token type to convert.
+ * @return A constant character pointer representing the token type as a string.
+ */
 const char *token_type_to_string(Token_type type)
 {
     switch (type)
@@ -50,26 +80,22 @@ const char *token_type_to_string(Token_type type)
         return "TOKEN_EOF";
     case TOKEN_EOL:
         return "TOKEN_EOL";
-    case TOKEN_EMPTY:
-        return "TOKEN_EMPTY";
     case TOKEN_IDENTIFIER:
         return "TOKEN_IDENTI";
     case TOKEN_KEYWORD:
         return "TOKEN_KEYWORD";
+    case TOKEN_EMPTY:
+        return "TOKEN_EMPTY";
     case TOKEN_NEWLINE:
         return "TOKEN_NEWLINE";
-    case TOKEN_TAB:
-        return "TOKEN_TAB";
+    case TOKEN_NULL:
+        return "TOKEN_NULL";
     case TOKEN_INT_LITERAL:
         return "TOKEN_INT_L";
     case TOKEN_FLOAT_LITERAL:
         return "TOKEN_FLOAT_L";
     case TOKEN_STRING_LITERAL:
         return "TOKEN_STRING_L";
-    case TOKEN_BOOLEAN:
-        return "TOKEN_BOOLEAN";
-    case TOKEN_CHAR_LITERAL:
-        return "TOKEN_CHAR_L";
     case TOKEN_EQUAL:
         return "TOKEN_EQUAL";
     case TOKEN_NOT_EQUAL:
@@ -133,130 +159,130 @@ const char *token_type_to_string(Token_type type)
     }
 }
 
+/**
+ * @brief Prints the details of a token.
+ * @details This function outputs the token type, its value, and the keyword enumeration if applicable.
+ * It handles different token types to provide meaningful output.
+ *
+ * @param token The token to be printed.
+ */
 void print_token(Token token)
 {
-
     switch (token.type)
     {
     case TOKEN_EOF:
         printf("EOF\n");
         break;
-
     case TOKEN_EOL:
         printf("EOL\n");
         break;
-
-    case TOKEN_EMPTY:
-        printf("EMPTY\n");
-        break;
-
     case TOKEN_NEWLINE:
         printf("NEWLINE\n");
         break;
-
-    case TOKEN_TAB:
-        printf("TAB\n");
-        break;
-
-    case TOKEN_INT_LITERAL:
-    case TOKEN_FLOAT_LITERAL:
-    case TOKEN_STRING_LITERAL:
-    case TOKEN_BOOLEAN:
-    case TOKEN_CHAR_LITERAL:
-    case TOKEN_IDENTIFIER:
-    case TOKEN_KEYWORD:
-    case TOKEN_EQUAL:
-    case TOKEN_NOT_EQUAL:
-    case TOKEN_LESS_EQUAL:
-    case TOKEN_LESS_THAN:
-    case TOKEN_GREATER_EQUAL:
-    case TOKEN_GREATER_THAN:
-    case TOKEN_ASSIGNMENT:
-    case TOKEN_ADDITION:
-    case TOKEN_SUBTRACTION:
-    case TOKEN_MULTIPLY:
-    case TOKEN_DIVISION:
-    case TOKEN_BACKSLASH:
-    case TOKEN_PIPE:
-    case TOKEN_EXCLAMATION:
-    case TOKEN_LPAREN:
-    case TOKEN_RPAREN:
-    case TOKEN_LEFT_BRACKET:
-    case TOKEN_RIGHT_BRACKET:
-    case TOKEN_CURLYL_BRACKET:
-    case TOKEN_CURLYR_BRACKET:
-    case TOKEN_COMMA:
-    case TOKEN_SEMICOLON:
-    case TOKEN_COMMENT:
-    case TOKEN_IMPORT:
-    case TOKEN_DISCARD:
-    case TOKEN_DOT:
-    case TOKEN_COLON:
-    case TOKEN_QUESTION_MARK:
-        printf("%s\t\t%s\t\t%d\n", token_type_to_string(token.type), token.value.valueString.str, token.keyword_val);
-        break;
-
     case TOKEN_UNDEFINED:
         printf("UNDEFINED\t%s\t\t-\n", token.value.valueString.str);
         break;
-
     default:
-        printf("Unknown Type\t-\t\t-\t\n");
+        printf("%s\t\t%s\t\t%d\n", token_type_to_string(token.type), token.value.valueString.str, token.keyword_val);
         break;
     }
 }
 
+const char *token_to_type(Token_type value)
+{
+    switch (value)
+    {
+    case TOKEN_INT_LITERAL:
+        return "i32";
+    case TOKEN_FLOAT_LITERAL:
+        return "f64";
+    case TOKEN_STRING_LITERAL:
+        return "[]u8";
+    default:
+        break;
+    }
+    return "";
+}
+
+/**
+ * @brief Checks if a string contains only valid characters (a-z, A-Z, 0-9, and '_').
+ * @details Iterates through each character in the string and verifies if it is an alphanumeric character or an underscore.
+ * If an invalid character is found, it calls the `handle_error` function with a lexical error code.
+ *
+ * @param str The string to be checked.
+ */
+void validate_identifier(const char *str)
+{
+    while (*str)
+    {
+        if (!isalnum(*str) && *str != '_')
+        {
+            handle_error(ERR_LEX); // Handle lexical error
+        }
+        str++;
+    }
+}
+
+/**
+ * @brief Retrieves the next token from the input file.
+ * @details This function implements a finite state machine (FSM) to parse the input file character by character,
+ * constructing tokens based on the defined states. It handles various token types, including identifiers,
+ * keywords, literals, operators, and punctuation.
+ *
+ * @param file A pointer to the file being analyzed.
+ * @return The next token extracted from the file. If an error occurs during string initialization or reading,
+ * a TOKEN describing the error will be returned.
+ *
+ * @see Token
+ * @see State
+ */
 Token get_token(FILE *file)
 {
 
-    Token token;
-    State state;
+    Token token; // Initialize token
+    State state; // Initialize state
 
-    if (file == NULL)
+    if (file == NULL) // Check if file is NULL
     {
-        printf("file null"); // ! dorobit kde a čo?
-        token.type = TOKEN_EOF;
-        return token;
+        token.type = TOKEN_EOF; // Set token type to EOF
+        return token;           // Return EOF token
     }
     state = sStart;
 
-    // Inicializuj dynamic_string pre hodnotu tokenu
-    if (!dynamic_string_init(&token.value.valueString))
+    if (!dynamic_string_init(&token.value.valueString)) // Initialize dynamic string
     {
-        token.type = TOKEN_STRINGINIT_ERROR;
-        return token; // Vráť chybový token
+        handle_error(ERR_COMPILER_INTERNAL); // Handle initialization error
     }
 
-    char c;
+    char c;               // Character variable for reading input
+    bool invalid = false; // Flag for invalid tokens
 
     while (1)
     {
-        token.keyword_val = 0;
+        token.keyword_val = 0; // Reset keyword value
         c = (char)getc(file);
 
-        switch (state)
+        switch (state) // State machine
         {
-        case sStart:
-
-            if (c == ' ' || c == '\t')
+        case sStart:                   // Initial state
+            if (c == ' ' || c == '\t') // Ignore whitespace
             {
-                state = sStart;
+                state = sStart; // Stay in start state
             }
             else if (c == EOF)
             {
-                token.type = TOKEN_EOF;
+                token.type = TOKEN_EOF; // Set token type to EOF
                 return token;
             }
-            else if (c == '@')
+            else if (c == '@') // Start of import statement
             {
                 state = sImport;
-                dynamic_string_add_char(&token.value.valueString, c);
+                dynamic_string_add_char(&token.value.valueString, c); // Add character to token
             }
             else if (c == '\n') /* EOL, end of line  should add \t \r support? */
             {
-                state = sEOL;           // Přepni na stav konce řádku
-                token.type = TOKEN_EOL; // Předpokládáme, že TOKEN_EOL je definován
-                return token;           // Vrať token EOL
+                token.type = TOKEN_EOL;
+                return token;
             }
             else if (isalpha(c)) // Check for identifiers/keywords
             {
@@ -267,15 +293,13 @@ Token get_token(FILE *file)
             {
                 dynamic_string_add_char(&token.value.valueString, c);
 
-                // Read the next character without shadowing the original 'c'
                 char next_c = (char)getc(file);
 
                 // If the next character is a letter or a digit, treat it as part of an identifier
                 if (isalnum(next_c))
                 {
-                    // Add underscore to the identifier
-                    dynamic_string_add_char(&token.value.valueString, next_c); // Add the letter/digit to the identifier
-                    state = sIdentifierorKeyword;                              // Transition to identifier state
+                    dynamic_string_add_char(&token.value.valueString, next_c);
+                    state = sIdentifierorKeyword;
                 }
                 else
                 {
@@ -287,9 +311,8 @@ Token get_token(FILE *file)
                     }
                     else
                     {
-                        token.type = TOKEN_UNDEFINED; // Invalid token
-                        ungetc(next_c, file);         // Return the character back to the input
-                        return token;
+                        dynamic_string_free(&token.value.valueString);
+                        handle_error(ERR_LEX);
                     }
                 }
             }
@@ -333,12 +356,20 @@ Token get_token(FILE *file)
             }
             else if (c == '[')
             {
-                // dynamic_string_add_char(&token.value.valueString, c);
-                // state = sIdentifierorKeyword;
-
                 dynamic_string_add_char(&token.value.valueString, c);
-                token.type = TOKEN_LEFT_BRACKET;
-                return token;
+
+                c = (char)getc(file); // Read next char
+                if (c == ']')
+                {
+                    state = sIdentifierorKeyword;
+                    ungetc(c, file);
+                }
+                else
+                {
+                    token.type = TOKEN_LEFT_BRACKET;
+                    ungetc(c, file);
+                    return token;
+                }
             }
             else if (c == ']')
             {
@@ -355,29 +386,28 @@ Token get_token(FILE *file)
             else if (c == ';') // Semicolon
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                token.type = TOKEN_SEMICOLON; // Set the token type for semicolon
-                state = sStart;               // Return to the starting state
+                token.type = TOKEN_SEMICOLON;
+                state = sStart;
                 return token;
             }
             else if (c == ':') // Colon
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                token.type = TOKEN_COLON; // Set the token type for semicolon
-                state = sStart;           // Return to the starting state
+                token.type = TOKEN_COLON;
+                state = sStart;
                 return token;
             }
             else if (c == '.') // Dot
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                token.type = TOKEN_DOT; // Set the token type for semicolon
-                state = sStart;         // Return to the starting state
+                token.type = TOKEN_DOT;
+                state = sStart;
                 return token;
             }
             else if (c == '?') // Question mark
             {
+                state = sQuestionmark;
                 dynamic_string_add_char(&token.value.valueString, c);
-                token.type = TOKEN_QUESTION_MARK;
-                return token;
             }
             else if (c == '+') // Addition operator
             {
@@ -397,7 +427,7 @@ Token get_token(FILE *file)
                 token.type = TOKEN_MULTIPLY;
                 return token;
             }
-            else if (c == '|') // Check for bitwise OR / logical OR
+            else if (c == '|') // Check for |
             {
                 dynamic_string_add_char(&token.value.valueString, c);
                 token.type = TOKEN_PIPE;
@@ -405,56 +435,103 @@ Token get_token(FILE *file)
             }
             else if (c == '=') // Start of equality or assignment
             {
-                state = sAssign; // Move to assignment state
+                state = sAssign;
                 dynamic_string_add_char(&token.value.valueString, c);
             }
             else if (c == '<') // Start of less than or equal
             {
-                state = sLessThan; // Move to less than state
+                state = sLessThan;
                 dynamic_string_add_char(&token.value.valueString, c);
             }
             else if (c == '>') // Start of greater than or equal
             {
-                state = sGreaterThan; // Move to greater than state
+                state = sGreaterThan;
                 dynamic_string_add_char(&token.value.valueString, c);
-            }
-            else if (c == '\'') // Single quote for character literal
-            {
-                state = sSingleQuote;            // Move to state for single quote
-                token.type = TOKEN_CHAR_LITERAL; // Set token type for character literal
             }
             else if (c == '\\') // Backslash for escape sequences
             {
-                state = sBackSlash;           // Move to escape sequence handling state
-                token.type = TOKEN_BACKSLASH; // Set token type for backslash
+                dynamic_string_add_char(&token.value.valueString, c);
+                token.type = TOKEN_BACKSLASH;
+                return token;
             }
             else if (c == '!') // Logical NOT or not equal
             {
                 dynamic_string_add_char(&token.value.valueString, c);
                 state = sExclamation;
             }
-
             break;
-
-        case sIdentifierorKeyword:
+        case sQuestionmark: // state for "?"
         {
-            if (isalnum(c) || c == '_')
+            invalid = true;
+            if (isalpha(c) || c == '[')
             {
-                dynamic_string_add_char(&token.value.valueString, c);
-                state = sIdentifierorKeyword;
+
+                dynamic_string_add_char(&token.value.valueString, c); // Add to token
+                state = sIdentifierorKeyword;                         // Transition to identifier state
             }
             else
             {
-                ungetc(c, file);
-                if (is_keyword(&token))
-                    token.type = TOKEN_KEYWORD;
-                else
-                    token.type = TOKEN_IDENTIFIER;
-
-                return token;
+                dynamic_string_free(&token.value.valueString);
+                handle_error(ERR_LEX);
             }
         }
         break;
+        case sIdentifierorKeyword: // keyword or identifier or left bracket
+        {
+            while (!isspace(c) && c != EOF)
+            {
+                // check for wrong symbols
+                if (!isalpha(c) && !isdigit(c) && c != '_' && c != '[' && c != ']')
+                {
+                    break;
+                }
+                dynamic_string_add_char(&token.value.valueString, c);
+                c = (char)getc(file);
+            }
+
+            ungetc(c, file);
+
+            if (is_keyword(&token))
+            {
+                token.type = TOKEN_KEYWORD;
+            }
+            else if (strcmp(token.value.valueString.str, "null") == 0)
+            {
+                token.type = TOKEN_NULL;
+            }
+            else if (strcmp(token.value.valueString.str, "[") == 0)
+            {
+                token.type = TOKEN_LEFT_BRACKET;
+            }
+            else if (invalid)
+            {
+                dynamic_string_free(&token.value.valueString);
+                handle_error(ERR_LEX);
+            }
+            else
+            {
+                // ! funkcia na povolene znaky
+                validate_identifier(token.value.valueString.str);
+                token.type = TOKEN_IDENTIFIER;
+            }
+
+            return token;
+        }
+        break;
+        /**
+         * Handles the state transitions for integer and floating-point literals in the lexical analyzer.
+         *
+         * States:
+         * - sIntLiteral: Handles integer literals. Transitions to sDot for floating-point or sExponentStart for scientific notation.
+         * - sDot: Handles the dot in floating-point literals. Transitions to sFloatLiteral if followed by a digit.
+         * - sFloatLiteral: Handles the digits in floating-point literals. Transitions to sExponentStart for scientific notation.
+         * - sExponentStart: Handles the start of the exponent part in scientific notation. Transitions to sExponentSign or sExponent.
+         * - sExponentSign: Handles the sign of the exponent in scientific notation. Transitions to sExponent.
+         * - sExponent: Handles transforming the notation to number
+         *
+         * Each state processes the current character and either adds it to the token's value, transitions to another state, or finalizes the token.
+         * If an invalid character is encountered, an error is handled appropriately.
+         */
         case sIntLiteral:
         {
             if (isdigit(c))
@@ -465,12 +542,12 @@ Token get_token(FILE *file)
             else if (c == '.')
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                state = sFloatLiteral;
+                state = sDot; // Transition to sDot, state before float
             }
             else if (c == 'e' || c == 'E')
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                state = sExponent;
+                state = sExponentStart; // Transition to sExponentStart to handle + - sign
             }
             else
             {
@@ -481,9 +558,22 @@ Token get_token(FILE *file)
             }
         }
         break;
+        case sDot:
+        {
+            if (isdigit(c))
+            {
+                dynamic_string_add_char(&token.value.valueString, c);
+                state = sFloatLiteral;
+            }
+            else
+            {
+                dynamic_string_free(&token.value.valueString);
+                handle_error(ERR_LEX);
+            }
+        }
+        break;
         case sFloatLiteral:
         {
-            // Handle floating-point literal logic here
             if (isdigit(c))
             {
                 dynamic_string_add_char(&token.value.valueString, c);
@@ -492,17 +582,17 @@ Token get_token(FILE *file)
             else if (c == 'e' || c == 'E')
             {
                 dynamic_string_add_char(&token.value.valueString, c);
-                state = sExponent;
+                state = sExponentStart;
             }
             else
             {
-                token.type = TOKEN_FLOAT_LITERAL; // Set token type to float literal
-                ungetc(c, file);                  // Put the character back for further processing
-                return token;                     // Return the float token
+                token.type = TOKEN_FLOAT_LITERAL;
+                ungetc(c, file);
+                return token;
             }
         }
         break;
-        case sExponent:
+        case sExponentStart:
         {
             if (c == '+' || c == '-')
             {
@@ -516,18 +606,8 @@ Token get_token(FILE *file)
             }
             else
             {
-                double calculatedNum = strtod(token.value.valueString.str, NULL);
-
-                dynamic_string_clear(&token.value.valueString);
-
-                if (!add_double_to_dynamic_string(&token.value.valueString, calculatedNum))
-                {
-                    token.type = TOKEN_UNDEFINED; // Handle error if addition fails
-                    return token;                 // Return error token
-                }
-                token.type = TOKEN_FLOAT_LITERAL; // Set token type to float literal
-                ungetc(c, file);
-                return token;
+                dynamic_string_free(&token.value.valueString);
+                handle_error(ERR_LEX);
             }
         }
         break;
@@ -541,6 +621,46 @@ Token get_token(FILE *file)
             else
             {
                 token.type = TOKEN_UNDEFINED;
+                return token;
+            }
+        }
+        break;
+        case sExponent:
+        {
+            if (isdigit(c))
+            {
+                dynamic_string_add_char(&token.value.valueString, c);
+                state = sExponent;
+            }
+            else
+            {
+                // Attempt to parse the number, checking for integer or float
+                double calculatedNum = strtod(token.value.valueString.str, NULL);
+                dynamic_string_clear(&token.value.valueString);
+
+                // Check if it's a valid integer (i.e., no fractional part)
+                if (calculatedNum == (long long)calculatedNum)
+                {
+                    // If the number is an integer (even with an exponent), treat it as an integer
+                    long long intVal = (long long)calculatedNum;
+                    if (!add_double_to_dynamic_string(&token.value.valueString, intVal))
+                    {
+                        dynamic_string_free(&token.value.valueString);
+                        handle_error(ERR_LEX);
+                    }
+                    token.type = TOKEN_INT_LITERAL;
+                }
+                else
+                {
+                    // Otherwise, it's a float
+                    if (!add_double_to_dynamic_string(&token.value.valueString, calculatedNum))
+                    {
+                        dynamic_string_free(&token.value.valueString);
+                        handle_error(ERR_LEX);
+                    }
+                    token.type = TOKEN_FLOAT_LITERAL;
+                }
+
                 ungetc(c, file);
                 return token;
             }
@@ -550,110 +670,83 @@ Token get_token(FILE *file)
         {
             if (c == '\\') // Check for escape sequences
             {
-                state = sEscapeSequence; // Transition to escape sequence handling
+                state = sEscapeSequence;
             }
             else if (c == '"') // End of string literal
             {
-                token.type = TOKEN_STRING_LITERAL; // Set token type to string literal
-                return token;                      // Return string token
-            }
-            else if (c < 32)
-            {
-                // Unexpected end of file without closing quote
-                token.type = TOKEN_UNDEFINED; // Set error token
+                token.type = TOKEN_STRING_LITERAL;
                 return token;
             }
-            else
+            else if (c < 32) // Check for invalid characters in string
             {
-                dynamic_string_add_char(&token.value.valueString, c);
+                dynamic_string_free(&token.value.valueString);
+                handle_error(ERR_LEX); // Handle lexical error
+            }
+            else // Add character to string literal
+            {
+                dynamic_string_add_char(&token.value.valueString, c); // Add character to token
             }
         }
         break;
         case sEscapeSequence:
         {
-            if (c == 'n')
+            switch (c)
             {
-                dynamic_string_add_char(&token.value.valueString, '\n'); // Newline escape
-            }
-            else if (c == 't')
+            case 'n':
+                dynamic_string_add_char(&token.value.valueString, '\n'); // Newline
+                break;
+            case 't':
+                dynamic_string_add_char(&token.value.valueString, '\t'); // Tab
+                break;
+            case 'r':
+                dynamic_string_add_char(&token.value.valueString, '\r'); // Carriage return
+                break;
+            case '\"':
+                dynamic_string_add_char(&token.value.valueString, '\"'); // Double quote
+                break;
+            case '\\':
+                dynamic_string_add_char(&token.value.valueString, '\\'); // Backslash
+                break;
+            case 'x': // Hexadecimal escape
             {
-                dynamic_string_add_char(&token.value.valueString, '\t'); // Tab escape
-            }
-            else if (c == 'r')
-            {
-                dynamic_string_add_char(&token.value.valueString, '\r'); // Carriage return escape
-            }
-            else if (c == '\"')
-            {
-                dynamic_string_add_char(&token.value.valueString, '\"'); // Quote escape
-            }
-            else if (c == '\\')
-            {
-                dynamic_string_add_char(&token.value.valueString, '\\'); // Backslash escape
-            }
-            else if (c == 'x') // Hexadecimal escape
-            {
-                char hex[3];               // Buffer to hold hex digits
-                hex[0] = (char)getc(file); // First hex digit
-                hex[1] = (char)getc(file); // Second hex digit
-                hex[2] = '\0';             // Null-terminate the string
+                // Converting \xdd from hex to real numer
+                char hex[3];
+                hex[0] = (char)getc(file);
+                hex[1] = (char)getc(file);
+                hex[2] = '\0';
 
-                // Check if the hex characters are valid
                 if (isxdigit(hex[0]) && isxdigit(hex[1]))
                 {
-                    int value = (int)strtol(hex, NULL, 16);                         // Convert hex to integer
-                    dynamic_string_add_char(&token.value.valueString, (char)value); // Add the character to the string
+                    int value = (int)strtol(hex, NULL, 16);
+                    dynamic_string_add_char(&token.value.valueString, (char)value);
                 }
                 else
                 {
-                    token.type = TOKEN_UNDEFINED; // Invalid hex escape
-                    return token;
+                    dynamic_string_free(&token.value.valueString);
+                    handle_error(ERR_LEX);
                 }
+                break;
             }
-            else
-            {
-                token.type = TOKEN_UNDEFINED; // Invalid escape sequence
-                return token;
+            default: // Unrecognized escape, handle as error
+                dynamic_string_free(&token.value.valueString);
+                handle_error(ERR_LEX);
+                break;
             }
 
-            state = sStringLiteral; // Return to string literal state
-        }
-        break;
-        case sBackSlash:
-        {
-            c = (char)getc(file); // Read the next character
-            if (c == 'n')
-            {
-                token.type = TOKEN_NEWLINE; // Example for newline escape
-            }
-            else if (c == 't')
-            {
-                token.type = TOKEN_TAB; // Example for tab escape
-            }
-            else if (c == '\\')
-            {
-                token.type = TOKEN_BACKSLASH; // Token for backslash itself
-            }
-            else
-            {
-                ungetc(c, file);              // Put back the character if it's not a recognized escape
-                token.type = TOKEN_BACKSLASH; // Handle as just a backslash if needed
-            }
-            state = sStart; // Return to the starting state
-            return token;
+            state = sStringLiteral;
         }
         break;
         case sDivision:
         {
             if (c == '/')
             {
-                state = sComment;
+                state = sComment; // Transition to comment state if another '/' is found
                 dynamic_string_add_char(&token.value.valueString, c);
             }
             else
             {
-                ungetc(c, file);             // Put back the character if it's not '='
-                token.type = TOKEN_DIVISION; // Token is just '=' (assignment)
+                ungetc(c, file);             // Put back the character if it's not '/'
+                token.type = TOKEN_DIVISION; // Token is just '/' (division)
                 return token;
             }
         }
@@ -671,6 +764,7 @@ Token get_token(FILE *file)
         }
         break;
         case sAssign:
+
         {
             if (c == '=')
             {
@@ -747,24 +841,20 @@ Token get_token(FILE *file)
                 if (strcmp(token.value.valueString.str, "@import") == 0)
                     token.type = TOKEN_IMPORT;
                 else
-                    token.type = TOKEN_UNDEFINED;
+                {
+                    dynamic_string_free(&token.value.valueString);
+                    handle_error(ERR_LEX);
+                }
 
                 state = sStart;
                 return token;
             }
         }
         break;
-
-        case sEOL:
-            state = sStart;
-            break;
-
         default:
-            state = sError; // Invalid state fallback
             break;
         }
     }
-    // Uvoľni pamäť pred návratom
     dynamic_string_free(&token.value.valueString);
-    return token; // Vráť token
+    return token;
 }

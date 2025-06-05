@@ -1,0 +1,30 @@
+"// Pomocna funkce pro dekrementaci celeho cisla o zadane cislo
+pub fn decrement(n : i32, m : i32) i32
+{
+    ifj.write("Zadejte cislo pro vypocet faktorialu: ");
+    var x : i32 = 1;
+    while (x) |asd|
+    {
+        x = 1 + 2;
+    }
+     return n - m;
+}
+// Definice funkce pro vypocet hodnoty faktorialu
+pub fn factorial(n : i32) f64
+{
+    var result : i32 = 5.2e+1;
+    if (result < 2)
+    {
+        result = 1;
+        //factorial(4);
+    }
+    else
+    {
+        result = 2;
+    }
+    return 10;
+}
+pub fn main() void
+{
+    return;
+}"

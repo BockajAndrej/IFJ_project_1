@@ -1,5 +1,9 @@
-// newstring.h
-
+/**
+ * @file newstring.h
+ * @author Jakub Filo
+ * @category String
+ * @brief This file contains functions for working with string literal
+ */
 #ifndef NEWSTRING_H
 #define NEWSTRING_H
 
@@ -11,9 +15,10 @@
 #define DYNAMIC_STRING_LEN_INC 16
 
 // Dynamic string structure
-typedef struct {
-    char *str;        // Pointer to the character array (string)
-    size_t length;    // Current length of the string
+typedef struct
+{
+    char *str;         // Pointer to the character array (string)
+    size_t length;     // Current length of the string
     size_t alloc_size; // Total allocated size for the string
 } Dynamic_string;
 

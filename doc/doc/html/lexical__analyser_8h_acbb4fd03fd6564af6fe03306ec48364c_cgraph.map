@@ -1,0 +1,4 @@
+<map id="print_token" name="print_token">
+<area shape="rect" id="node1" title="Prints the details of a token." alt="" coords="5,5,100,32"/>
+<area shape="rect" id="node2" href="$lexical__analyser_8c.html#a67367cc8618de258a4163191d1ac05b8" title="Converts a token type to its string representation." alt="" coords="148,5,307,32"/>
+</map>
